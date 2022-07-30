@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { MenuCliComponent } from './menu-cli/menu-cli.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { MenuHorizontalComponent } from './menu-cli/menu-horizontal/menu-horizontal.component';
+import { MenuHorizontalElementComponent } from './menu-cli/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuCliComponent
+    MenuCliComponent,
+    MenuHorizontalComponent,
+    MenuHorizontalElementComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,70 @@
+#menu-horizontal {
+    height: 50px;
+    display: flex;
+}
+
+#menu-horizontal {
+    -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#menu-horizontal-elements::-webkit-scrollbar {
+    display: none;
+}
+  
+/* Hide scrollbar for IE, Edge and Firefox */
+#menu-horizontal-elements {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+#hamburger mat-icon {
+    font-size: 32px;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+    padding-right: 15px;
+    height: 32px;
+    color: #333333
+}
+
+#hamburger {
+    border-right: 0.4px solid #333333;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+#menu-horizontal-elements {
+    height: 50px;
+    width: calc(100% - 50px);
+    overflow-y: scroll;
+}
+
+#menu-horizontal-elements-content {
+    width: max-content;
+    display: flex;
+}
+
+.menu-horizontal-element {
+    font-size: 14px;
+    height: 14px;
+    // Padding 7 and 11 to align font to center
+    padding-top: 7px;
+    padding-bottom: 11px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 9px;
+    border-radius: 25px;
+    color: #333333;
+}
+
+.menu-horizontal-element.selected {
+    background-color: #38A583;
+    color: #f4f4f4;
+}
