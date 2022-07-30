@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MenuCategoryGet, MenuItemData } from 'src/app/openapi-cli/models';
 
 @Component({
   selector: 'app-menu-horizontal-element',
@@ -7,10 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MenuHorizontalElementComponent implements OnInit {
 
-  public _name = '';
+  public _category: MenuCategoryGet | undefined;
 
-  @Input() set name(value: string) {
-    this._name = value;
+  @Input() set category(value: MenuCategoryGet) {
+    this._category = value;
   }
 
   constructor() { }

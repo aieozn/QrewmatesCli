@@ -1,6 +1,10 @@
 #menu-horizontal {
     height: 50px;
     display: flex;
+    position: sticky;
+    top: 0px;
+    background-color: #f4f4f4;
+    z-index: 1000;
 }
 
 #menu-horizontal {
@@ -47,24 +51,4 @@
 #menu-horizontal-elements-content {
     width: max-content;
     display: flex;
-}
-
-.menu-horizontal-element {
-    font-size: 14px;
-    height: 14px;
-    // Padding 7 and 11 to align font to center
-    padding-top: 7px;
-    padding-bottom: 11px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 9px;
-    border-radius: 25px;
-    color: #333333;
-}
-
-.menu-horizontal-element.selected {
-    background-color: #38A583;
-    color: #f4f4f4;
 }

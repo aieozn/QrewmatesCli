@@ -5,29 +5,7 @@
 
     <div id="menu-horizontal-elements">
         <div id="menu-horizontal-elements-content">
-            
-            <app-menu-horizontal-element name="Spaghetti Carbonaura"></app-menu-horizontal-element>
-            <div class="menu-horizontal-element">
-                Zupy
-            </div>
-            <div class="menu-horizontal-element">
-                Dania główne
-            </div>
-            <div class="menu-horizontal-element">
-                Dania główne
-            </div>
-            <div class="menu-horizontal-element">
-                Dania główne
-            </div>
-            <div class="menu-horizontal-element">
-                Dania główne
-            </div>
-            <div class="menu-horizontal-element">
-                Dania główne
-            </div>
-            <div class="menu-horizontal-element">
-                Dania główne
-            </div>
+            <app-menu-horizontal-element *ngFor="let category of _categories" [category]="category"></app-menu-horizontal-element>
         </div>
     </div>
 </div>

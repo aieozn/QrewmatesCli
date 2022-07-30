@@ -3,7 +3,7 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-- url: http://localhost:8080
+- url: ''
   description: Generated server url
 paths:
   /api/order-instance/{restaurant}/{ref}:
@@ -28,7 +28,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderGet'
     put:
@@ -58,7 +58,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderGet'
     delete:
@@ -82,7 +82,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/StatusResponse'
   /api/order-element/{restaurant}/{orderInstanceRef}/{ref}:
@@ -150,7 +150,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/MenuItemDetailedGet'
     delete:
@@ -174,7 +174,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/StatusResponse'
   /api/menu/category/{restaurantRef}/{categoryRef}:
@@ -199,7 +199,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/MenuCategoryGet'
     put:
@@ -229,7 +229,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/MenuCategoryGet'
     delete:
@@ -253,7 +253,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/StatusResponse'
   /api/order-element/{restaurant}/{orderInstanceRef}:
@@ -309,7 +309,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/MenuItemDetailedGet'
   /api/menu/category/{restaurantRef}:
@@ -328,7 +328,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -354,7 +354,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/MenuCategoryGet'
   /api/do/order/{restaurant}/:
@@ -379,7 +379,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderGet'
   /api/order-element/{restaurant}/{ref}:
@@ -453,7 +453,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/MenuItemDetailedGet'
 components:

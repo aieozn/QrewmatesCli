@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate": "ng-openapi-gen --input ./api.yaml --output ./src/app/openapi-cli"
   },
   "private": true,
   "dependencies": {

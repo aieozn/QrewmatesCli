@@ -75,7 +75,8 @@
               "browserTarget": "QrewmatesCli:build:production"
             },
             "development": {
-              "browserTarget": "QrewmatesCli:build:development"
+              "browserTarget": "QrewmatesCli:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
