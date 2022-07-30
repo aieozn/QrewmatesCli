@@ -1,0 +1,1097 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/api/order-instance/{restaurant}/{ref}": {
+            "get": {
+                "tags": [
+                    "order-instance-controller"
+                ],
+                "operationId": "getOrder",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ref",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "order-instance-controller"
+                ],
+                "operationId": "order",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ref",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderPutData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "order-instance-controller"
+                ],
+                "operationId": "deleteOrder",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ref",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order-element/{restaurant}/{orderInstanceRef}/{ref}": {
+            "put": {
+                "tags": [
+                    "order-element-controller"
+                ],
+                "operationId": "putElement",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "orderInstanceRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ref",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderElementData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderElementGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/menu/item/{restaurantRef}/{itemRef}": {
+            "put": {
+                "tags": [
+                    "menu-item-controller"
+                ],
+                "operationId": "putItem",
+                "parameters": [
+                    {
+                        "name": "restaurantRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "itemRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MenuItemData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MenuItemDetailedGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "menu-item-controller"
+                ],
+                "operationId": "deleteItem",
+                "parameters": [
+                    {
+                        "name": "restaurantRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "itemRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/menu/category/{restaurantRef}/{categoryRef}": {
+            "get": {
+                "tags": [
+                    "menu-category-controller"
+                ],
+                "operationId": "getCategory",
+                "parameters": [
+                    {
+                        "name": "restaurantRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "categoryRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MenuCategoryGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "menu-category-controller"
+                ],
+                "operationId": "putCategory",
+                "parameters": [
+                    {
+                        "name": "restaurantRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "categoryRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MenuCategoryData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MenuCategoryGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "menu-category-controller"
+                ],
+                "operationId": "deleteCategory",
+                "parameters": [
+                    {
+                        "name": "restaurantRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "categoryRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order-element/{restaurant}/{orderInstanceRef}": {
+            "post": {
+                "tags": [
+                    "order-element-controller"
+                ],
+                "operationId": "postElement",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "orderInstanceRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderElementData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderElementGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/menu/item/{restaurantRef}": {
+            "post": {
+                "tags": [
+                    "menu-item-controller"
+                ],
+                "operationId": "postItem",
+                "parameters": [
+                    {
+                        "name": "restaurantRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MenuItemData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MenuItemDetailedGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/menu/category/{restaurantRef}": {
+            "get": {
+                "tags": [
+                    "menu-category-controller"
+                ],
+                "operationId": "getCategories",
+                "parameters": [
+                    {
+                        "name": "restaurantRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MenuCategoryGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "menu-category-controller"
+                ],
+                "operationId": "postCategory",
+                "parameters": [
+                    {
+                        "name": "restaurantRef",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MenuCategoryData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MenuCategoryGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/do/order/{restaurant}/": {
+            "post": {
+                "tags": [
+                    "do-order-controller"
+                ],
+                "operationId": "order_1",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderPostData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order-element/{restaurant}/{ref}": {
+            "get": {
+                "tags": [
+                    "order-element-controller"
+                ],
+                "operationId": "getElement",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ref",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderElementGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "order-element-controller"
+                ],
+                "operationId": "deleteElement",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ref",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/menu/item/{restaurant}/{ref}": {
+            "get": {
+                "tags": [
+                    "menu-item-controller"
+                ],
+                "operationId": "getItemDetails",
+                "parameters": [
+                    {
+                        "name": "restaurant",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ref",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "pattern": "[0-9A-Za-z]{12}",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MenuItemDetailedGet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "OrderPutData": {
+                "type": "object",
+                "properties": {
+                    "comment": {
+                        "maxLength": 10000,
+                        "minLength": 0,
+                        "type": "string"
+                    }
+                }
+            },
+            "MenuItemGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "image": {
+                        "$ref": "#/components/schemas/MultimediaGet"
+                    },
+                    "available": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "MenuItemSelectGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "available": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "MenuItemToppingGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "available": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "MultimediaGet": {
+                "type": "object"
+            },
+            "OrderElementGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "menuItem": {
+                        "$ref": "#/components/schemas/MenuItemGet"
+                    },
+                    "selects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MenuItemSelectGet"
+                        }
+                    },
+                    "toppings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MenuItemToppingGet"
+                        }
+                    }
+                }
+            },
+            "OrderGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "orderElements": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderElementGet"
+                        }
+                    }
+                }
+            },
+            "IdentifiedByRefData": {
+                "required": [
+                    "ref"
+                ],
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "pattern": "[0-9A-Za-z]{12}",
+                        "type": "string"
+                    }
+                }
+            },
+            "OrderElementData": {
+                "required": [
+                    "menuItem"
+                ],
+                "type": "object",
+                "properties": {
+                    "menuItem": {
+                        "$ref": "#/components/schemas/IdentifiedByRefData"
+                    },
+                    "selects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderItemSelectData"
+                        }
+                    },
+                    "toppings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderItemToppingData"
+                        }
+                    }
+                }
+            },
+            "OrderItemSelectData": {
+                "required": [
+                    "ref"
+                ],
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "pattern": "[0-9A-Za-z]{12}",
+                        "type": "string"
+                    }
+                }
+            },
+            "OrderItemToppingData": {
+                "required": [
+                    "ref"
+                ],
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "pattern": "[0-9A-Za-z]{12}",
+                        "type": "string"
+                    }
+                }
+            },
+            "MenuItemData": {
+                "required": [
+                    "available",
+                    "category",
+                    "image",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "pattern": "[0-9A-Za-z]{12}",
+                        "type": "string"
+                    },
+                    "name": {
+                        "maxLength": 255,
+                        "minLength": 0,
+                        "type": "string"
+                    },
+                    "description": {
+                        "maxLength": 10000,
+                        "minLength": 0,
+                        "type": "string"
+                    },
+                    "price": {
+                        "maximum": 10000,
+                        "type": "number"
+                    },
+                    "image": {
+                        "$ref": "#/components/schemas/IdentifiedByRefData"
+                    },
+                    "available": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "MenuItemDetailedGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "image": {
+                        "$ref": "#/components/schemas/MultimediaGet"
+                    },
+                    "available": {
+                        "type": "boolean"
+                    },
+                    "toppingCollections": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MenuItemToppingCollectionGet"
+                        }
+                    },
+                    "selectCollections": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MenuItemSelectCollectionGet"
+                        }
+                    }
+                }
+            },
+            "MenuItemSelectCollectionGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "selects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MenuItemSelectGet"
+                        }
+                    }
+                }
+            },
+            "MenuItemToppingCollectionGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "toppings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MenuItemToppingGet"
+                        }
+                    }
+                }
+            },
+            "MenuCategoryData": {
+                "required": [
+                    "icon",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "maxLength": 255,
+                        "minLength": 0,
+                        "type": "string"
+                    },
+                    "icon": {
+                        "$ref": "#/components/schemas/IdentifiedByRefData"
+                    }
+                }
+            },
+            "MenuCategoryGet": {
+                "type": "object",
+                "properties": {
+                    "ref": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "$ref": "#/components/schemas/MultimediaGet"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MenuItemGet"
+                        }
+                    }
+                }
+            },
+            "OrderPostData": {
+                "required": [
+                    "items"
+                ],
+                "type": "object",
+                "properties": {
+                    "comment": {
+                        "maxLength": 10000,
+                        "minLength": 0,
+                        "type": "string"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderElementData"
+                        }
+                    }
+                }
+            },
+            "StatusResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            }
+        }
+    }
+}

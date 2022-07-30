@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuCliComponent } from './menu-cli/menu-cli.component';
+import { MenuCliComponent } from './layout/menu-cli/menu-cli.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
-import { MenuHorizontalComponent } from './menu-cli/menu-horizontal/menu-horizontal.component';
-import { MenuHorizontalElementComponent } from './menu-cli/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
+import { MenuHorizontalComponent } from './layout/menu-cli/menu-horizontal/menu-horizontal.component';
+import { MenuHorizontalElementComponent } from './layout/menu-cli/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
 
 @NgModule({
   declarations: [
