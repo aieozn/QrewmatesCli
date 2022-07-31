@@ -1,0 +1,16 @@
+<!-- selected allowed -->
+<div class="menu-item" *ngIf="_item">
+    <div class="menu-item-image">
+        <img src="/assets/temp/naura.jpeg"/>
+    </div>
+
+    <div class="menu-item-details">
+        <p class="menu-item-name">{{ _item.name}} </p>
+        <p class="menu-item-description">{{ _item.description }}</p>
+        <!-- TODO change price to dynamic currency -->
+        <p class="menu-item-price">{{ _item.price }} zł</p>
+
+        <div class="menu-item-count"><p>1</p></div>
+        <div class="menu-item-add"><p>+</p></div>
+    </div>
+</div>

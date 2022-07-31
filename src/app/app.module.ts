@@ -9,13 +9,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MenuHorizontalComponent } from './layout/menu-cli/menu-horizontal/menu-horizontal.component';
 import { MenuHorizontalElementComponent } from './layout/menu-cli/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
+import { MenuCategoryComponent } from './layout/menu-cli/menu-category/menu-category.component';
+import { MenuItemComponent } from './layout/menu-cli/menu-category/menu-item/menu-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuCliComponent,
     MenuHorizontalComponent,
-    MenuHorizontalElementComponent
+    MenuHorizontalElementComponent,
+    MenuCategoryComponent,
+    MenuItemComponent
   ],
   imports: [
     BrowserModule,

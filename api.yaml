@@ -662,6 +662,10 @@ components:
           maxLength: 255
           minLength: 0
           type: string
+        description:
+          maxLength: 10000
+          minLength: 0
+          type: string
         icon:
           $ref: '#/components/schemas/IdentifiedByRefData'
     MenuCategoryGet:
@@ -670,6 +674,8 @@ components:
         ref:
           type: string
         name:
+          type: string
+        description:
           type: string
         icon:
           $ref: '#/components/schemas/MultimediaGet'

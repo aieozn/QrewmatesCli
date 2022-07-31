@@ -34,127 +34,12 @@ h1 {
     margin: 0px;
 }
 
-h2 {
-    margin-top: 30px;
-    margin-bottom: 0px;
-    padding: 0px;
-}
-
 // Menu elements
 #menu-elements {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 25px;
     padding-bottom: 50px;
-}
-
-#menu-elements .menu-item {
-    border-radius: 25px;
-    padding: 20px;
-    position: relative;
-    margin-top: 15px;
-    margin-bottom: 15px;
-
-    display: flex;
-
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-}
-
-#menu-elements .menu-item.selected {
-    border: 1px solid #38A583;
-}
-
-#menu-elements .menu-item-count p {
-    margin: 0px;
-    padding: 0px;
-}
-
-#menu-elements .menu-item-count {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    background-color: #38A583;
-    width: 18px;
-    height: 18px;
-    font-size: 12px;
-    text-align: center;
-    border-radius: 50%;
-    color: #f4f4f4;
-    font-weight: 900;
-    font-family: PoppinsBold;
-}
-
-#menu-elements .menu-item-name {
-    font-size: 16px;
-    font-family: PoppinsBold;
-    margin: 0px;
-}
-
-// TODO zobacz więcej jeśli tekst wykracza poza obszar
-#menu-elements .menu-item-description {
-    color: #777777;
-    margin: 0px;
-    margin-top: 5px;
-    font-size: 14px;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    display: -webkit-box;
-}
-
-#menu-elements .menu-item-price {
-    margin-top: 10px;
-    font-size: 14px;
-}
-
-#menu-elements .menu-item-add p {
-    margin: 0px;
-    padding: 0px;
-    margin-top: 3px;
-    font-family: PoppinsThin;
-}
-
-#menu-elements .category-description {
-    color: #777777;
-    margin: 0px;
-    padding: 0px;
-}
-
-#menu-elements .menu-item-add {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 25px;
-    height: 25px;
-    font-size: 25px;
-    text-align: center;
-    border: 1px solid #38A583;
-    border-radius: 50%;
-    color: #38A583;
-    cursor: pointer;
-}
-
-#menu-elements .menu-item-add:hover {
-    color: #f4f4f4;
-    background-color: #38A583;
-}
-
-#menu-elements .menu-item-details {
-    width: calc(100% - 90px);
-}
-
-#menu-elements .menu-item-image {
-    width: 75px;
-    margin-right: 15px;
-}
-
-#menu-elements .menu-item-image img{
-    width: 75px;
-    height: 100%;
-    object-fit: cover;
 }
 
 // Footer
