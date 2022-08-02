@@ -10,12 +10,14 @@
 
     <div id="menu-elements">
         <div class="menu-categories-list">
-            <app-menu-category *ngFor="let category of categories" [category]="category"></app-menu-category>
+            <div class="menu-category-wrapper" *ngFor="let category of categories">
+                <app-menu-category [category]="category" #category id="menu-element-category-{{category.ref}}"></app-menu-category>
+            </div>
         </div>
     </div>
 </div>
 
-<div id="footer">
+<div id="footer" #footer>
     <div id="footer-rows">
         <div class="footer-row">
             <p class="footer-row-title">O nas <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>

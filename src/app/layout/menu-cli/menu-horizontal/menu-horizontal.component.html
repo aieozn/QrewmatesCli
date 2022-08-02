@@ -3,9 +3,11 @@
         <mat-icon>menu</mat-icon>
     </div>
 
-    <div id="menu-horizontal-elements">
+    <div id="menu-horizontal-elements" #menuBar>
         <div id="menu-horizontal-elements-content">
-            <app-menu-horizontal-element *ngFor="let category of _categories" [category]="category"></app-menu-horizontal-element>
+            <div *ngFor="let category of _categories" id="menu-horizontal-element-{{category.ref}}">
+                <app-menu-horizontal-element [category]="category" #element></app-menu-horizontal-element>
+            </div>
         </div>
     </div>
 </div>
