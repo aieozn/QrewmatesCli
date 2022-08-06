@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
@@ -15,21 +16,16 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private stickyBarHeight = 50;
 
-  private resraurantRef = {
-    restaurantRef: "R00000000000"
+  private resraurantRef : {
+    restaurantRef: string
   };
+
   public categories: MenuCategoryGet[] = [];
   categoryChangedSubscription: Subscription | undefined;
   categoryElementsSubscription: Subscription | undefined;
 
   @ViewChildren('category') categoryElements: QueryList<MenuCategoryComponent> | undefined;
   @ViewChild('footer') footer: ElementRef | undefined;
-
-  // Scroll behaviour
-  // private orderedCategories: MenuCategoryComponent[] = [];
-  // private freeCategories: MenuCategoryComponent[] = [];
-  // private freeBorderOffset: number | undefined;
-  // private freeBorderHeight: number | undefined;
 
   private menuCategoryToScrollPosition: {
     offsetTop: number,
@@ -39,7 +35,14 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private categoriesService: MenuCategoryControllerService,
     private menuEventsService: MenuEventsService,
-  ) { }
+    route: ActivatedRoute
+  ) {
+    this.resraurantRef = {
+      restaurantRef: route.snapshot.paramMap.get('restaurantRef')!
+    };
+
+    console.log(this.resraurantRef);
+  }
 
   ngAfterViewInit(): void {
     this.categoryElementsSubscription = this.categoryElements?.changes.subscribe(this.onCategoriesElementsChange.bind(this));
@@ -133,7 +136,7 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private async loadCategories() {
-    this.categories = await firstValueFrom(this.categoriesService.getCategories(this.resraurantRef));
+    this.categories = await firstValueFrom(this.categoriesService.getCategories1(this.resraurantRef));
   }
 
   private unsubscribeOnMenuCategoryChanged() {

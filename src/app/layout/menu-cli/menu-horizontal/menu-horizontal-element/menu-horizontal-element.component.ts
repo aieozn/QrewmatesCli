@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuEventsService } from 'src/app/services/menu-events.service';
 
@@ -16,7 +16,10 @@ export class MenuHorizontalElementComponent implements OnInit {
     this._category = value;
   }
 
-  constructor(private menuEventsService: MenuEventsService) { }
+  constructor(
+    private menuEventsService: MenuEventsService,
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     
@@ -29,11 +32,13 @@ export class MenuHorizontalElementComponent implements OnInit {
   public select() {
     this.selected = true;
     console.info("Selected");
+    this.changeDetector.detectChanges();
   }
 
   public unselect() {
     this.selected = false;
     console.info("Unselected");
+    this.changeDetector.detectChanges();
   }
 
 }

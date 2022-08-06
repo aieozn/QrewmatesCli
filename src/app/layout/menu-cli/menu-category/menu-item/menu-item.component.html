@@ -1,7 +1,7 @@
 <!-- selected allowed -->
 <div class="menu-item" *ngIf="_item">
-    <div class="menu-item-image">
-        <img src="/assets/temp/naura.jpeg"/>
+    <div class="menu-item-image" *ngIf="menuItemImageUrl">
+        <img src="{{menuItemImageUrl}}"/>
     </div>
 
     <div class="menu-item-details">

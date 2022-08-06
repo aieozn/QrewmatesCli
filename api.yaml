@@ -287,6 +287,45 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/OrderElementGet'
+  /api/multimedia/{restaurantRef}:
+    post:
+      tags:
+      - upload-multimedia-controller
+      operationId: postMultimedia
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - IMAGE_PNG
+          - IMAGE_JPEG
+          - FILE_TXT
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MultimediaGet'
   /api/menu/item/{restaurantRef}:
     post:
       tags:
@@ -316,7 +355,7 @@ paths:
     get:
       tags:
       - menu-category-controller
-      operationId: getCategories
+      operationId: getCategories_1
       parameters:
       - name: restaurantRef
         in: path
@@ -431,6 +470,32 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/StatusResponse'
+  /api/multimedia/{restaurantRef}/{multimediaRef}:
+    get:
+      tags:
+      - multimedia-controller
+      operationId: getCategories
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: multimediaRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
   /api/menu/item/{restaurant}/{ref}:
     get:
       tags:
@@ -510,6 +575,9 @@ components:
           type: boolean
     MultimediaGet:
       type: object
+      properties:
+        ref:
+          type: string
     OrderElementGet:
       type: object
       properties:
