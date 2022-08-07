@@ -1,0 +1,64 @@
+#menu-cli-dialog-curtain {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #333333;
+    z-index: 1001;
+    top: 0px;
+    left: 0px;
+    opacity: 0.4;
+}
+
+#menu-cli-dialog-card {
+    width: 100%;
+    max-height: 70%;
+    position: fixed;
+    bottom: 0px;
+    background-color: white;
+    z-index: 1002;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-top: 90px;
+}
+
+#menu-cli-dialog-card-body {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#menu-cli-dialog-card-header {
+    padding: 10px;
+    position: absolute;
+    background-color: #ffffff;
+    top: 0px;
+    padding-top: 30px;
+    width: calc(100% - 20px);
+    height: 50px;
+}
+
+#menu-cli-dialog-card-header h2 {
+    font-size: 16px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 10px;
+    max-height:50px;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#close-icon {
+    color: #38A583;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#menu-cli-dialog-card-header-scroll-top {
+    position: absolute;
+    top: 10px;
+    color: #c3c3c3;
+    font-size: 12px;
+    cursor: pointer;
+}

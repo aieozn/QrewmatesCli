@@ -11,6 +11,9 @@ import { MenuItemComponent } from './menu-cli/layout/menu-category/menu-item/men
 import { MenuHorizontalElementComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
 import { MenuHorizontalComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal.component';
 import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
+import { AboutUsComponent } from './menu-cli/menu-cli-dialog/body/about-us/about-us.component';
+import { MenuCliDialogComponent } from './menu-cli/menu-cli-dialog/menu-cli-dialog.component';
+import { DialogBodyHost } from './menu-cli/menu-cli-dialog/model/dialog-body-host';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
     MenuHorizontalComponent,
     MenuHorizontalElementComponent,
     MenuCategoryComponent,
-    MenuItemComponent
+    MenuItemComponent,
+    MenuCliDialogComponent,
+    AboutUsComponent,
+    DialogBodyHost
   ],
   imports: [
     BrowserModule,

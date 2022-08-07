@@ -1,0 +1,20 @@
+<div id="menu-cli-diaog-wrapper" [ngStyle]="{'display': show ? 'block' : 'none'}">
+    <div id="menu-cli-dialog-curtain" (click)="close()">
+
+    </div>
+
+    <div id="menu-cli-dialog-card">
+        <div id="menu-cli-dialog-card-header" [ngStyle]="getShadowStyle()">
+            <div id="close">
+                <mat-icon id="close-icon" (click)="close()">close</mat-icon>
+            </div>
+            <p id="menu-cli-dialog-card-header-scroll-top" [ngStyle]="getScrollTopStyle()" (click)="goToTop()">Wróć na górę karty</p>
+            <h2>Regulamin korzystania z aplikacji</h2>
+        </div>
+        <div id="menu-cli-dialog-card-body" [ngStyle]="{'max-height': getMaxBodyHeight()}" (scroll)="onScroll($event)" #cardbody>
+            <div dialogBodyHost>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { ChangeMenuCategoryEvent } from 'src/app/menu-cli/services/menu-event/message/change-menu-category-event';
 import { MenuCategoryComponent } from './menu-category/menu-category.component';
 import { MenuEventsService } from '../services/menu-event/menu-events.service';
+import { MenuCliDialogService } from '../menu-cli-dialog/service/menu-cli-dialog.service';
 
 @Component({
   selector: 'app-menu-cli',
@@ -40,6 +41,7 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private categoriesService: MenuCategoryControllerService,
     private menuEventsService: MenuEventsService,
+    private menuCliDialogServide: MenuCliDialogService,
     route: ActivatedRoute
   ) {
     this.resraurantRef = {
@@ -203,5 +205,9 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     return 0;
+  }
+
+  showAboutUs() {
+    this.menuCliDialogServide.openMenu()
   }
 }
