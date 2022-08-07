@@ -109,7 +109,6 @@ export class MenuHorizontalComponent implements OnInit, OnDestroy {
     this.showFullSizeMenu = !this.showFullSizeMenu;
 
     if (this.showFullSizeMenu) {
-      scroll(0,0)
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
