@@ -1,13 +1,27 @@
-<div id="menu-horizontal">
-    <div id="hamburger">
-        <mat-icon>menu</mat-icon>
-    </div>
+<div id="menu">
 
-    <div id="menu-horizontal-elements" #menuBar>
-        <div id="menu-horizontal-elements-content">
-            <div *ngFor="let category of _categories" id="menu-horizontal-element-{{category.ref}}">
-                <app-menu-horizontal-element [category]="category" #element></app-menu-horizontal-element>
+    <div id="menu-horizontal">
+        <div id="hamburger" (click)="toogleFullSizeMenu()">
+            <mat-icon>menu</mat-icon>
+        </div>
+    
+        <div id="menu-horizontal-elements" #menuBar>
+            <div id="menu-horizontal-elements-content">
+                <div *ngFor="let category of _categories" id="menu-horizontal-element-{{category.ref}}">
+                    <app-menu-horizontal-element [category]="category" #element></app-menu-horizontal-element>
+                </div>
             </div>
         </div>
     </div>
+
+    <div id="full-size-menu" [ngStyle]="{'max-height': screenHeight * 0.5 + 'px'}" [hidden]="!showFullSizeMenu">
+        <h2>Kategorie:</h2>
+        <hr/>
+        <div *ngFor="let category of _categories">
+            <p (click)="goToCategory(category)">{{category.name}}</p>
+        </div>
+    </div>
+</div>
+
+<div id="curtain" [hidden]="!showFullSizeMenu" (click)="hideMenu()">
 </div>

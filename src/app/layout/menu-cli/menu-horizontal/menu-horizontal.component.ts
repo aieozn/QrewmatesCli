@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuEventsService } from 'src/app/services/menu-events.service';
@@ -16,6 +16,10 @@ export class MenuHorizontalComponent implements OnInit, OnDestroy {
   categorySelectedSubscription: Subscription | undefined;
   categoryScrolledSubscription: Subscription | undefined;
 
+  public screenHeight: number;
+
+  public showFullSizeMenu = false;
+
   @ViewChild('menuBar') menuBar : ElementRef | undefined;
   @ViewChildren('element') categoriesDomElements : QueryList<MenuHorizontalElementComponent> | undefined;
 
@@ -25,7 +29,9 @@ export class MenuHorizontalComponent implements OnInit, OnDestroy {
 
   constructor(
     private menuEventsService: MenuEventsService
-  ) { }
+  ) {
+    this.screenHeight = window.innerHeight;
+  }
 
   ngOnInit(): void {
     this.subscribeOnMenuCategorySelected();
@@ -34,6 +40,7 @@ export class MenuHorizontalComponent implements OnInit, OnDestroy {
 
   private onMenuCategorySelected(event: ChangeMenuCategoryEvent) {
     console.info("Change active menu category");
+    this.hideMenu();
     
     if (event.categry.ref && this.menuBar && this.categoriesDomElements) {
       var element = document.getElementById('menu-horizontal-element-' + event.categry.ref);
@@ -93,4 +100,29 @@ export class MenuHorizontalComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.screenHeight = window.innerHeight;
+  }
+
+  toogleFullSizeMenu() {
+    this.showFullSizeMenu = !this.showFullSizeMenu;
+
+    if (this.showFullSizeMenu) {
+      scroll(0,0)
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  goToCategory(category: MenuCategoryGet) {
+    this.menuEventsService.onMenuCategorySelected(category);
+    this.hideMenu();
+  }
+
+  hideMenu() {
+    document.body.style.overflow = 'auto';
+    this.showFullSizeMenu = false;
+  }
 }

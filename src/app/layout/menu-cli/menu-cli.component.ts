@@ -21,6 +21,11 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   };
 
   public categories: MenuCategoryGet[] = [];
+
+  // Display black cover over items
+  public shadowItems = false;
+
+  // Subscriptions
   categoryChangedSubscription: Subscription | undefined;
   categoryElementsSubscription: Subscription | undefined;
 
@@ -50,7 +55,10 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.loadCategories();
-    this.subscribeOnMenuCategoryChanged();
+    
+    if (this.categoryChangedSubscription === undefined) {
+      this.categoryChangedSubscription = this.menuEventsService.menuCategorySelected.subscribe(this.onMenuCategoryChanged.bind(this))
+    }
   }
 
   private onCategoriesElementsChange(event: QueryList<MenuCategoryComponent>) {
@@ -139,7 +147,7 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
     this.categories = await firstValueFrom(this.categoriesService.getCategories1(this.resraurantRef));
   }
 
-  private unsubscribeOnMenuCategoryChanged() {
+  ngOnDestroy(): void {
     if (this.categoryChangedSubscription !== undefined) {
       this.categoryChangedSubscription.unsubscribe();
       this.categoryChangedSubscription = undefined;
@@ -149,10 +157,6 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
       this.categoryElementsSubscription.unsubscribe();
       this.categoryElementsSubscription = undefined;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeOnMenuCategoryChanged();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -172,12 +176,6 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
 
       var lastId = this.menuCategoryToScrollPosition.length - 1;
       this.menuEventsService.onMenuCategoryScrolled(this.menuCategoryToScrollPosition[lastId].category._category!);
-    }
-  }
-
-  private subscribeOnMenuCategoryChanged() {
-    if (this.categoryChangedSubscription === undefined) {
-      this.categoryChangedSubscription = this.menuEventsService.menuCategorySelected.subscribe(this.onMenuCategoryChanged.bind(this))
     }
   }
 
