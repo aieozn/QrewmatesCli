@@ -4,13 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuCliComponent } from './layout/menu-cli/menu-cli.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
-import { MenuHorizontalComponent } from './layout/menu-cli/menu-horizontal/menu-horizontal.component';
-import { MenuHorizontalElementComponent } from './layout/menu-cli/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
-import { MenuCategoryComponent } from './layout/menu-cli/menu-category/menu-category.component';
-import { MenuItemComponent } from './layout/menu-cli/menu-category/menu-item/menu-item.component';
+import { MenuCategoryComponent } from './menu-cli/layout/menu-category/menu-category.component';
+import { MenuItemComponent } from './menu-cli/layout/menu-category/menu-item/menu-item.component';
+import { MenuHorizontalElementComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
+import { MenuHorizontalComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal.component';
+import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
 
 @NgModule({
   declarations: [

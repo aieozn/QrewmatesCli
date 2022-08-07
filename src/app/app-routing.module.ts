@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { MenuCliComponent } from './layout/menu-cli/menu-cli.component';
+import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
 
 const routes: Routes = [
   { path: ':restaurantRef', component: MenuCliComponent },

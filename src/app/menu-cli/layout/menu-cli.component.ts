@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
-import { MenuEventsService } from 'src/app/services/menu-events.service';
-import { ChangeMenuCategoryEvent } from 'src/app/services/message/change-menu-category-event';
+import { ChangeMenuCategoryEvent } from 'src/app/menu-cli/services/menu-event/message/change-menu-category-event';
 import { MenuCategoryComponent } from './menu-category/menu-category.component';
+import { MenuEventsService } from '../services/menu-event/menu-events.service';
 
 @Component({
   selector: 'app-menu-cli',

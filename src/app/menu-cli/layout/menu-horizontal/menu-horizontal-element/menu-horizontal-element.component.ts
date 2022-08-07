@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { MenuEventsService } from 'src/app/menu-cli/services/menu-event/menu-events.service';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
-import { MenuEventsService } from 'src/app/services/menu-events.service';
 
 @Component({
   selector: 'app-menu-horizontal-element',

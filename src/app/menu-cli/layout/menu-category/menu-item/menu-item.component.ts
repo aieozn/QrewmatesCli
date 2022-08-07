@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MenuItemData, MenuItemGet } from 'src/app/openapi-cli/models';
+import { MenuItemGet } from 'src/app/openapi-cli/models';
 
 @Component({
   selector: 'app-menu-item',

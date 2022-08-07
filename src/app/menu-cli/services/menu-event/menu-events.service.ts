@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { MenuCategoryGet } from '../openapi-cli/models';
+import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { ChangeMenuCategoryEvent } from './message/change-menu-category-event';
 
 @Injectable({

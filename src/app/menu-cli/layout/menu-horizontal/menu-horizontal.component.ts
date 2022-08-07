@@ -1,8 +1,8 @@
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
-import { MenuEventsService } from 'src/app/services/menu-events.service';
-import { ChangeMenuCategoryEvent } from 'src/app/services/message/change-menu-category-event';
+import { ChangeMenuCategoryEvent } from 'src/app/menu-cli/services/menu-event/message/change-menu-category-event';
+import { MenuEventsService } from '../../services/menu-event/menu-events.service';
 import { MenuHorizontalElementComponent } from './menu-horizontal-element/menu-horizontal-element.component';
 
 @Component({

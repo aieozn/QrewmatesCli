@@ -1,7 +1,6 @@
-import { Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
-import { MenuEventsService } from 'src/app/services/menu-events.service';
-
+import { MenuEventsService } from '../../services/menu-event/menu-events.service';
 @Component({
   selector: 'app-menu-category',
   templateUrl: './menu-category.component.html',
