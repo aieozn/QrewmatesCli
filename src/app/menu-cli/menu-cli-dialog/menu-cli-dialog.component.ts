@@ -1,6 +1,6 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AboutUsComponent } from './body/about-us/about-us.component';
+import { AboutUsComponent } from '../layout/footer/about-us/about-us.component';
 import { DialogBodyHost } from './model/dialog-body-host';
 import { MenuCliDialogService } from './service/menu-cli-dialog.service';
 
