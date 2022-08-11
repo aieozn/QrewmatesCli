@@ -22,6 +22,7 @@ import { OrderMenuToppingComponent } from './menu-cli/layout/order/order-menu-to
 import { OrderMenuChiefNoteComponent } from './menu-cli/layout/order/order-menu-chief-note/order-menu-chief-note.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CounterFooterComponent } from './menu-cli/layout/order/order-menu-item/counter-footer/counter-footer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MatInputModule } from '@angular/material/input';
     OrderMenuItemComponent,
     OrderMenuSelectComponent,
     OrderMenuToppingComponent,
-    OrderMenuChiefNoteComponent
+    OrderMenuChiefNoteComponent,
+    CounterFooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,60 @@
+#counter-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 44px;
+    background-color: white;
+    margin-left: -20px;
+    width: 100%;
+    display: flex;
+    padding: 15px;
+}
+
+#count {
+    width: 50%;
+    display: flex;
+}
+
+#count-label p {
+    font-family: PoppinsBold;
+    line-height: 44px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+#count-value {
+    display: flex;
+    outline: 2px solid #38A583;
+    margin-left: 10px;
+    border-radius: 25px;
+}
+
+#count-value p {
+    line-height: 44px;
+}
+
+#add {
+    width: 50%;
+}
+
+#add-button {
+    background-color: #38A583;
+    line-height: 44px;
+    vertical-align: middle;
+    margin-right: 30px;
+    text-align: center;
+    color: #FFFFFF;
+    border-radius: 25px;
+}
+
+#count-value-plus {
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+#count-value-minus {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+}

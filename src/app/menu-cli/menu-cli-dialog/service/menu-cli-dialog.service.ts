@@ -18,6 +18,6 @@ export class MenuCliDialogService {
   }
 
   public openAddItem(item: MenuItemGet) {
-    this.openMenuDialog.emit(new DialogBodyItem(OrderMenuItemComponent, {ref: item.ref!}, item.name));
+    this.openMenuDialog.emit(new DialogBodyItem(OrderMenuItemComponent, {ref: item.ref!}, undefined));
   }
 }
