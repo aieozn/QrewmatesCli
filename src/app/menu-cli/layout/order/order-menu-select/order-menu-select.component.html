@@ -1,9 +1,9 @@
-<div id="order-menu-select" class="box-shadow">
-    <h3>Sztućce w zestawie</h3>
+<div id="order-menu-select" class="box-shadow" *ngIf="_collection">
+    <h3>{{_collection.name}}</h3>
     <p id="select-description">Wybierz odpowiednią opcję</p>
 
-    <mat-radio-group id="radios" aria-label="Select an option">
-        <mat-radio-button value="1">Option 1</mat-radio-button>
-        <mat-radio-button value="2">Option 2</mat-radio-button>
-    </mat-radio-group>
+    <mat-radio-button value="false" *ngFor="let select of _collection.selects">
+        {{ select.name }} 
+        {{ select.price !== 0 ? '(+' + select.price!.toFixed(2) + ' zł)' : '' }}
+    </mat-radio-button>
 </div>

@@ -1,20 +1,20 @@
-<div id="menu-item-details">
+<div id="menu-item-details" *ngIf="item">
     <div id="allergens"><mat-icon>info</mat-icon>Informacje o alergenach</div>
     <div class="menu-item">
-        <div class="menu-item-image">
-            <img src="/assets/temp/naura.jpeg"/>
+        <div class="menu-item-image" *ngIf="menuItemImageUrl">
+            <img src="{{menuItemImageUrl}}"/>
         </div>
 
         <div class="menu-item-details">
-            <p class="menu-item-name">Spaghetti carbonaura</p>
+            <p class="menu-item-name">{{item.name}}</p>
             <!-- TODO change price to dynamic currency -->
-            <p class="menu-item-price">Cena: 213 zł</p>
-            <p class="menu-item-description">Z sosem z żółtek jaj, boczek</p>
+            <p class="menu-item-price">Cena: {{item.price}} zł</p>
+            <p class="menu-item-description">{{item.description}}</p>
         </div>
     </div>
 
-    <app-order-menu-select></app-order-menu-select>
-    <app-order-menu-topping></app-order-menu-topping>
+    <app-order-menu-select *ngFor="let collection of item.selectCollections" [collection]="collection" [order]="order"></app-order-menu-select>
+    <app-order-menu-topping *ngFor="let collection of item.toppingCollections" [collection]="collection" [order]="order"></app-order-menu-topping>
     <app-order-menu-topping></app-order-menu-topping>
     <app-order-menu-chief-note></app-order-menu-chief-note>
 
