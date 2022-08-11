@@ -1,8 +1,12 @@
-.menu-item {
+#menu-item-details {
     padding: 20px;
+}
+
+.menu-item {
+    border-radius: 25px;
     position: relative;
-    margin-top: 15px;
     margin-bottom: 15px;
+
     display: flex;
 }
 
@@ -31,7 +35,7 @@
 }
 
 .menu-item-name {
-    font-size: 16px;
+    font-size: 18px;
     font-family: PoppinsBold;
     margin: 0px;
 }
@@ -50,38 +54,11 @@
 }
 
 .menu-item-price {
-    margin-top: 10px;
     font-size: 14px;
+    margin-top: 5px;
 }
 
-.menu-item-add p {
-    margin: 0px;
-    padding: 0px;
-    margin-top: 3px;
-    font-family: PoppinsThin;
-}
-
-.menu-item-add {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 25px;
-    height: 25px;
-    font-size: 25px;
-    text-align: center;
-    border: 1px solid #38A583;
-    border-radius: 50%;
-    color: #38A583;
-    cursor: pointer;
-}
-
-.menu-item-add:hover {
-    color: #f4f4f4;
-    background-color: #38A583;
-}
-
-.menu-item-details {
-    width: calc(100% - 90px);
+.menu-item-details { 
 }
 
 .menu-item-image {
@@ -92,5 +69,20 @@
 .menu-item-image img{
     width: 75px;
     height: 100%;
+    border-radius: 10px;
     object-fit: cover;
+}
+
+#allergens {
+    color: #C3C3C3;
+    font-size: 12px;
+    vertical-align: middle;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#allergens mat-icon {
+    font-size: 18px;
+    position: relative;
+    top: 4px;
 }

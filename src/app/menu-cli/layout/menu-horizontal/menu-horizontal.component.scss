@@ -12,12 +12,6 @@
     z-index: 1000;
 }
 
-#menu-horizontal {
-    -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5);
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 #menu-horizontal-elements::-webkit-scrollbar {
     display: none;
