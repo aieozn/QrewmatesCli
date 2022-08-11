@@ -4,12 +4,12 @@
     </div>
 
     <div id="menu-cli-dialog-card">
-        <div id="menu-cli-dialog-card-header" [ngStyle]="getShadowStyle()">
+        <div id="menu-cli-dialog-card-header" *ngIf="title" [ngStyle]="getShadowStyle()">
             <div id="close">
                 <mat-icon id="close-icon" (click)="close()">close</mat-icon>
             </div>
             <p id="menu-cli-dialog-card-header-scroll-top" [ngStyle]="getScrollTopStyle()" (click)="goToTop()">Wróć na górę karty</p>
-            <h2>Regulamin korzystania z aplikacji</h2>
+            <h2>{{title}}</h2>
         </div>
         <div id="menu-cli-dialog-card-body" [ngStyle]="{'max-height': getMaxBodyHeight()}" (scroll)="onScroll($event)" #cardbody>
             <div dialogBodyHost>

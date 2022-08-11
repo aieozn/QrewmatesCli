@@ -208,6 +208,6 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   showAboutUs() {
-    this.menuCliDialogServide.openMenu()
+    this.menuCliDialogServide.openAboutUs()
   }
 }

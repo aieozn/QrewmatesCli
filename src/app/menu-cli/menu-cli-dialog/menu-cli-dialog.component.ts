@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AboutUsComponent } from '../layout/footer/about-us/about-us.component';
+import { CliDialogBodyContent } from './model/cli-dialog-body-content';
 import { DialogBodyHost } from './model/dialog-body-host';
+import { DialogBodyItem } from './model/dialog-body-item';
 import { MenuCliDialogService } from './service/menu-cli-dialog.service';
 
 @Component({
@@ -15,6 +17,7 @@ export class MenuCliDialogComponent implements OnInit, OnDestroy {
   private openMenuDialogSubscription : Subscription | undefined;
   scrollIntroductionPercentage = 0;
   show = false;
+  title: string | undefined;
 
   @ViewChild('cardbody') cardBody: ElementRef | undefined;
   @ViewChild(DialogBodyHost, {static: true}) dialogBodyHost!: DialogBodyHost;
@@ -74,14 +77,15 @@ export class MenuCliDialogComponent implements OnInit, OnDestroy {
     document.body.style.overflow = 'auto';
   }
   
-  openMenu() {
+  openMenu(data: DialogBodyItem) {
     this.show = true;
+    this.title = data.title;
     document.body.style.overflow = 'hidden';
 
-    console.error(this.dialogBodyHost)
     if (this.dialogBodyHost !== undefined) {
       this.dialogBodyHost.viewContainerRef.clear();
-      this.dialogBodyHost.viewContainerRef.createComponent(AboutUsComponent);
+      var component = this.dialogBodyHost.viewContainerRef.createComponent<CliDialogBodyContent>(data.component);
+      component.instance.setData(data.data);
     }
   }
 }

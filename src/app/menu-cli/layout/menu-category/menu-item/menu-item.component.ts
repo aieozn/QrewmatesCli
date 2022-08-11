@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MenuCliDialogService } from 'src/app/menu-cli/menu-cli-dialog/service/menu-cli-dialog.service';
 import { MenuItemGet } from 'src/app/openapi-cli/models';
 
 @Component({
@@ -24,6 +25,7 @@ export class MenuItemComponent implements OnInit {
   }
 
   constructor(
+    private menuCliDialogService: MenuCliDialogService,
     route: ActivatedRoute
   ) {
     this.restaurantRef = route.snapshot.paramMap.get('restaurantRef')!;
@@ -32,4 +34,7 @@ export class MenuItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public addItem(item: MenuItemGet) {
+    this.menuCliDialogService.openAddItem(item);
+  }
 }
