@@ -10,9 +10,20 @@ export class CounterFooterComponent implements OnInit {
 
   @Input('order') order!: OrderElementDataWrapper;
 
+  count = 1;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  itemAdd() {
+    this.count += 1;
+  }
+
+  // TODO przyciski rozszerzają się po zmianie wartości
+  itemSubstract() {
+    this.count -= 1;
   }
 
 }
