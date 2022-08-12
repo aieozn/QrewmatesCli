@@ -13,14 +13,14 @@ import { MenuHorizontalElementComponent } from './menu-horizontal-element/menu-h
 export class MenuHorizontalComponent implements OnInit, OnDestroy {
 
   public _categories: MenuCategoryGet[] = [];
-  categorySelectedSubscription: Subscription | undefined;
-  categoryScrolledSubscription: Subscription | undefined;
+  categorySelectedSubscription: Subscription;
+  categoryScrolledSubscription: Subscription;
 
   public screenHeight: number;
 
   public showFullSizeMenu = false;
 
-  @ViewChild('menuBar') menuBar : ElementRef | undefined;
+  @ViewChild('menuBar') menuBar!: ElementRef;
   @ViewChildren('element') categoriesDomElements : QueryList<MenuHorizontalElementComponent> | undefined;
 
   @Input() set categories(categories: MenuCategoryGet[]) {
@@ -31,18 +31,19 @@ export class MenuHorizontalComponent implements OnInit, OnDestroy {
     private menuEventsService: MenuEventsService
   ) {
     this.screenHeight = window.innerHeight;
+
+    this.categorySelectedSubscription = this.menuEventsService.menuCategorySelected.subscribe(this.onMenuCategorySelected.bind(this))
+    this.categoryScrolledSubscription = this.menuEventsService.menuCategoryScrolled.subscribe(this.onMenuCategoryScrolled.bind(this))
   }
 
   ngOnInit(): void {
-    this.subscribeOnMenuCategorySelected();
-    this.subscribeOnMenuCategoryScrolled();
   }
 
   private onMenuCategorySelected(event: ChangeMenuCategoryEvent) {
     console.info("Change active menu category");
     this.hideMenu();
     
-    if (event.categry.ref && this.menuBar && this.categoriesDomElements) {
+    if (this.categoriesDomElements) {
       var element = document.getElementById('menu-horizontal-element-' + event.categry.ref);
       if (element) {
         this.menuBar.nativeElement.scrollTo({ left: element.offsetLeft - 50, behavior: "smooth"});
@@ -53,7 +54,7 @@ export class MenuHorizontalComponent implements OnInit, OnDestroy {
   private onMenuCategoryScrolled(event: ChangeMenuCategoryEvent) {
     console.info("Change active menu category");
     
-    if (event.categry.ref && this.menuBar && this.categoriesDomElements) {
+    if (this.categoriesDomElements) {
       var element = document.getElementById('menu-horizontal-element-' + event.categry.ref);
       if (element) {
         this.menuBar.nativeElement.scrollTo({ left: element.offsetLeft - 50, behavior: "smooth"});
@@ -74,29 +75,15 @@ export class MenuHorizontalComponent implements OnInit, OnDestroy {
     this.unsubscribeOnMenuCategorySelected();
   }
 
-  private subscribeOnMenuCategorySelected() {
-    if (this.categorySelectedSubscription === undefined) {
-      this.categorySelectedSubscription = this.menuEventsService.menuCategorySelected.subscribe(this.onMenuCategorySelected.bind(this))
-    }
-  }
-
-  private subscribeOnMenuCategoryScrolled() {
-    if (this.categoryScrolledSubscription === undefined) {
-      this.categoryScrolledSubscription = this.menuEventsService.menuCategoryScrolled.subscribe(this.onMenuCategoryScrolled.bind(this))
-    }
-  }
-
   private unsubscribeOnMenuCategorySelected() {
-    if (this.categorySelectedSubscription !== undefined) {
+    if (!this.categorySelectedSubscription.closed) {
       this.categorySelectedSubscription.unsubscribe();
-      this.categorySelectedSubscription = undefined;
     }
   }
 
   private unsubscribeOnMenuCategoryScrolled() {
-    if (this.categoryScrolledSubscription !== undefined) {
+    if (!this.categoryScrolledSubscription.closed) {
       this.categoryScrolledSubscription.unsubscribe();
-      this.categoryScrolledSubscription = undefined;
     }
   }
 

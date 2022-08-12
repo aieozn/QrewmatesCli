@@ -14,12 +14,12 @@ import { MenuCliDialogService } from './service/menu-cli-dialog.service';
 export class MenuCliDialogComponent implements OnInit, OnDestroy {
 
   private scrollIntroductionSizePx = 30;
-  private openMenuDialogSubscription : Subscription | undefined;
+  private openMenuDialogSubscription : Subscription;
   scrollIntroductionPercentage = 0;
   show = false;
   title: string | undefined;
 
-  @ViewChild('cardbody') cardBody: ElementRef | undefined;
+  @ViewChild('cardbody') cardBody!: ElementRef;
   @ViewChild(DialogBodyHost, {static: true}) dialogBodyHost!: DialogBodyHost;
   
   constructor(
@@ -60,15 +60,12 @@ export class MenuCliDialogComponent implements OnInit, OnDestroy {
   }
 
   goToTop() {
-    if (this.cardBody) {
-      this.cardBody.nativeElement.scrollTop = 0;
-    }
+    this.cardBody.nativeElement.scrollTop = 0;
   }
 
   ngOnDestroy(): void {
-    if (this.openMenuDialogSubscription !== undefined) {
+    if (!this.openMenuDialogSubscription.closed) {
       this.openMenuDialogSubscription.unsubscribe();
-      this.openMenuDialogSubscription = undefined;
     }
   }
 

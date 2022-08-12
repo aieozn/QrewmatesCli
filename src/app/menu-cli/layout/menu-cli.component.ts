@@ -27,11 +27,10 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   public shadowItems = false;
 
   // Subscriptions
-  categoryChangedSubscription: Subscription | undefined;
+  categoryChangedSubscription: Subscription;
   categoryElementsSubscription: Subscription | undefined;
 
   @ViewChildren('category') categoryElements: QueryList<MenuCategoryComponent> | undefined;
-  @ViewChild('footer') footer: ElementRef | undefined;
 
   private menuCategoryToScrollPosition: {
     offsetTop: number,
@@ -48,6 +47,7 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
       restaurantRef: route.snapshot.paramMap.get('restaurantRef')!
     };
 
+    this.categoryChangedSubscription = this.menuEventsService.menuCategorySelected.subscribe(this.onMenuCategoryChanged.bind(this))
     console.log(this.resraurantRef);
   }
 
@@ -57,10 +57,6 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.loadCategories();
-    
-    if (this.categoryChangedSubscription === undefined) {
-      this.categoryChangedSubscription = this.menuEventsService.menuCategorySelected.subscribe(this.onMenuCategoryChanged.bind(this))
-    }
   }
 
   private onCategoriesElementsChange(event: QueryList<MenuCategoryComponent>) {
@@ -150,9 +146,8 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    if (this.categoryChangedSubscription !== undefined) {
+    if (!this.categoryChangedSubscription.closed) {
       this.categoryChangedSubscription.unsubscribe();
-      this.categoryChangedSubscription = undefined;
     }
 
     if (this.categoryElementsSubscription !== undefined) {

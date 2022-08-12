@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { CliDialogBodyContent } from 'src/app/menu-cli/menu-cli-dialog/model/cli-dialog-body-content';
+import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemDetailedGet, OrderElementData, OrderPostData } from 'src/app/openapi-cli/models';
 import { MenuItemControllerService } from 'src/app/openapi-cli/services';
 
@@ -12,11 +13,10 @@ import { MenuItemControllerService } from 'src/app/openapi-cli/services';
 })
 export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
 
-  private ref: string | undefined;
   public item: MenuItemDetailedGet | undefined;
   private restaurantRef : string;
   public menuItemImageUrl: string | undefined;
-  public order: OrderElementData | undefined;
+  public order: OrderElementDataWrapper | undefined;
 
   constructor(
     private menuItemDetailsService: MenuItemControllerService,
@@ -30,15 +30,6 @@ export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
       console.error("Item ref not found");
     } else {
       this.loadItem(data.ref);
-
-
-      this.order = {
-        menuItem: {
-          ref: data.ref
-        },
-        selects: [],
-        toppings: []
-      }
     }
   }
 
@@ -47,6 +38,16 @@ export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
       restaurant: this.restaurantRef,
       ref: ref
     }));
+
+    // Init order
+    if (this.item !== undefined) {
+      this.order = {
+        menuItem: this.item,
+        selects: [],
+        toppings: [],
+        price: this.item.price
+      }
+    }
 
     if (this.item && this.item.image) {
       this.menuItemImageUrl = "/api/multimedia/" + this.restaurantRef + "/" + this.item.image.ref;

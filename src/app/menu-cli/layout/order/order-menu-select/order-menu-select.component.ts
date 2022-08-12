@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { OrderUtils } from 'src/app/menu-cli/utils/order-utils';
+import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemSelectCollectionGet, MenuItemSelectGet, OrderElementData } from 'src/app/openapi-cli/models';
 
 @Component({
@@ -9,7 +11,7 @@ import { MenuItemSelectCollectionGet, MenuItemSelectGet, OrderElementData } from
 export class OrderMenuSelectComponent implements OnInit {
 
   @Input('collection') collection!: MenuItemSelectCollectionGet;
-  @Input('order') order!: OrderElementData;
+  @Input('order') order!: OrderElementDataWrapper;
 
   constructor() { }
 
@@ -24,6 +26,8 @@ export class OrderMenuSelectComponent implements OnInit {
     
     console.log("Selects updated");
     console.log(this.order);
+
+    OrderUtils.updateOrderDetails(this.order);
   }
 
 }

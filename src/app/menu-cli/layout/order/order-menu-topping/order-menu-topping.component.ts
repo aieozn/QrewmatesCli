@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { OrderUtils } from 'src/app/menu-cli/utils/order-utils';
+import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemToppingCollectionGet, MenuItemToppingGet, OrderElementData } from 'src/app/openapi-cli/models';
 
 @Component({
@@ -13,10 +15,7 @@ export class OrderMenuToppingComponent implements OnInit {
     this._collection = value;
   }
 
-  _order: OrderElementData | undefined;
-  @Input() set order(value: OrderElementData | undefined) {
-    this._order = value;
-  }
+  @Input('order') order!: OrderElementDataWrapper;
 
   constructor() { }
 
@@ -24,20 +23,15 @@ export class OrderMenuToppingComponent implements OnInit {
   }
 
   select(topping: MenuItemToppingGet, selected: boolean) {
-    if (this._order !== undefined) {
-      if (selected) {
-        this._order.toppings.push({
-          ref: topping.ref!
-        })
-      } else {
-        this._order.toppings = this._order.toppings.filter(e => e.ref !== topping.ref)
-      }
-      
-      console.log("Order updated:")
-      console.log(this._order)
+    if (selected) {
+      this.order.toppings.push(topping);
     } else {
-      console.error("Item not set");
+      this.order.toppings = this.order.toppings.filter(e => e.ref !== topping.ref)
     }
-  }
+    
+    console.log("Order updated:")
+    console.log(this.order)
 
+    OrderUtils.updateOrderDetails(this.order);
+  }
 }
