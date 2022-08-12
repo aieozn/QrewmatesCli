@@ -531,6 +531,12 @@ components:
           minLength: 0
           type: string
     MenuItemGet:
+      required:
+      - available
+      - category
+      - name
+      - price
+      - ref
       type: object
       properties:
         ref:
@@ -548,6 +554,11 @@ components:
         available:
           type: boolean
     MenuItemSelectGet:
+      required:
+      - available
+      - name
+      - price
+      - ref
       type: object
       properties:
         ref:
@@ -561,6 +572,11 @@ components:
         available:
           type: boolean
     MenuItemToppingGet:
+      required:
+      - available
+      - name
+      - price
+      - ref
       type: object
       properties:
         ref:
@@ -574,11 +590,18 @@ components:
         available:
           type: boolean
     MultimediaGet:
+      required:
+      - ref
       type: object
       properties:
         ref:
           type: string
     OrderElementGet:
+      required:
+      - menuItem
+      - ref
+      - selects
+      - toppings
       type: object
       properties:
         ref:
@@ -594,6 +617,8 @@ components:
           items:
             $ref: '#/components/schemas/MenuItemToppingGet'
     OrderGet:
+      required:
+      - ref
       type: object
       properties:
         ref:
@@ -672,6 +697,14 @@ components:
         available:
           type: boolean
     MenuItemDetailedGet:
+      required:
+      - available
+      - category
+      - name
+      - price
+      - ref
+      - selectCollections
+      - toppingCollections
       type: object
       properties:
         ref:
@@ -697,6 +730,10 @@ components:
           items:
             $ref: '#/components/schemas/MenuItemSelectCollectionGet'
     MenuItemSelectCollectionGet:
+      required:
+      - name
+      - ref
+      - selects
       type: object
       properties:
         ref:
@@ -710,6 +747,10 @@ components:
           items:
             $ref: '#/components/schemas/MenuItemSelectGet'
     MenuItemToppingCollectionGet:
+      required:
+      - name
+      - ref
+      - toppings
       type: object
       properties:
         ref:
@@ -739,6 +780,10 @@ components:
         icon:
           $ref: '#/components/schemas/IdentifiedByRefData'
     MenuCategoryGet:
+      required:
+      - items
+      - name
+      - ref
       type: object
       properties:
         ref:
