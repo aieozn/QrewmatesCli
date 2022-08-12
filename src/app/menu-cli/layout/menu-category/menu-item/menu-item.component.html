@@ -1,5 +1,4 @@
-<!-- selected allowed -->
-<div class="menu-item box-shadow" *ngIf="_item">
+<div class="menu-item box-shadow" *ngIf="_item" [class.selected] = "orderedItefsOfType > 0">
     <div class="menu-item-image" *ngIf="menuItemImageUrl">
         <img src="{{menuItemImageUrl}}"/>
     </div>
@@ -10,7 +9,7 @@
         <!-- TODO change price to dynamic currency -->
         <p class="menu-item-price">{{ _item.price }} zł</p>
 
-        <div class="menu-item-count"><p>1</p></div>
+        <div class="menu-item-count" *ngIf="orderedItefsOfType > 0"><p>{{orderedItefsOfType}}</p></div>
         <div class="menu-item-add" (click)="addItem(_item)"><p>+</p></div>
     </div>
 </div>

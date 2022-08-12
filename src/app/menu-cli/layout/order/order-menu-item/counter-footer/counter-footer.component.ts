@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MenuCliDialogService } from 'src/app/menu-cli/menu-cli-dialog/service/menu-cli-dialog.service';
+import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 
 @Component({
@@ -12,7 +14,7 @@ export class CounterFooterComponent implements OnInit {
 
   count = 1;
 
-  constructor() { }
+  constructor(private orderService: OrderService, private dialogService: MenuCliDialogService) { }
 
   ngOnInit(): void {
   }
@@ -23,7 +25,15 @@ export class CounterFooterComponent implements OnInit {
 
   // TODO przyciski rozszerzają się po zmianie wartości
   itemSubstract() {
-    this.count -= 1;
+    this.count = Math.max(1, this.count - 1);
+  }
+
+  subscribeItem() {
+    for (var i = 0; i < this.count; i++) {
+      this.orderService.addOrderElement(this.order);
+    }
+    
+    this.dialogService.closeAddItem();
   }
 
 }

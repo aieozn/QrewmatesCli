@@ -13,8 +13,8 @@ import { MenuCliDialogService } from './service/menu-cli-dialog.service';
 })
 export class MenuCliDialogComponent implements OnInit, OnDestroy {
 
-  private scrollIntroductionSizePx = 30;
   private openMenuDialogSubscription : Subscription;
+  private closeMenuDialogSubscription : Subscription;
   scrollIntroductionPercentage = 0;
   show = false;
   title: string | undefined;
@@ -26,6 +26,7 @@ export class MenuCliDialogComponent implements OnInit, OnDestroy {
     dialogService: MenuCliDialogService
   ) {
     this.openMenuDialogSubscription = dialogService.openMenuDialog.subscribe(this.openMenu.bind(this));
+    this.closeMenuDialogSubscription = dialogService.closeMenuDialog.subscribe(this.close.bind(this));
   }
 
   ngOnInit(): void {
@@ -64,9 +65,8 @@ export class MenuCliDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (!this.openMenuDialogSubscription.closed) {
-      this.openMenuDialogSubscription.unsubscribe();
-    }
+    this.openMenuDialogSubscription.unsubscribe();
+    this.closeMenuDialogSubscription.unsubscribe();
   }
 
   close() {

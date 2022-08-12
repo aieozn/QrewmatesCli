@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { CliDialogBodyContent } from 'src/app/menu-cli/menu-cli-dialog/model/cli-dialog-body-content';
+import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
+import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
 import { MenuItemDetailedGet, OrderElementData, OrderPostData } from 'src/app/openapi-cli/models';
 import { MenuItemControllerService } from 'src/app/openapi-cli/services';
 
@@ -18,11 +20,14 @@ export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
   public menuItemImageUrl: string | undefined;
   public order: OrderElementDataWrapper | undefined;
 
+  
+
   constructor(
     private menuItemDetailsService: MenuItemControllerService,
     route: ActivatedRoute
   ) {
     this.restaurantRef = route.snapshot.paramMap.get('restaurantRef')!;
+    
   }
 
   setData(data: any): void {
@@ -58,5 +63,4 @@ export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
 
   ngOnInit(): void {
   }
-
 }

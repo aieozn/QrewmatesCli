@@ -10,6 +10,7 @@ import { DialogBodyItem } from '../model/dialog-body-item';
 export class MenuCliDialogService {
 
   public openMenuDialog = new EventEmitter<DialogBodyItem>();
+  public closeMenuDialog = new EventEmitter<void>();
 
   constructor() { }
 
@@ -19,5 +20,9 @@ export class MenuCliDialogService {
 
   public openAddItem(item: MenuItemGet) {
     this.openMenuDialog.emit(new DialogBodyItem(OrderMenuItemComponent, {ref: item.ref!}, undefined));
+  }
+
+  public closeAddItem() {
+    this.closeMenuDialog.emit();
   }
 }

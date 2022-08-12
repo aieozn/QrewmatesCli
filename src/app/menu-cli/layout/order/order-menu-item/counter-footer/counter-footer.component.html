@@ -8,6 +8,6 @@
     </div>
 
     <div id="add">
-        <div id="add-button">Dodaj: {{ (order.price * count).toFixed(2) }}zł</div>
+        <div id="add-button" (click)="subscribeItem()">Dodaj: {{ (order.price * count).toFixed(2) }}zł</div>
     </div>
 </div>
