@@ -25,4 +25,20 @@ export class OrderService {
 
     this.orderChanged.emit(this.order);
   }
+
+  public getOrder() : OrderWrapper {
+    return this.order;
+  }
+
+  public submit() {
+    console.log("Submit order");
+
+    this.order = {
+      "price": 0,
+      "comment": undefined,
+      "items": []
+    }
+
+    this.orderChanged.emit(this.order);
+  }
 }

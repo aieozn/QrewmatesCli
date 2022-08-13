@@ -1,10 +1,10 @@
-<div id="order-summary" *ngIf="itemsCount > 0" class="box-shadow">
+<div id="order-submit" *ngIf="itemsCount > 0" class="box-shadow">
     <div id="summary">
         <p id="summary-label">Podsumowanie:</p>
         <p id="summary-value">({{ itemsCount }}) {{ price.toFixed(2) }}zł</p>
     </div>
     <div id="order">
-        <div id="subscribeButton">
+        <div id="subscribeButton" (click)="submit()">
             Zamów i zapłać
         </div>
     </div>

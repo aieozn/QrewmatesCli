@@ -33,7 +33,7 @@ export class CounterFooterComponent implements OnInit {
       this.orderService.addOrderElement(this.order);
     }
     
-    this.dialogService.closeAddItem();
+    this.dialogService.closeMenuCliDialog();
   }
 
 }
