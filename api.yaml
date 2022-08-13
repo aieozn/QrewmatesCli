@@ -6,6 +6,49 @@ servers:
 - url: ''
   description: Generated server url
 paths:
+  /api/restaurant/details/{restaurantRef}:
+    put:
+      tags:
+      - restaurant-controller
+      operationId: putRestaurant
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantGet'
+    delete:
+      tags:
+      - restaurant-controller
+      operationId: deletesRestaurant
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
   /api/order-instance/{restaurant}/{ref}:
     get:
       tags:
@@ -256,6 +299,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatusResponse'
+  /api/restaurant/details/:
+    post:
+      tags:
+      - restaurant-controller
+      operationId: postRestaurant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantGet'
   /api/order-element/{restaurant}/{orderInstanceRef}:
     post:
       tags:
@@ -421,6 +482,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrderGet'
+  /api/restaurant/details/{restaurant}:
+    get:
+      tags:
+      - restaurant-controller
+      operationId: getRestaurant
+      parameters:
+      - name: restaurant
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantGet'
   /api/order-element/{restaurant}/{ref}:
     get:
       tags:
@@ -523,6 +603,152 @@ paths:
                 $ref: '#/components/schemas/MenuItemDetailedGet'
 components:
   schemas:
+    IdentifiedByRefData:
+      required:
+      - ref
+      type: object
+      properties:
+        ref:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+    OpeningHoursUTCData:
+      required:
+      - dayOfWeek
+      - openMinute
+      - workForMinutes
+      type: object
+      properties:
+        dayOfWeek:
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+        openMinute:
+          maximum: 1440
+          minimum: 0
+          type: integer
+          format: int32
+        workForMinutes:
+          maximum: 1440
+          minimum: 0
+          type: integer
+          format: int32
+    RestaurantData:
+      required:
+      - callWaiter
+      - currency
+      - isOpen
+      - name
+      - onlinePayment
+      - openingHoursUTC
+      - postPayment
+      - prePayment
+      - tipPayment
+      type: object
+      properties:
+        name:
+          type: string
+        onlinePayment:
+          type: boolean
+        prePayment:
+          type: boolean
+        postPayment:
+          type: boolean
+        tipPayment:
+          type: boolean
+        callWaiter:
+          type: boolean
+        isOpen:
+          type: boolean
+        logo:
+          $ref: '#/components/schemas/IdentifiedByRefData'
+        currency:
+          type: string
+          enum:
+          - PLN
+          - EUR
+          - USD
+        openingHoursUTC:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpeningHoursUTCData'
+    MultimediaGet:
+      required:
+      - ref
+      type: object
+      properties:
+        ref:
+          type: string
+    OpeningHoursUTCGet:
+      required:
+      - dayOfWeek
+      - openMinute
+      - workForMinutes
+      type: object
+      properties:
+        dayOfWeek:
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+        openMinute:
+          type: integer
+          format: int32
+        workForMinutes:
+          type: integer
+          format: int32
+    RestaurantGet:
+      required:
+      - callWaiter
+      - currency
+      - isOpen
+      - name
+      - onlinePayment
+      - openingHoursUTC
+      - postPayment
+      - prePayment
+      - ref
+      - tipPayment
+      type: object
+      properties:
+        ref:
+          type: string
+        name:
+          type: string
+        onlinePayment:
+          type: boolean
+        prePayment:
+          type: boolean
+        postPayment:
+          type: boolean
+        tipPayment:
+          type: boolean
+        callWaiter:
+          type: boolean
+        isOpen:
+          type: boolean
+        logo:
+          $ref: '#/components/schemas/MultimediaGet'
+        currency:
+          type: string
+          enum:
+          - PLN
+          - EUR
+          - USD
+        openingHoursUTC:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpeningHoursUTCGet'
     OrderPutData:
       type: object
       properties:
@@ -589,13 +815,6 @@ components:
           type: number
         available:
           type: boolean
-    MultimediaGet:
-      required:
-      - ref
-      type: object
-      properties:
-        ref:
-          type: string
     OrderElementGet:
       required:
       - menuItem
@@ -629,14 +848,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderElementGet'
-    IdentifiedByRefData:
-      required:
-      - ref
-      type: object
-      properties:
-        ref:
-          pattern: "[0-9A-Za-z]{12}"
-          type: string
     OrderElementData:
       required:
       - menuItem

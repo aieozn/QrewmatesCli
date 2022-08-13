@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { CliDialogBodyContent } from 'src/app/menu-cli/menu-cli-dialog/model/cli-dialog-body-content';
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
+import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
 import { MenuItemDetailedGet, OrderElementData, OrderPostData } from 'src/app/openapi-cli/models';
@@ -16,7 +17,6 @@ import { MenuItemControllerService } from 'src/app/openapi-cli/services';
 export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
 
   public item: MenuItemDetailedGet | undefined;
-  private restaurantRef : string;
   public menuItemImageUrl: string | undefined;
   public order: OrderElementDataWrapper | undefined;
 
@@ -24,10 +24,8 @@ export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
 
   constructor(
     private menuItemDetailsService: MenuItemControllerService,
-    route: ActivatedRoute
+    private restaurantService: RestaurantService
   ) {
-    this.restaurantRef = route.snapshot.paramMap.get('restaurantRef')!;
-    
   }
 
   setData(data: any): void {
@@ -40,7 +38,7 @@ export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
 
   private async loadItem(ref: string) {
     this.item = await firstValueFrom(this.menuItemDetailsService.getItemDetails({
-      restaurant: this.restaurantRef,
+      restaurant: this.restaurantService.getRestaurantRef(),
       ref: ref
     }));
 
@@ -55,7 +53,7 @@ export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
     }
 
     if (this.item && this.item.image) {
-      this.menuItemImageUrl = "/api/multimedia/" + this.restaurantRef + "/" + this.item.image.ref;
+      this.menuItemImageUrl = this.restaurantService.getMultimediaUrl(this.item.image.ref)
     } else {
       this.menuItemImageUrl = undefined;
     }

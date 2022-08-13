@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
@@ -7,6 +6,7 @@ import { ChangeMenuCategoryEvent } from 'src/app/menu-cli/services/menu-event/me
 import { MenuCategoryComponent } from './menu-category/menu-category.component';
 import { MenuEventsService } from '../services/menu-event/menu-events.service';
 import { MenuCliDialogService } from '../menu-cli-dialog/service/menu-cli-dialog.service';
+import { RestaurantService } from '../services/restaurant/restaurant.service';
 
 @Component({
   selector: 'app-menu-cli',
@@ -16,11 +16,6 @@ import { MenuCliDialogService } from '../menu-cli-dialog/service/menu-cli-dialog
 export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private stickyBarHeight = 50;
-
-  private resraurantRef : {
-    restaurantRef: string
-  };
-
   public categories: MenuCategoryGet[] = [];
 
   // Display black cover over items
@@ -41,14 +36,9 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
     private categoriesService: MenuCategoryControllerService,
     private menuEventsService: MenuEventsService,
     private menuCliDialogServide: MenuCliDialogService,
-    route: ActivatedRoute
+    private restaurantService: RestaurantService
   ) {
-    this.resraurantRef = {
-      restaurantRef: route.snapshot.paramMap.get('restaurantRef')!
-    };
-
     this.categoryChangedSubscription = this.menuEventsService.menuCategorySelected.subscribe(this.onMenuCategoryChanged.bind(this))
-    console.log(this.resraurantRef);
   }
 
   ngAfterViewInit(): void {
@@ -142,7 +132,12 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private async loadCategories() {
-    this.categories = await firstValueFrom(this.categoriesService.getCategories1(this.resraurantRef));
+    var restaurantRef = await this.restaurantService.getRestaurantRef();
+
+    console.log("Get categories");
+    this.categories = await firstValueFrom(this.categoriesService.getCategories1({
+      "restaurantRef": restaurantRef
+    }));
   }
 
   ngOnDestroy(): void {
