@@ -77,3 +77,19 @@ h1 {
     position: absolute;
     right: 0px;
 }
+
+#restaurant-information {
+    border: 2px solid #f4f4f4;
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    width: 25px;
+    height: 25px;
+    font-family: Poppins;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+    border-radius: 50%;
+    font-size: 16px;
+}
