@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MenuCategoryComponent } from './menu-cli/layout/menu-category/menu-category.component';
-import { MenuItemComponent } from './menu-cli/layout/menu-category/menu-item/menu-item.component';
+import { MenuItemComponent } from './menu-cli/layout/menu-category/menu-item-group/menu-item-group.component';
 import { MenuHorizontalElementComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
 import { MenuHorizontalComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal.component';
 import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';

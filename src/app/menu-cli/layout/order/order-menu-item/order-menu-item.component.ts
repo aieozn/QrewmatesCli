@@ -6,7 +6,7 @@ import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
-import { MenuItemDetailedGet, OrderElementData, OrderPostData } from 'src/app/openapi-cli/models';
+import { MenuItemDetailedGet, OrderElementData } from 'src/app/openapi-cli/models';
 import { MenuItemControllerService } from 'src/app/openapi-cli/services';
 
 @Component({
@@ -37,26 +37,26 @@ export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
   }
 
   private async loadItem(ref: string) {
-    this.item = await firstValueFrom(this.menuItemDetailsService.getItemDetails({
-      restaurant: this.restaurantService.getRestaurantRef(),
-      ref: ref
-    }));
+    // this.item = await firstValueFrom(this.menuItemDetailsService.getItemDetails({
+    //   restaurant: this.restaurantService.getRestaurantRef(),
+    //   ref: ref
+    // }));
 
-    // Init order
-    if (this.item !== undefined) {
-      this.order = {
-        menuItem: this.item,
-        selects: [],
-        toppings: [],
-        price: this.item.price
-      }
-    }
+    // // Init order
+    // if (this.item !== undefined) {
+    //   this.order = {
+    //     menuItem: this.item,
+    //     selects: [],
+    //     toppings: [],
+    //     price: this.item.price
+    //   }
+    // }
 
-    if (this.item && this.item.image) {
-      this.menuItemImageUrl = this.restaurantService.getMultimediaUrl(this.item.image.ref)
-    } else {
-      this.menuItemImageUrl = undefined;
-    }
+    // if (this.item && this.item.image) {
+    //   this.menuItemImageUrl = this.restaurantService.getMultimediaUrl(this.item.image.ref)
+    // } else {
+    //   this.menuItemImageUrl = undefined;
+    // }
   }
 
   ngOnInit(): void {

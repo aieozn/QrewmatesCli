@@ -6,6 +6,85 @@ servers:
 - url: ''
   description: Generated server url
 paths:
+  /api/restaurant/table/{restaurantRef}/{tableRef}:
+    get:
+      tags:
+      - restaurant-table-controller
+      operationId: getTable
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: tableRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantTableGet'
+    put:
+      tags:
+      - restaurant-table-controller
+      operationId: putTable
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: tableRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantTableData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantTableGet'
+    delete:
+      tags:
+      - restaurant-table-controller
+      operationId: deleteTable
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: tableRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
   /api/restaurant/details/{restaurantRef}:
     put:
       tags:
@@ -34,7 +113,7 @@ paths:
     delete:
       tags:
       - restaurant-controller
-      operationId: deletesRestaurant
+      operationId: deleteRestaurant
       parameters:
       - name: restaurantRef
         in: path
@@ -128,19 +207,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatusResponse'
-  /api/order-element/{restaurant}/{orderInstanceRef}/{ref}:
+  /api/order-element/{restaurantRef}/{ref}:
     put:
       tags:
       - order-element-controller
       operationId: putElement
       parameters:
-      - name: restaurant
-        in: path
-        required: true
-        schema:
-          pattern: "[0-9A-Za-z]{12}"
-          type: string
-      - name: orderInstanceRef
+      - name: restaurantRef
         in: path
         required: true
         schema:
@@ -162,9 +235,325 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderElementGet'
+  /api/menu/topping/{restaurantRef}/{ref}:
+    get:
+      tags:
+      - menu-item-topping-controller
+      operationId: getTopping
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemToppingGet'
+    put:
+      tags:
+      - menu-item-topping-controller
+      operationId: putTopping
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemToppingData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemToppingGet'
+    delete:
+      tags:
+      - menu-item-topping-controller
+      operationId: deleteTopping
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+  /api/menu/topping-collection/{restaurantRef}/{ref}:
+    get:
+      tags:
+      - menu-item-topping-collection-controller
+      operationId: getToppingCollection
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemToppingCollectionGet'
+    put:
+      tags:
+      - menu-item-topping-collection-controller
+      operationId: putToppingCollection
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemToppingCollectionData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemToppingCollectionGet'
+    delete:
+      tags:
+      - menu-item-topping-collection-controller
+      operationId: deleteToppingCollection
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+  /api/menu/select/{restaurantRef}/{ref}:
+    get:
+      tags:
+      - menu-item-select-controller
+      operationId: getSelect
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemSelectGet'
+    put:
+      tags:
+      - menu-item-select-controller
+      operationId: putSelect
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemSelectData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemSelectGet'
+    delete:
+      tags:
+      - menu-item-select-controller
+      operationId: deleteSelect
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+  /api/menu/select-collection/{restaurantRef}/{ref}:
+    get:
+      tags:
+      - menu-item-select-collection-controller
+      operationId: getSelectCollection
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemSelectCollectionGet'
+    put:
+      tags:
+      - menu-item-select-collection-controller
+      operationId: putSelectCollection
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemSelectCollectionData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemSelectCollectionGet'
+    delete:
+      tags:
+      - menu-item-select-collection-controller
+      operationId: deleteSelectCollection
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
   /api/menu/item/{restaurantRef}/{itemRef}:
     put:
       tags:
@@ -208,6 +597,61 @@ paths:
           pattern: "[0-9A-Za-z]{12}"
           type: string
       - name: itemRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+  /api/menu/item-group/{restaurantRef}/{menuItemGroupRef}:
+    put:
+      tags:
+      - menu-item-group-controller
+      operationId: putItemGroup
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: menuItemGroupRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemGroupData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemGroupGet'
+    delete:
+      tags:
+      - menu-item-group-controller
+      operationId: deleteMenuItemGroup
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: menuItemGroupRef
         in: path
         required: true
         schema:
@@ -299,6 +743,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatusResponse'
+  /api/restaurant/table/{restaurantRef}:
+    post:
+      tags:
+      - restaurant-table-controller
+      operationId: postTable
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantTableData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantTableGet'
   /api/restaurant/details/:
     post:
       tags:
@@ -317,19 +786,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RestaurantGet'
-  /api/order-element/{restaurant}/{orderInstanceRef}:
+  /api/order-element/{restaurantRef}:
     post:
       tags:
       - order-element-controller
       operationId: postElement
       parameters:
-      - name: restaurant
-        in: path
-        required: true
-        schema:
-          pattern: "[0-9A-Za-z]{12}"
-          type: string
-      - name: orderInstanceRef
+      - name: restaurantRef
         in: path
         required: true
         schema:
@@ -345,7 +808,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderElementGet'
   /api/multimedia/{restaurantRef}:
@@ -363,6 +826,7 @@ paths:
           - IMAGE_PNG
           - IMAGE_JPEG
           - FILE_TXT
+          - IMAGE_SVG
       - name: restaurantRef
         in: path
         required: true
@@ -387,6 +851,106 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/MultimediaGet'
+  /api/menu/topping/{restaurantRef}:
+    post:
+      tags:
+      - menu-item-topping-controller
+      operationId: postTopping
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemToppingData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemToppingGet'
+  /api/menu/topping-collection/{restaurantRef}:
+    post:
+      tags:
+      - menu-item-topping-collection-controller
+      operationId: postToppingCollection
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemToppingCollectionData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemToppingCollectionGet'
+  /api/menu/select/{restaurantRef}:
+    post:
+      tags:
+      - menu-item-select-controller
+      operationId: postSelect
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemSelectData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemSelectGet'
+  /api/menu/select-collection/{restaurantRef}:
+    post:
+      tags:
+      - menu-item-select-collection-controller
+      operationId: postSelectCollection
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemSelectCollectionData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemSelectCollectionGet'
   /api/menu/item/{restaurantRef}:
     post:
       tags:
@@ -412,6 +976,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MenuItemDetailedGet'
+  /api/menu/item-group/{restaurantRef}:
+    post:
+      tags:
+      - menu-item-group-controller
+      operationId: postItemGroup
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuItemGroupData'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemGroupGet'
   /api/menu/category/{restaurantRef}:
     get:
       tags:
@@ -473,7 +1062,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderPostData'
+              $ref: '#/components/schemas/OrderData'
         required: true
       responses:
         "200":
@@ -523,7 +1112,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderElementGet'
     delete:
@@ -547,7 +1136,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/StatusResponse'
   /api/multimedia/{restaurantRef}/{multimediaRef}:
@@ -576,13 +1165,13 @@ paths:
               schema:
                 type: string
                 format: binary
-  /api/menu/item/{restaurant}/{ref}:
+  /api/menu/item/{restaurantRef}/{ref}:
     get:
       tags:
       - menu-item-controller
       operationId: getItemDetails
       parameters:
-      - name: restaurant
+      - name: restaurantRef
         in: path
         required: true
         schema:
@@ -601,8 +1190,83 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MenuItemDetailedGet'
+  /api/menu/item-group/{restaurantRef}/{ref}:
+    get:
+      tags:
+      - menu-item-group-controller
+      operationId: getItemGroupDetails
+      parameters:
+      - name: restaurantRef
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      - name: ref
+        in: path
+        required: true
+        schema:
+          pattern: "[0-9A-Za-z]{12}"
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemGroupGet'
 components:
   schemas:
+    RestaurantTableData:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+    MultimediaGet:
+      required:
+      - ref
+      type: object
+      properties:
+        ref:
+          type: string
+    QrCodeGet:
+      required:
+      - ref
+      - status
+      - style
+      type: object
+      properties:
+        ref:
+          type: string
+        image:
+          $ref: '#/components/schemas/MultimediaGet'
+        style:
+          type: string
+          enum:
+          - RAW
+        status:
+          type: string
+          enum:
+          - PROCESSING
+          - READY
+          - FAILURE
+    RestaurantTableGet:
+      required:
+      - name
+      - qrCode
+      - ref
+      type: object
+      properties:
+        ref:
+          type: string
+        name:
+          type: string
+        qrCode:
+          $ref: '#/components/schemas/QrCodeGet'
     IdentifiedByRefData:
       required:
       - ref
@@ -648,6 +1312,7 @@ components:
       - openingHoursUTC
       - postPayment
       - prePayment
+      - qrCodeStyle
       - tipPayment
       type: object
       properties:
@@ -673,17 +1338,14 @@ components:
           - PLN
           - EUR
           - USD
+        qrCodeStyle:
+          type: string
+          enum:
+          - RAW
         openingHoursUTC:
           type: array
           items:
             $ref: '#/components/schemas/OpeningHoursUTCData'
-    MultimediaGet:
-      required:
-      - ref
-      type: object
-      properties:
-        ref:
-          type: string
     OpeningHoursUTCGet:
       required:
       - dayOfWeek
@@ -753,40 +1415,48 @@ components:
       type: object
       properties:
         comment:
-          maxLength: 10000
+          maxLength: 2000
           minLength: 0
           type: string
     MenuItemGet:
       required:
+      - active
       - available
-      - category
+      - elementOrder
+      - menuItemGroup
       - name
       - price
       - ref
       type: object
       properties:
-        ref:
+        menuItemGroup:
           type: string
-        category:
+        ref:
           type: string
         name:
           type: string
-        description:
-          type: string
         price:
           type: number
-        image:
-          $ref: '#/components/schemas/MultimediaGet'
         available:
           type: boolean
+        active:
+          type: boolean
+        elementOrder:
+          type: integer
+          format: int32
     MenuItemSelectGet:
       required:
+      - active
       - available
+      - collection
+      - elementOrder
       - name
       - price
       - ref
       type: object
       properties:
+        collection:
+          type: string
         ref:
           type: string
         name:
@@ -797,14 +1467,24 @@ components:
           type: number
         available:
           type: boolean
+        active:
+          type: boolean
+        elementOrder:
+          type: integer
+          format: int32
     MenuItemToppingGet:
       required:
+      - active
       - available
+      - collection
+      - elementOrder
       - name
       - price
       - ref
       type: object
       properties:
+        collection:
+          type: string
         ref:
           type: string
         name:
@@ -815,23 +1495,28 @@ components:
           type: number
         available:
           type: boolean
+        active:
+          type: boolean
+        elementOrder:
+          type: integer
+          format: int32
     OrderElementGet:
       required:
       - menuItem
+      - menuItemSelects
+      - menuItemToppings
       - ref
-      - selects
-      - toppings
       type: object
       properties:
         ref:
           type: string
         menuItem:
           $ref: '#/components/schemas/MenuItemGet'
-        selects:
+        menuItemSelects:
           type: array
           items:
             $ref: '#/components/schemas/MenuItemSelectGet'
-        toppings:
+        menuItemToppings:
           type: array
           items:
             $ref: '#/components/schemas/MenuItemToppingGet'
@@ -851,66 +1536,178 @@ components:
     OrderElementData:
       required:
       - menuItem
-      - selects
-      - toppings
+      - menuItemSelects
+      - menuItemToppings
+      - orderInstance
       type: object
       properties:
+        orderInstance:
+          $ref: '#/components/schemas/IdentifiedByRefData'
         menuItem:
           $ref: '#/components/schemas/IdentifiedByRefData'
-        selects:
+        menuItemSelects:
           type: array
           items:
-            $ref: '#/components/schemas/OrderItemSelectData'
-        toppings:
+            $ref: '#/components/schemas/IdentifiedByRefData'
+        menuItemToppings:
           type: array
           items:
-            $ref: '#/components/schemas/OrderItemToppingData'
-    OrderItemSelectData:
-      required:
-      - ref
-      type: object
-      properties:
-        ref:
-          pattern: "[0-9A-Za-z]{12}"
-          type: string
-    OrderItemToppingData:
-      required:
-      - ref
-      type: object
-      properties:
-        ref:
-          pattern: "[0-9A-Za-z]{12}"
-          type: string
-    MenuItemData:
+            $ref: '#/components/schemas/IdentifiedByRefData'
+    MenuItemToppingData:
       required:
       - available
-      - category
-      - image
+      - collection
+      - elementOrder
       - name
       type: object
       properties:
-        category:
-          pattern: "[0-9A-Za-z]{12}"
-          type: string
+        collection:
+          $ref: '#/components/schemas/IdentifiedByRefData'
         name:
           maxLength: 255
           minLength: 0
           type: string
         description:
-          maxLength: 10000
+          maxLength: 1000
           minLength: 0
           type: string
         price:
           maximum: 10000
           type: number
-        image:
-          $ref: '#/components/schemas/IdentifiedByRefData'
         available:
           type: boolean
-    MenuItemDetailedGet:
+        elementOrder:
+          type: integer
+          format: int32
+    MenuItemToppingCollectionData:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+    MenuItemToppingCollectionGet:
+      required:
+      - active
+      - menuItemToppings
+      - name
+      - ref
+      type: object
+      properties:
+        ref:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        active:
+          type: boolean
+        menuItemToppings:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItemToppingGet'
+    MenuItemSelectData:
       required:
       - available
-      - category
+      - collection
+      - elementOrder
+      - name
+      type: object
+      properties:
+        collection:
+          $ref: '#/components/schemas/IdentifiedByRefData'
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        price:
+          maximum: 10000
+          type: number
+        available:
+          type: boolean
+        elementOrder:
+          type: integer
+          format: int32
+    MenuItemSelectCollectionData:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+    MenuItemSelectCollectionGet:
+      required:
+      - menuItemSelects
+      - name
+      - ref
+      type: object
+      properties:
+        ref:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        description:
+          type: string
+        menuItemSelects:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItemSelectGet'
+    MenuItemData:
+      required:
+      - available
+      - elementOrder
+      - menuItemGroup
+      - name
+      - selectCollections
+      - toppingCollections
+      type: object
+      properties:
+        menuItemGroup:
+          $ref: '#/components/schemas/IdentifiedByRefData'
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        price:
+          maximum: 10000
+          type: number
+        available:
+          type: boolean
+        elementOrder:
+          type: integer
+          format: int32
+        toppingCollections:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentifiedByRefData'
+        selectCollections:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentifiedByRefData'
+    MenuItemDetailedGet:
+      required:
+      - active
+      - available
+      - elementOrder
+      - menuItemGroup
       - name
       - price
       - ref
@@ -918,20 +1715,21 @@ components:
       - toppingCollections
       type: object
       properties:
-        ref:
+        menuItemGroup:
           type: string
-        category:
+        ref:
           type: string
         name:
           type: string
-        description:
-          type: string
         price:
           type: number
-        image:
-          $ref: '#/components/schemas/MultimediaGet'
         available:
           type: boolean
+        active:
+          type: boolean
+        elementOrder:
+          type: integer
+          format: int32
         toppingCollections:
           type: array
           items:
@@ -940,43 +1738,72 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MenuItemSelectCollectionGet'
-    MenuItemSelectCollectionGet:
+    MenuItemGroupData:
       required:
+      - available
+      - category
+      - elementOrder
       - name
-      - ref
-      - selects
       type: object
       properties:
+        category:
+          $ref: '#/components/schemas/IdentifiedByRefData'
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        available:
+          type: boolean
+        image:
+          $ref: '#/components/schemas/IdentifiedByRefData'
+        elementOrder:
+          type: integer
+          format: int32
+    MenuItemGroupGet:
+      required:
+      - active
+      - available
+      - category
+      - elementOrder
+      - menuItems
+      - name
+      - ref
+      - relationType
+      type: object
+      properties:
+        category:
+          type: string
         ref:
           type: string
         name:
           type: string
+        available:
+          type: boolean
+        active:
+          type: boolean
+        image:
+          $ref: '#/components/schemas/MultimediaGet'
         description:
           type: string
-        selects:
+        elementOrder:
+          type: integer
+          format: int32
+        relationType:
+          type: string
+          enum:
+          - DIRECT
+          - SELECT_BY_NAME
+        menuItems:
           type: array
           items:
-            $ref: '#/components/schemas/MenuItemSelectGet'
-    MenuItemToppingCollectionGet:
-      required:
-      - name
-      - ref
-      - toppings
-      type: object
-      properties:
-        ref:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        toppings:
-          type: array
-          items:
-            $ref: '#/components/schemas/MenuItemToppingGet'
+            $ref: '#/components/schemas/MenuItemGet'
     MenuCategoryData:
       required:
-      - icon
+      - elementOrder
       - name
       type: object
       properties:
@@ -985,14 +1812,18 @@ components:
           minLength: 0
           type: string
         description:
-          maxLength: 10000
+          maxLength: 1000
           minLength: 0
           type: string
         icon:
           $ref: '#/components/schemas/IdentifiedByRefData'
+        elementOrder:
+          type: integer
+          format: int32
     MenuCategoryGet:
       required:
-      - items
+      - elementOrder
+      - menuItemGroups
       - name
       - ref
       type: object
@@ -1001,27 +1832,45 @@ components:
           type: string
         name:
           type: string
+        elementOrder:
+          type: integer
+          format: int32
         description:
           type: string
         icon:
           $ref: '#/components/schemas/MultimediaGet'
-        items:
+        menuItemGroups:
           type: array
           items:
-            $ref: '#/components/schemas/MenuItemGet'
-    OrderPostData:
+            $ref: '#/components/schemas/MenuItemGroupGet'
+    OrderData:
       required:
       - items
       type: object
       properties:
         comment:
-          maxLength: 10000
+          maxLength: 2000
           minLength: 0
           type: string
         items:
           type: array
           items:
-            $ref: '#/components/schemas/OrderElementData'
+            $ref: '#/components/schemas/OrderDataElementData'
+    OrderDataElementData:
+      required:
+      - menuItem
+      type: object
+      properties:
+        menuItem:
+          $ref: '#/components/schemas/IdentifiedByRefData'
+        menuItemSelects:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentifiedByRefData'
+        menuItemToppings:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentifiedByRefData'
     StatusResponse:
       type: object
       properties:

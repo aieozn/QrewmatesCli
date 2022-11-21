@@ -9,8 +9,8 @@ import { MenuItemGet } from 'src/app/openapi-cli/models';
 
 @Component({
   selector: 'app-menu-item',
-  templateUrl: './menu-item.component.html',
-  styleUrls: ['./menu-item.component.scss']
+  templateUrl: './menu-item-group.component.html',
+  styleUrls: ['./menu-item-group.component.scss']
 })
 export class MenuItemComponent implements OnInit, OnDestroy {
 
@@ -23,11 +23,11 @@ export class MenuItemComponent implements OnInit, OnDestroy {
   @Input() set item(value: MenuItemGet) {
     this._item = value;
 
-    if (this._item.image) {
-      this.menuItemImageUrl = this.restaurantService.getMultimediaUrl(this._item.image.ref)
-    } else {
-      this.menuItemImageUrl = undefined;
-    }
+    // if (this._item.image) {
+    //   this.menuItemImageUrl = this.restaurantService.getMultimediaUrl(this._item.image.ref)
+    // } else {
+    //   this.menuItemImageUrl = undefined;
+    // }
   }
 
   constructor(

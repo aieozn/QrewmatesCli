@@ -19,15 +19,15 @@ export class OrderMenuSelectComponent implements OnInit {
   }
 
   change(select: MenuItemSelectGet, selected: boolean) {
-    var collectionSelects: string[] = this.collection.selects.map(e => e.ref);
-    this.order.selects = this.order.selects.filter(e => collectionSelects.indexOf(e.ref) === -1)
+    // var collectionSelects: string[] = this.collection.selects.map(e => e.ref);
+    // this.order.selects = this.order.selects.filter(e => collectionSelects.indexOf(e.ref) === -1)
 
-    this.order.selects.push(select);
+    // this.order.selects.push(select);
     
-    console.log("Selects updated");
-    console.log(this.order);
+    // console.log("Selects updated");
+    // console.log(this.order);
 
-    OrderUtils.updateOrderDetails(this.order);
+    // OrderUtils.updateOrderDetails(this.order);
   }
 
 }
