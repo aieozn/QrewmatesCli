@@ -5,7 +5,7 @@ import { MenuCliDialogService } from 'src/app/menu-cli/menu-cli-dialog/service/m
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
 import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
-import { MenuItemGet } from 'src/app/openapi-cli/models';
+import { MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 
 @Component({
   selector: 'app-menu-item',
@@ -14,20 +14,20 @@ import { MenuItemGet } from 'src/app/openapi-cli/models';
 })
 export class MenuItemComponent implements OnInit, OnDestroy {
 
-  _item: MenuItemGet | undefined;
-  menuItemImageUrl: string | undefined = '/assets/temp/naura.jpeg';
+  _group: MenuItemGroupGet | undefined;
+  menuItemGroupImageUrl: string | undefined;
 
   orderedItefsOfType = 0;
   orderUpdatedSubscription: Subscription;
 
-  @Input() set item(value: MenuItemGet) {
-    this._item = value;
+  @Input() set group(value: MenuItemGroupGet) {
+    this._group = value;
 
-    // if (this._item.image) {
-    //   this.menuItemImageUrl = this.restaurantService.getMultimediaUrl(this._item.image.ref)
-    // } else {
-    //   this.menuItemImageUrl = undefined;
-    // }
+    if (this._group.image) {
+      this.menuItemGroupImageUrl = this.restaurantService.getMultimediaUrl(this._group.image.ref)
+    } else {
+      this.menuItemGroupImageUrl = undefined;
+    }
   }
 
   constructor(
@@ -45,11 +45,15 @@ export class MenuItemComponent implements OnInit, OnDestroy {
     this.orderUpdatedSubscription.unsubscribe();
   }
 
-  public addItem(item: MenuItemGet) {
-    this.menuCliDialogService.openAddItem(item);
+  public addGroup(item: MenuItemGroupGet) {
+    // this.menuCliDialogService.openAddItem(item);
+  }
+
+  public getGroupDefaultPrice(item: MenuItemGroupGet) {
+    return item.menuItems[0].price;
   }
 
   public onOrderUpdate(order: OrderWrapper) {
-    this.orderedItefsOfType = order.items.filter(i => i.menuItem.ref === this._item?.ref).length;
+    this.orderedItefsOfType = order.items.filter(i => i.menuItem.ref === this._group?.ref).length;
   }
 }

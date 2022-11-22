@@ -1,15 +1,15 @@
-<div class="menu-item box-shadow" *ngIf="_item" [class.selected] = "orderedItefsOfType > 0">
-    <div class="menu-item-image" *ngIf="menuItemImageUrl">
-        <img src="{{menuItemImageUrl}}"/>
+<div class="menu-item box-shadow" *ngIf="_group" [class.selected] = "orderedItefsOfType > 0">
+    <div class="menu-item-image" *ngIf="menuItemGroupImageUrl">
+        <img src="{{menuItemGroupImageUrl}}"/>
     </div>
 
     <div class="menu-item-details">
-        <p class="menu-item-name">{{ _item.name}} </p>
-        <!-- <p class="menu-item-description">{{ _item.description }}</p> -->
+        <p class="menu-item-name">{{ _group.name}} </p>
+        <p class="menu-item-description">{{ _group.description }}</p>
         <!-- TODO change price to dynamic currency -->
-        <p class="menu-item-price">{{ _item.price }} zł</p>
+        <p class="menu-item-price">{{ getGroupDefaultPrice(_group) }} zł</p>
 
         <div class="menu-item-count" *ngIf="orderedItefsOfType > 0"><p>{{orderedItefsOfType}}</p></div>
-        <div class="menu-item-add" (click)="addItem(_item)"><p>+</p></div>
+        <div class="menu-item-add" (click)="addGroup(_group)"><p>+</p></div>
     </div>
 </div>
