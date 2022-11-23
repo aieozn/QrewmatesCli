@@ -1,5 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, Observable, Subject, Subscription, switchMap, takeUntil } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { BehaviorSubject, distinctUntilChanged, filter, flatMap, Subject, switchMap, takeUntil } from 'rxjs';
 import { CliDialogBodyContent } from 'src/app/menu-cli/menu-cli-dialog/model/cli-dialog-body-content';
 import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
@@ -18,7 +18,7 @@ export class OrderMenuItemComponent implements CliDialogBodyContent, OnDestroy {
   public menuItemGroupImageUrl: string | undefined;
   public order: OrderElementDataWrapper | undefined;
 
-  public selectItem$ = new Subject<MenuItemGet>();
+  public selectItem$ = new BehaviorSubject<MenuItemGet | undefined>(undefined);
 
   private readonly onDestroy = new Subject<void>();
   
@@ -29,9 +29,10 @@ export class OrderMenuItemComponent implements CliDialogBodyContent, OnDestroy {
   ) {
     this.selectItem$.pipe(
       distinctUntilChanged(),
+      filter(x => x !== undefined),
       switchMap(item => this.menuItemDetailsService.getItemDetails({
         restaurantRef: this.restaurantService.getRestaurantRef(),
-        ref: item.ref
+        ref: item!.ref
       }))
     ).pipe(
       takeUntil(this.onDestroy)
