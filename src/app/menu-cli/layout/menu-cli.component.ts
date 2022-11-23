@@ -15,7 +15,7 @@ import { RestaurantService } from '../services/restaurant/restaurant.service';
 })
 export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private stickyBarHeight = 50;
+  private stickyBarHeight = 60;
   public categories: MenuCategoryGet[] = [];
 
   // Display black cover over items
@@ -179,10 +179,10 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
 
         var categoryTopOffset = this.getMenuCategoryElementScrollTopPosition(event);
         categoryTopOffset += this.stickyBarHeight;
-        categoryTopOffset += 5;
+        categoryTopOffset -= 60;
 
         // Scroll to position which is inside element div
-        window.scrollTo({ top: categoryTopOffset - this.stickyBarHeight, behavior: "smooth"});
+        window.scrollTo({ top: categoryTopOffset - this.stickyBarHeight});
       }
     }
   }
