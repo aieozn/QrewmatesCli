@@ -45,8 +45,8 @@ export class MenuItemComponent implements OnInit, OnDestroy {
     this.orderUpdatedSubscription.unsubscribe();
   }
 
-  public addGroup(item: MenuItemGroupGet) {
-    // this.menuCliDialogService.openAddItem(item);
+  public addGroup(group: MenuItemGroupGet) {
+    this.menuCliDialogService.openAddItem(group);
   }
 
   public getGroupDefaultPrice(item: MenuItemGroupGet) {

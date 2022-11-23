@@ -3,9 +3,9 @@
     <p id="topping-description">Wybierz odpowiednią opcję</p>
 
     <div id="checkboxes">
-        <!-- <mat-checkbox *ngFor="let topping of _collection.toppings" (change)="select(topping, $event.checked)">
+        <mat-checkbox *ngFor="let topping of _collection.menuItemToppings" (change)="select(topping, $event.checked)">
             {{ topping.name }}
             {{ topping.price !== 0 ? '(+' + topping.price!.toFixed(2) + ' zł)' : '' }}
-        </mat-checkbox> -->
+        </mat-checkbox>
     </div>  
 </div>

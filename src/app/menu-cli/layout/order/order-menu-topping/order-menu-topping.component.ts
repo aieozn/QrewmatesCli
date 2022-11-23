@@ -8,21 +8,20 @@ import { MenuItemToppingCollectionGet, MenuItemToppingGet, OrderElementData } fr
   templateUrl: './order-menu-topping.component.html',
   styleUrls: ['./order-menu-topping.component.scss']
 })
-export class OrderMenuToppingComponent implements OnInit {
+export class OrderMenuToppingComponent {
 
   _collection: MenuItemToppingCollectionGet | undefined;
   @Input() set collection(value: MenuItemToppingCollectionGet) {
     this._collection = value;
   }
 
-  @Input('order') order!: OrderElementDataWrapper;
+  @Input('order') order: OrderElementDataWrapper | undefined;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
   select(topping: MenuItemToppingGet, selected: boolean) {
+    if (!this.order) { throw 'Order not defined'; }
+
     if (selected) {
       this.order.toppings.push(topping);
     } else {

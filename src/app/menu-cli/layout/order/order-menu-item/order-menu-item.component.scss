@@ -84,3 +84,12 @@
     position: relative;
     top: 4px;
 }
+
+#item-select-wrapper {
+    width: 100%;
+}
+
+#item-select {
+    width: 100%;
+    z-index: 900;
+}

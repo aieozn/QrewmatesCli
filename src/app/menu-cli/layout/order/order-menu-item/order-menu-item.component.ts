@@ -1,12 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, distinctUntilChanged, Observable, Subject, Subscription, switchMap, takeUntil } from 'rxjs';
 import { CliDialogBodyContent } from 'src/app/menu-cli/menu-cli-dialog/model/cli-dialog-body-content';
-import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
-import { MenuItemDetailedGet, OrderElementData } from 'src/app/openapi-cli/models';
+import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { MenuItemControllerService } from 'src/app/openapi-cli/services';
 
 @Component({
@@ -14,51 +11,61 @@ import { MenuItemControllerService } from 'src/app/openapi-cli/services';
   templateUrl: './order-menu-item.component.html',
   styleUrls: ['./order-menu-item.component.scss']
 })
-export class OrderMenuItemComponent implements OnInit, CliDialogBodyContent {
+export class OrderMenuItemComponent implements CliDialogBodyContent, OnDestroy {
 
-  public item: MenuItemDetailedGet | undefined;
-  public menuItemImageUrl: string | undefined;
+  public selectedItem$ = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
+  public group: MenuItemGroupGet | undefined;
+  public menuItemGroupImageUrl: string | undefined;
   public order: OrderElementDataWrapper | undefined;
 
+  public selectItem$ = new Subject<MenuItemGet>();
+
+  private readonly onDestroy = new Subject<void>();
   
 
   constructor(
     private menuItemDetailsService: MenuItemControllerService,
     private restaurantService: RestaurantService
   ) {
+    this.selectItem$.pipe(
+      distinctUntilChanged(),
+      switchMap(item => this.menuItemDetailsService.getItemDetails({
+        restaurantRef: this.restaurantService.getRestaurantRef(),
+        ref: item.ref
+      }))
+    ).pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe((item) => {
+      this.order = {
+        menuItem: item,
+        selects: [],
+        toppings: [],
+        price: item.price
+      }
+
+      console.log(item);
+      this.selectedItem$.next(item);
+    })
   }
 
-  setData(data: any): void {
-    if (!data.ref) {
-      console.error("Item ref not found");
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
+  }
+
+  setData(data: { group : MenuItemGroupGet }): void {
+    if (!data.group) {
+      console.error("Group not found");
     } else {
-      this.loadItem(data.ref);
+      this.group = data.group;
+      this.loadItems(this.group);
     }
   }
 
-  private async loadItem(ref: string) {
-    // this.item = await firstValueFrom(this.menuItemDetailsService.getItemDetails({
-    //   restaurant: this.restaurantService.getRestaurantRef(),
-    //   ref: ref
-    // }));
-
-    // // Init order
-    // if (this.item !== undefined) {
-    //   this.order = {
-    //     menuItem: this.item,
-    //     selects: [],
-    //     toppings: [],
-    //     price: this.item.price
-    //   }
-    // }
-
-    // if (this.item && this.item.image) {
-    //   this.menuItemImageUrl = this.restaurantService.getMultimediaUrl(this.item.image.ref)
-    // } else {
-    //   this.menuItemImageUrl = undefined;
-    // }
-  }
-
-  ngOnInit(): void {
+  private loadItems(group: MenuItemGroupGet) {
+    if (group.image) {
+      this.menuItemGroupImageUrl = this.restaurantService.getMultimediaUrl(group.image.ref)
+    }
+    this.selectItem$.next(group.menuItems[0]);
   }
 }

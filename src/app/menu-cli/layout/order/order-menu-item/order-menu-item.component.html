@@ -1,21 +1,35 @@
-<div id="menu-item-details" *ngIf="item && order">
+<div id="menu-item-details" *ngIf="group">
     <div id="allergens"><mat-icon>info</mat-icon>Informacje o alergenach</div>
+
+    <div id="item-select-wrapper">
+        <mat-form-field appearance="fill" id="item-select">
+            <mat-label>Favorite food</mat-label>
+            <mat-select [value]="(selectedItem$ | async)" (selectionChange)="selectItem$.next($event.value)">
+                <mat-option *ngFor="let item of group.menuItems" [value]="item">
+                    {{item.name}} {{item.price}} zł
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
     <div class="menu-item">
-        <div class="menu-item-image" *ngIf="menuItemImageUrl">
-            <img src="{{menuItemImageUrl}}"/>
+        <div class="menu-item-image" *ngIf="menuItemGroupImageUrl">
+            <img src="{{menuItemGroupImageUrl}}"/>
         </div>
 
-        <div class="menu-item-details">
-            <p class="menu-item-name">{{item.name}}</p>
+        <div class="menu-item-details" *ngIf="(selectedItem$ | async) as item">
+            <p class="menu-item-name">{{group.name}}</p>
             <!-- TODO change price to dynamic currency -->
-            <p class="menu-item-price">Cena: {{item.price}} zł</p>
-            <!-- <p class="menu-item-description">{{item.description}}</p> -->
+            <p class="menu-item-price">Cena: {{ item.price }} zł</p>
+            <p class="menu-item-description">{{ group.description }}</p>
         </div>
     </div>
 
-    <app-order-menu-select *ngFor="let collection of item.selectCollections" [collection]="collection" [order]="order"></app-order-menu-select>
-    <app-order-menu-topping *ngFor="let collection of item.toppingCollections" [collection]="collection" [order]="order"></app-order-menu-topping>
-    <!-- <app-order-menu-chief-note></app-order-menu-chief-note> -->
+    <span *ngIf="(selectedItem$ | async) as item">
+        <app-order-menu-select *ngFor="let collection of item.selectCollections" [collection]="collection" [order]="order"></app-order-menu-select>
+        <app-order-menu-topping *ngFor="let collection of item.toppingCollections" [collection]="collection" [order]="order"></app-order-menu-topping>
+        <app-order-menu-chief-note></app-order-menu-chief-note>
+    </span>
 
     <app-counter-footer [order]="order"></app-counter-footer>
 </div>

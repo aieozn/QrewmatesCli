@@ -22,6 +22,7 @@ import { OrderMenuToppingComponent } from './menu-cli/layout/order/order-menu-to
 import { OrderMenuChiefNoteComponent } from './menu-cli/layout/order/order-menu-chief-note/order-menu-chief-note.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { CounterFooterComponent } from './menu-cli/layout/order/order-menu-item/counter-footer/counter-footer.component';
 import { OrderSummaryComponent } from './menu-cli/layout/order/order-summary/order-summary.component';
 import { OrdeSubmitComponent } from './menu-cli/layout/order-submit/order-submit.component';
@@ -56,7 +57,8 @@ import { PaymentMethodComponent } from './menu-cli/layout/order/order-summary/pa
     MatRadioModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,24 +10,27 @@ import { MenuItemSelectCollectionGet, MenuItemSelectGet, OrderElementData } from
 })
 export class OrderMenuSelectComponent implements OnInit {
 
-  @Input('collection') collection!: MenuItemSelectCollectionGet;
-  @Input('order') order!: OrderElementDataWrapper;
+  @Input('collection') collection: MenuItemSelectCollectionGet | undefined;
+  @Input('order') order: OrderElementDataWrapper | undefined;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  change(select: MenuItemSelectGet, selected: boolean) {
-    // var collectionSelects: string[] = this.collection.selects.map(e => e.ref);
-    // this.order.selects = this.order.selects.filter(e => collectionSelects.indexOf(e.ref) === -1)
+  change(select: MenuItemSelectGet) {
+    if (!this.order) { throw 'Order not defined'; }
+    if (!this.collection) { throw 'Collection not defined'; }
 
-    // this.order.selects.push(select);
+    var collectionSelects: string[] = this.collection.menuItemSelects.map(e => e.ref);
+    this.order.selects = this.order.selects.filter(e => collectionSelects.indexOf(e.ref) === -1)
+
+    this.order.selects.push(select);
     
-    // console.log("Selects updated");
-    // console.log(this.order);
+    console.log("Selects updated");
+    console.log(this.order);
 
-    // OrderUtils.updateOrderDetails(this.order);
+    OrderUtils.updateOrderDetails(this.order);
   }
 
 }

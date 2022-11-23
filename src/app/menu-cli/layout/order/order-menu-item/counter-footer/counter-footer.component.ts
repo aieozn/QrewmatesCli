@@ -10,7 +10,7 @@ import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order
 })
 export class CounterFooterComponent implements OnInit {
 
-  @Input('order') order!: OrderElementDataWrapper;
+  @Input('order') order: OrderElementDataWrapper | undefined;
 
   count = 1;
 
@@ -29,11 +29,15 @@ export class CounterFooterComponent implements OnInit {
   }
 
   subscribeItem() {
-    for (var i = 0; i < this.count; i++) {
-      this.orderService.addOrderElement(this.order);
+    if (this.order) {
+      for (var i = 0; i < this.count; i++) {
+        this.orderService.addOrderElement(this.order);
+      }
+      
+      this.dialogService.closeMenuCliDialog();
+    } else {
+      console.error("Order is not initialized yet")
     }
-    
-    this.dialogService.closeMenuCliDialog();
   }
 
 }
