@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div id="full-size-menu" [ngStyle]="{'max-height': screenHeight * 0.5 + 'px'}" [hidden]="!showFullSizeMenu">
+    <div id="full-size-menu" class="box-shadow-bottom" [ngStyle]="{'max-height': screenHeight * 0.5 + 'px'}" [hidden]="!showFullSizeMenu">
         <h2>Kategorie:</h2>
         <hr/>
         <div *ngFor="let category of _categories">

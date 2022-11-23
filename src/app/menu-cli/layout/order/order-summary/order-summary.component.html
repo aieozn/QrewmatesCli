@@ -2,7 +2,7 @@
     <div class="summary-element" *ngFor="let orderElement of order.items">
         <div class="summary-element-description">
             <div class="summary-element-name">
-                {{ orderElement.menuItem.name }}
+                {{ orderElement.menuItem.menuItemGroupName }} ({{ orderElement.menuItem.name }})
             </div>
             <div class="summary-element-options">
                 <div class="summary-element-option" *ngFor="let select of orderElement.selects">

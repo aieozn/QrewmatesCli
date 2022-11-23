@@ -54,6 +54,9 @@ export class MenuItemComponent implements OnInit, OnDestroy {
   }
 
   public onOrderUpdate(order: OrderWrapper) {
-    this.orderedItefsOfType = order.items.filter(i => i.menuItem.ref === this._group?.ref).length;
+    if (this._group) {
+      this.orderedItefsOfType = order.items.filter(i => this._group?.menuItems.map(e => e.ref).indexOf(i.menuItem.ref) !== -1).length;
+    }
+    
   }
 }

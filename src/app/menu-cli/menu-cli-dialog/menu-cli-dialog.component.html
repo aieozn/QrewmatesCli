@@ -1,9 +1,9 @@
-<div id="menu-cli-diaog-wrapper" [ngStyle]="{'display': show ? 'block' : 'none'}">
+<div id="menu-cli-dialog-wrapper" [ngStyle]="{'display': show ? 'block' : 'none'}">
     <div id="menu-cli-dialog-curtain" (click)="close()">
 
     </div>
 
-    <div id="menu-cli-dialog-card">
+    <div id="menu-cli-dialog-card" class="box-shadow-top">
         <div id="menu-cli-dialog-card-header" *ngIf="title" [ngStyle]="getShadowStyle()">
             <div id="close">
                 <mat-icon id="close-icon" (click)="close()">close</mat-icon>
