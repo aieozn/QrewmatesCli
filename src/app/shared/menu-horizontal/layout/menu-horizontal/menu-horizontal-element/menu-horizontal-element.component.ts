@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { MenuEventsService } from 'src/app/shared/service/menu-event/menu-events.service';
+import { MenuEventsService } from 'src/app/shared/menu-horizontal/service/menu-event/menu-events.service';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 
 @Component({
