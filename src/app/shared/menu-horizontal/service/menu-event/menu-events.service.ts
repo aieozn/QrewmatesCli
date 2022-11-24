@@ -1,25 +1,33 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
-import { ChangeMenuCategoryEvent } from './message/change-menu-category-event';
+import { BehaviorSubject } from 'rxjs';
+import { MenuHorizontalElement } from '../../model/menu-horizontal-element';
+import { ChangeElementEvent } from './message/change-element-event';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuEventsService {
-  public menuCategorySelected = new EventEmitter<ChangeMenuCategoryEvent>();
-  public menuCategoryScrolled = new EventEmitter<ChangeMenuCategoryEvent>();
+  public elementSelected = new EventEmitter<ChangeElementEvent>();
+  public elementScrolled = new EventEmitter<ChangeElementEvent>();
 
-  private scrolledCategory: MenuCategoryGet | undefined;
+  public menuElements = new BehaviorSubject<MenuHorizontalElement[]>([]);
+
+  private scrolledElement: MenuHorizontalElement | undefined;
 
   constructor() { }
 
-  public onMenuCategorySelected(menuCategoryGet: MenuCategoryGet) {
-    this.menuCategorySelected.emit(new ChangeMenuCategoryEvent(menuCategoryGet));
+  public onElementSelected(element: MenuHorizontalElement) {
+    this.elementSelected.emit(new ChangeElementEvent(element));
   }
 
-  public onMenuCategoryScrolled(menuCategoryGet: MenuCategoryGet) {
-    if (this.scrolledCategory?.ref === menuCategoryGet.ref) { return; }
-    this.menuCategoryScrolled.emit(new ChangeMenuCategoryEvent(menuCategoryGet));
-    this.scrolledCategory = menuCategoryGet;
+  public onElementScrolled(element: MenuHorizontalElement) {
+    if (this.scrolledElement?.order === element.order) { return; }
+    this.elementScrolled.emit(new ChangeElementEvent(element));
+    this.scrolledElement = element;
+  }
+
+  public setMenuElements(menuElements: MenuHorizontalElement[]) {
+    this.scrolledElement = undefined;
+    this.menuElements.next(menuElements);
   }
 }

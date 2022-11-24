@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { MenuEventsService } from 'src/app/shared/menu-horizontal/service/menu-event/menu-events.service';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { MenuHorizontalElement } from '../../../model/menu-horizontal-element';
 
 @Component({
   selector: 'app-menu-horizontal-element',
@@ -9,11 +10,11 @@ import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 })
 export class MenuHorizontalElementComponent implements OnInit {
 
-  public _category: MenuCategoryGet | undefined;
+  public _element: MenuHorizontalElement | undefined;
   public selected: boolean = false;
 
-  @Input() set category(value: MenuCategoryGet) {
-    this._category = value;
+  @Input() set element(value: MenuHorizontalElement) {
+    this._element = value;
   }
 
   constructor(
@@ -26,7 +27,7 @@ export class MenuHorizontalElementComponent implements OnInit {
   }
 
   public createSelectEvent() {
-    this.menuEventsService.onMenuCategorySelected(this._category!);
+    this.menuEventsService.onElementSelected(this._element!);
   }
 
   public select() {

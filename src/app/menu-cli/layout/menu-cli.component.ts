@@ -2,7 +2,6 @@ import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, QueryList, V
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
-import { ChangeMenuCategoryEvent } from 'src/app/shared/menu-horizontal/service/menu-event/message/change-menu-category-event';
 import { MenuCategoryComponent } from './menu-category/menu-category.component';
 import { MenuEventsService } from '../../shared/menu-horizontal/service/menu-event/menu-events.service';
 import { MenuCliDialogService } from './generic-dialog/service/generic-dialog.service';
@@ -36,8 +35,8 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
     private menuCliDialogServide: MenuCliDialogService,
     private restaurantService: RestaurantService
   ) {
-    this.menuEventsService.menuCategorySelected
-      .pipe(takeUntil(this.onDestroy)).subscribe(this.onMenuCategoryChanged.bind(this))
+    // this.menuEventsService.menuCategorySelected
+    //   .pipe(takeUntil(this.onDestroy)).subscribe(this.onMenuCategoryChanged.bind(this))
   }
 
   ngAfterViewInit(): void {
@@ -151,49 +150,49 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @HostListener('window:scroll', ['$event'])
   public onScroll() {
-    var position = window.pageYOffset + this.stickyBarHeight;
+    // var position = window.pageYOffset + this.stickyBarHeight;
 
-    if (this.menuCategoryToScrollPosition.length === 1) {
-      this.menuEventsService.onMenuCategoryScrolled(this.menuCategoryToScrollPosition[0].category._category!);
-      return;
-    } else if (this.menuCategoryToScrollPosition.length > 1) {
-      for (var i  = 1; i < this.menuCategoryToScrollPosition.length; i++) {
-        if (this.menuCategoryToScrollPosition[i].offsetTop > position) {
-          this.menuEventsService.onMenuCategoryScrolled(this.menuCategoryToScrollPosition[i - 1].category._category!);
-          return;
-        }
-      }
+    // if (this.menuCategoryToScrollPosition.length === 1) {
+    //   this.menuEventsService.onMenuCategoryScrolled(this.menuCategoryToScrollPosition[0].category._category!);
+    //   return;
+    // } else if (this.menuCategoryToScrollPosition.length > 1) {
+    //   for (var i  = 1; i < this.menuCategoryToScrollPosition.length; i++) {
+    //     if (this.menuCategoryToScrollPosition[i].offsetTop > position) {
+    //       this.menuEventsService.onMenuCategoryScrolled(this.menuCategoryToScrollPosition[i - 1].category._category!);
+    //       return;
+    //     }
+    //   }
 
-      var lastId = this.menuCategoryToScrollPosition.length - 1;
-      this.menuEventsService.onMenuCategoryScrolled(this.menuCategoryToScrollPosition[lastId].category._category!);
-    }
+    //   var lastId = this.menuCategoryToScrollPosition.length - 1;
+    //   this.menuEventsService.onMenuCategoryScrolled(this.menuCategoryToScrollPosition[lastId].category._category!);
+    // }
   }
 
-  private onMenuCategoryChanged(event: ChangeMenuCategoryEvent) {
-    if (event.categry.ref) {
-      var element = document.getElementById('menu-element-category-' + event.categry.ref);
-      if (element) {
-        console.info("Scroll to menu list element");
+  // private onMenuCategoryChanged(event: ChangeMenuCategoryEvent) {
+  //   if (event.categry.ref) {
+  //     var element = document.getElementById('menu-element-category-' + event.categry.ref);
+  //     if (element) {
+  //       console.info("Scroll to menu list element");
 
-        var categoryTopOffset = this.getMenuCategoryElementScrollTopPosition(event);
-        categoryTopOffset += this.stickyBarHeight;
-        categoryTopOffset -= 60;
+  //       var categoryTopOffset = this.getMenuCategoryElementScrollTopPosition(event);
+  //       categoryTopOffset += this.stickyBarHeight;
+  //       categoryTopOffset -= 60;
 
-        // Scroll to position which is inside element div
-        window.scrollTo({ top: categoryTopOffset - this.stickyBarHeight});
-      }
-    }
-  }
+  //       // Scroll to position which is inside element div
+  //       window.scrollTo({ top: categoryTopOffset - this.stickyBarHeight});
+  //     }
+  //   }
+  // }
 
-  private getMenuCategoryElementScrollTopPosition(event: ChangeMenuCategoryEvent) : number {
-    for (var i  = 1; i < this.menuCategoryToScrollPosition.length; i++) {
-      if (this.menuCategoryToScrollPosition[i].category._category?.ref === event.categry.ref) {
-        return this.menuCategoryToScrollPosition[i].offsetTop;
-      }
-    }
+  // private getMenuCategoryElementScrollTopPosition(event: ChangeMenuCategoryEvent) : number {
+  //   for (var i  = 1; i < this.menuCategoryToScrollPosition.length; i++) {
+  //     if (this.menuCategoryToScrollPosition[i].category._category?.ref === event.categry.ref) {
+  //       return this.menuCategoryToScrollPosition[i].offsetTop;
+  //     }
+  //   }
 
-    return 0;
-  }
+  //   return 0;
+  // }
 
   showAboutUs() {
     this.menuCliDialogServide.openAboutUs()

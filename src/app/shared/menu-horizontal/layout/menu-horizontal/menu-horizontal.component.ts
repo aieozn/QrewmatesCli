@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { Subject, Subscription, takeUntil } from 'rxjs';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
-import { ChangeMenuCategoryEvent } from 'src/app/shared/menu-horizontal/service/menu-event/message/change-menu-category-event';
+import { Subject, takeUntil } from 'rxjs';
+import { MenuHorizontalElement } from '../../model/menu-horizontal-element';
 import { MenuEventsService } from '../../service/menu-event/menu-events.service';
+import { ChangeElementEvent } from '../../service/menu-event/message/change-element-event';
 import { MenuHorizontalElementComponent } from './menu-horizontal-element/menu-horizontal-element.component';
 
 @Component({
@@ -12,9 +12,7 @@ import { MenuHorizontalElementComponent } from './menu-horizontal-element/menu-h
 })
 export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
 
-  public _categories: MenuCategoryGet[] = [];
-  categorySelectedSubscription: Subscription;
-  categoryScrolledSubscription: Subscription;
+  public _elements: MenuHorizontalElement[] = [];
   private readonly onDestroy = new Subject<void>();
 
   public screenHeight: number;
@@ -22,7 +20,7 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
   public showFullSizeMenu = false;
 
   @ViewChild('menuBar') menuBar!: ElementRef;
-  @ViewChildren('element') categoriesDomElements : QueryList<MenuHorizontalElementComponent> | undefined;
+  @ViewChildren('element') domElements : QueryList<MenuHorizontalElementComponent> | undefined;
 
 
   private static readonly defaultScrollDuration = 60;
@@ -31,36 +29,34 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
   private scrollTarget = 0;
   private scrollEnabled = false;
 
-  @Input() set categories(categories: MenuCategoryGet[]) {
-    this._categories = categories;
-  }
-
   constructor(
     private menuEventsService: MenuEventsService
   ) {
     this.screenHeight = window.innerHeight;
 
-    this.categorySelectedSubscription = this.menuEventsService.menuCategorySelected
-      .asObservable()
+    this.menuEventsService.menuElements
       .pipe(takeUntil(this.onDestroy))
-      .subscribe(this.onMenuCategorySelected.bind(this))
+      .subscribe((elements) => this._elements = elements);
 
-    this.categoryScrolledSubscription = this.menuEventsService.menuCategoryScrolled
-      .asObservable()
+    this.menuEventsService.elementSelected
       .pipe(takeUntil(this.onDestroy))
-      .subscribe(this.onMenuCategoryScrolled.bind(this))
+      .subscribe(this.onElementSelected.bind(this))
+
+    this.menuEventsService.elementScrolled
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(this.onElementScrolled.bind(this))
   }
 
   ngAfterViewInit(): void {
     this.menuBar.nativeElement.addEventListener('scroll', this.scrollCoordinator.bind(this));
   }
 
-  private onMenuCategorySelected(event: ChangeMenuCategoryEvent) {
+  private onElementSelected(event: ChangeElementEvent) {
     console.info("Change active menu category");
     this.hideMenu();
     
-    if (this.categoriesDomElements) {
-      var element = document.getElementById('menu-horizontal-element-' + event.categry.ref);
+    if (this.domElements) {
+      var element = document.getElementById('menu-horizontal-element-' + event.element.order);
       if (element) {
         this.menuBar.nativeElement.scrollLeft = element.offsetLeft - 50;
       }
@@ -93,14 +89,14 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  private onMenuCategoryScrolled(event: ChangeMenuCategoryEvent) {
+  private onElementScrolled(event: ChangeElementEvent) {
     console.info("Change active menu category");
     
-    if (this.categoriesDomElements) {
-      var element = document.getElementById('menu-horizontal-element-' + event.categry.ref);
+    if (this.domElements) {
+      var element = document.getElementById('menu-horizontal-element-' + event.element.order);
       if (element) {
-        this.categoriesDomElements.forEach(e => {
-          if (e._category?.ref === event.categry.ref) {
+        this.domElements.forEach(e => {
+          if (e.element.order === event.element.order) {
             e.select();
           } else {
             e.unselect();
@@ -134,8 +130,8 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  goToCategory(category: MenuCategoryGet) {
-    this.menuEventsService.onMenuCategorySelected(category);
+  goTo(element: MenuHorizontalElement) {
+    this.menuEventsService.onElementSelected(element);
     this.hideMenu();
   }
 

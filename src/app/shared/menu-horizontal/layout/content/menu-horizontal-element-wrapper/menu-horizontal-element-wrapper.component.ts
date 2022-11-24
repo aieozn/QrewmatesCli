@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-horizontal-menu-element-wrapper',
-  templateUrl: './horizontal-menu-element-wrapper.component.html',
-  styleUrls: ['./horizontal-menu-element-wrapper.component.scss']
+  selector: 'app-menu-horizontal-element-wrapper',
+  templateUrl: './menu-horizontal-element-wrapper.component.html',
+  styleUrls: ['./menu-horizontal-element-wrapper.component.scss']
 })
 export class MenuElementWrapperComponent implements OnInit {
 
