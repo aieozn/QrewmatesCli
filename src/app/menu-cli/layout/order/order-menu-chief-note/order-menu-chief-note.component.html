@@ -5,6 +5,8 @@
 
     <mat-form-field appearance="fill">
         <mat-label>Zostaw wiadomość</mat-label>
-        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+        <textarea matInput 
+            cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+            (input)="updateComment($event.target!)"></textarea>
     </mat-form-field>
 </div>

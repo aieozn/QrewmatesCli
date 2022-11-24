@@ -32,6 +32,7 @@ export class OrderService {
 
   public submit() {
     console.log("Submit order");
+    console.log(this.order);
 
     this.order = {
       "price": 0,

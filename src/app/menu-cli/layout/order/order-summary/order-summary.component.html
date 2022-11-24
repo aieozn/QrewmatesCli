@@ -11,6 +11,9 @@
                 <div class="summary-element-option" *ngFor="let topping of orderElement.toppings">
                     {{ topping.name }} ({{ topping.price }}zł)
                 </div>
+                <div class="summary-element-option" *ngIf="orderElement.comment">
+                    Komentarz: {{ orderElement.comment }}
+                </div>
             </div>
         </div>
         <div class="summary-element-price">
@@ -19,6 +22,8 @@
     </div>
 
     <app-payment-method></app-payment-method>
+
+    <app-order-menu-chief-note [commentable]="order"></app-order-menu-chief-note>
 
     <app-order-submit id="order-sub-final" [final]="true"></app-order-submit>
 </div>

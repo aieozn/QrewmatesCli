@@ -8,6 +8,8 @@ import { MenuEventsService } from '../../services/menu-event/menu-events.service
 })
 export class MenuCategoryComponent implements OnInit {
 
+  // TODO create placeholders
+
   _category: MenuCategoryGet | undefined;
   @ViewChild('category') categoryHtmlElement: ElementRef | undefined;
 

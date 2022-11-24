@@ -5,4 +5,5 @@ export interface OrderElementDataWrapper {
     selects: Array<MenuItemSelectGet>;
     toppings: Array<MenuItemToppingGet>;
     price: number;
+    comment?: string;
 }
