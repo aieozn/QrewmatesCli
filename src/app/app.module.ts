@@ -10,8 +10,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MenuCategoryComponent } from './menu-cli/layout/menu-category/menu-category.component';
 import { MenuItemComponent } from './menu-cli/layout/menu-category/menu-item-group/menu-item-group.component';
-import { MenuHorizontalElementComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
-import { MenuHorizontalComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal.component';
+import { MenuHorizontalElementComponent } from './shared/layout/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
+import { MenuHorizontalComponent } from './shared/layout/menu-horizontal/menu-horizontal.component';
 import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
 import { AboutUsComponent } from './menu-cli/layout/footer/about-us/about-us.component';
 import { GenericDialogComponent } from './menu-cli/layout/generic-dialog/generic-dialog.component';
@@ -27,6 +27,8 @@ import { CounterFooterComponent } from './menu-cli/layout/order/order-menu-item/
 import { OrderSummaryComponent } from './menu-cli/layout/order/order-summary/order-summary.component';
 import { OrdeSubmitComponent } from './menu-cli/layout/order-submit/order-submit.component';
 import { PaymentMethodComponent } from './menu-cli/layout/order/order-summary/payment-method/payment-method.component';
+import { MenuStaffComponent } from './menu-waiter/layout/menu-staff/menu-staff.component';
+import { AccountBarComponent } from './menu-waiter/layout/account-bar/account-bar.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { PaymentMethodComponent } from './menu-cli/layout/order/order-summary/pa
     CounterFooterComponent,
     OrderSummaryComponent,
     OrdeSubmitComponent,
-    PaymentMethodComponent
+    PaymentMethodComponent,
+    MenuStaffComponent,
+    AccountBarComponent
   ],
   imports: [
     BrowserModule,

@@ -2,9 +2,9 @@ import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, QueryList, V
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
-import { ChangeMenuCategoryEvent } from 'src/app/menu-cli/services/menu-event/message/change-menu-category-event';
+import { ChangeMenuCategoryEvent } from 'src/app/shared/service/menu-event/message/change-menu-category-event';
 import { MenuCategoryComponent } from './menu-category/menu-category.component';
-import { MenuEventsService } from '../services/menu-event/menu-events.service';
+import { MenuEventsService } from '../../shared/service/menu-event/menu-events.service';
 import { MenuCliDialogService } from './generic-dialog/service/generic-dialog.service';
 import { RestaurantService } from '../services/restaurant/restaurant.service';
 
