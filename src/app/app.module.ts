@@ -14,8 +14,8 @@ import { MenuHorizontalElementComponent } from './menu-cli/layout/menu-horizonta
 import { MenuHorizontalComponent } from './menu-cli/layout/menu-horizontal/menu-horizontal.component';
 import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
 import { AboutUsComponent } from './menu-cli/layout/footer/about-us/about-us.component';
-import { MenuCliDialogComponent } from './menu-cli/menu-cli-dialog/menu-cli-dialog.component';
-import { DialogBodyHost } from './menu-cli/menu-cli-dialog/model/dialog-body-host';
+import { GenericDialogComponent } from './menu-cli/layout/generic-dialog/generic-dialog.component';
+import { DialogBodyHost } from './menu-cli/layout/generic-dialog/model/dialog-body-host';
 import { OrderMenuItemComponent } from './menu-cli/layout/order/order-menu-item/order-menu-item.component';
 import { OrderMenuSelectComponent } from './menu-cli/layout/order/order-menu-select/order-menu-select.component';
 import { OrderMenuToppingComponent } from './menu-cli/layout/order/order-menu-topping/order-menu-topping.component';
@@ -36,7 +36,7 @@ import { PaymentMethodComponent } from './menu-cli/layout/order/order-summary/pa
     MenuHorizontalElementComponent,
     MenuCategoryComponent,
     MenuItemComponent,
-    MenuCliDialogComponent,
+    GenericDialogComponent,
     AboutUsComponent,
     DialogBodyHost,
     OrderMenuItemComponent,

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
-import { MenuCliDialogService } from '../../menu-cli-dialog/service/menu-cli-dialog.service';
+import { MenuCliDialogService } from '../generic-dialog/service/generic-dialog.service';
 import { OrderService } from '../../services/order/order.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CliDialogBodyContent } from 'src/app/menu-cli/menu-cli-dialog/model/cli-dialog-body-content';
+import { CliDialogBodyContent } from 'src/app/menu-cli/layout/generic-dialog/model/generic-dialog-body-content';
 
 @Component({
   selector: 'app-about-us',

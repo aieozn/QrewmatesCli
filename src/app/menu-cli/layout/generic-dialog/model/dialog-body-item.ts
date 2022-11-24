@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { CliDialogBodyContent } from './cli-dialog-body-content';
+import { CliDialogBodyContent } from './generic-dialog-body-content';
 
 export class DialogBodyItem {
   constructor(

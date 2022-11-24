@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuCliDialogService } from 'src/app/menu-cli/menu-cli-dialog/service/menu-cli-dialog.service';
+import { MenuCliDialogService } from 'src/app/menu-cli/layout/generic-dialog/service/generic-dialog.service';
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 

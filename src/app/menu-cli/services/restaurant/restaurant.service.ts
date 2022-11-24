@@ -14,7 +14,9 @@ export class RestaurantService {
   constructor(
     private restaurantControllerService: RestaurantControllerService
   ) {
-    this.restaurantRef = window.location.pathname.substring(1).split("/")[0]
+    this.restaurantRef = window.location.pathname.substring(1).split("/")[1]
+
+    console.log(this.restaurantRef)
   }
 
   public getRestaurantRef(): string {

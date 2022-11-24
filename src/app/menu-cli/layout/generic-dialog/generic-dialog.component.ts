@@ -1,17 +1,17 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AboutUsComponent } from '../layout/footer/about-us/about-us.component';
-import { CliDialogBodyContent } from './model/cli-dialog-body-content';
+import { AboutUsComponent } from '../footer/about-us/about-us.component';
+import { CliDialogBodyContent } from './model/generic-dialog-body-content';
 import { DialogBodyHost } from './model/dialog-body-host';
 import { DialogBodyItem } from './model/dialog-body-item';
-import { MenuCliDialogService } from './service/menu-cli-dialog.service';
+import { MenuCliDialogService } from './service/generic-dialog.service';
 
 @Component({
-  selector: 'app-menu-cli-dialog',
-  templateUrl: './menu-cli-dialog.component.html',
-  styleUrls: ['./menu-cli-dialog.component.scss']
+  selector: 'app-generic-dialog',
+  templateUrl: './generic-dialog.component.html',
+  styleUrls: ['./generic-dialog.component.scss']
 })
-export class MenuCliDialogComponent implements OnInit, OnDestroy {
+export class GenericDialogComponent implements OnInit, OnDestroy {
 
   private openMenuDialogSubscription : Subscription;
   private closeMenuDialogSubscription : Subscription;

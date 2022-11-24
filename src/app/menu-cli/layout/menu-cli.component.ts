@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { ChangeMenuCategoryEvent } from 'src/app/menu-cli/services/menu-event/message/change-menu-category-event';
 import { MenuCategoryComponent } from './menu-category/menu-category.component';
 import { MenuEventsService } from '../services/menu-event/menu-events.service';
-import { MenuCliDialogService } from '../menu-cli-dialog/service/menu-cli-dialog.service';
+import { MenuCliDialogService } from './generic-dialog/service/generic-dialog.service';
 import { RestaurantService } from '../services/restaurant/restaurant.service';
 
 @Component({
@@ -21,9 +21,7 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   // Display black cover over items
   public shadowItems = false;
 
-  // Subscriptions
-  categoryChangedSubscription: Subscription;
-  categoryElementsSubscription: Subscription | undefined;
+  private readonly onDestroy = new Subject<void>();
 
   @ViewChildren('category') categoryElements: QueryList<MenuCategoryComponent> | undefined;
 
@@ -38,11 +36,13 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
     private menuCliDialogServide: MenuCliDialogService,
     private restaurantService: RestaurantService
   ) {
-    this.categoryChangedSubscription = this.menuEventsService.menuCategorySelected.subscribe(this.onMenuCategoryChanged.bind(this))
+    this.menuEventsService.menuCategorySelected
+      .pipe(takeUntil(this.onDestroy)).subscribe(this.onMenuCategoryChanged.bind(this))
   }
 
   ngAfterViewInit(): void {
-    this.categoryElementsSubscription = this.categoryElements?.changes.subscribe(this.onCategoriesElementsChange.bind(this));
+    this.categoryElements?.changes
+        .pipe(takeUntil(this.onDestroy)).subscribe(this.onCategoriesElementsChange.bind(this));
   }
 
   ngOnInit(): void {
@@ -132,23 +132,21 @@ export class MenuCliComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private async loadCategories() {
-    var restaurantRef = await this.restaurantService.getRestaurantRef();
+    var restaurantRef = this.restaurantService.getRestaurantRef();
 
     console.log("Get categories");
-    this.categories = await firstValueFrom(this.categoriesService.getCategories1({
+    this.categoriesService.getCategories1({
       "restaurantRef": restaurantRef
-    }));
+    }).pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe((categories) => {
+      this.categories = categories;
+    });
   }
 
   ngOnDestroy(): void {
-    if (!this.categoryChangedSubscription.closed) {
-      this.categoryChangedSubscription.unsubscribe();
-    }
-
-    if (this.categoryElementsSubscription !== undefined) {
-      this.categoryElementsSubscription.unsubscribe();
-      this.categoryElementsSubscription = undefined;
-    }
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 
   @HostListener('window:scroll', ['$event'])
