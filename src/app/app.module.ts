@@ -29,8 +29,8 @@ import { OrdeSubmitComponent } from './menu-cli/layout/order-submit/order-submit
 import { PaymentMethodComponent } from './menu-cli/layout/order/order-summary/payment-method/payment-method.component';
 import { MenuStaffComponent } from './menu-waiter/layout/menu-staff/menu-staff.component';
 import { AccountBarComponent } from './menu-waiter/layout/account-bar/account-bar.component';
-import { MenuElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
-import { HorizontalMenuWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-wrapper/menu-horizontal-wrapper.component';
+import { MenuHorizontalElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
+import { MenuHorizontalWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-wrapper/menu-horizontal-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +53,8 @@ import { HorizontalMenuWrapperComponent } from './shared/menu-horizontal/layout/
     PaymentMethodComponent,
     MenuStaffComponent,
     AccountBarComponent,
-    MenuElementWrapperComponent,
-    HorizontalMenuWrapperComponent
+    MenuHorizontalElementWrapperComponent,
+    MenuHorizontalWrapperComponent
   ],
   imports: [
     BrowserModule,

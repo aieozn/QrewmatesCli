@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { MenuHorizontalElement } from '../../model/menu-horizontal-element';
 import { ChangeElementEvent } from './message/change-element-event';
 
@@ -11,6 +11,7 @@ export class MenuEventsService {
   public elementScrolled = new EventEmitter<ChangeElementEvent>();
 
   public menuElements = new BehaviorSubject<MenuHorizontalElement[]>([]);
+  public menuResized = new Subject<void>();
 
   private scrolledElement: MenuHorizontalElement | undefined;
 
@@ -29,5 +30,9 @@ export class MenuEventsService {
   public setMenuElements(menuElements: MenuHorizontalElement[]) {
     this.scrolledElement = undefined;
     this.menuElements.next(menuElements);
+  }
+
+  public onResizeElements() {
+    this.menuResized.next();
   }
 }

@@ -1,6 +1,4 @@
-<div *ngIf="_category" class="menu-category" #category>
-    <h2 #title class="category-title">{{ _category.name }}</h2>
-    <p *ngIf="_category.description" class="category-description">{{ _category.description }}</p>
+<div *ngIf="_category" class="menu-category">
     <div class="menu-items-list">
         <app-menu-item *ngFor="let group of _category.menuItemGroups" [group]="group"></app-menu-item>
     </div>

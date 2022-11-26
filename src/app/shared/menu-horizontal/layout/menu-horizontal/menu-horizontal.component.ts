@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuHorizontalElement } from '../../model/menu-horizontal-element';
 import { MenuEventsService } from '../../service/menu-event/menu-events.service';
@@ -10,7 +10,7 @@ import { MenuHorizontalElementComponent } from './menu-horizontal-element/menu-h
   templateUrl: './menu-horizontal.component.html',
   styleUrls: ['./menu-horizontal.component.scss'],
 })
-export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
+export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit {
 
   public _elements: MenuHorizontalElement[] = [];
   private readonly onDestroy = new Subject<void>();
@@ -30,13 +30,10 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
   private scrollEnabled = false;
 
   constructor(
-    private menuEventsService: MenuEventsService
+    private menuEventsService: MenuEventsService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.screenHeight = window.innerHeight;
-
-    this.menuEventsService.menuElements
-      .pipe(takeUntil(this.onDestroy))
-      .subscribe((elements) => this._elements = elements);
 
     this.menuEventsService.elementSelected
       .pipe(takeUntil(this.onDestroy))
@@ -45,6 +42,15 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
     this.menuEventsService.elementScrolled
       .pipe(takeUntil(this.onDestroy))
       .subscribe(this.onElementScrolled.bind(this))
+  }
+
+  ngOnInit(): void {
+    this.menuEventsService.menuElements
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe((elements) => {
+        this._elements = elements
+        this.changeDetectorRef.detectChanges();
+      });
   }
 
   ngAfterViewInit(): void {
@@ -96,7 +102,7 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit {
       var element = document.getElementById('menu-horizontal-element-' + event.element.order);
       if (element) {
         this.domElements.forEach(e => {
-          if (e.element.order === event.element.order) {
+          if (e._element!.order === event.element.order) {
             e.select();
           } else {
             e.unselect();

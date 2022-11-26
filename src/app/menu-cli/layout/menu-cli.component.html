@@ -10,16 +10,15 @@
         </div>
     </div>
 
-    <!-- <app-menu-horizontal [categories]="categories"></app-menu-horizontal> -->
+    <app-menu-horizontal></app-menu-horizontal>
 
-    
-    <div id="menu-elements">
-        <div class="menu-categories-list">
-            <div class="menu-category-wrapper" *ngFor="let category of categories">
-                <app-menu-category [category]="category" #category id="menu-element-category-{{category.ref}}"></app-menu-category>
-            </div>
+    <app-menu-horizontal-wrapper>
+        <div id="menu-elements">
+            <app-menu-horizontal-element-wrapper *ngFor="let category of categories" [name]="category.name">
+                <app-menu-category [category]="category"></app-menu-category>
+            </app-menu-horizontal-element-wrapper>
         </div>
-    </div>
+    </app-menu-horizontal-wrapper>
 </div>
 
 <div id="footer">

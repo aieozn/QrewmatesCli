@@ -11,7 +11,6 @@ export class MenuCategoryComponent implements OnInit {
   // TODO create placeholders
 
   _category: MenuCategoryGet | undefined;
-  @ViewChild('category') categoryHtmlElement: ElementRef | undefined;
 
   @Input() set category(value: MenuCategoryGet) {
     this._category = value;
