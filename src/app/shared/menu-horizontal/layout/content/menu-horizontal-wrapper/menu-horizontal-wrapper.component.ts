@@ -65,12 +65,12 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
     if (element) {
       console.info("Scroll to list element");
 
-      var categoryTopOffset = this.getElementScrollTopPosition(event);
-      categoryTopOffset += this.stickyBarHeight;
-      categoryTopOffset -= 60;
+      var elementTopOffset = this.getElementScrollTopPosition(event);
+      elementTopOffset += this.stickyBarHeight;
+      elementTopOffset -= 60;
 
       // Scroll to position which is inside element div
-      window.scrollTo({ top: categoryTopOffset - this.stickyBarHeight});
+      window.scrollTo({ top: elementTopOffset - this.stickyBarHeight});
     }
   }
 
@@ -148,7 +148,7 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
 
   private calcElementsSizes() {
     if (!this.elementsRefs) { throw 'Elements not found'; }
-    console.log("Some categories change occured")
+    console.log("Some elements change occured")
     // Clear
     this.elementToScrollPosition = [];
 
@@ -182,9 +182,9 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
     });
 
 
-    // Distance from page top to last attached category top
+    // Distance from page top to last attached element top
     var freeBorderOffset: number;
-    // Last of attachedCategories (the bottom one)
+    // Last of attachedElements (the bottom one)
     if (attachedElements.length > 0) {
       var lastAttached = attachedElements[attachedElements.length - 1];
       freeBorderOffset = lastAttached.element.elementContent!.nativeElement.offsetTop;
@@ -197,26 +197,26 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
     var freeBorderHeight = scrollHeight - freeBorderOffset;
 
     for (let element of orderedComponentsMap) {
-      let topCategoryOffset = element.element.elementContent?.nativeElement.offsetTop;
+      let topElementOffset = element.element.elementContent?.nativeElement.offsetTop;
 
-      if (topCategoryOffset < freeBorderOffset) {
+      if (topElementOffset < freeBorderOffset) {
         this.elementToScrollPosition.push({
-          offsetTop: topCategoryOffset,
+          offsetTop: topElementOffset,
           element: element.element,
           order: element.order
         })
       } else {
         if (freeElements.length === 1) {
           this.elementToScrollPosition.push({
-            offsetTop: topCategoryOffset,
+            offsetTop: topElementOffset,
             element: element.element,
             order: element.order
           })
         } else {
-          var menuCategoryPositionN = element.order - attachedElements.length;
-          var menuCategoryNCount = freeElements.length;
+          var menuElementPositionN = element.order - attachedElements.length;
+          var menuElementsNCount = freeElements.length;
 
-          var scrollPercentage = menuCategoryPositionN / menuCategoryNCount;
+          var scrollPercentage = menuElementPositionN / menuElementsNCount;
           var scrollMove = (freeBorderHeight * scrollPercentage);
   
           this.elementToScrollPosition.push({

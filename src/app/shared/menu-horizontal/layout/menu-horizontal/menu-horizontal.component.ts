@@ -58,7 +58,7 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit
   }
 
   private onElementSelected(event: ChangeElementEvent) {
-    console.info("Change active menu category");
+    console.info("Change active menu element");
     this.hideMenu();
     
     if (this.domElements) {
@@ -96,7 +96,7 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit
   }
 
   private onElementScrolled(event: ChangeElementEvent) {
-    console.info("Change active menu category");
+    console.info("Change active menu element");
     
     if (this.domElements) {
       var element = document.getElementById('menu-horizontal-element-' + event.element.order);
