@@ -27,8 +27,8 @@ import { CounterFooterComponent } from './menu-cli/layout/order/order-menu-item/
 import { OrderSummaryComponent } from './menu-cli/layout/order/order-summary/order-summary.component';
 import { OrdeSubmitComponent } from './menu-cli/layout/order-submit/order-submit.component';
 import { PaymentMethodComponent } from './menu-cli/layout/order/order-summary/payment-method/payment-method.component';
-import { MenuStaffComponent } from './menu-waiter/layout/menu-staff/menu-staff.component';
-import { AccountBarComponent } from './menu-waiter/layout/account-bar/account-bar.component';
+import { MenuStaffComponent } from './menu-staff/layout/menu-staff/menu-staff.component';
+import { AccountBarComponent } from './menu-staff/layout/account-bar/account-bar.component';
 import { MenuHorizontalElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
 import { MenuHorizontalWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-wrapper/menu-horizontal-wrapper.component';
 
