@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OrderUtils } from 'src/app/menu-cli/utils/order-utils';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { MenuItemSelectCollectionGet, MenuItemSelectGet, OrderElementData } from 'src/app/openapi-cli/models';
+import { MenuItemSelectCollectionGet, MenuItemSelectGet } from 'src/app/openapi-cli/models';
 
 @Component({
   selector: 'app-order-menu-select',

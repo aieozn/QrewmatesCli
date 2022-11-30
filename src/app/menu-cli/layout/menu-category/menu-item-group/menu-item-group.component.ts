@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MenuCliDialogService } from 'src/app/menu-cli/layout/generic-dialog/service/generic-dialog.service';
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';

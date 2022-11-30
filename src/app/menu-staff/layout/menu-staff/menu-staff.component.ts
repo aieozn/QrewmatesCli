@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderInstanceControllerService } from 'src/app/openapi-cli/services';
 
 @Component({
   selector: 'app-menu-staff',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuStaffComponent implements OnInit {
 
-  constructor() { }
+  // TODO change services names OrderInstanceControllerService -> OrderInstanceService (and the same for others)
+  constructor(
+    private orderInstanceService: OrderInstanceControllerService
+  ) { }
 
   ngOnInit(): void {
   }

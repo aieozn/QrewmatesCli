@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuEventsService } from '../../../shared/menu-horizontal/service/menu-event/menu-events.service';
 @Component({

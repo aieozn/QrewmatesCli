@@ -41,22 +41,27 @@ body {
 
 @font-face {
     font-family: Poppins;
-    src: url('/assets/fonts/Poppins-Regular.otf');
+    src: url('/assets/fonts/Poppins-Regular.ttf');
 }
 
 @font-face {
     font-family: PoppinsBold;
-    src: url('/assets/fonts/Poppins-Bold.otf');
+    src: url('/assets/fonts/Poppins-Bold.ttf');
 }
 
 @font-face {
     font-family: PoppinsLight;
-    src: url('/assets/fonts/Poppins-Light.otf');
+    src: url('/assets/fonts/Poppins-Light.ttf');
+}
+
+@font-face {
+    font-family: PoppinsSemiBold;
+    src: url('/assets/fonts/Poppins-SemiBold.ttf');
 }
 
 @font-face {
     font-family: PoppinsThin;
-    src: url('/assets/fonts/Poppins-Thin.otf');
+    src: url('/assets/fonts/Poppins-Thin.ttf');
 }
 
 html, body { height: 100%; }

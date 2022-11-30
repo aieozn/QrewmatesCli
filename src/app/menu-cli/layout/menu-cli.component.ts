@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
-import { MenuCategoryComponent } from './menu-category/menu-category.component';
 import { MenuCliDialogService } from './generic-dialog/service/generic-dialog.service';
 import { RestaurantService } from '../services/restaurant/restaurant.service';
 
