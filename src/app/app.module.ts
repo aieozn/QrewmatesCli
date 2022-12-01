@@ -68,7 +68,8 @@ import { MenuHorizontalWrapperComponent } from './shared/menu-horizontal/layout/
     MatInputModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
