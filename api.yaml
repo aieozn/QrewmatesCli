@@ -3,7 +3,7 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-- url: ''
+- url: ""
   description: Generated server url
 paths:
   /api/restaurant/table/{restaurantRef}/{tableRef}:
@@ -152,7 +152,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderGet'
+                $ref: '#/components/schemas/OrderDetailsGet'
     put:
       tags:
       - order-instance-controller
@@ -182,7 +182,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderGet'
+                $ref: '#/components/schemas/OrderDetailsGet'
     delete:
       tags:
       - order-instance-controller
@@ -1070,7 +1070,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderGet'
+                $ref: '#/components/schemas/OrderDetailsGet'
   /api/restaurant/details/{restaurant}:
     get:
       tags:
@@ -1500,6 +1500,54 @@ components:
         elementOrder:
           type: integer
           format: int32
+    OrderDetailsGet:
+      required:
+      - ref
+      type: object
+      properties:
+        ref:
+          type: string
+        comment:
+          type: string
+        orderStatus:
+          type: string
+          enum:
+          - PLACED
+          - EXPIRED
+          - ABANDONED
+          - REJECTED
+          - ACCEPTED
+          - CANCELED
+          - SERVED
+        paymentStatus:
+          type: string
+          enum:
+          - UNPAID
+          - PAID
+          - RETURNED
+          - WITHDRAWN
+        orderElements:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderElementGet'
+        actionsAllowed:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - CREATE
+            - EXPIRE
+            - REJECT
+            - ABANDON
+            - ACCEPT
+            - MODIFY
+            - CANCEL
+            - SERVE
+            - DELETE
+            - PAY
+            - RETURN
+            - WITHDRAW
     OrderElementGet:
       required:
       - menuItem
@@ -1520,19 +1568,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MenuItemToppingGet'
-    OrderGet:
-      required:
-      - ref
-      type: object
-      properties:
-        ref:
-          type: string
-        comment:
-          type: string
-        orderElements:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderElementGet'
     OrderElementData:
       required:
       - menuItem
@@ -1883,3 +1918,68 @@ components:
         status:
           type: integer
           format: int32
+    OrderGet:
+      required:
+      - actionsAllowed
+      - orderStatus
+      - paymentStatus
+      - ref
+      type: object
+      properties:
+        ref:
+          type: string
+        comment:
+          type: string
+        orderStatus:
+          type: string
+          enum:
+          - PLACED
+          - EXPIRED
+          - ABANDONED
+          - REJECTED
+          - ACCEPTED
+          - CANCELED
+          - SERVED
+        paymentStatus:
+          type: string
+          enum:
+          - UNPAID
+          - PAID
+          - RETURNED
+          - WITHDRAWN
+        actionsAllowed:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - CREATE
+            - EXPIRE
+            - REJECT
+            - ABANDON
+            - ACCEPT
+            - MODIFY
+            - CANCEL
+            - SERVE
+            - DELETE
+            - PAY
+            - RETURN
+            - WITHDRAW
+    SubscribeOrdersMessage:
+      required:
+      - batchType
+      - orders
+      type: object
+      properties:
+        batchType:
+          type: string
+          enum:
+          - LOAD
+          - CREATE
+          - UPDATE
+          - DELETE
+        orders:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderGet'

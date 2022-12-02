@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate": "ng-openapi-gen --input ./api.yaml --output ./src/app/openapi-cli"
+    "generate": "ng-openapi-gen --input http://localhost:8080/v3/api-docs.yaml --output ./src/app/openapi-cli --ignoreUnusedModels false"
   },
   "private": true,
   "dependencies": {

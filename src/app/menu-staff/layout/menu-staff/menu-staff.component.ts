@@ -1,4 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, filter } from 'rxjs';
+import { OrderGet } from 'src/app/openapi-cli/models/order-get';
+import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
 import { AccountService } from '../../services/account/account.service';
 import { OrderSocketService } from '../../services/order-socket/order-socket.service';
 
@@ -9,6 +12,8 @@ import { OrderSocketService } from '../../services/order-socket/order-socket.ser
   providers: [ OrderSocketService ]
 })
 export class MenuStaffComponent implements OnInit, OnDestroy {
+
+  public orders: OrderGet[] = [];
 
   // TODO change services names OrderInstanceControllerService -> OrderInstanceService (and the same for others)
   constructor(
@@ -22,9 +27,14 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.orderSocket.subscribeOrder(this.accountService.getRestaurantRef()).subscribe(e => {
-      console.log("Message received");
-      console.log(e.body);
+      this.processMessage(e)
     });
+  }
+
+  private processMessage(message: SubscribeOrdersMessage) {
+    if (message.batchType === 'LOAD') {
+      this.orders = message.orders;
+    }
   }
 
 }

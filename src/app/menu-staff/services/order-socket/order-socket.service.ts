@@ -1,8 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { orderSocketServiceConfig } from './order-socket-service.config';
 import { IMessage } from '@stomp/stompjs';
+import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
 
 @Injectable()
 export class OrderSocketService implements OnDestroy {
@@ -20,7 +21,8 @@ export class OrderSocketService implements OnDestroy {
     this.rxStomp.deactivate();
   }
 
-  public subscribeOrder(restaurantRef: string) : Observable<IMessage> {
-    return this.rxStomp.watch('/subscribe/' + restaurantRef + '/order');
+  public subscribeOrder(restaurantRef: string) : Observable<SubscribeOrdersMessage> {
+    return this.rxStomp.watch('/subscribe/' + restaurantRef + '/order')
+      .pipe(map(e => JSON.parse(e.body) as SubscribeOrdersMessage));
   }
 }

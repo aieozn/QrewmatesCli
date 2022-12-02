@@ -7,39 +7,9 @@
         <div id="menu-elements">
             <app-menu-horizontal-element-wrapper name="Ostatnie zamówienia">
             
-                <div class="pending-order box-shadow box-radius">
+                <div *ngFor="let order of orders | orderStatus:'PLACED'" class="pending-order box-shadow box-radius">
                     <div class="order-description">
-                        <h3>Stolik nr 14</h3>
-                        <p>Zobacz zamówienie</p>
-                    </div>
-                    <div class="order-actions">
-                        <div class="order-action accept">
-                            <mat-icon>done</mat-icon>
-                        </div>
-                        <div class="order-action reject">
-                            <mat-icon>pause</mat-icon>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pending-order box-shadow box-radius">
-                    <div class="order-description">
-                        <h3>Stolik nr 14</h3>
-                        <p>Zobacz zamówienie</p>
-                    </div>
-                    <div class="order-actions">
-                        <div class="order-action accept">
-                            <mat-icon>done</mat-icon>
-                        </div>
-                        <div class="order-action reject">
-                            <mat-icon>pause</mat-icon>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pending-order box-shadow box-radius">
-                    <div class="order-description">
-                        <h3>Stolik nr 14</h3>
+                        <h3>{{ order.table.name }}</h3>
                         <p>Zobacz zamówienie</p>
                     </div>
                     <div class="order-actions">
