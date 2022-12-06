@@ -13,8 +13,8 @@ export class OrderStatusPipe implements PipeTransform {
 
     console.log("ARGS");
     console.log(args);
-
-    return value.filter(item => item.orderStatus === 'PLACED');
+    
+    return value.filter(item => args.indexOf(item.orderStatus) !== -1);
   }
 
 }

@@ -12,6 +12,8 @@ import { MenuHorizontalElementWrapperComponent } from '../menu-horizontal-elemen
 })
 export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  // TODO tests
+
   private stickyBarHeight = 60;
   private readonly onDestroy = new Subject<void>();
   @ContentChildren(MenuHorizontalElementWrapperComponent, { descendants: true }) elementsRefs: QueryList<MenuHorizontalElementWrapperComponent> | undefined;
@@ -187,8 +189,9 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
     // Last of attachedElements (the bottom one)
     if (attachedElements.length > 0) {
       var lastAttached = attachedElements[attachedElements.length - 1];
+      
       freeBorderOffset = lastAttached.element.elementContent!.nativeElement.offsetTop;
-      freeElements = [lastAttached].concat(freeElements);
+      freeElements = [attachedElements.pop()!].concat(freeElements);
     } else {
       freeBorderOffset = 0;
     }
@@ -227,6 +230,8 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
         }
       }
     }
+
+    console.log(this.elementToScrollPosition);
 
     // Select active menu element
     this.onScroll();

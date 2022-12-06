@@ -2,7 +2,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
 import { map, Observable } from 'rxjs';
 import { orderSocketServiceConfig } from './order-socket-service.config';
-import { IMessage } from '@stomp/stompjs';
 import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
 
 @Injectable()

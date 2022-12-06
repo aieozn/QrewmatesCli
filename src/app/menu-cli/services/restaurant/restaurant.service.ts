@@ -10,17 +10,21 @@ export class RestaurantService {
 
   private restaurant: RestaurantGet | undefined;
   private restaurantRef: string;
+  private tableRef: string;
 
   constructor(
     private restaurantControllerService: RestaurantControllerService
   ) {
     this.restaurantRef = window.location.pathname.substring(1).split("/")[1]
-
-    console.log(this.restaurantRef)
+    this.tableRef = window.location.pathname.substring(1).split("/")[2]
   }
 
   public getRestaurantRef(): string {
     return this.restaurantRef;
+  }
+
+  public getTableRef() : string {
+    return this.tableRef;
   }
 
   public async getRestaurant() : Promise<RestaurantGet> {

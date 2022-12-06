@@ -1,6 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
+import { DoOrderControllerService, OrderInstanceControllerService } from 'src/app/openapi-cli/services';
+import { RestaurantService } from '../restaurant/restaurant.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +13,15 @@ export class OrderService {
   public orderChanged = new EventEmitter<OrderWrapper>();
   private order: OrderWrapper;
 
-  constructor() {
+  constructor(private orderService: DoOrderControllerService, private restaurantService: RestaurantService) {
     this.order = {
-      "price": 0,
-      "comment": undefined,
-      "items": []
+      price: 0,
+      comment: undefined,
+      paymentMethod: 'CASH',
+      items: [],
+      table: {
+        ref: restaurantService.getTableRef()
+      }
     }
   }
 
@@ -30,14 +37,26 @@ export class OrderService {
     return this.order;
   }
 
-  public submit() {
+  public async submit() {
     console.log("Submit order");
     console.log(this.order);
 
+    let ordered = await firstValueFrom(this.orderService.order1({
+      restaurant: this.restaurantService.getRestaurantRef(),
+      body: this.order
+    }));
+
+    console.log("Response: ")
+    console.log(ordered);
+
     this.order = {
-      "price": 0,
-      "comment": undefined,
-      "items": []
+      price: 0,
+      comment: undefined,
+      items: [],
+      paymentMethod: 'CASH',
+      table: {
+        ref: this.restaurantService.getTableRef()
+      }
     }
 
     this.orderChanged.emit(this.order);

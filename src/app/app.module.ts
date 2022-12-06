@@ -32,6 +32,7 @@ import { AccountBarComponent } from './menu-staff/layout/account-bar/account-bar
 import { MenuHorizontalElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
 import { MenuHorizontalWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-wrapper/menu-horizontal-wrapper.component';
 import { OrderStatusPipe } from './menu-staff/layout/menu-staff/pipes/order-status.pipe';
+import { FooterPoweredByComponent } from './shared/footer/layout/footer-powered-by/footer-powered-by.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { OrderStatusPipe } from './menu-staff/layout/menu-staff/pipes/order-stat
     AccountBarComponent,
     MenuHorizontalElementWrapperComponent,
     MenuHorizontalWrapperComponent,
-    OrderStatusPipe
+    OrderStatusPipe,
+    FooterPoweredByComponent
   ],
   imports: [
     BrowserModule,

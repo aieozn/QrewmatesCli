@@ -5,7 +5,7 @@ import { MenuStaffComponent } from './menu-staff/layout/menu-staff/menu-staff.co
 
 const routes: Routes = [
   // TODO maybe use short url proxy to redirect
-  { path: 'menu/:restaurantRef', component: MenuCliComponent },
+  { path: 'menu/:restaurantRef/:tableRef', component: MenuCliComponent },
   { path: 'staff', component: MenuStaffComponent },
 ];
 

@@ -26,6 +26,7 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // TODO może warto dodać stronnicowanie zamówień?
     this.orderSocket.subscribeOrder(this.accountService.getRestaurantRef()).subscribe(e => {
       this.processMessage(e)
     });
@@ -34,7 +35,13 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
   private processMessage(message: SubscribeOrdersMessage) {
     if (message.batchType === 'LOAD') {
       this.orders = message.orders;
+    } else if (message.batchType === 'CREATE') {
+      let newOrders = [];
+      newOrders = this.orders.concat(message.orders);
+      this.orders = newOrders;
     }
+
+    console.log(this.orders);
   }
 
 }

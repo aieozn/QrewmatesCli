@@ -6,8 +6,24 @@
     <app-menu-horizontal-wrapper>
         <div id="menu-elements">
             <app-menu-horizontal-element-wrapper name="Ostatnie zamówienia">
-            
                 <div *ngFor="let order of orders | orderStatus:'PLACED'" class="pending-order box-shadow box-radius">
+                    <div class="order-description">
+                        <h3>{{ order.table.name }}</h3>
+                        <p>Zobacz zamówienie</p>
+                    </div>
+                    <div class="order-actions">
+                        <div class="order-action accept">
+                            <mat-icon>done</mat-icon>
+                        </div>
+                        <div class="order-action reject">
+                            <mat-icon>pause</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </app-menu-horizontal-element-wrapper>
+
+            <app-menu-horizontal-element-wrapper name="Zaakceptowane">
+                <div *ngFor="let order of orders | orderStatus:'ACCEPTED'" class="pending-order box-shadow box-radius">
                     <div class="order-description">
                         <h3>{{ order.table.name }}</h3>
                         <p>Zobacz zamówienie</p>
@@ -24,4 +40,6 @@
             </app-menu-horizontal-element-wrapper>
         </div>
     </app-menu-horizontal-wrapper>
+
+    <app-footer-powered-by></app-footer-powered-by>
 </div>
