@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 
@@ -11,12 +12,15 @@ export class OrderSummaryComponent implements OnInit {
 
   order: OrderWrapper;
   
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService, public dialogRef: MatDialogRef<OrderSummaryComponent>) {
     this.order = orderService.getOrder();
   }
 
   ngOnInit(): void {
-    console.log("XX")
+  }
+
+  public close() {
+    this.dialogRef.close();
   }
 
 }

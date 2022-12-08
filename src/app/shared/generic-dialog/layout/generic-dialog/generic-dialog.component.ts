@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -43,7 +43,8 @@ export class GenericDialogComponent implements OnInit, OnDestroy {
   }
 
   getMaxBodyHeight() : string {
-    return window.innerHeight * 0.7 + 'px';
+    // 70% of window height - height of header (65px)
+    return window.innerHeight * 0.7 - 65 + 'px';
   }
 
   getScrollTopStyle() : { [klass: string]: any; } {

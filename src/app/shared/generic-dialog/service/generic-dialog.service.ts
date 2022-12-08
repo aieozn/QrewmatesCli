@@ -10,6 +10,7 @@ export class GenericDialogService {
 
   public static defaultGenericDialogConfig = {
     width: '100%',
+    // Related to getMaxBodyHeight from generic dialog component
     height: '70%',
     maxWidth: '100%',
     position: {
