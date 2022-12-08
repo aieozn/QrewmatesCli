@@ -22,6 +22,6 @@ export class OrderSocketService implements OnDestroy {
 
   public subscribeOrder(restaurantRef: string) : Observable<SubscribeOrdersMessage> {
     return this.rxStomp.watch('/subscribe/' + restaurantRef + '/order')
-      .pipe(map(e => JSON.parse(e.body) as SubscribeOrdersMessage));
+      .pipe(map(e => JSON.parse(e.body).payload as SubscribeOrdersMessage));
   }
 }

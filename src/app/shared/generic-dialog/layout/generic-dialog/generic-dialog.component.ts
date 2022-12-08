@@ -1,10 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AboutUsComponent } from '../footer/about-us/about-us.component';
-import { CliDialogBodyContent } from './model/generic-dialog-body-content';
-import { DialogBodyHost } from './model/dialog-body-host';
-import { DialogBodyItem } from './model/dialog-body-item';
-import { MenuCliDialogService } from './service/generic-dialog.service';
+import { Subject, takeUntil } from 'rxjs';
+import { CliDialogBodyContent } from '../../model/generic-dialog-body-content';
+import { DialogBodyHost } from '../../model/dialog-body-host';
+import { DialogBodyItem } from '../../model/dialog-body-item';
+import { GenericDialogService } from '../../service/generic-dialog.service';
 
 @Component({
   selector: 'app-generic-dialog',
@@ -13,20 +12,26 @@ import { MenuCliDialogService } from './service/generic-dialog.service';
 })
 export class GenericDialogComponent implements OnInit, OnDestroy {
 
-  private openMenuDialogSubscription : Subscription;
-  private closeMenuDialogSubscription : Subscription;
   scrollIntroductionPercentage = 0;
   show = false;
   title: string | undefined;
 
+  
   @ViewChild('cardbody') cardBody!: ElementRef;
   @ViewChild(DialogBodyHost, {static: true}) dialogBodyHost!: DialogBodyHost;
+  private readonly onDestroy = new Subject<void>();
   
   constructor(
-    dialogService: MenuCliDialogService
+    dialogService: GenericDialogService
   ) {
-    this.openMenuDialogSubscription = dialogService.openMenuDialog.subscribe(this.openMenu.bind(this));
-    this.closeMenuDialogSubscription = dialogService.closeMenuDialog.subscribe(this.close.bind(this));
+    dialogService.openMenuDialog.pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe(this.openMenu.bind(this));
+
+
+    dialogService.closeMenuDialog.pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe(this.close.bind(this));
   }
 
   ngOnInit(): void {
@@ -65,8 +70,8 @@ export class GenericDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.openMenuDialogSubscription.unsubscribe();
-    this.closeMenuDialogSubscription.unsubscribe();
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 
   close() {

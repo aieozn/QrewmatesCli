@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
-import { MenuCliDialogService } from './generic-dialog/service/generic-dialog.service';
+import { GenericDialogCliManager } from "../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { RestaurantService } from '../services/restaurant/restaurant.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class MenuCliComponent implements OnInit, OnDestroy {
 
   constructor(
     private categoriesService: MenuCategoryControllerService,
-    private menuCliDialogServide: MenuCliDialogService,
+    private menuCliDialogServide: GenericDialogCliManager,
     private restaurantService: RestaurantService
   ) { }
 

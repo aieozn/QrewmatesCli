@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
-import { MenuCliDialogService } from '../generic-dialog/service/generic-dialog.service';
+import { GenericDialogCliManager } from "../../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from '../../services/order/order.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class OrdeSubmitComponent implements OnInit, OnDestroy {
   // otherwise, the summary component will be displayed
   @Input('final') final: boolean = false;
 
-  constructor(private orderService: OrderService, private dialogService: MenuCliDialogService) {
+  constructor(private orderService: OrderService, private dialogService: GenericDialogCliManager) {
     this.orderUpdatedSubscription = orderService.orderChanged.subscribe(this.onOrderUpdate.bind(this))
     this.onOrderUpdate(orderService.getOrder());
   }

@@ -28,6 +28,8 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // TODO może warto dodać stronnicowanie zamówień?
     this.orderSocket.subscribeOrder(this.accountService.getRestaurantRef()).subscribe(e => {
+      console.log("Process message");
+      console.log(e)
       this.processMessage(e)
     });
   }

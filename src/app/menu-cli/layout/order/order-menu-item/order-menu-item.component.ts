@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, flatMap, Subject, switchMap, takeUntil } from 'rxjs';
-import { CliDialogBodyContent } from 'src/app/menu-cli/layout/generic-dialog/model/generic-dialog-body-content';
+import { CliDialogBodyContent } from 'src/app/shared/generic-dialog/model/generic-dialog-body-content';
 import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
 import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';

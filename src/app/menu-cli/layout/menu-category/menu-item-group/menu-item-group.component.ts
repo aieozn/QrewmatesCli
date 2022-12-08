@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MenuCliDialogService } from 'src/app/menu-cli/layout/generic-dialog/service/generic-dialog.service';
+import { GenericDialogCliManager } from "src/app/menu-cli/services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
 import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
@@ -30,7 +30,7 @@ export class MenuItemComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private menuCliDialogService: MenuCliDialogService,
+    private GenericDialogCliManager: GenericDialogCliManager,
     private restaurantService: RestaurantService,
     orderService: OrderService
   ) {
@@ -45,7 +45,7 @@ export class MenuItemComponent implements OnInit, OnDestroy {
   }
 
   public addGroup(group: MenuItemGroupGet) {
-    this.menuCliDialogService.openAddItem(group);
+    this.GenericDialogCliManager.openAddItem(group);
   }
 
   public getGroupDefaultPrice(item: MenuItemGroupGet) {

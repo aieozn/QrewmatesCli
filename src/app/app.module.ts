@@ -14,8 +14,8 @@ import { MenuHorizontalElementComponent } from './shared/menu-horizontal/layout/
 import { MenuHorizontalComponent } from './shared/menu-horizontal/layout/menu-horizontal/menu-horizontal.component';
 import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
 import { AboutUsComponent } from './menu-cli/layout/footer/about-us/about-us.component';
-import { GenericDialogComponent } from './menu-cli/layout/generic-dialog/generic-dialog.component';
-import { DialogBodyHost } from './menu-cli/layout/generic-dialog/model/dialog-body-host';
+import { GenericDialogComponent } from './shared/generic-dialog/layout/generic-dialog/generic-dialog.component';
+import { DialogBodyHost } from './shared/generic-dialog/model/dialog-body-host';
 import { OrderMenuItemComponent } from './menu-cli/layout/order/order-menu-item/order-menu-item.component';
 import { OrderMenuSelectComponent } from './menu-cli/layout/order/order-menu-select/order-menu-select.component';
 import { OrderMenuToppingComponent } from './menu-cli/layout/order/order-menu-topping/order-menu-topping.component';
