@@ -33,6 +33,12 @@ export class OrderService {
     this.orderChanged.emit(this.order);
   }
 
+  public addOrderElements(elements: OrderElementDataWrapper[]) {
+    for (let element of elements) {
+      this.addOrderElement(element);
+    }
+  }
+
   public getOrder() : OrderWrapper {
     return this.order;
   }

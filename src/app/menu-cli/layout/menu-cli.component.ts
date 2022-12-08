@@ -50,4 +50,8 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   showAboutUs() {
     this.menuCliDialogServide.openAboutUs()
   }
+
+  public submit() {
+    this.menuCliDialogServide.openSummary();
+  }
 }

@@ -24,14 +24,15 @@ export class GenericDialogComponent implements OnInit, OnDestroy {
   constructor(
     dialogService: GenericDialogService
   ) {
-    dialogService.openMenuDialog.pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe(this.openMenu.bind(this));
+    // TODO fix this dialog
+    // dialogService.openMenuDialog.pipe(
+    //   takeUntil(this.onDestroy)
+    // ).subscribe(this.openMenu.bind(this));
 
 
-    dialogService.closeMenuDialog.pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe(this.close.bind(this));
+    // dialogService.closeMenuDialog.pipe(
+    //   takeUntil(this.onDestroy)
+    // ).subscribe(this.close.bind(this));
   }
 
   ngOnInit(): void {

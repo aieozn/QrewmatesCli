@@ -68,6 +68,10 @@ export class OrderMenuItemComponent implements CliDialogBodyContent, OnDestroy {
     }
   }
 
+  public submit(elements: OrderElementDataWrapper[]) {
+    this.dialogRef.close(elements);
+  }
+
   private loadItems(restaurantRef: string, group: MenuItemGroupGet) {
     if (group.image) {
       this.menuItemGroupImageUrl = GenericUtils.getMultimediaUrl(restaurantRef, group.image.ref);

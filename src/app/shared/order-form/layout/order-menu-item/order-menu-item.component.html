@@ -33,7 +33,7 @@
             <app-order-menu-chief-note [commentable]="order"></app-order-menu-chief-note>
         </span>
 
-        <app-counter-footer [order]="order"></app-counter-footer>
+        <app-counter-footer [order]="order" (submit)="submit($event)"></app-counter-footer>
 
         <div class="space-vertical-30">
         </div>

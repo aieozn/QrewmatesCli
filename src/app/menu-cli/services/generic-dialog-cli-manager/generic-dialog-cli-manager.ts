@@ -3,10 +3,11 @@ import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { AboutUsComponent } from '../../layout/footer/about-us/about-us.component';
 import { DialogBodyItem } from '../../../shared/generic-dialog/model/dialog-body-item';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
-import { OrderMenuItemComponent } from 'src/app/shared/order-form/layout/order-menu-item/order-menu-item.component';
 import { OrderSummaryComponent } from 'src/app/shared/order-form/layout/order-summary/order-summary.component';
 import { RestaurantService } from '../restaurant/restaurant.service';
 import { MatDialog } from '@angular/material/dialog';
+import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
+import { OrderService } from '../order/order.service';
 
 
 @Injectable({
@@ -14,40 +15,30 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class GenericDialogCliManager {
 
-  constructor(private dialogService: GenericDialogService,
-    private restaurantService: RestaurantService,
-    public dialog: MatDialog) { }
+  constructor(private dialogService: GenericDialogService, private restaurantService: RestaurantService,
+    private dialog: MatDialog, private orderService: OrderService) { }
 
   public openAboutUs() {
-    this.dialogService.openMenuDialog.emit(new DialogBodyItem(AboutUsComponent, {}, "O nas"));
+    // TODO fix AboutUsComponent title
+    this.dialog.open(AboutUsComponent, GenericDialogService.getDefaultGenericDialogConfig({}))
   }
 
   public openAddItem(group: MenuItemGroupGet) {
     // this.dialogService.openMenuDialog.emit(new DialogBodyItem(OrderMenuItemComponent, 
     //   { group: group, restaurantRef: this.restaurantService.getRestaurantRef() }, undefined));
 
-    this.dialog.open(OrderMenuItemComponent, 
-      { 
-        data: {
-          group: group,
-          restaurantRef: this.restaurantService.getRestaurantRef()
-        },
-        width: '100%',
-        height: '70%',
-        maxWidth: '100%',
-        position: {
-          left: '0px',
-          bottom: '0px'
-        },
-        panelClass: 'full-width-dialog'
-      })
+    this.dialogService.openMenuItemComponent({
+      group: group,
+      restaurantRef: this.restaurantService.getRestaurantRef()
+    }).afterClosed().subscribe((data: OrderElementDataWrapper[] | undefined) => {
+      if (data) {
+        this.orderService.addOrderElements(data);
+      }
+    })
   }
 
   public openSummary() {
-    this.dialogService.openMenuDialog.emit(new DialogBodyItem(OrderSummaryComponent, {}, "Podsumowanie zamówienia"));
-  }
-
-  public closeMenuCliDialog() {
-    this.dialogService.closeMenuCliDialog();
+    // TODO fix title
+    this.dialog.open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig({}))
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
@@ -11,10 +11,11 @@ import { GenericDialogService } from 'src/app/shared/generic-dialog/service/gene
 export class CounterFooterComponent implements OnInit {
 
   @Input('order') order: OrderElementDataWrapper | undefined;
+  @Output('submit') submit = new EventEmitter<OrderElementDataWrapper[]>;
 
   count = 1;
 
-  constructor(private orderService: OrderService, private dialogService: GenericDialogService) { }
+  constructor(private dialogService: GenericDialogService) { }
 
   ngOnInit(): void {
   }
@@ -30,11 +31,13 @@ export class CounterFooterComponent implements OnInit {
 
   subscribeItem() {
     if (this.order) {
+      let allElements: OrderElementDataWrapper[] = [];
+
       for (var i = 0; i < this.count; i++) {
-        this.orderService.addOrderElement(this.order);
+        allElements.push(this.order);
       }
-      
-      this.dialogService.closeMenuCliDialog();
+
+      this.submit.emit(allElements);
     } else {
       console.error("Order is not initialized yet")
     }
