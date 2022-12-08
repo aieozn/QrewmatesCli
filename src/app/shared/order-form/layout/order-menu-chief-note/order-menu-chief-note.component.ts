@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
 
 @Component({
   selector: 'app-order-menu-chief-note',

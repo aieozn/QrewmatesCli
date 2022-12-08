@@ -16,23 +16,24 @@ import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
 import { AboutUsComponent } from './menu-cli/layout/footer/about-us/about-us.component';
 import { GenericDialogComponent } from './shared/generic-dialog/layout/generic-dialog/generic-dialog.component';
 import { DialogBodyHost } from './shared/generic-dialog/model/dialog-body-host';
-import { OrderMenuItemComponent } from './menu-cli/layout/order/order-menu-item/order-menu-item.component';
-import { OrderMenuSelectComponent } from './menu-cli/layout/order/order-menu-select/order-menu-select.component';
-import { OrderMenuToppingComponent } from './menu-cli/layout/order/order-menu-topping/order-menu-topping.component';
-import { OrderMenuChiefNoteComponent } from './menu-cli/layout/order/order-menu-chief-note/order-menu-chief-note.component';
+import { OrderMenuChiefNoteComponent } from './shared/order-form/layout/order-menu-chief-note/order-menu-chief-note.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { CounterFooterComponent } from './menu-cli/layout/order/order-menu-item/counter-footer/counter-footer.component';
-import { OrderSummaryComponent } from './menu-cli/layout/order/order-summary/order-summary.component';
 import { OrdeSubmitComponent } from './menu-cli/layout/order-submit/order-submit.component';
-import { PaymentMethodComponent } from './menu-cli/layout/order/order-summary/payment-method/payment-method.component';
 import { MenuStaffComponent } from './menu-staff/layout/menu-staff/menu-staff.component';
 import { AccountBarComponent } from './menu-staff/layout/account-bar/account-bar.component';
 import { MenuHorizontalElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
 import { MenuHorizontalWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-wrapper/menu-horizontal-wrapper.component';
 import { OrderStatusPipe } from './menu-staff/layout/menu-staff/pipes/order-status.pipe';
 import { FooterPoweredByComponent } from './shared/footer/layout/footer-powered-by/footer-powered-by.component';
+import { OrderMenuItemComponent } from './shared/order-form/layout/order-menu-item/order-menu-item.component';
+import { OrderMenuSelectComponent } from './shared/order-form/layout/order-menu-select/order-menu-select.component';
+import { OrderMenuToppingComponent } from './shared/order-form/layout/order-menu-topping/order-menu-topping.component';
+import { OrderSummaryComponent } from './shared/order-form/layout/order-summary/order-summary.component';
+import { CounterFooterComponent } from './shared/order-form/layout/order-menu-item/counter-footer/counter-footer.component';
+import { PaymentMethodComponent } from './shared/order-form/layout/order-summary/payment-method/payment-method.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { FooterPoweredByComponent } from './shared/footer/layout/footer-powered-
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [
   ],

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GenericDialogCliManager } from "src/app/menu-cli/services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
-import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
+import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
+import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 
 @Component({
   selector: 'app-counter-footer',
@@ -14,7 +14,7 @@ export class CounterFooterComponent implements OnInit {
 
   count = 1;
 
-  constructor(private orderService: OrderService, private dialogService: GenericDialogCliManager) { }
+  constructor(private orderService: OrderService, private dialogService: GenericDialogService) { }
 
   ngOnInit(): void {
   }

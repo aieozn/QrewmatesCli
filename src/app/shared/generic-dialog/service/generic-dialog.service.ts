@@ -10,4 +10,8 @@ export class GenericDialogService {
   public closeMenuDialog = new EventEmitter<void>();
 
   constructor() { }
+
+  public closeMenuCliDialog() {
+    this.closeMenuDialog.emit();
+  }
 }

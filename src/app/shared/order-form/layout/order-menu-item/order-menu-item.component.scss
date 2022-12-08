@@ -1,6 +1,21 @@
 #menu-item-details {
-    padding: 0px;
-    padding-bottom: 100px;
+    height: 100%;
+}
+
+.space-vertical-30 {
+    height: 30px;
+}
+
+#menu-item-details-scroll {
+    padding: 20px;
+    height: calc(100% - 74px);
+    overflow: auto;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+#space-filler {
+    height: 74px;
 }
 
 .menu-item {
@@ -77,6 +92,7 @@
     vertical-align: middle;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 15px;
 }
 
 #allergens mat-icon {

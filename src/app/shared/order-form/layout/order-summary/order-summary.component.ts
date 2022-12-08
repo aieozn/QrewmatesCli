@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CliDialogBodyContent } from 'src/app/shared/generic-dialog/model/generic-dialog-body-content';
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
-import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
+import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 
 @Component({
   selector: 'app-order-summary',

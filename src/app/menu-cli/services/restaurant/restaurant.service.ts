@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { RestaurantGet } from 'src/app/openapi-cli/models/restaurant-get';
 import { RestaurantControllerService } from 'src/app/openapi-cli/services/restaurant-controller.service';
+import { GenericUtils } from 'src/app/shared/utils/generic-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,6 @@ export class RestaurantService {
   }
 
   public getMultimediaUrl(ref: string) {
-    return  "/api/multimedia/" + this.getRestaurantRef() + "/" + ref;
+   return GenericUtils.getMultimediaUrl(this.getRestaurantRef(), ref);
   }
 }

@@ -1,4 +1,4 @@
-import { OrderElementDataWrapper } from "src/app/openapi-cli-wrapper/order/order-element-data-wrapper";
+import { OrderElementDataWrapper } from "src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper";
 
 export class OrderUtils {
 

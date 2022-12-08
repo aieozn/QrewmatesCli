@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { OrderUtils } from 'src/app/menu-cli/utils/order-utils';
-import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
+import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemToppingCollectionGet, MenuItemToppingGet } from 'src/app/openapi-cli/models';
 
 @Component({

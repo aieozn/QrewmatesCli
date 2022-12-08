@@ -1,8 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { OrderElementDataWrapper } from 'src/app/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
-import { DoOrderControllerService, OrderInstanceControllerService } from 'src/app/openapi-cli/services';
+import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
+import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
+import { DoOrderControllerService } from 'src/app/openapi-cli/services';
 import { RestaurantService } from '../restaurant/restaurant.service';
 
 @Injectable({

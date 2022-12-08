@@ -147,3 +147,7 @@ background: #38A583;
         margin-left: calc((100% - 1000px) / 2);
     }
 }
+
+.full-width-dialog .mat-dialog-container {
+    padding: 0px;
+}

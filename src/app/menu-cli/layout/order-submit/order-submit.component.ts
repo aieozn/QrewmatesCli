@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { OrderWrapper } from 'src/app/openapi-cli-wrapper/order/order-wrapper';
+import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { GenericDialogCliManager } from "../../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from '../../services/order/order.service';
 
