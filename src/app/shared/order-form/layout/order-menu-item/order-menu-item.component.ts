@@ -1,6 +1,5 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from 'rxjs';
-import { CliDialogBodyContent } from 'src/app/shared/generic-dialog/model/generic-dialog-body-content';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { MenuItemControllerService } from 'src/app/openapi-cli/services';
@@ -12,7 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './order-menu-item.component.html',
   styleUrls: ['./order-menu-item.component.scss']
 })
-export class OrderMenuItemComponent implements CliDialogBodyContent, OnDestroy {
+export class OrderMenuItemComponent implements OnDestroy {
 
   public selectedItem$ = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
   public group: MenuItemGroupGet | undefined;

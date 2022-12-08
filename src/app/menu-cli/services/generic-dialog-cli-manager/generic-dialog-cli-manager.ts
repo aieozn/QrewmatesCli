@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { AboutUsComponent } from '../../layout/footer/about-us/about-us.component';
-import { DialogBodyItem } from '../../../shared/generic-dialog/model/dialog-body-item';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 import { OrderSummaryComponent } from 'src/app/shared/order-form/layout/order-summary/order-summary.component';
 import { RestaurantService } from '../restaurant/restaurant.service';

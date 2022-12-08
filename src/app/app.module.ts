@@ -15,7 +15,6 @@ import { MenuHorizontalComponent } from './shared/menu-horizontal/layout/menu-ho
 import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
 import { AboutUsComponent } from './menu-cli/layout/footer/about-us/about-us.component';
 import { GenericDialogComponent } from './shared/generic-dialog/layout/generic-dialog/generic-dialog.component';
-import { DialogBodyHost } from './shared/generic-dialog/model/dialog-body-host';
 import { OrderMenuChiefNoteComponent } from './shared/order-form/layout/order-menu-chief-note/order-menu-chief-note.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -45,7 +44,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     MenuItemComponent,
     GenericDialogComponent,
     AboutUsComponent,
-    DialogBodyHost,
     OrderMenuItemComponent,
     OrderMenuSelectComponent,
     OrderMenuToppingComponent,

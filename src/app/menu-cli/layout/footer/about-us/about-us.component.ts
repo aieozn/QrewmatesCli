@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { CliDialogBodyContent } from 'src/app/shared/generic-dialog/model/generic-dialog-body-content';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss']
 })
-export class AboutUsComponent implements OnInit, CliDialogBodyContent {
+export class AboutUsComponent implements OnInit {
 
-  constructor() { }
-
-  setData(_: any): void {
-    
-  }
+  constructor(
+    public dialogRef: MatDialogRef<AboutUsComponent>
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  public close() {
+    this.dialogRef.close();
   }
 
 }

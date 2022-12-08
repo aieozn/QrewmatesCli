@@ -35,22 +35,9 @@ export class OrdeSubmitComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log("Open submit");
   }
 
   proceed() {
     this.submit.emit();
-    // TODO fix making order
-    // if (!this.final) {
-    //   this.dialogService.openSummary();
-    // } else {
-    //   this.doOrder();
-    // }
   }
-
-  private doOrder() {
-    // this.orderService.submit();
-    // this.dialogService.closeMenuCliDialog();
-  }
-
 }
