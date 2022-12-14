@@ -27,7 +27,6 @@ export class MenuHorizontalElementWrapperComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     if (this.elementContent && this.elementContent.nativeElement.offsetTop != this.previousOffset) {
       this.menuEventsService.onResizeElements();
-      console.log("ITEM RESIZED")
       this.previousOffset = this.elementContent.nativeElement.offsetTop;
     }
   }

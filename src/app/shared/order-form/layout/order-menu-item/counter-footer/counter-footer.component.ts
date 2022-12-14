@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 
@@ -26,7 +25,11 @@ export class CounterFooterComponent implements OnInit {
 
   // TODO przyciski rozszerzają się po zmianie wartości
   itemSubstract() {
-    this.count = Math.max(1, this.count - 1);
+    this.count = Math.max(0, this.count - 1);
+
+    if (this.count === 0) {
+      this.submit.emit([]);
+    }
   }
 
   subscribeItem() {

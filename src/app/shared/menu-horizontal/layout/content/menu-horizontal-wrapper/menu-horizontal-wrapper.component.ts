@@ -150,7 +150,6 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
 
   private calcElementsSizes() {
     if (!this.elementsRefs) { throw 'Elements not found'; }
-    console.log("Some elements change occured")
     // Clear
     this.elementToScrollPosition = [];
 
@@ -230,8 +229,6 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
         }
       }
     }
-
-    console.log(this.elementToScrollPosition);
 
     // Select active menu element
     this.onScroll();

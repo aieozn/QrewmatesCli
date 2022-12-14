@@ -6,7 +6,7 @@
         <div id="item-select-wrapper" *ngIf="group.menuItems.length > 1">
             <mat-form-field appearance="fill" id="item-select">
                 <mat-label>Opcje dania</mat-label>
-                <mat-select [value]="(selectItem$ | async)" (selectionChange)="selectItem$.next($event.value)">
+                <mat-select [compareWith]="compareSelects" [value]="(selectedItem$ | async)" (selectionChange)="selectItem$.next($event.value)">
                     <mat-option *ngFor="let item of group.menuItems" [value]="item">
                         {{item.name}} {{item.price}} zł
                     </mat-option>
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <span *ngIf="(selectedItem$ | async) as item">
+        <span *ngIf="order && (selectedItem$ | async) as item">
             <app-order-menu-select *ngFor="let collection of item.selectCollections" [collection]="collection" [order]="order"></app-order-menu-select>
             <app-order-menu-topping *ngFor="let collection of item.toppingCollections" [collection]="collection" [order]="order"></app-order-menu-topping>
             <app-order-menu-chief-note [commentable]="order"></app-order-menu-chief-note>

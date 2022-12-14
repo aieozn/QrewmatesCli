@@ -43,18 +43,19 @@ export class OrderService {
     return this.order;
   }
 
-  public async submit() {
-    console.log("Submit order");
-    console.log(this.order);
+  public updateOrder(order: OrderWrapper) {
+    this.order = order;
+    this.order.price = 0;
+    this.order.items.forEach(i => this.order.price += i.price);
+    this.orderChanged.emit(this.order);
+  }
 
+  public async submit() {
     let ordered = await firstValueFrom(this.orderService.order1({
       restaurant: this.restaurantService.getRestaurantRef(),
       body: this.order
     }));
-
-    console.log("Response: ")
-    console.log(ordered);
-
+    
     this.order = {
       price: 0,
       comment: undefined,

@@ -10,9 +10,6 @@ export class OrderStatusPipe implements PipeTransform {
     if (!value) {
       return value;
     }
-
-    console.log("ARGS");
-    console.log(args);
     
     return value.filter(item => args.indexOf(item.orderStatus) !== -1);
   }

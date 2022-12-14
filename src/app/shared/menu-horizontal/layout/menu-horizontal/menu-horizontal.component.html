@@ -1,7 +1,7 @@
 <div id="menu">
 
     <div id="menu-horizontal" class="box-shadow">
-        <div id="hamburger" (click)="toogleFullSizeMenu()">
+        <div id="hamburger" class="clickable" (click)="toogleFullSizeMenu()">
             <mat-icon>menu</mat-icon>
         </div>
     
@@ -19,7 +19,7 @@
         <h2>Kategorie:</h2>
         <hr/>
         <div *ngFor="let element of _elements">
-            <p (click)="goTo(element)">{{element.name}}</p>
+            <p (click)="goTo(element)" class="clickable">{{element.name}}</p>
         </div>
     </div>
 </div>

@@ -20,7 +20,6 @@ export class OrderMenuChiefNoteComponent implements OnInit {
     if (!this.commentable) { throw 'Order not defined'; }
 
     let value = (textArea as HTMLInputElement).value;
-    console.log(value);
     this.commentable.comment = value;
   }
 

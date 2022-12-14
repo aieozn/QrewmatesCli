@@ -10,6 +10,6 @@
         <p class="menu-item-price">{{ getGroupDefaultPrice(_group) }} zł</p>
 
         <div class="menu-item-count" *ngIf="orderedItefsOfType > 0"><p>{{orderedItefsOfType}}</p></div>
-        <div class="menu-item-add" (click)="addGroup(_group)"><p>+</p></div>
+        <div class="menu-item-add clickable" (click)="addGroup(_group)"><p>+</p></div>
     </div>
 </div>

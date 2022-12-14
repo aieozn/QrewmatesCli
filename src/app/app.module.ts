@@ -33,6 +33,7 @@ import { OrderSummaryComponent } from './shared/order-form/layout/order-summary/
 import { CounterFooterComponent } from './shared/order-form/layout/order-menu-item/counter-footer/counter-footer.component';
 import { PaymentMethodComponent } from './shared/order-form/layout/order-summary/payment-method/payment-method.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule
   ],
   providers: [
   ],

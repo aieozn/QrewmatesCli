@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { MenuItemControllerService } from 'src/app/openapi-cli/services';
@@ -26,7 +26,11 @@ export class OrderMenuItemComponent implements OnDestroy {
 
   constructor(
     public dialogRef: MatDialogRef<OrderMenuItemComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { restaurantRef: string, group : MenuItemGroupGet },
+    @Inject(MAT_DIALOG_DATA) public data: {
+      restaurantRef: string,
+      item: OrderElementDataWrapper | undefined,
+      group : MenuItemGroupGet
+    },
     private menuItemDetailsService: MenuItemControllerService
   ) {
     this.selectItem$.pipe(
@@ -44,8 +48,7 @@ export class OrderMenuItemComponent implements OnDestroy {
         toppings: [],
         price: item.price
       }
-
-      console.log(item);
+      
       this.selectedItem$.next(item);
     })
 
@@ -57,13 +60,19 @@ export class OrderMenuItemComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  setData(data: { restaurantRef: string, group : MenuItemGroupGet }): void {
+  setData(
+    data: {
+      restaurantRef: string,
+      item: OrderElementDataWrapper | undefined,
+      group : MenuItemGroupGet
+    }): void {
+
     if (!data.group) {
       console.error("Group not found");
     } else {
       this.group = data.group;
       this.restaurantRef = data.restaurantRef;
-      this.loadItems(this.restaurantRef, this.group);
+      this.loadItems(this.restaurantRef, this.group, data.item);
     }
   }
 
@@ -71,10 +80,24 @@ export class OrderMenuItemComponent implements OnDestroy {
     this.dialogRef.close(elements);
   }
 
-  private loadItems(restaurantRef: string, group: MenuItemGroupGet) {
+  compareSelects(s1: any, s2: any) {
+    if(s1 && s2 && s1.ref === s2.ref) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private loadItems(restaurantRef: string, group: MenuItemGroupGet, menuItem: OrderElementDataWrapper | undefined) {
     if (group.image) {
       this.menuItemGroupImageUrl = GenericUtils.getMultimediaUrl(restaurantRef, group.image.ref);
     }
-    this.selectItem$.next(group.menuItems[0]);
+
+    if (menuItem) {
+      this.order = JSON.parse(JSON.stringify(menuItem));
+      this.selectedItem$.next(this.order?.menuItem);
+    } else {
+      this.selectItem$.next(group.menuItems[0]);
+    }
   }
 }

@@ -1,6 +1,6 @@
 <app-generic-dialog title="Podsumowanie zamówienia" (close)="close()">
     <div id="order-summary">
-        <div class="summary-element" *ngFor="let orderElement of order.items">
+        <div class="summary-element clickable" *ngFor="let orderElement of order.items" (click)="editItem(orderElement)">
             <div class="summary-element-description">
                 <div class="summary-element-name">
                     {{ orderElement.menuItem.menuItemGroupName }} ({{ orderElement.menuItem.name }})

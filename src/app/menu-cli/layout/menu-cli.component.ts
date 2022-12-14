@@ -32,7 +32,6 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   private async loadCategories() {
     var restaurantRef = this.restaurantService.getRestaurantRef();
 
-    console.log("Get categories");
     this.categoriesService.getCategories1({
       "restaurantRef": restaurantRef
     }).pipe(

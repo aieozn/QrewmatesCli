@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { GenericDialogCliManager } from "src/app/menu-cli/services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
@@ -32,7 +32,7 @@ export class MenuItemComponent implements OnInit, OnDestroy {
   constructor(
     private GenericDialogCliManager: GenericDialogCliManager,
     private restaurantService: RestaurantService,
-    orderService: OrderService
+    private orderService: OrderService
   ) {
     this.orderUpdatedSubscription = orderService.orderChanged.subscribe(this.onOrderUpdate.bind(this))
   }
@@ -45,7 +45,13 @@ export class MenuItemComponent implements OnInit, OnDestroy {
   }
 
   public addGroup(group: MenuItemGroupGet) {
-    this.GenericDialogCliManager.openAddItem(group);
+    this.GenericDialogCliManager.openAddItem(group)
+    .pipe(first())
+    .subscribe(data => {
+      if (data) {
+        this.orderService.addOrderElements(data);
+      }
+    });
   }
 
   public getGroupDefaultPrice(item: MenuItemGroupGet) {

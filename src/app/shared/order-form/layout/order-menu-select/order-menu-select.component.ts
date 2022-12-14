@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OrderUtils } from 'src/app/menu-cli/utils/order-utils';
+import { OrderUtils } from 'src/app/shared/utils/order-utils';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemSelectCollectionGet, MenuItemSelectGet } from 'src/app/openapi-cli/models';
 
@@ -10,27 +10,61 @@ import { MenuItemSelectCollectionGet, MenuItemSelectGet } from 'src/app/openapi-
 })
 export class OrderMenuSelectComponent implements OnInit {
 
-  @Input('collection') collection: MenuItemSelectCollectionGet | undefined;
-  @Input('order') order: OrderElementDataWrapper | undefined;
+  _collection: MenuItemSelectCollectionGet | undefined;
+  _order: OrderElementDataWrapper | undefined;
+  
+  selected: MenuItemSelectGet | undefined;
+
+  @Input('collection') set collection(value: MenuItemSelectCollectionGet) {
+    this._collection = value;
+
+    this.init();
+  }
+
+  @Input('order') set order(value: OrderElementDataWrapper) {
+    this._order = value;
+
+    this.init();
+  }
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  init() {
+    if (this._collection && this._order) {
+      let order = this._order;
+      let collection = this._collection;
+
+      // Check if there is selected item
+      let selectedList = collection.menuItemSelects.filter(collectionSelect => 
+        order.selects.map(orderSelect => orderSelect.ref).indexOf(collectionSelect.ref) !== -1
+      );
+
+      if (selectedList.length === 0) {
+        this.selected = collection.menuItemSelects[0];
+      } else {
+        this.selected = selectedList[0];
+      }
+    }
+
+    console.log("INITED")
+    console.log(this.selected)
+  }
+
   change(select: MenuItemSelectGet) {
-    if (!this.order) { throw 'Order not defined'; }
-    if (!this.collection) { throw 'Collection not defined'; }
+    if (!this._order) { throw 'Order not defined'; }
+    if (!this._collection) { throw 'Collection not defined'; }
 
-    var collectionSelects: string[] = this.collection.menuItemSelects.map(e => e.ref);
-    this.order.selects = this.order.selects.filter(e => collectionSelects.indexOf(e.ref) === -1)
+    var collectionSelects: string[] = this._collection.menuItemSelects.map(e => e.ref);
+    this._order.selects = this._order.selects.filter(e => collectionSelects.indexOf(e.ref) === -1)
 
-    this.order.selects.push(select);
-    
-    console.log("Selects updated");
-    console.log(this.order);
+    this._order.selects.push(select);
 
-    OrderUtils.updateOrderDetails(this.order);
+    console.log("UPDATE ORDER DETAILS")
+
+    OrderUtils.updateOrderDetails(this._order);
   }
 
 }

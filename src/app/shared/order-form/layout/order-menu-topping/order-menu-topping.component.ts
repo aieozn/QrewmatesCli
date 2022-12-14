@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { OrderUtils } from 'src/app/menu-cli/utils/order-utils';
+import { OrderUtils } from 'src/app/shared/utils/order-utils';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { MenuItemToppingCollectionGet, MenuItemToppingGet } from 'src/app/openapi-cli/models';
 
@@ -28,9 +28,6 @@ export class OrderMenuToppingComponent {
       this.order.toppings = this.order.toppings.filter(e => e.ref !== topping.ref)
     }
     
-    console.log("Order updated:")
-    console.log(this.order)
-
     OrderUtils.updateOrderDetails(this.order);
   }
 }

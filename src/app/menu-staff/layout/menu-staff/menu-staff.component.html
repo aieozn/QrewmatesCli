@@ -6,7 +6,7 @@
     <app-menu-horizontal-wrapper>
         <div id="menu-elements">
             <app-menu-horizontal-element-wrapper name="Ostatnie zamówienia">
-                <div *ngFor="let order of orders | orderStatus:'PLACED'" class="pending-order box-shadow box-radius">
+                <div *ngFor="let order of orders | orderStatus:'PLACED'" class="pending-order box-shadow box-radius" (click)="edit(order)">
                     <div class="order-description">
                         <h3>{{ order.table.name }}</h3>
                         <p>Zobacz zamówienie</p>
