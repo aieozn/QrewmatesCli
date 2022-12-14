@@ -9,25 +9,46 @@ import { MenuItemToppingCollectionGet, MenuItemToppingGet } from 'src/app/openap
   styleUrls: ['./order-menu-topping.component.scss']
 })
 export class OrderMenuToppingComponent {
-
+  _order: OrderElementDataWrapper | undefined;
   _collection: MenuItemToppingCollectionGet | undefined;
+
+  checked: MenuItemToppingGet[] = [];
+
   @Input() set collection(value: MenuItemToppingCollectionGet) {
     this._collection = value;
+    this.init();
   }
 
-  @Input('order') order: OrderElementDataWrapper | undefined;
+  @Input('order') set order(value: OrderElementDataWrapper) {
+    this._order = value;
+    this.init();
+  }
 
   constructor() { }
 
+  init() {
+    if (this._collection && this._order) {
+      let collection = this._collection;
+      let order = this._order;
+
+      this.checked = collection.menuItemToppings
+        .filter(collectionTopping => order.menuItemToppings.map(orderTopping => orderTopping.ref).includes(collectionTopping.ref));
+
+      OrderUtils.updateOrderDetails(this._order);
+    }
+  }
+
   select(topping: MenuItemToppingGet, selected: boolean) {
-    if (!this.order) { throw 'Order not defined'; }
+    if (!this._order) { throw 'Order not defined'; }
 
     if (selected) {
-      this.order.toppings.push(topping);
+      console.log("SELECT")
+      this._order.menuItemToppings.push(topping);
     } else {
-      this.order.toppings = this.order.toppings.filter(e => e.ref !== topping.ref)
+      console.log("UNSELECT")
+      this._order.menuItemToppings = this._order.menuItemToppings.filter(e => e.ref !== topping.ref)
     }
     
-    OrderUtils.updateOrderDetails(this.order);
+    OrderUtils.updateOrderDetails(this._order);
   }
 }

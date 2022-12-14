@@ -9,7 +9,14 @@ export class OrderMenuChiefNoteComponent implements OnInit {
 
   // TODO fix mobile keyboard handling
 
-  @Input('commentable') commentable: { comment?: string } | undefined;
+  _commentable: { comment?: string } | undefined;
+
+  @Input('commentable') set commentable(value: { comment?: string }) {
+    this._commentable = value;
+    this.value = value.comment ? value.comment : '';
+  }
+
+  value = '';
 
   constructor() { }
 
@@ -17,10 +24,10 @@ export class OrderMenuChiefNoteComponent implements OnInit {
   }
 
   public updateComment(textArea: EventTarget) {
-    if (!this.commentable) { throw 'Order not defined'; }
+    if (!this._commentable) { throw 'Order not defined'; }
 
     let value = (textArea as HTMLInputElement).value;
-    this.commentable.comment = value;
+    this._commentable.comment = value;
   }
 
 }

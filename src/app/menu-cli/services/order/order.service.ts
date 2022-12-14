@@ -1,9 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { first, firstValueFrom, Observable, tap } from 'rxjs';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { DoOrderControllerService } from 'src/app/openapi-cli/services';
 import { RestaurantService } from '../restaurant/restaurant.service';
+import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
 
 @Injectable({
   providedIn: 'root'
@@ -50,12 +51,17 @@ export class OrderService {
     this.orderChanged.emit(this.order);
   }
 
-  public async submit() {
-    let ordered = await firstValueFrom(this.orderService.order1({
+  public submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
+    return this.orderService.order1({
       restaurant: this.restaurantService.getRestaurantRef(),
-      body: this.order
-    }));
-    
+      body: order
+    }).pipe(
+      first(),
+      tap(_ => this.clearOrder())
+    );
+  }
+
+  public clearOrder() {
     this.order = {
       price: 0,
       comment: undefined,

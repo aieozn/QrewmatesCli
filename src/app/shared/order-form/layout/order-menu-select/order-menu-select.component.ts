@@ -39,7 +39,7 @@ export class OrderMenuSelectComponent implements OnInit {
 
       // Check if there is selected item
       let selectedList = collection.menuItemSelects.filter(collectionSelect => 
-        order.selects.map(orderSelect => orderSelect.ref).indexOf(collectionSelect.ref) !== -1
+        order.menuItemSelects.map(orderSelect => orderSelect.ref).includes(collectionSelect.ref)
       );
 
       if (selectedList.length === 0) {
@@ -47,10 +47,9 @@ export class OrderMenuSelectComponent implements OnInit {
       } else {
         this.selected = selectedList[0];
       }
-    }
 
-    console.log("INITED")
-    console.log(this.selected)
+      this.change(this.selected);
+    }
   }
 
   change(select: MenuItemSelectGet) {
@@ -58,11 +57,9 @@ export class OrderMenuSelectComponent implements OnInit {
     if (!this._collection) { throw 'Collection not defined'; }
 
     var collectionSelects: string[] = this._collection.menuItemSelects.map(e => e.ref);
-    this._order.selects = this._order.selects.filter(e => collectionSelects.indexOf(e.ref) === -1)
+    this._order.menuItemSelects = this._order.menuItemSelects.filter(e => !collectionSelects.includes(e.ref))
 
-    this._order.selects.push(select);
-
-    console.log("UPDATE ORDER DETAILS")
+    this._order.menuItemSelects.push(select);
 
     OrderUtils.updateOrderDetails(this._order);
   }

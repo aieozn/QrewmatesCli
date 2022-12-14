@@ -10,8 +10,8 @@ export class OrderUtils {
         var price = 0;
 
         price += order.menuItem.price
-        order.selects.forEach(s => price += s.price)
-        order.toppings.forEach(t => price += t.price)
+        order.menuItemSelects.forEach(s => price += s.price)
+        order.menuItemToppings.forEach(t => price += t.price)
 
         order.price = price;
     }

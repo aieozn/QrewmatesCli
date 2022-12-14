@@ -44,8 +44,8 @@ export class OrderMenuItemComponent implements OnDestroy {
     ).subscribe((item) => {
       this.order = {
         menuItem: item,
-        selects: [],
-        toppings: [],
+        menuItemSelects: [],
+        menuItemToppings: [],
         price: item.price
       }
       

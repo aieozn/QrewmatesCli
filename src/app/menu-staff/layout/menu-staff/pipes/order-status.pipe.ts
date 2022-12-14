@@ -11,7 +11,7 @@ export class OrderStatusPipe implements PipeTransform {
       return value;
     }
     
-    return value.filter(item => args.indexOf(item.orderStatus) !== -1);
+    return value.filter(item => args.includes(item.orderStatus));
   }
 
 }

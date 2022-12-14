@@ -1,4 +1,4 @@
-import { IdentifiedByRef } from "src/app/openapi-cli/models/identified-by-ref";
+import { IdentifiedByRefData } from "src/app/openapi-cli/models";
 import { OrderElementDataWrapper } from "./order-element-data-wrapper";
 
 export interface OrderWrapper {
@@ -6,5 +6,5 @@ export interface OrderWrapper {
     items: Array<OrderElementDataWrapper>;
     price: number;
     paymentMethod: 'CASH' | 'BLIK';
-    table: IdentifiedByRef
+    table: IdentifiedByRefData
 }

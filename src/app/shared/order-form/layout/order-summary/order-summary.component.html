@@ -6,10 +6,10 @@
                     {{ orderElement.menuItem.menuItemGroupName }} ({{ orderElement.menuItem.name }})
                 </div>
                 <div class="summary-element-options">
-                    <div class="summary-element-option" *ngFor="let select of orderElement.selects">
+                    <div class="summary-element-option" *ngFor="let select of orderElement.menuItemSelects">
                         {{ select.name }} ({{ select.price }}zł)
                     </div>
-                    <div class="summary-element-option" *ngFor="let topping of orderElement.toppings">
+                    <div class="summary-element-option" *ngFor="let topping of orderElement.menuItemToppings">
                         {{ topping.name }} ({{ topping.price }}zł)
                     </div>
                     <div class="summary-element-option" *ngIf="orderElement.comment">
@@ -22,10 +22,10 @@
             </div>
         </div>
 
-        <app-payment-method></app-payment-method>
+        <app-payment-method [order]="order"></app-payment-method>
 
         <app-order-menu-chief-note [commentable]="order"></app-order-menu-chief-note>
 
-        <app-order-submit id="order-sub-final"></app-order-submit>
+        <app-order-submit id="order-sub-final" (submit)="submit()"></app-order-submit>
     </div>
 </app-generic-dialog>

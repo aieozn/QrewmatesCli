@@ -7,7 +7,8 @@ import { RestaurantService } from '../restaurant/restaurant.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderService } from '../order/order.service';
-import { first, Observable } from 'rxjs';
+import { filter, first, Observable, switchMap, tap } from 'rxjs';
+import { DoOrderControllerService } from 'src/app/openapi-cli/services';
 
 
 @Injectable({
@@ -15,8 +16,11 @@ import { first, Observable } from 'rxjs';
 })
 export class GenericDialogCliManager {
 
-  constructor(private dialogService: GenericDialogService, private restaurantService: RestaurantService,
-    private dialog: MatDialog, private orderService: OrderService) { }
+  constructor(private dialogService: GenericDialogService,
+    private restaurantService: RestaurantService,
+    private dialog: MatDialog, private orderService: OrderService,
+    private doOrderService: DoOrderControllerService
+  ) { }
 
   public openAboutUs() {
     // TODO fix AboutUsComponent title
@@ -41,6 +45,17 @@ export class GenericDialogCliManager {
 
   public openSummary() {
     // TODO fix title
-    this.dialog.open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig({}))
+    this.dialog
+      .open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig({}))
+      .afterClosed()
+      .pipe(
+        first(),
+        filter(e => e !== undefined),
+        switchMap(newItem => this.orderService.submit(newItem)),
+        tap(result => {
+          console.log("Order created");
+          console.log(result);
+        })
+      ).subscribe();
   }
 }
