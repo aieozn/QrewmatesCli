@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { filter, first, map, mergeMap } from 'rxjs';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { filter, first, mergeMap } from 'rxjs';
 import { GenericDialogCliManager } from 'src/app/menu-cli/services/generic-dialog-cli-manager/generic-dialog-cli-manager';
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
-import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
+import { RestaurantService } from 'src/app/shared/menu-horizontal/service/restaurant/restaurant.service';
 import { MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
+import { ExportSummaryData } from './order-summary-data';
 
 @Component({
   selector: 'app-order-summary',
@@ -19,8 +20,8 @@ export class OrderSummaryComponent implements OnInit {
   
   constructor(private orderService: OrderService, public dialogRef: MatDialogRef<OrderSummaryComponent>,
     private groupService: MenuItemGroupControllerService, private restaurantService: RestaurantService,
-    private dialogManager: GenericDialogCliManager) {
-    this.order = orderService.getOrder();
+    private dialogManager: GenericDialogCliManager, @Inject(MAT_DIALOG_DATA) data: ExportSummaryData) {
+      this.order = JSON.parse(JSON.stringify(data.item));
   }
 
   ngOnInit(): void {

@@ -26,6 +26,6 @@
 
         <app-order-menu-chief-note [commentable]="order"></app-order-menu-chief-note>
 
-        <app-order-submit id="order-sub-final" (submit)="submit()"></app-order-submit>
+        <app-order-submit id="order-sub-final" (submit)="submit()" [order]="order"></app-order-submit>
     </div>
 </app-generic-dialog>

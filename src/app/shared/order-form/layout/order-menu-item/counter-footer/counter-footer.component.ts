@@ -10,6 +10,7 @@ import { GenericDialogService } from 'src/app/shared/generic-dialog/service/gene
 export class CounterFooterComponent implements OnInit {
 
   @Input('order') order: OrderElementDataWrapper | undefined;
+  @Input('editMode') editMode = false;
   @Output('submit') submit = new EventEmitter<OrderElementDataWrapper[]>;
 
   count = 1;
@@ -17,6 +18,7 @@ export class CounterFooterComponent implements OnInit {
   constructor(private dialogService: GenericDialogService) { }
 
   ngOnInit(): void {
+    
   }
 
   itemAdd() {

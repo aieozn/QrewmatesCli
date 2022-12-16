@@ -3,7 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogCliManager } from "../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
-import { RestaurantService } from '../services/restaurant/restaurant.service';
+import { RestaurantService } from '../../shared/menu-horizontal/service/restaurant/restaurant.service';
 
 @Component({
   selector: 'app-menu-cli',

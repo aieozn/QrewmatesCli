@@ -1,0 +1,16 @@
+<div id="order-submit" *ngIf="order && order.items.length > 0" class="box-shadow box-radius">
+    <div id="summary">
+        <p id="summary-label">Podsumowanie:</p>
+        <p id="summary-value">({{ order.items.length }}) {{ order.price.toFixed(2) }}zł</p>
+    </div>
+    <div id="order">
+        <div id="subscribeButton" (click)="proceed()">
+            <span *ngIf="order.editMode; else createMode">
+                Zapisz
+            </span>
+            <ng-template #createMode>
+                Zamów i zapłać
+            </ng-template>
+        </div>
+    </div>
+</div>

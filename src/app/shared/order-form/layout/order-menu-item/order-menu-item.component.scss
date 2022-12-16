@@ -12,6 +12,7 @@
     overflow: auto;
     padding-bottom: 0px;
     padding-top: 0px;
+    position: relative;
 }
 
 #space-filler {
@@ -108,4 +109,11 @@
 #item-select {
     width: 100%;
     z-index: 900;
+}
+
+#close-icon {
+    color: #38A583;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }

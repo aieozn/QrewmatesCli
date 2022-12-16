@@ -1,6 +1,7 @@
 <div id="menu-item-details" *ngIf="group && restaurantRef">
     <div id="menu-item-details-scroll">
 
+        <mat-icon id="close-icon" class="clickable" (click)="close()">close</mat-icon>
         <div id="allergens"><mat-icon>info</mat-icon>Informacje o alergenach</div>
 
         <div id="item-select-wrapper" *ngIf="group.menuItems.length > 1">
@@ -33,13 +34,13 @@
             <app-order-menu-chief-note [commentable]="order"></app-order-menu-chief-note>
         </span>
 
-        <app-counter-footer [order]="order" (submit)="submit($event)"></app-counter-footer>
+        <app-counter-footer [order]="order" (submit)="submit($event)" [editMode]="editMode"></app-counter-footer>
 
         <div class="space-vertical-30">
         </div>
     </div>
 
-    <div id="space-filler">
+    <div id="space-filler"> 
 
     </div>
 </div>

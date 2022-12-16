@@ -3,7 +3,7 @@ import { first, firstValueFrom, Observable, tap } from 'rxjs';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { DoOrderControllerService } from 'src/app/openapi-cli/services';
-import { RestaurantService } from '../restaurant/restaurant.service';
+import { RestaurantService } from '../../../shared/menu-horizontal/service/restaurant/restaurant.service';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
 
 @Injectable({
@@ -22,7 +22,8 @@ export class OrderService {
       items: [],
       table: {
         ref: restaurantService.getTableRef()
-      }
+      },
+      editMode: false
     }
   }
 
@@ -52,8 +53,8 @@ export class OrderService {
   }
 
   public submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
-    return this.orderService.order1({
-      restaurant: this.restaurantService.getRestaurantRef(),
+    return this.orderService.order({
+      restaurantRef: this.restaurantService.getRestaurantRef(),
       body: order
     }).pipe(
       first(),
@@ -69,7 +70,8 @@ export class OrderService {
       paymentMethod: 'CASH',
       table: {
         ref: this.restaurantService.getTableRef()
-      }
+      },
+      editMode: false
     }
 
     this.orderChanged.emit(this.order);

@@ -1,42 +1,18 @@
 <div id="root-mobile">
     <app-account-bar></app-account-bar>
 
-
     <app-menu-horizontal></app-menu-horizontal>
+
     <app-menu-horizontal-wrapper>
         <div id="menu-elements">
             <app-menu-horizontal-element-wrapper name="Ostatnie zamówienia">
-                <div *ngFor="let order of orders | orderStatus:'PLACED'" class="pending-order box-shadow box-radius" (click)="edit(order)">
-                    <div class="order-description">
-                        <h3>{{ order.table.name }}</h3>
-                        <p>Zobacz zamówienie</p>
-                    </div>
-                    <div class="order-actions">
-                        <div class="order-action accept">
-                            <mat-icon>done</mat-icon>
-                        </div>
-                        <div class="order-action reject">
-                            <mat-icon>pause</mat-icon>
-                        </div>
-                    </div>
-                </div>
+                <app-pending-order *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
+                </app-pending-order>
             </app-menu-horizontal-element-wrapper>
 
             <app-menu-horizontal-element-wrapper name="Zaakceptowane">
-                <div *ngFor="let order of orders | orderStatus:'ACCEPTED'" class="pending-order box-shadow box-radius">
-                    <div class="order-description">
-                        <h3>{{ order.table.name }}</h3>
-                        <p>Zobacz zamówienie</p>
-                    </div>
-                    <div class="order-actions">
-                        <div class="order-action accept">
-                            <mat-icon>done</mat-icon>
-                        </div>
-                        <div class="order-action reject">
-                            <mat-icon>pause</mat-icon>
-                        </div>
-                    </div>
-                </div>
+                <app-pending-order *ngFor="let order of orders | orderStatus:'ACCEPTED'" [order]="order">
+                </app-pending-order>
             </app-menu-horizontal-element-wrapper>
         </div>
     </app-menu-horizontal-wrapper>

@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
-import { map, Observable } from 'rxjs';
+import { map, Observable, retry } from 'rxjs';
 import { orderSocketServiceConfig } from './order-socket-service.config';
 import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
 
@@ -8,6 +8,7 @@ import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-ord
 export class OrderSocketService implements OnDestroy {
 
   private rxStomp: RxStomp;
+  private orderSub: {[key: string]: Observable<SubscribeOrdersMessage>} = {};
 
   // TODO provide only when
   public constructor() {
@@ -21,7 +22,11 @@ export class OrderSocketService implements OnDestroy {
   }
 
   public subscribeOrder(restaurantRef: string) : Observable<SubscribeOrdersMessage> {
-    return this.rxStomp.watch('/subscribe/' + restaurantRef + '/order')
+    if (!this.orderSub[restaurantRef]) {
+      this.orderSub[restaurantRef] = this.rxStomp.watch('/subscribe/' + restaurantRef + '/order')
       .pipe(map(e => JSON.parse(e.body).payload as SubscribeOrdersMessage));
+    }
+
+    return this.orderSub[restaurantRef];
   }
 }

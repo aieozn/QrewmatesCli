@@ -1,0 +1,14 @@
+<div class="pending-order box-shadow box-radius clickable" *ngIf="_order" (click)="edit()">
+    <div class="order-description">
+        <h3>{{ _order.table.name }}</h3>
+        <p>Zobacz zamówienie</p>
+    </div>
+    <div class="order-actions">
+        <div class="order-action accept">
+            <mat-icon>done</mat-icon>
+        </div>
+        <div class="order-action reject">
+            <mat-icon>pause</mat-icon>
+        </div>
+    </div>
+</div>

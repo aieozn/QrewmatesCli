@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { MenuItemDetailedGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
+import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { AboutUsComponent } from '../../layout/footer/about-us/about-us.component';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 import { OrderSummaryComponent } from 'src/app/shared/order-form/layout/order-summary/order-summary.component';
-import { RestaurantService } from '../restaurant/restaurant.service';
+import { RestaurantService } from '../../../shared/menu-horizontal/service/restaurant/restaurant.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderService } from '../order/order.service';
 import { filter, first, Observable, switchMap, tap } from 'rxjs';
-import { DoOrderControllerService } from 'src/app/openapi-cli/services';
 
 
 @Injectable({
@@ -18,8 +17,8 @@ export class GenericDialogCliManager {
 
   constructor(private dialogService: GenericDialogService,
     private restaurantService: RestaurantService,
-    private dialog: MatDialog, private orderService: OrderService,
-    private doOrderService: DoOrderControllerService
+    private dialog: MatDialog,
+    private orderService: OrderService
   ) { }
 
   public openAboutUs() {
@@ -31,7 +30,8 @@ export class GenericDialogCliManager {
     return this.dialogService.openMenuItemComponent({
       group: group,
       item: undefined,
-      restaurantRef: this.restaurantService.getRestaurantRef()
+      restaurantRef: this.restaurantService.getRestaurantRef(),
+      editMode: false
     }).afterClosed().pipe(first());
   }
 
@@ -39,14 +39,18 @@ export class GenericDialogCliManager {
     return this.dialogService.openMenuItemComponent({
       group: group,
       item: item,
-      restaurantRef: this.restaurantService.getRestaurantRef()
+      restaurantRef: this.restaurantService.getRestaurantRef(),
+      editMode: true
     }).afterClosed().pipe(first());
   }
 
   public openSummary() {
     // TODO fix title
     this.dialog
-      .open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig({}))
+      .open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig({
+        restaurantRef: this.restaurantService.getRestaurantRef(),
+        item: this.orderService.getOrder()
+      }))
       .afterClosed()
       .pipe(
         first(),

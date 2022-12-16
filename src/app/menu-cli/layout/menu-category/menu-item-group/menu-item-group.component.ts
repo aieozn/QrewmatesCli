@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { first, Subscription } from 'rxjs';
 import { GenericDialogCliManager } from "src/app/menu-cli/services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
-import { RestaurantService } from 'src/app/menu-cli/services/restaurant/restaurant.service';
+import { RestaurantService } from 'src/app/shared/menu-horizontal/service/restaurant/restaurant.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 

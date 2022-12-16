@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, filter } from 'rxjs';
 import { OrderGet } from 'src/app/openapi-cli/models/order-get';
 import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
 import { AccountService } from '../../services/account/account.service';
@@ -38,11 +37,28 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
       let newOrders = [];
       newOrders = this.orders.concat(message.orders);
       this.orders = newOrders;
+    } else if (message.batchType === 'UPDATE') {
+      let newOrders: OrderGet[] = [];
+
+      for (let messageOrder of message.orders) {
+        let updated = false;
+
+        for (let activeOrder of this.orders) {
+          if (activeOrder.ref !== messageOrder.ref) {
+            newOrders.push(activeOrder);
+          } else {
+            newOrders.push(messageOrder);
+            updated = true;
+          }
+        }
+
+        if (!updated) {
+          newOrders.push(messageOrder);
+        }
+      }
+
+
+      this.orders = newOrders;
     }
   }
-
-  public edit(order: OrderGet) {
-    
-  }
-
 }

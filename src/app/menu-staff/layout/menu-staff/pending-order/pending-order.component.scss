@@ -1,0 +1,50 @@
+.pending-order {
+    padding: 20px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.order-description {
+    width: 70%;
+}
+
+.order-actions {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+}
+
+.order-action {
+    background-color: red;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    margin-left: 10px
+}
+
+.order-action mat-icon {
+    line-height: 45px;
+    width: 45px;
+    text-align: center;
+    color: white;
+}
+
+.order-action.accept {
+    background-color: #38A583;
+}
+
+.order-action.reject {
+    background-color: #C3C3C3;
+}
+
+.order-description h3 {
+    font-size: 16px;
+    font-family: PoppinsSemiBold;
+    margin: 0px;
+}
+
+.order-description p {
+    color: #777777;
+    margin: 0px;
+}

@@ -5,6 +5,7 @@ import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from 'src/app/open
 import { MenuItemControllerService } from 'src/app/openapi-cli/services';
 import { GenericUtils } from 'src/app/shared/utils/generic-utils';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OrderMenuItemData } from './order-menu-item-data';
 
 @Component({
   selector: 'app-order-menu-item',
@@ -20,17 +21,14 @@ export class OrderMenuItemComponent implements OnDestroy {
 
   public selectItem$ = new BehaviorSubject<MenuItemGet | undefined>(undefined);
   public restaurantRef: string | undefined;
+  public editMode = false;
 
   private readonly onDestroy = new Subject<void>();
   
 
   constructor(
     public dialogRef: MatDialogRef<OrderMenuItemComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      restaurantRef: string,
-      item: OrderElementDataWrapper | undefined,
-      group : MenuItemGroupGet
-    },
+    @Inject(MAT_DIALOG_DATA) public data: OrderMenuItemData,
     private menuItemDetailsService: MenuItemControllerService
   ) {
     this.selectItem$.pipe(
@@ -60,13 +58,8 @@ export class OrderMenuItemComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  setData(
-    data: {
-      restaurantRef: string,
-      item: OrderElementDataWrapper | undefined,
-      group : MenuItemGroupGet
-    }): void {
-
+  setData(data: OrderMenuItemData): void {
+    this.editMode = data.editMode;
     if (!data.group) {
       console.error("Group not found");
     } else {
@@ -99,5 +92,9 @@ export class OrderMenuItemComponent implements OnDestroy {
     } else {
       this.selectItem$.next(group.menuItems[0]);
     }
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

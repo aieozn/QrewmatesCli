@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { MenuItemDetailedGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
-import { OrderElementDataWrapper } from '../../openapi-cli-wrapper/order/order-element-data-wrapper';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog'
+import { OrderMenuItemData } from '../../order-form/layout/order-menu-item/order-menu-item-data';
 import { OrderMenuItemComponent } from '../../order-form/layout/order-menu-item/order-menu-item.component';
+import { ExportSummaryData } from '../../order-form/layout/order-summary/order-summary-data';
+import { OrderSummaryComponent } from '../../order-form/layout/order-summary/order-summary.component';
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +30,11 @@ export class GenericDialogService {
       { data: data });
   }
 
-  public openMenuItemComponent(
-    data: {
-      restaurantRef: string,
-      item: OrderElementDataWrapper | undefined,
-      group : MenuItemGroupGet 
-    }) : MatDialogRef<OrderMenuItemComponent> {
+  public openMenuItemComponent(data: OrderMenuItemData) : MatDialogRef<OrderMenuItemComponent> {
     return this.dialog.open(OrderMenuItemComponent, GenericDialogService.getDefaultGenericDialogConfig(data));
+  }
+
+  public openSummary(data: ExportSummaryData) : MatDialogRef<OrderSummaryComponent> {
+    return this.dialog.open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig(data));
   }
 }

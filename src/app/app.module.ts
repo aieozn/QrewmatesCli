@@ -19,7 +19,7 @@ import { OrderMenuChiefNoteComponent } from './shared/order-form/layout/order-me
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { OrdeSubmitComponent } from './menu-cli/layout/order-submit/order-submit.component';
+import { OrdeSubmitComponent } from './shared/order-form/layout/order-submit/order-submit.component';
 import { MenuStaffComponent } from './menu-staff/layout/menu-staff/menu-staff.component';
 import { AccountBarComponent } from './menu-staff/layout/account-bar/account-bar.component';
 import { MenuHorizontalElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
@@ -34,6 +34,7 @@ import { CounterFooterComponent } from './shared/order-form/layout/order-menu-it
 import { PaymentMethodComponent } from './shared/order-form/layout/order-summary/payment-method/payment-method.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { PendingOrderComponent } from './menu-staff/layout/menu-staff/pending-order/pending-order.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { FormsModule } from '@angular/forms';
     MenuHorizontalElementWrapperComponent,
     MenuHorizontalWrapperComponent,
     OrderStatusPipe,
-    FooterPoweredByComponent
+    FooterPoweredByComponent,
+    PendingOrderComponent
   ],
   imports: [
     BrowserModule,
