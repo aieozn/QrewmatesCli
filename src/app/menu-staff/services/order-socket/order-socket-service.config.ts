@@ -1,7 +1,7 @@
 import { RxStompConfig } from '@stomp/rx-stomp';
 
 export const orderSocketServiceConfig: RxStompConfig = {
-  brokerURL: 'ws://localhost:8080/ws/websocket',
+  brokerURL: 'ws://192.168.1.173:8080/ws/websocket',
   // Headers
   // Typical keys: login, passcode, host
   //   connectHeaders: {

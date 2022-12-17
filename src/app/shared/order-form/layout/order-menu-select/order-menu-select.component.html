@@ -2,7 +2,7 @@
     <h3>{{_collection.name}}</h3>
     <p id="select-description">Wybierz odpowiednią opcję</p>
 
-    <mat-radio-group aria-label="Select an option" [(ngModel)]="selected">
+    <mat-radio-group [(ngModel)]="selected">
         <mat-radio-button [value]="select" *ngFor="let select of _collection.menuItemSelects" (change)="change(select)">
             {{ select.name }} 
             {{ select.price !== 0 ? '(+' + select.price!.toFixed(2) + ' zł)' : '' }}

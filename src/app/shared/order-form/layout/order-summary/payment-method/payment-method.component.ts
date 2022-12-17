@@ -10,12 +10,25 @@ export class PaymentMethodComponent implements OnInit {
 
   @Input('order') order: OrderWrapper | undefined;
 
+  paymentMethods : {
+    id: 'CASH' | 'BLIK',
+    label: string
+  }[] = [{
+      id: 'CASH',
+      label: 'Gotówka'
+    },{
+      id: 'BLIK',
+      label: 'BLIK'
+    }
+  ]
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   change(option: 'CASH' | 'BLIK') {
+    console.log("CHANGE BUTTOn")
     if (!this.order) { throw 'Order not defined'; }
     this.order.paymentMethod = option;
   }

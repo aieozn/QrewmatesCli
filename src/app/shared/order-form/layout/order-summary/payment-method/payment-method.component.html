@@ -1,5 +1,9 @@
-<div id="payment-method" class="box-shadow box-radius">
+<div *ngIf="order" id="payment-method" class="box-shadow box-radius">
 
-    <mat-radio-button value="false" (change)="change('CASH')" checked="true">Gotówka</mat-radio-button>
-    <mat-radio-button value="false" (change)="change('BLIK')">Blik</mat-radio-button>
+    <mat-radio-group [(ngModel)]="order.paymentMethod">
+        <mat-radio-button *ngFor="let method of paymentMethods" [value]="method.id">
+            {{ method.label }}
+        </mat-radio-button>
+    </mat-radio-group>
+    
 </div>
