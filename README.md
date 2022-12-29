@@ -29,5 +29,63 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Testing
 Tests to be done
 
-1. Odczytanie regulaminu
-2. 
+- Odczytanie regulaminu
+- Wyświetlanie wszysktich kategorii w menu poziomym
+- Wyświetlanie wszystkich kategorii w menu poziomym (tytuły + opis)
+- Wyświetlenie poprawnych atrybutów produktu na liście produktów:
+    - nazwa
+    - opis
+    - cena
+
+- Wyświetlenie poprawnych szczegółów produktu
+    - opcje
+    - nazwa
+    - cena
+    - opis
+    - opcje
+    - dodatki
+
+- Poprawne obliczanie ceny po aktualizacji
+    - opcji
+    - select
+    - topping
+    - ilości produktów
+
+- [CLI] Dodanie jednego prostego produktu do koszyka
+    - Wyświetlenie prawidłowego podsumowania
+        - lista wszystkich elementów
+        - poprawna cena
+
+- [CLI] Dodanie jednego złożonego produktu do koszyka
+    - Wyświetlenie prawidłowego podsumowania
+        - lista wszystkich elementów
+        - poprawna cena
+        - komentarz
+
+- [CLI] Dodanie jednego wielu produktów do koszyka
+    - Wyświetlenie prawidłowego podsumowania
+        - lista wszystkich elementów
+        - rozdzielenie elementów z wybraną ilością na kolejne pozycje na liście
+        - poprawna cena
+        - komentarz
+
+- [CLI|STAFF] Edycja produktu (sprawdzenie poprawności aktualizacji ceny, zamówienia, komentarza, podsumowania)
+    - dodanie topping
+    - dodanie select
+    - usunięcie topping
+    - usunięcie select
+    - zmiana opcji (test usunięcia wszystkich toppings i selects)
+    - Usunięcie produktu z zamówienia
+    - Zmiana ilości produktów w zamówieniu
+    - Zmiana komentarza
+
+- [STAFF] Wyświetlenie wszystkich kategorii zamówień
+- [STAFF] Wyświetlenie posortowanych zamówień 
+- [STAFF] Wyświetlenie nowego zamówienia po akcji klienta (CREATE, UPDATE)
+- [STAFF] Skasowanie zamówienia po akcji klienta (DELETE)
+- [STAFF] Aktualizacja zamówienia po akcji kelnera (UPDATE)
+
+- Wyświetlenie dokumentu "O nas"
+- Wyświetlenie dokumentu "Polityka prywatności"
+- Wyświetlenie dokumentu "Informacja prawna"
+- Wyświetlenie dokumentu "Jak to działa?"
