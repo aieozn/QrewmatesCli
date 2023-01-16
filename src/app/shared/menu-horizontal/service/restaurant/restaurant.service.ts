@@ -43,7 +43,7 @@ export class RestaurantService {
     }
 
     this.restaurant = await firstValueFrom(this.restaurantControllerService.getRestaurant({
-      "restaurant": this.restaurantRef
+      "restaurantRef": this.restaurantRef
     }));
 
     return this.restaurant;

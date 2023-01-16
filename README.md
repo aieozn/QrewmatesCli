@@ -63,6 +63,7 @@ Tests to be done
         - komentarz
 
 - [CLI] Dodanie jednego wielu produktów do koszyka
+    - Obwódka na karcie produktu i wyświetlenie poprawnej ilości
     - Wyświetlenie prawidłowego podsumowania
         - lista wszystkich elementów
         - rozdzielenie elementów z wybraną ilością na kolejne pozycje na liście
