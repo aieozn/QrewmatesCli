@@ -34,7 +34,7 @@ export class MenuItemComponent implements OnInit, OnDestroy {
     private restaurantService: RestaurantService,
     private orderService: OrderService
   ) {
-    this.orderUpdatedSubscription = orderService.orderChanged.subscribe(this.onOrderUpdate.bind(this))
+    this.orderUpdatedSubscription = orderService.orderChanged.subscribe(this.onOrderUpdate.bind(this));
   }
 
   ngOnInit(): void {

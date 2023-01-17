@@ -4,7 +4,7 @@
         <p id="summary-value">({{ order.items.length }}) {{ order.price.toFixed(2) }}zł</p>
     </div>
     <div id="order">
-        <div id="subscribeButton" (click)="proceed()">
+        <div id="subscribeButton" class="clickable" (click)="proceed()">
             <span *ngIf="order.editMode; else createMode">
                 Zapisz
             </span>

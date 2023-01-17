@@ -4,6 +4,8 @@ import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogCliManager } from "../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { RestaurantService } from '../../shared/menu-horizontal/service/restaurant/restaurant.service';
+import { OrderService } from '../services/order/order.service';
+import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 
 @Component({
   selector: 'app-menu-cli',
@@ -14,6 +16,8 @@ export class MenuCliComponent implements OnInit, OnDestroy {
 
   public categories: MenuCategoryGet[] = [];
 
+  public order: OrderWrapper | undefined;
+
   // Display black cover over items
   public shadowItems = false;
 
@@ -22,7 +26,8 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   constructor(
     private categoriesService: MenuCategoryControllerService,
     private menuCliDialogServide: GenericDialogCliManager,
-    private restaurantService: RestaurantService
+    private restaurantService: RestaurantService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +43,12 @@ export class MenuCliComponent implements OnInit, OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe((categories) => {
       this.categories = categories;
+    });
+
+    this.orderService.orderChanged.pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe((order) => {
+      this.order = order;
     });
   }
 
