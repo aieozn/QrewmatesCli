@@ -5,7 +5,7 @@
 
     <app-menu-horizontal-wrapper>
         <div id="menu-elements">
-            <app-menu-horizontal-element-wrapper name="Ostatnie zamówienia">
+            <app-menu-horizontal-element-wrapper name="Oczekujące zamówienia">
                 <app-pending-order *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
                 </app-pending-order>
             </app-menu-horizontal-element-wrapper>

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { filter, first, forkJoin, map, of, switchMap, tap } from 'rxjs';
+import { filter, first, forkJoin, of, switchMap, tap } from 'rxjs';
 import { AccountService } from 'src/app/menu-staff/services/account/account.service';
 import { OrderGet } from 'src/app/openapi-cli/models';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
-import { OrderInstanceControllerService } from 'src/app/openapi-cli/services';
+import { OrderInstanceControllerService, OrderStatusControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 
@@ -22,6 +22,7 @@ export class PendingOrderComponent {
 
   public constructor(private dialogService: GenericDialogService,
     private orderService: OrderInstanceControllerService,
+    private orderStatusService: OrderStatusControllerService,
     private accountService: AccountService) {
     
   }
@@ -62,5 +63,21 @@ export class PendingOrderComponent {
       }
     ))
     .subscribe();
+  }
+
+  public doAction(event: Event, order: OrderGet, action: ('ACCEPT' | 'PAY' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
+    this.orderStatusService.updateStatus({
+      "restaurantRef": order.restaurantRef,
+      "ref": order.ref,
+      "body": {
+        "orderAction": action
+      }
+    }).subscribe(response => {
+      this._order = response;
+    });
+
+    event.stopPropagation();
+
+    return false;
   }
 }

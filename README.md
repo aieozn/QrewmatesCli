@@ -90,3 +90,4 @@ Tests to be done
 - Wyświetlenie dokumentu "Polityka prywatności"
 - Wyświetlenie dokumentu "Informacja prawna"
 - Wyświetlenie dokumentu "Jak to działa?"
+- Przechodzenie przez wszystkie statusy zamówienia

@@ -4,11 +4,21 @@
         <p>Zobacz zamówienie</p>
     </div>
     <div class="order-actions">
-        <div class="order-action accept">
+        <!-- Reject, Accept, Cancel, Serve, Pay -->
+        <div class="order-action accept" *ngIf="_order.actionsAllowed.includes('ACCEPT')" (click)="doAction($event, _order, 'ACCEPT')">
             <mat-icon>done</mat-icon>
         </div>
-        <div class="order-action reject">
-            <mat-icon>pause</mat-icon>
+        <div class="order-action done" *ngIf="_order.actionsAllowed.includes('SERVE')" (click)="doAction($event, _order, 'SERVE')">
+            <mat-icon>done_all</mat-icon>
+        </div>
+        <div class="order-action payed" *ngIf="_order.actionsAllowed.includes('PAY')" (click)="doAction($event, _order, 'PAY')">
+            <mat-icon>payments</mat-icon>
+        </div>
+        <div class="order-action reject" *ngIf="_order.actionsAllowed.includes('REJECT')" (click)="doAction($event, _order, 'REJECT')">
+            <mat-icon>close</mat-icon>
+        </div>
+        <div class="order-action reject" *ngIf="_order.actionsAllowed.includes('CANCEL')" (click)="doAction($event, _order, 'CANCEL')">
+            <mat-icon>close</mat-icon>
         </div>
     </div>
 </div>
