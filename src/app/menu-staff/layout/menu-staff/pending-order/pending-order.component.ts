@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter, first, forkJoin, of, switchMap, tap } from 'rxjs';
 import { AccountService } from 'src/app/menu-staff/services/account/account.service';
 import { OrderGet } from 'src/app/openapi-cli/models';
@@ -20,11 +20,11 @@ export class PendingOrderComponent {
     this._order = value;
   }
 
+  @Output('changeStatus') changeStatus = new EventEmitter<('ACCEPT' | 'PAY' | 'SERVE' | 'REJECT' | 'CANCEL')>();
+
   public constructor(private dialogService: GenericDialogService,
     private orderService: OrderInstanceControllerService,
-    private orderStatusService: OrderStatusControllerService,
     private accountService: AccountService) {
-    
   }
   
   public edit() {
@@ -65,16 +65,17 @@ export class PendingOrderComponent {
     .subscribe();
   }
 
-  public doAction(event: Event, order: OrderGet, action: ('ACCEPT' | 'PAY' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
-    this.orderStatusService.updateStatus({
-      "restaurantRef": order.restaurantRef,
-      "ref": order.ref,
-      "body": {
-        "orderAction": action
-      }
-    }).subscribe(response => {
-      this._order = response;
-    });
+  public doAction(event: Event, action: ('ACCEPT' | 'PAY' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
+    this.changeStatus.emit(action);
+    // this.orderStatusService.updateStatus({
+    //   "restaurantRef": order.restaurantRef,
+    //   "ref": order.ref,
+    //   "body": {
+    //     "orderAction": action
+    //   }
+    // }).subscribe(response => {
+    //   this._order = response;
+    // });
 
     event.stopPropagation();
 

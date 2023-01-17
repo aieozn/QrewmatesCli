@@ -4,14 +4,22 @@
     <app-menu-horizontal></app-menu-horizontal>
 
     <app-menu-horizontal-wrapper>
+
+        <div id="tables-shortcut" class="box-shadow">
+            <div class="table-icon" *ngFor="let tableRef of tableCounter | keyvalue">
+                <p class="table-icon-main">{{ tableRef.value.name }}</p>
+                <p class="table-icon-counter" *ngIf="tableRef.value.count > 1">{{ tableRef.value.count }}</p>
+            </div>
+        </div>
+
         <div id="menu-elements">
             <app-menu-horizontal-element-wrapper name="Oczekujące zamówienia">
-                <app-pending-order *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
+                <app-pending-order (changeStatus)="updateStatus(order, $event)" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
                 </app-pending-order>
             </app-menu-horizontal-element-wrapper>
 
             <app-menu-horizontal-element-wrapper name="Zaakceptowane">
-                <app-pending-order *ngFor="let order of orders | orderStatus:'ACCEPTED'" [order]="order">
+                <app-pending-order (changeStatus)="updateStatus(order, $event)" *ngFor="let order of orders | orderStatus:'ACCEPTED'" [order]="order">
                 </app-pending-order>
             </app-menu-horizontal-element-wrapper>
         </div>
