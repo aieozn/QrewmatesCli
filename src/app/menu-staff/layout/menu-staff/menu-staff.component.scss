@@ -49,3 +49,19 @@
     right: -8px;
     font-size: 12px;
 }
+
+app-pending-order {
+    width: 100%;
+    display: block;
+}
+
+@media (min-width: 481px) {
+    app-pending-order {
+        width: calc(50% - 10px);
+        display: inline-block;
+    }
+
+    app-pending-order:nth-child(2n + 1) {
+        margin-left: 20px;
+    }
+  }
