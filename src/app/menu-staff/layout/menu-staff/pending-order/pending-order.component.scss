@@ -4,6 +4,11 @@
     margin-top: 20px;
 }
 
+.edited-pending-order {
+    border: 1px solid #38A583;
+    padding: 18px;
+}
+
 .order-description {
     width: 70%;
 }
@@ -55,4 +60,24 @@
 .order-description p {
     color: #777777;
     margin: 0px;
+}
+
+#additional-info {
+    display: flex;
+    margin-top: 10px;
+}
+
+#edited {
+    color: #38A583;
+    text-align: right;
+    width: 50%;
+    visibility: hidden;
+}
+
+.edited-pending-order #edited {
+    visibility: visible;
+}
+
+#created {
+    width: 50%;
 }

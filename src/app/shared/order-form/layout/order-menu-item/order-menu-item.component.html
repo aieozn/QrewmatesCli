@@ -28,11 +28,11 @@
             </div>
         </div>
 
-        <span *ngIf="order && (selectedItem$ | async) as item">
-            <app-order-menu-select *ngFor="let collection of item.selectCollections" [collection]="collection" [order]="order"></app-order-menu-select>
-            <app-order-menu-topping *ngFor="let collection of item.toppingCollections" [collection]="collection" [order]="order"></app-order-menu-topping>
-            <app-order-menu-chief-note [commentable]="order"></app-order-menu-chief-note>
-        </span>
+        <div id="customication-components" *ngIf="order && (selectedItem$ | async) as item">
+            <app-order-menu-select #formatCol *ngFor="let collection of item.selectCollections" [collection]="collection" [order]="order"></app-order-menu-select>
+            <app-order-menu-topping #formatCol *ngFor="let collection of item.toppingCollections" [collection]="collection" [order]="order"></app-order-menu-topping>
+            <app-order-menu-chief-note #formatCol [commentable]="order"></app-order-menu-chief-note>
+        </div>
 
         <app-counter-footer [order]="order" (submit)="submit($event)" [editMode]="editMode"></app-counter-footer>
 

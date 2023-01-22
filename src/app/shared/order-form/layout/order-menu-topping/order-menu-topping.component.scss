@@ -1,6 +1,7 @@
 #order-menu-topping {
-    margin-top: 30px;
     padding: 15px;
+    // For two column view
+    height: calc(100% - 30px);
 }
 
 #order-menu-topping h3 {

@@ -1,6 +1,7 @@
 #order-menu-select {
     padding: 15px;
-    margin-top: 30px;
+    // For two column view
+    height: calc(100% - 30px);
 }
 
 #order-menu-select h3 {

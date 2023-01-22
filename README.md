@@ -91,3 +91,55 @@ Tests to be done
 - Wyświetlenie dokumentu "Informacja prawna"
 - Wyświetlenie dokumentu "Jak to działa?"
 - Przechodzenie przez wszystkie statusy zamówienia
+
+
+## Stories
+### User
+- Użytkownik może przeczytać załączony dokument w formacie PDF:
+    - O nas
+    - Polityka prywatności
+    - Informacja prawna 
+    - Jak to działa?
+- Użytkownik może wyświetlić menu restauracji
+- Użytkownik może skompletować zamówienie zawierające
+    - Dania
+    - Dodatki
+    - Opcje
+    - Komentarz
+- Użytkownik może złożyć zamówienia
+- Użytkownik zostanie poinformowany o przyjęciu (lub nieprzyjęciu) zamówienia
+- Użytkownik może wyświetlić dodatkowe informacje o restauracji:
+    - Czas obsługi zamówienia
+    - Godziny otwarcia
+- Użytkownik zostanie poinformowany kiedy restauracja nie przyjmuje zamówień
+
+### Kelner
+- Kelner może się zalogować
+- Kelner może się wylogować
+- Kelner może wyświetlić listę aktywnych zamówień (niezakończonych)
+- Kelner może edytować zamówienie
+- Kelner może przyjąć zamówienie
+- Kelner może zmienić status zamówienia
+- Kelner może odrzucić zamówienie
+- Kelner może zobaczyć szczegóły zamówienia
+
+### Admin
+- Admin może się zalogować
+- Admin może się wylogować
+- Admin ma dostęp do statystyk:
+    - Wartość przedaży z podziałem na dni
+    ...
+- Admin może wyświetlić listę zamówień (niezakończonych)
+- Admin może wyświetlić listę zamówień (zakończonych)
+- Admin może edytować konfigurację restauracji
+    - Logo
+    - Zdjęcie w tle
+    - Kolorystyka
+    - Informacje (jakie??)
+        - Godziny otwarcia
+    - Admin może "wyłączyć restaurację"
+- Admin może edytować kategorie restauracji
+- Admin może edytować dania restauracji
+- Admin może edytować dodatki restauracji
+- Admin może edytować alergeny
+- Admin może dodawać/edytować kelnerów i innych administratorów

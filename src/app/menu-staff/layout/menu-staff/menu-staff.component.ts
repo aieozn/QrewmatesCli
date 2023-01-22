@@ -98,6 +98,8 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
 
   private updateOrders(newOrders: OrderGet[]) {
     this.orders = newOrders;
+    this.orders = this.orders.sort((a, b) => a.created.localeCompare(b.created))
+
     this.tableCounter = {};
     let waitingOrders = this.orders.filter(e => e.orderStatus === 'PLACED')
 
