@@ -91,6 +91,8 @@ Tests to be done
 - Wyświetlenie dokumentu "Informacja prawna"
 - Wyświetlenie dokumentu "Jak to działa?"
 - Przechodzenie przez wszystkie statusy zamówienia
+- Odczyt komentarza do odrzuconego zamówienia
+- Odczyt komentarza do anulowanego zamówienia
 
 
 ## Stories
@@ -121,6 +123,7 @@ Tests to be done
 - Kelner może przyjąć zamówienie
 - Kelner może zmienić status zamówienia
 - Kelner może odrzucić zamówienie
+- Kelner może dodać komentarz do odrzucanego zamówienia
 - Kelner może zobaczyć szczegóły zamówienia
 
 ### Admin
