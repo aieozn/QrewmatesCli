@@ -30,7 +30,7 @@ export class OrderWaitSocketService {
       this.orderSub[orderRef] = this.rxStomp.watch('/wait/' + restaurantRef + '/' + orderRef)
       .pipe(
         map(e => JSON.parse(e.body).payload as OrderGet),
-        tap(e => this.unsubscribe(e.ref))
+        tap(e => this.unsubscribe(e.ref)),
       )
 
       this.orderSubCount[orderRef] = 0;
