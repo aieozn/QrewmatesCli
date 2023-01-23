@@ -35,6 +35,8 @@ import { PaymentMethodComponent } from './shared/order-form/layout/order-summary
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { PendingOrderComponent } from './menu-staff/layout/menu-staff/pending-order/pending-order.component';
+import { WaitForOrderDialogComponent } from './menu-cli/layout/wait-for-order-dialog/wait-for-order-dialog.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { PendingOrderComponent } from './menu-staff/layout/menu-staff/pending-or
     MenuHorizontalWrapperComponent,
     OrderStatusPipe,
     FooterPoweredByComponent,
-    PendingOrderComponent
+    PendingOrderComponent,
+    WaitForOrderDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { PendingOrderComponent } from './menu-staff/layout/menu-staff/pending-or
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
   ],

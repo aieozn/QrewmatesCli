@@ -1,0 +1,38 @@
+<div id="dialog">
+    <span *ngIf="receivedOrder | async as order else loading">
+        <!-- Success -->
+        <span *ngIf="successStatuses.includes(order.orderStatus)">
+            <div class="message-icon accepted">
+                <mat-icon>check</mat-icon>
+            </div>
+            
+            <p id="thanks">Dziękujemy za złożenie zamówienia</p>
+            <p id="message">Twoje zamówienie zostało zatwierdzone i jest już przygotowywane</p>
+        </span>
+
+        <!-- Failure -->
+        <span *ngIf="!successStatuses.includes(order.orderStatus)">
+            <div class="message-icon rejected">
+                <mat-icon>close</mat-icon>
+            </div>
+            
+            <p id="thanks">Zamówienie odrzucone</p>
+            <p id="message">Twoje zamówienie nie zostało przyjęte</p>
+        </span>
+
+        <div id="return-button" (click)="return(order)">
+            Wróć do menu
+        </div>
+    </span>
+
+    <ng-template #loading>
+        <div id="spinner">
+            <mat-spinner diameter="100"></mat-spinner>
+        </div>
+        
+        <p id="thanks">Trwa potwierdzanie zamówienia</p>
+        <p id="message">Poczekaj na potwierdzenie realizacji zamówienia przez restaurację</p>
+    </ng-template>
+
+    
+</div>

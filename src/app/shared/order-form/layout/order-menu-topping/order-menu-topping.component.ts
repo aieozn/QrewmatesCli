@@ -42,10 +42,8 @@ export class OrderMenuToppingComponent {
     if (!this._order) { throw 'Order not defined'; }
 
     if (selected) {
-      console.log("SELECT")
       this._order.menuItemToppings.push(topping);
     } else {
-      console.log("UNSELECT")
       this._order.menuItemToppings = this._order.menuItemToppings.filter(e => e.ref !== topping.ref)
     }
     

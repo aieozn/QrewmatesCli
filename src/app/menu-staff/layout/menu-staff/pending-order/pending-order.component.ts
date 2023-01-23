@@ -58,8 +58,8 @@ export class PendingOrderComponent {
     )
     .pipe(
       tap((o) => {
-        console.log("Order upated. Waiting for socket notification")
-        console.log(o)
+        console.debug("Order upated. Waiting for socket notification")
+        console.debug(o)
       }
     ))
     .subscribe();

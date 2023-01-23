@@ -1,0 +1,58 @@
+#spinner {
+    margin: 25px;
+    width: 100px;
+    margin-left: calc(50% - 50px);
+    text-align: center;
+}
+
+#dialog {
+    text-align: center;
+}
+
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #38A583!important;
+}
+
+#thanks {
+    font-size: 16px;
+    font-family: PoppinsSemiBold;
+    text-align: center;
+}
+
+#message {
+    text-align: center;
+    font-family: Poppins;
+    font-size: 14px;
+}
+
+.message-icon {
+    margin: 25px;
+    width: 100px;
+    margin-left: calc(50% - 50px);
+    text-align: center;
+}
+
+.message-icon mat-icon {
+    font-size: 100px;
+    width: 100px;
+    height: 100px;
+}
+
+.message-icon.accepted mat-icon {
+    color: #38A583;
+}
+
+.message-icon.rejected mat-icon {
+    color: #db2e2e;
+}
+
+#return-button {
+    text-align: center;
+    background-color: #38A583;
+    line-height: 45px;
+    border-radius: 20px;
+    color: #F4F4F4;
+    display: inline-block;
+    padding-left: 30px;
+    padding-right: 30px;
+}

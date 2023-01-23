@@ -28,7 +28,6 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   change(option: 'CASH' | 'BLIK') {
-    console.log("CHANGE BUTTOn")
     if (!this.order) { throw 'Order not defined'; }
     this.order.paymentMethod = option;
   }

@@ -1,6 +1,6 @@
 import { RxStompConfig } from '@stomp/rx-stomp';
 
-export const orderSocketServiceConfig: RxStompConfig = {
+export const orderSubscribeSocketServiceConfig: RxStompConfig = {
   brokerURL: 'ws://192.168.1.173:8080/ws/websocket',
   // Headers
   // Typical keys: login, passcode, host
@@ -23,6 +23,6 @@ export const orderSocketServiceConfig: RxStompConfig = {
   // It can be quite verbose, not recommended in production
   // Skip this key to stop logging to console
   debug: (msg: string): void => {
-    console.log(new Date(), msg);
+    console.debug(new Date(), msg);
   },
 };

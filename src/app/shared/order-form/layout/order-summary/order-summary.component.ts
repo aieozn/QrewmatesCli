@@ -32,8 +32,6 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   public editItem(item: OrderElementDataWrapper) {
-    console.log("EDIT ITEM")
-    console.log(item);
     let initialIndex = this.order.items.indexOf(item);
 
     this.groupService.getItemGroupDetails({
