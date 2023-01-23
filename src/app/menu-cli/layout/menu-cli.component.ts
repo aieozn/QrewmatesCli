@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { filter, first, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogCliManager } from "../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { RestaurantService } from '../../shared/menu-horizontal/service/restaurant/restaurant.service';
 import { OrderService } from '../services/order/order.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
+import { CookieService } from 'ngx-cookie-service';
+import { ConstValues } from '../config/const-values';
 
 @Component({
   selector: 'app-menu-cli',
@@ -13,6 +15,8 @@ import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wra
   styleUrls: ['./menu-cli.component.scss']
 })
 export class MenuCliComponent implements OnInit, OnDestroy {
+
+  private createdOrderCookieName = 'qr-last-order-created';
 
   public categories: MenuCategoryGet[] = [];
 
@@ -27,8 +31,33 @@ export class MenuCliComponent implements OnInit, OnDestroy {
     private categoriesService: MenuCategoryControllerService,
     private menuCliDialogServide: GenericDialogCliManager,
     private restaurantService: RestaurantService,
-    private orderService: OrderService
-  ) { }
+    private orderService: OrderService,
+    private cookiesService: CookieService
+  ) {
+    let cookieValue = cookiesService.get(this.createdOrderCookieName);
+
+    // TODO edytowanie zamówienia nie powinno być możliwe do czasu pobrania informacji o poprzednim zamowieniu
+    if (cookieValue) {
+      let cookieObject : {
+        ref: any,
+        restaurantRef: any
+      } = JSON.parse(cookieValue);
+
+     this.orderService.loadOrder(cookieObject)
+        .pipe(
+          first()
+        ).subscribe(lastOrder => {
+          if (ConstValues.ProcessingStatuses.includes(lastOrder.orderStatus)) {
+            this.menuCliDialogServide.openWaitForOrderDialog(cookieObject.restaurantRef, cookieObject.ref);
+          } else {
+            // Cookie has not been changed
+            if (this.cookiesService.get(this.createdOrderCookieName) === cookieValue) {
+              this.cookiesService.delete(this.createdOrderCookieName)
+            }
+          }
+        });
+    }
+  }
 
   ngOnInit(): void {
     this.loadCategories();
@@ -62,6 +91,26 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   }
 
   public submit() {
-    this.menuCliDialogServide.openSummary();
+    this.menuCliDialogServide
+      .openSummary()
+      .pipe(
+        first(),
+        filter(e => e !== undefined),
+        switchMap(newItem => this.orderService.submit(newItem)),
+        tap(result => {
+          console.debug("Order created");
+          console.debug(result);
+          this.cookiesService.set(this.createdOrderCookieName, JSON.stringify({
+            ref: result.ref,
+            restaurantRef: result.restaurantRef
+          }))
+        }),
+        switchMap(createdOrder => this.menuCliDialogServide.openWaitForOrderDialog(createdOrder.restaurantRef, createdOrder.ref)),
+        tap(result => {
+          console.debug("Order responded");
+          console.debug(result);
+        })
+      ).subscribe();
   }
 }
+

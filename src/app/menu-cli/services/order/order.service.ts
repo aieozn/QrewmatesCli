@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { first, firstValueFrom, Observable, tap } from 'rxjs';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
-import { DoOrderControllerService } from 'src/app/openapi-cli/services';
+import { DoOrderControllerService, OrderInstanceControllerService } from 'src/app/openapi-cli/services';
 import { RestaurantService } from '../../../shared/menu-horizontal/service/restaurant/restaurant.service';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
 
@@ -14,7 +14,11 @@ export class OrderService {
   public orderChanged = new EventEmitter<OrderWrapper>();
   private order: OrderWrapper;
 
-  constructor(private orderService: DoOrderControllerService, private restaurantService: RestaurantService) {
+  constructor(
+    private orderService: DoOrderControllerService,
+    private restaurantService: RestaurantService,
+    private orderInstanceService: OrderInstanceControllerService
+  ) {
     this.order = {
       price: 0,
       comment: undefined,
@@ -75,5 +79,15 @@ export class OrderService {
     }
 
     this.orderChanged.emit(this.order);
+  }
+
+  public loadOrder(info: {
+    ref: any,
+    restaurantRef: any
+  }) : Observable<OrderDetailsGet> {
+    return this.orderInstanceService.getOrder({
+      restaurantRef: info.restaurantRef,
+      ref: info.ref
+    })
   }
 }

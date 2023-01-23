@@ -9,6 +9,7 @@ import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/orde
 import { OrderService } from '../order/order.service';
 import { filter, first, Observable, switchMap, tap } from 'rxjs';
 import { WaitForOrderDialogComponent } from '../../layout/wait-for-order-dialog/wait-for-order-dialog.component';
+import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 
 
 @Injectable({
@@ -45,28 +46,14 @@ export class GenericDialogCliManager {
     }).afterClosed().pipe(first());
   }
 
-  public openSummary() {
+  public openSummary() : Observable<OrderWrapper> {
     // TODO fix title
-    this.dialog
+    return this.dialog
       .open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig({
         restaurantRef: this.restaurantService.getRestaurantRef(),
         item: this.orderService.getOrder()
       }))
-      .afterClosed()
-      .pipe(
-        first(),
-        filter(e => e !== undefined),
-        switchMap(newItem => this.orderService.submit(newItem)),
-        tap(result => {
-          console.debug("Order created");
-          console.debug(result);
-        }),
-        switchMap(createdOrder => this.openWaitForOrderDialog(createdOrder.restaurantRef, createdOrder.ref)),
-        tap(result => {
-          console.debug("Order responded");
-          console.debug(result);
-        })
-      ).subscribe();
+      .afterClosed();
   }
 
   public openWaitForOrderDialog(restaurantRef: string, orderRef: string) : Observable<OrderGet> {
