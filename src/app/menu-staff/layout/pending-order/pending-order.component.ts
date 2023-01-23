@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { filter, first, forkJoin, map, of, Subject, switchMap, tap } from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { filter, first, forkJoin, map, of, switchMap, tap } from 'rxjs';
 import { UpdateOrderStatusMessage } from 'src/app/menu-staff/model/update-order-status-message';
 import { AccountService } from 'src/app/menu-staff/services/account/account.service';
 import { AcceptOrderActionDialogType } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/accept-order-aciton-dialog-type';
@@ -7,7 +7,7 @@ import { AcceptOrderActionResult } from 'src/app/menu-staff/services/generic-dia
 import { GenericDialogStuffManagerService } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/generic-dialog-stuff-manager.service';
 import { OrderGet } from 'src/app/openapi-cli/models';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
-import { OrderInstanceControllerService, OrderStatusControllerService } from 'src/app/openapi-cli/services';
+import { OrderInstanceControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 

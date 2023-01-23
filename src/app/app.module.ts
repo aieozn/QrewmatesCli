@@ -20,11 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { OrdeSubmitComponent } from './shared/order-form/layout/order-submit/order-submit.component';
-import { MenuStaffComponent } from './menu-staff/layout/menu-staff/menu-staff.component';
 import { AccountBarComponent } from './menu-staff/layout/account-bar/account-bar.component';
 import { MenuHorizontalElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
 import { MenuHorizontalWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-wrapper/menu-horizontal-wrapper.component';
-import { OrderStatusPipe } from './menu-staff/layout/menu-staff/pipes/order-status.pipe';
+import { OrderStatusPipe } from './menu-staff/layout/pipes/order-status.pipe';
 import { FooterPoweredByComponent } from './shared/footer/layout/footer-powered-by/footer-powered-by.component';
 import { OrderMenuItemComponent } from './shared/order-form/layout/order-menu-item/order-menu-item.component';
 import { OrderMenuSelectComponent } from './shared/order-form/layout/order-menu-select/order-menu-select.component';
@@ -34,12 +33,13 @@ import { CounterFooterComponent } from './shared/order-form/layout/order-menu-it
 import { PaymentMethodComponent } from './shared/order-form/layout/order-summary/payment-method/payment-method.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { PendingOrderComponent } from './menu-staff/layout/menu-staff/pending-order/pending-order.component';
+import { PendingOrderComponent } from './menu-staff/layout/pending-order/pending-order.component';
 import { WaitForOrderDialogComponent } from './menu-cli/layout/wait-for-order-dialog/wait-for-order-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CookieService } from 'ngx-cookie-service';
 import { ErrorDialogComponent } from './shared/error-dialog/layout/error-dialog/error-dialog.component';
-import { DoOrderActionDialogComponent } from './menu-staff/layout/menu-staff/do-order-action-dialog/do-order-action-dialog.component';
+import { DoOrderActionDialogComponent } from './menu-staff/layout/do-order-action-dialog/do-order-action-dialog.component';
+import { MenuStaffComponent } from './menu-staff/layout/menu-staff.component';
 
 @NgModule({
   declarations: [
