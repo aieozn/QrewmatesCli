@@ -1,0 +1,23 @@
+<div id="dialog">
+    <p class="message" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT">Czy na pewno chcesz odrzucić zamówienie?</p>
+    <p class="message" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL">Czy na pewno chcesz odwołać zamówienie?</p>
+
+    <mat-form-field [style.fontSize]="16" appearance="fill">
+        <mat-label>Dodaj komentarz dla użytkownika</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  (keyup)="onChange($event)"></textarea>
+      </mat-form-field>
+
+      <div id="buttons">
+        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" (click)="proceed()">Odrzuć</div>
+        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" (click)="proceed()">Odwołaj</div>
+        <div class="button cancel clickable" (click)="cancel()">
+            Anuluj
+        </div>
+      </div>
+</div>
+

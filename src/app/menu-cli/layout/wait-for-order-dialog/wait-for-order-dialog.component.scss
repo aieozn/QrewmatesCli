@@ -19,10 +19,15 @@
     text-align: center;
 }
 
-#message {
+.message, .comment {
     text-align: center;
     font-family: Poppins;
     font-size: 14px;
+}
+
+.comment {
+    color: #db2e2e;
+    font-family: PoppinsBold;
 }
 
 .message-icon {

@@ -11,7 +11,7 @@
             </div>
             
             <p id="thanks">Dziękujemy za złożenie zamówienia</p>
-            <p id="message">Twoje zamówienie zostało zatwierdzone i jest już przygotowywane</p>
+            <p class="message">Twoje zamówienie zostało zatwierdzone i jest już przygotowywane</p>
         </span>
 
         <!-- REJECTED -->
@@ -21,7 +21,8 @@
             </div>
             
             <p id="thanks">Zamówienie odrzucone</p>
-            <p id="message">Twoje zamówienie nie zostało przyjęte</p>
+            <p class="message">Twoje zamówienie nie zostało przyjęte</p>
+            <p class="comment" *ngIf="order.orderStatusComment">Komentarz: {{ order.orderStatusComment }}</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -33,7 +34,8 @@
             </div>
             
             <p id="thanks">Zamówienie odrzucone</p>
-            <p id="message">Twoje zamówienie zostało anulowane</p>
+            <p class="message">Twoje zamówienie zostało anulowane</p>
+            <p class="comment" *ngIf="order.orderStatusComment">Komentarz: {{ order.orderStatusComment }}</p>
             
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -45,7 +47,7 @@
             </div>
             
             <p id="thanks">Zamówienie nie zostało przyjęte</p>
-            <p id="message">Twoje zamówienie nie zostało zatwierdzone</p>
+            <p class="message">Twoje zamówienie nie zostało zatwierdzone</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -57,7 +59,7 @@
             </div>
             
             <p id="thanks">Zamówienie zostało porzucone</p>
-            <p id="message">Twoje zamówienie nie zostało opłacone</p>
+            <p class="message">Twoje zamówienie nie zostało opłacone</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -69,7 +71,7 @@
             </div>
             
             <p id="thanks">Zamówienie zostało dostarczone</p>
-            <p id="message">Smacznego</p>
+            <p class="message">Smacznego</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -87,7 +89,7 @@
         </div>
         
         <p id="thanks">Trwa potwierdzanie zamówienia</p>
-        <p id="message">Poczekaj na potwierdzenie realizacji zamówienia przez restaurację</p>
+        <p class="message">Poczekaj na potwierdzenie realizacji zamówienia przez restaurację</p>
     </ng-template>
 
     

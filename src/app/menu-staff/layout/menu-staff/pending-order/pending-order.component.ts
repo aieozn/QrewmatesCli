@@ -1,6 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { filter, first, forkJoin, of, switchMap, tap } from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { filter, first, forkJoin, map, of, Subject, switchMap, tap } from 'rxjs';
+import { UpdateOrderStatusMessage } from 'src/app/menu-staff/model/update-order-status-message';
 import { AccountService } from 'src/app/menu-staff/services/account/account.service';
+import { AcceptOrderActionDialogType } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/accept-order-aciton-dialog-type';
+import { AcceptOrderActionResult } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/accept-order-action-result';
+import { GenericDialogStuffManagerService } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/generic-dialog-stuff-manager.service';
 import { OrderGet } from 'src/app/openapi-cli/models';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
 import { OrderInstanceControllerService, OrderStatusControllerService } from 'src/app/openapi-cli/services';
@@ -20,12 +24,15 @@ export class PendingOrderComponent {
     this._order = value;
   }
 
-  @Output('changeStatus') changeStatus = new EventEmitter<('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')>();
+  @Output('changeStatus') changeStatus = new EventEmitter<UpdateOrderStatusMessage>();
 
   public constructor(private dialogService: GenericDialogService,
     private orderService: OrderInstanceControllerService,
-    private accountService: AccountService) {
+    private accountService: AccountService,
+    private dialogManager: GenericDialogStuffManagerService
+  ) {
   }
+  
   
   public edit() {
     if (!this._order) { throw 'Order not defined'; }
@@ -65,17 +72,38 @@ export class PendingOrderComponent {
     .subscribe();
   }
 
+  public cancelOrder(event: Event) {
+    this.doActionWithDialog(event, AcceptOrderActionDialogType.CANCEL, 'CANCEL');
+  }
+
+  public rejectOrder(event: Event) {
+    this.doActionWithDialog(event, AcceptOrderActionDialogType.REJECT, 'REJECT');
+  }
+
+  public doActionWithDialog(event: Event, type: AcceptOrderActionDialogType, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) {
+    this.dialogManager
+      .openAcceptOrderActionDialog(type)
+      .pipe(
+        first(),
+        map(e => e as AcceptOrderActionResult)
+      )
+      .subscribe(e => {
+        if (e.proceed) {
+          this.changeStatus.emit({
+            orderAction: action,
+            comment: e.message
+          });
+        }
+      });
+      
+    event.stopPropagation();
+  }
+
   public doAction(event: Event, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
-    this.changeStatus.emit(action);
-    // this.orderStatusService.updateStatus({
-    //   "restaurantRef": order.restaurantRef,
-    //   "ref": order.ref,
-    //   "body": {
-    //     "orderAction": action
-    //   }
-    // }).subscribe(response => {
-    //   this._order = response;
-    // });
+    this.changeStatus.emit({
+      orderAction: action,
+      comment: undefined
+    });
 
     event.stopPropagation();
 

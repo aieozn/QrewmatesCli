@@ -1,0 +1,36 @@
+#dialog {
+    text-align: center;
+}
+
+.message {
+    font-size: 16px;
+    font-family: PoppinsBold;
+    color: #9e3523;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-top: 30px;
+}
+
+#buttons {
+    display: flex;
+}
+
+#buttons .button.reject {
+    background-color: #9e3523;
+    margin-right: 20px;
+}
+
+#buttons .button.cancel {
+    background-color: #38A583;
+}
+
+#buttons .button {
+    color: white;
+    font-family: Poppins;
+    width: calc(50% - 10px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}

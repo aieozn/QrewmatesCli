@@ -2,7 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OrderGet } from 'src/app/openapi-cli/models/order-get';
 import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
 import { OrderStatusControllerService } from 'src/app/openapi-cli/services';
+import { UpdateOrderStatusMessage } from '../../model/update-order-status-message';
 import { AccountService } from '../../services/account/account.service';
+import { GenericDialogStuffManagerService } from '../../services/generic-dialog-stuff-manager/generic-dialog-stuff-manager.service';
 import { OrderSocketService } from '../../services/order-subscribe-socket/order-subscribe-socket.service';
 
 @Component({
@@ -68,13 +70,11 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
     }
   }
 
-  public updateStatus(order: OrderGet, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
+  public updateStatus(order: OrderGet, message: UpdateOrderStatusMessage) : boolean {
     this.orderStatusService.updateStatus({
       "restaurantRef": order.restaurantRef,
       "ref": order.ref,
-      "body": {
-        "orderAction": action
-      }
+      "body": message
     }).subscribe(response => {
       // TODO może tutaj dojść do wyścigu, dlatego API powinno zwrócić numer wersji elementu. Należy dokonać podmiany
       // tylko jeżeli pobrana wersja jest nowsza niż aktualna
