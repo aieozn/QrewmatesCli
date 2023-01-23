@@ -10,6 +10,8 @@ import { OrderService } from '../order/order.service';
 import { filter, first, Observable, switchMap, tap } from 'rxjs';
 import { WaitForOrderDialogComponent } from '../../layout/wait-for-order-dialog/wait-for-order-dialog.component';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/layout/error-dialog/error-dialog.component';
+import { ErrorDialogMessage } from 'src/app/shared/error-dialog/model/error-dialog-message';
 
 
 @Injectable({
@@ -53,6 +55,16 @@ export class GenericDialogCliManager {
         restaurantRef: this.restaurantService.getRestaurantRef(),
         item: this.orderService.getOrder()
       }))
+      .afterClosed();
+  }
+
+  public openErrorDialog(message: ErrorDialogMessage) : Observable<void> {
+    // TODO fix title
+    return this.dialog
+      .open(ErrorDialogComponent, {
+        disableClose: true,
+        data: message
+      })
       .afterClosed();
   }
 

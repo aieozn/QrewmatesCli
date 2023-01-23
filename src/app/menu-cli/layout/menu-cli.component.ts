@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { filter, first, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { MenuCategoryGet, OrderDetailsGet, OrderGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogCliManager } from "../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { RestaurantService } from '../../shared/menu-horizontal/service/restaurant/restaurant.service';
@@ -46,21 +46,39 @@ export class MenuCliComponent implements OnInit, OnDestroy {
      this.orderService.loadOrder(cookieObject)
         .pipe(
           first()
-        ).subscribe(lastOrder => {
-          if (ConstValues.ProcessingStatuses.includes(lastOrder.orderStatus)) {
-            this.menuCliDialogServide.openWaitForOrderDialog(cookieObject.restaurantRef, cookieObject.ref);
-          } else {
-            // Cookie has not been changed
-            if (this.cookiesService.get(this.createdOrderCookieName) === cookieValue) {
-              this.cookiesService.delete(this.createdOrderCookieName)
-            }
-          }
+        ).subscribe({
+          next: this.loadLastOrder.bind(this),
+          error: this.loadLastOrderHandleError.bind(this)
         });
     }
   }
 
+  private loadLastOrder(lastOrder: OrderDetailsGet) {
+    if (ConstValues.ProcessingStatuses.includes(lastOrder.orderStatus)) {
+      this.menuCliDialogServide.openWaitForOrderDialog(lastOrder.restaurantRef, lastOrder.ref);
+    } else {
+      // Cookie has not been changed
+      this.clearCookie();
+    }
+  }
+
+  private loadLastOrderHandleError() {
+    this.menuCliDialogServide.openErrorDialog({
+      title: "Wystąpił błąd",
+      message: "Nie odnaleziono zamówienia"
+    }).pipe(
+      first()
+    ).subscribe(_ => {
+      this.clearCookie();
+    });
+  }
+
   ngOnInit(): void {
     this.loadCategories();
+  }
+
+  private clearCookie() {
+    this.cookiesService.delete(this.createdOrderCookieName)
   }
 
   private async loadCategories() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
-import { delay, map, Observable, tap } from 'rxjs';
+import { delay, map, Observable, Observer, tap } from 'rxjs';
 import { OrderGet } from 'src/app/openapi-cli/models';
 import { orderWaitSocketServiceConfig } from './order-wait-socket.config';
 
@@ -29,8 +29,7 @@ export class OrderWaitSocketService {
     if (!this.orderSub[orderRef]) {
       this.orderSub[orderRef] = this.rxStomp.watch('/wait/' + restaurantRef + '/' + orderRef)
       .pipe(
-        map(e => JSON.parse(e.body).payload as OrderGet),
-        tap(e => this.unsubscribe(e.ref)),
+        map(e => JSON.parse(e.body).payload as OrderGet)
       )
 
       this.orderSubCount[orderRef] = 0;

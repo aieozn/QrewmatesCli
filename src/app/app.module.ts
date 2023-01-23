@@ -38,6 +38,7 @@ import { PendingOrderComponent } from './menu-staff/layout/menu-staff/pending-or
 import { WaitForOrderDialogComponent } from './menu-cli/layout/wait-for-order-dialog/wait-for-order-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CookieService } from 'ngx-cookie-service';
+import { ErrorDialogComponent } from './shared/error-dialog/layout/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { CookieService } from 'ngx-cookie-service';
     OrderStatusPipe,
     FooterPoweredByComponent,
     PendingOrderComponent,
-    WaitForOrderDialogComponent
+    WaitForOrderDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
