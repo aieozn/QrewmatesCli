@@ -11,7 +11,7 @@
         <div class="order-action done" *ngIf="_order.actionsAllowed.includes('SERVE')" (click)="doAction($event, 'SERVE')">
             <mat-icon>done_all</mat-icon>
         </div>
-        <div class="order-action payed" *ngIf="_order.actionsAllowed.includes('PAY')" (click)="doAction($event, 'PAY')">
+        <div class="order-action payed" *ngIf="_order.actionsAllowed.includes('PAY_OFFLINE')" (click)="doAction($event, 'PAY_OFFLINE')">
             <mat-icon>payments</mat-icon>
         </div>
         <div class="order-action reject" *ngIf="_order.actionsAllowed.includes('REJECT')" (click)="doAction($event, 'REJECT')">

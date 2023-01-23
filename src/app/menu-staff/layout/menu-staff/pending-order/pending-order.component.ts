@@ -20,7 +20,7 @@ export class PendingOrderComponent {
     this._order = value;
   }
 
-  @Output('changeStatus') changeStatus = new EventEmitter<('ACCEPT' | 'PAY' | 'SERVE' | 'REJECT' | 'CANCEL')>();
+  @Output('changeStatus') changeStatus = new EventEmitter<('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')>();
 
   public constructor(private dialogService: GenericDialogService,
     private orderService: OrderInstanceControllerService,
@@ -65,7 +65,7 @@ export class PendingOrderComponent {
     .subscribe();
   }
 
-  public doAction(event: Event, action: ('ACCEPT' | 'PAY' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
+  public doAction(event: Event, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
     this.changeStatus.emit(action);
     // this.orderStatusService.updateStatus({
     //   "restaurantRef": order.restaurantRef,

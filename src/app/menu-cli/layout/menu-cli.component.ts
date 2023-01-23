@@ -54,12 +54,11 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   }
 
   private loadLastOrder(lastOrder: OrderDetailsGet) {
-    if (ConstValues.ProcessingStatuses.includes(lastOrder.orderStatus)) {
-      this.menuCliDialogServide.openWaitForOrderDialog(lastOrder.restaurantRef, lastOrder.ref);
-    } else {
-      // Cookie has not been changed
-      this.clearCookie();
-    }
+    this.menuCliDialogServide.openWaitForOrderDialog(lastOrder.restaurantRef, lastOrder.ref)
+      .pipe(first())
+      .subscribe(e => {
+        this.clearCookie();
+      });
   }
 
   private loadLastOrderHandleError() {

@@ -1,7 +1,11 @@
 <div id="dialog">
     <span *ngIf="receivedOrder | async as order else loading">
-        <!-- Success -->
-        <span *ngIf="successStatuses.includes(order.orderStatus)">
+        <span *ngIf="order.orderStatus === 'PLACED'">
+            <ng-container *ngTemplateOutlet="loading"></ng-container>
+        </span>
+
+        <!-- ACCEPTED -->
+        <span *ngIf="order.orderStatus === 'ACCEPTED'">
             <div class="message-icon accepted">
                 <mat-icon>check</mat-icon>
             </div>
@@ -10,19 +14,71 @@
             <p id="message">Twoje zamówienie zostało zatwierdzone i jest już przygotowywane</p>
         </span>
 
-        <!-- Failure -->
-        <span *ngIf="!successStatuses.includes(order.orderStatus)">
+        <!-- REJECTED -->
+        <span *ngIf="order.orderStatus === 'REJECTED'">
             <div class="message-icon rejected">
                 <mat-icon>close</mat-icon>
             </div>
             
             <p id="thanks">Zamówienie odrzucone</p>
             <p id="message">Twoje zamówienie nie zostało przyjęte</p>
+
+            <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
 
-        <!-- <div id="return-button" (click)="return(order)">
-            Wróć do menu
-        </div> -->
+        <!-- CANCELED -->
+        <span *ngIf="order.orderStatus === 'CANCELED'">
+            <div class="message-icon rejected">
+                <mat-icon>cancel</mat-icon>
+            </div>
+            
+            <p id="thanks">Zamówienie odrzucone</p>
+            <p id="message">Twoje zamówienie zostało anulowane</p>
+            
+            <ng-container *ngTemplateOutlet="back"></ng-container>
+        </span>
+
+        <!-- EXPIRED -->
+        <span *ngIf="order.orderStatus === 'EXPIRED'">
+            <div class="message-icon rejected">
+                <mat-icon>access_time</mat-icon>
+            </div>
+            
+            <p id="thanks">Zamówienie nie zostało przyjęte</p>
+            <p id="message">Twoje zamówienie nie zostało zatwierdzone</p>
+
+            <ng-container *ngTemplateOutlet="back"></ng-container>
+        </span>
+
+        <!-- ABANDONED -->
+        <span *ngIf="order.orderStatus === 'ABANDONED'">
+            <div class="message-icon rejected">
+                <mat-icon>access_time</mat-icon>
+            </div>
+            
+            <p id="thanks">Zamówienie zostało porzucone</p>
+            <p id="message">Twoje zamówienie nie zostało opłacone</p>
+
+            <ng-container *ngTemplateOutlet="back"></ng-container>
+        </span>
+
+        <!-- SERVED -->
+        <span *ngIf="order.orderStatus === 'SERVED'">
+            <div class="message-icon accepted">
+                <mat-icon>restaurant</mat-icon>
+            </div>
+            
+            <p id="thanks">Zamówienie zostało dostarczone</p>
+            <p id="message">Smacznego</p>
+
+            <ng-container *ngTemplateOutlet="back"></ng-container>
+        </span>
+
+        <ng-template #back>
+            <div id="return-button" (click)="return(order)">
+                Wróć do menu
+            </div>
+        </ng-template>
     </span>
 
     <ng-template #loading>

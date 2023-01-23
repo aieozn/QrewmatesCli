@@ -68,7 +68,7 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
     }
   }
 
-  public updateStatus(order: OrderGet, action: ('ACCEPT' | 'PAY' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
+  public updateStatus(order: OrderGet, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
     this.orderStatusService.updateStatus({
       "restaurantRef": order.restaurantRef,
       "ref": order.ref,

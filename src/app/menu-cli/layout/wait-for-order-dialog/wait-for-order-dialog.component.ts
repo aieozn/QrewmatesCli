@@ -33,7 +33,7 @@ export class WaitForOrderDialogComponent implements OnDestroy {
       .wait(this.restaurantRef, this.orderRef)
       .pipe(
         takeUntil(this.onDestroy),
-        delay(4 * 1000)
+        delay(500)
       );
   }
 
