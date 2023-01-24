@@ -20,7 +20,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { OrdeSubmitComponent } from './shared/order-form/layout/order-submit/order-submit.component';
-import { AccountBarComponent } from './menu-staff/layout/account-bar/account-bar.component';
 import { MenuHorizontalElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
 import { MenuHorizontalWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-wrapper/menu-horizontal-wrapper.component';
 import { OrderStatusPipe } from './menu-staff/layout/pipes/order-status.pipe';
@@ -40,6 +39,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { ErrorDialogComponent } from './shared/error-dialog/layout/error-dialog/error-dialog.component';
 import { DoOrderActionDialogComponent } from './menu-staff/layout/do-order-action-dialog/do-order-action-dialog.component';
 import { MenuStaffComponent } from './menu-staff/layout/menu-staff.component';
+import { MenuAdminComponent } from './menu-admin/layout/menu-admin.component';
+import { AccountBarComponent } from './menu-staff/layout/account-bar/account-bar.component';
+import { AccountIconComponent } from './shared/account/layout/account-icon/account-icon.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { MenuStaffComponent } from './menu-staff/layout/menu-staff.component';
     PendingOrderComponent,
     WaitForOrderDialogComponent,
     ErrorDialogComponent,
-    DoOrderActionDialogComponent
+    DoOrderActionDialogComponent,
+    MenuAdminComponent,
+    AccountIconComponent
   ],
   imports: [
     BrowserModule,

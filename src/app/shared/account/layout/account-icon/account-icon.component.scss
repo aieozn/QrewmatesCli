@@ -1,0 +1,22 @@
+#account-details {
+    position: relative;
+    display: flex;
+}
+
+#user-icon {
+    height: 100%;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+}
+
+#user-icon p {
+    text-align: center;
+    font-family: PoppinsBold;
+    color: #38A583;
+}
+
+#user-name {
+    line-height: 50px;
+    margin-left: 10px;
+    color: #FFFFFF;
+}
