@@ -1,0 +1,31 @@
+#header {
+    display: flex;
+}
+
+.header-element {
+    width: 25%;
+}
+
+.header-element p {
+    margin: 0px;
+}
+
+.header-element p.value {
+    font-family: PoppinsBold;
+    color: #C3C3C3;
+}
+
+.highlighted {
+    color: #38A583;
+}
+
+#range {
+    padding: 10px;
+    font-family: Poppins;
+    width: 80%;
+    margin-left: 20%;
+    border-radius: 20px;
+    border-color: #38A583;
+    padding-left: 20px;
+    padding-right: 20px;
+}

@@ -47,6 +47,7 @@ import { AdminMenuComponent } from './menu-admin/layout/admin-menu/admin-menu.co
 import { AdminHistoryComponent } from './menu-admin/layout/admin-history/admin-history.component';
 import { AdminStatisticsComponent } from './menu-admin/layout/admin-statistics/admin-statistics.component';
 import { AdminTeamComponent } from './menu-admin/layout/admin-team/admin-team.component';
+import { SalesComponent } from './menu-admin/layout/admin-statistics/sales/sales.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { AdminTeamComponent } from './menu-admin/layout/admin-team/admin-team.co
     AdminMenuComponent,
     AdminHistoryComponent,
     AdminStatisticsComponent,
-    AdminTeamComponent
+    AdminTeamComponent,
+    SalesComponent
   ],
   imports: [
     BrowserModule,
