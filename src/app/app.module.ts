@@ -42,6 +42,11 @@ import { MenuStaffComponent } from './menu-staff/layout/menu-staff.component';
 import { MenuAdminComponent } from './menu-admin/layout/menu-admin.component';
 import { AccountBarComponent } from './menu-staff/layout/account-bar/account-bar.component';
 import { AccountIconComponent } from './shared/account/layout/account-icon/account-icon.component';
+import { AdminOrdersComponent } from './menu-admin/layout/admin-orders/admin-orders.component';
+import { AdminMenuComponent } from './menu-admin/layout/admin-menu/admin-menu.component';
+import { AdminHistoryComponent } from './menu-admin/layout/admin-history/admin-history.component';
+import { AdminStatisticsComponent } from './menu-admin/layout/admin-statistics/admin-statistics.component';
+import { AdminTeamComponent } from './menu-admin/layout/admin-team/admin-team.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +77,12 @@ import { AccountIconComponent } from './shared/account/layout/account-icon/accou
     ErrorDialogComponent,
     DoOrderActionDialogComponent,
     MenuAdminComponent,
-    AccountIconComponent
+    AccountIconComponent,
+    AdminOrdersComponent,
+    AdminMenuComponent,
+    AdminHistoryComponent,
+    AdminStatisticsComponent,
+    AdminTeamComponent
   ],
   imports: [
     BrowserModule,
