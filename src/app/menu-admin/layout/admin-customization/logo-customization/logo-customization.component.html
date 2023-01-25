@@ -1,0 +1,21 @@
+<h2>Logo</h2>
+
+<div class="customization-envelope box-shadow">
+    <div id="active-logo" class="clickable" (click)="file.click()">
+        <!-- <img src="/assets/images/logo.png"> -->
+        <div id="logo-replacement">
+            <mat-icon>add</mat-icon>
+        </div>
+    </div>
+    <div id="logo-description">
+        <h3>Prześlij logo</h3>
+        <p id="logo-description-text">
+            Lorem ipsum dolor sit amet lorem ipsum
+        </p>
+
+        <p id="sendFile" class="clickable" (click)="file.click()">&gt; Prześlij plik</p>
+    </div>
+</div>
+
+
+<input #file type="file" id="file-upload" accept="image/*" (change)="upload(file.files)">

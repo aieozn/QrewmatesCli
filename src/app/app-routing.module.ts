@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminCustomizationComponent } from './menu-admin/layout/admin-customization/admin-customization.component';
 import { AdminHistoryComponent } from './menu-admin/layout/admin-history/admin-history.component';
 import { AdminMenuComponent } from './menu-admin/layout/admin-menu/admin-menu.component';
 import { AdminOrdersComponent } from './menu-admin/layout/admin-orders/admin-orders.component';
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: 'team',
         component: AdminTeamComponent
+      },
+      {
+        path: 'customization',
+        component: AdminCustomizationComponent
       }
     ]
   },
