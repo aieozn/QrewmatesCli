@@ -47,7 +47,8 @@ import { AdminMenuComponent } from './menu-admin/layout/admin-menu/admin-menu.co
 import { AdminHistoryComponent } from './menu-admin/layout/admin-history/admin-history.component';
 import { AdminStatisticsComponent } from './menu-admin/layout/admin-statistics/admin-statistics.component';
 import { AdminTeamComponent } from './menu-admin/layout/admin-team/admin-team.component';
-import { SalesComponent } from './menu-admin/layout/admin-statistics/sales/sales.component';
+import { SalesChartComponent } from './menu-admin/layout/admin-statistics/sales-chart/sales-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,7 @@ import { SalesComponent } from './menu-admin/layout/admin-statistics/sales/sales
     AdminHistoryComponent,
     AdminStatisticsComponent,
     AdminTeamComponent,
-    SalesComponent
+    SalesChartComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +100,9 @@ import { SalesComponent } from './menu-admin/layout/admin-statistics/sales/sales
     MatSelectModule,
     MatDialogModule,
     FormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    // TODO import only for admin page
+    NgChartsModule
   ],
   providers: [
     CookieService

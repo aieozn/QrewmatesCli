@@ -1,0 +1,30 @@
+<h2>Sprzedaż</h2>
+
+<div id="header" *ngIf="summary">
+    <div class="header-element">
+        <p>Ilość zamówień:</p>
+        <p class="value">{{ summary.ordersCount }}</p>
+    </div>
+    <div class="header-element">
+        <p>Wartość zamówień:</p>
+        <p class="value highlighted">{{ summary.ordersValue }} zł</p>
+    </div>
+    <div class="header-element">
+        <p>Średnio:</p>
+        <p class="value highlighted">{{ summary.orderAverageValue }} zł</p>
+    </div>
+    <div class="header-element">
+        <select name="range" id="range" (change)="changeRange($event.target)">
+            <option value="day">Ostatni: Dzień</option>
+            <option value="week">Ostatni: Tydzień</option>
+            <option value="month" selected="selected">Ostatni: Miesiąc</option>
+            <option value="year">Ostatni: Rok</option>
+        </select>
+    </div>
+</div>
+
+<div id="chart-box">
+    <h2>{{ chartDescription }}</h2>
+    <canvas #chart baseChart height="400">
+    </canvas>
+</div>
