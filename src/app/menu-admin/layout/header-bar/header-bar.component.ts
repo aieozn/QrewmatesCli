@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CollectiveChangesService } from '../../services/collective-changes/collective-changes.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class HeaderBarComponent {
 
+  constructor(public collectiveChangesService: CollectiveChangesService) {
+    
+  }
+
+  publish() {
+    this.collectiveChangesService.publish.next();
+  }
 }

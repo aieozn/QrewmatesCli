@@ -1,9 +1,9 @@
 <h2>Logo</h2>
 
-<div class="customization-envelope box-shadow">
+<div class="customization-envelope box-shadow" *ngIf="restaurantCopy">
     <div id="active-logo" class="clickable" (click)="file.click()">
-        <!-- <img src="/assets/images/logo.png"> -->
-        <div id="logo-replacement">
+        <img src="{{ imageUrl }}" *ngIf="imageUrl">
+        <div id="logo-replacement" *ngIf="!imageUrl">
             <mat-icon>add</mat-icon>
         </div>
     </div>

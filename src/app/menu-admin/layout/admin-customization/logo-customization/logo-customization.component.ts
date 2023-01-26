@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
 import { RestaurantDetailsGet } from 'src/app/openapi-cli/models';
 import { RestaurantControllerService, UploadMultimediaControllerService } from 'src/app/openapi-cli/services';
 import { AccountService } from 'src/app/shared/services/account/account.service';
@@ -12,9 +11,11 @@ import { AccountService } from 'src/app/shared/services/account/account.service'
 export class LogoCustomizationComponent {
 
   public restaurantCopy: RestaurantDetailsGet | undefined;
+  public imageUrl: string | undefined;
   
   @Input() set restaurant(value: RestaurantDetailsGet) {
     this.restaurantCopy = JSON.parse(JSON.stringify(value));
+    this.imageUrl = value.logo ? this.accountService.getMultimediaUrl(value.logo.ref) : undefined;
   }
 
   @Output('restaurantUpdate')
@@ -29,7 +30,7 @@ export class LogoCustomizationComponent {
   }
 
   public upload(fileList: FileList | null) {
-    if (fileList && this.restaurant) {
+    if (fileList && this.restaurantCopy) {
       let file = fileList.item(0);
 
       var type : 'IMAGE_PNG' | 'IMAGE_JPEG';
@@ -57,11 +58,6 @@ export class LogoCustomizationComponent {
           }
 
           this.updateRestaurant.emit(newRestaurantConfig);
-
-          // return this.restaurantService.putRestaurant({
-          //   restaurantRef: this.restaurantCopy!.ref,
-          //   body: newRestaurantConfig
-          // });
         });
       }
     }

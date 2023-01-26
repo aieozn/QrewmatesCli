@@ -1,8 +1,14 @@
 <div id="header-bar" class="box-shadow-bottom">
-    <div id="logo">
+    <div id="logo" class="header-bar-element">
         <img src="/assets/images/logo.png"/>
     </div>
 
+    <div id="changes-actions-wrapper" class="header-bar-element">
+        <div id="submit-changes" *ngIf="collectiveChangesService.modified | async" class="clickable" (click)="publish()">Opublikuj zmiany</div>
+    </div>
     
-    <app-account-icon [height]="40" [theme]="'DARK'"></app-account-icon>
+    <div id="account-icon-wrapper" class="header-bar-element">
+        <app-account-icon [height]="40" [theme]="'DARK'"></app-account-icon>
+    </div>
+    
 </div>
