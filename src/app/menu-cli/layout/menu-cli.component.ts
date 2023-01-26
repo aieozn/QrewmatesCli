@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { filter, first, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { MenuCategoryGet, OrderDetailsGet, OrderGet } from 'src/app/openapi-cli/models';
+import { filter, first, map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { MenuCategoryGet, OrderDetailsGet, RestaurantGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogCliManager } from "../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from '../services/order/order.service';
@@ -16,8 +16,9 @@ import { AccountService } from 'src/app/shared/services/account/account.service'
 export class MenuCliComponent implements OnInit, OnDestroy {
 
   private createdOrderCookieName = 'qr-last-order-created';
+  public backgroundImageUrl = new Observable<string>();
 
-  public categories: MenuCategoryGet[] = [];
+  public categories: Observable<MenuCategoryGet[]>;
 
   public order: OrderWrapper | undefined;
 
@@ -50,6 +51,36 @@ export class MenuCliComponent implements OnInit, OnDestroy {
           error: this.loadLastOrderHandleError.bind(this)
         });
     }
+
+    
+    var restaurantRef = this.accountService.getRestaurantRef();
+
+    // Subscribe categories
+    this.categories = this.categoriesService.getCategories1({
+      "restaurantRef": restaurantRef
+    });
+
+    // Subscribe order update
+    this.orderService.orderChanged.pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe((order) => {
+      this.order = order;
+    });
+
+    // Subscribe restaurant
+    this.backgroundImageUrl = this.accountService.getRestaurant()
+      .pipe(
+        map(e => this.getBackgroundCssImageUrl(e))
+      );
+  }
+
+  private getBackgroundCssImageUrl(restaurant : RestaurantGet) {
+    if (restaurant.backgroundImage) {
+      let url = this.accountService.getMultimediaUrl(restaurant.backgroundImage.ref);
+      return 'url(' + url + ')';
+    } else {
+      return 'none';
+    }
   }
 
   private loadLastOrder(lastOrder: OrderDetailsGet) {
@@ -72,29 +103,11 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadCategories();
+
   }
 
   private clearCookie() {
     this.cookiesService.delete(this.createdOrderCookieName)
-  }
-
-  private async loadCategories() {
-    var restaurantRef = this.accountService.getRestaurantRef();
-
-    this.categoriesService.getCategories1({
-      "restaurantRef": restaurantRef
-    }).pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe((categories) => {
-      this.categories = categories;
-    });
-
-    this.orderService.orderChanged.pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe((order) => {
-      this.order = order;
-    });
   }
 
   ngOnDestroy(): void {

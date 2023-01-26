@@ -1,0 +1,66 @@
+h2 {
+    font-size: 18px;
+    font-family: PoppinsBold;
+}
+
+.customization-envelope {
+    width: calc(100% - 40px);
+    padding: 20px;
+    display: flex;
+}
+
+#active-logo {
+    width: 40%;
+    height: 100px;
+    cursor: pointer;
+}
+
+#active-logo:hover {
+    outline: 1px solid #38A583;
+}
+
+#active-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#logo-replacement {
+    width: 100%;
+    height: 100%;
+    background-color: #F7F7F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logo-replacement mat-icon {
+    display: inline-box;
+}
+
+h3 {
+    font-family: PoppinsBold;
+    margin: 0px;
+}
+
+#logo-description {
+    margin-left: 20px;
+    width: calc(60% - 20px);
+    position: relative;
+}
+
+#logo-description-text {
+    margin-bottom: 30px;
+}
+
+#sendFile {
+    font-family: PoppinsBold;
+    color: #38A583;
+    position: absolute;
+    bottom: 0px;
+    margin: 0px;
+}
+
+#file-upload {
+    display: none;
+}

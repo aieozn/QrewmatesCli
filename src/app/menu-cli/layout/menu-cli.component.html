@@ -1,5 +1,5 @@
 <div id="root-mobile">
-    <div id="banner">
+    <div id="banner" [style.backgroundImage]="backgroundImageUrl | async">
 
         <div id="restaurant-information">
             i
@@ -14,7 +14,7 @@
 
     <app-menu-horizontal-wrapper>
         <div id="menu-elements">
-            <app-menu-horizontal-element-wrapper *ngFor="let category of categories" [name]="category.name" [description]="category.description">
+            <app-menu-horizontal-element-wrapper *ngFor="let category of categories | async" [name]="category.name" [description]="category.description">
                 <app-menu-category [category]="category"></app-menu-category>
             </app-menu-horizontal-element-wrapper>
         </div>
