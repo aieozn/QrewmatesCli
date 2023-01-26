@@ -1,9 +1,10 @@
 <h2>Kolor motywu restauracji</h2>
 
-<div class="customization-envelope box-shadow" *ngIf="restaurantCopy">
+<div class="customization-envelope box-shadow" *ngIf="restaurantCopy && activeColor">
     <div id="active-logo" class="clickable">
-        <div id="theme-color-view" [style.background-color]="'#' + activeColor">
-            <p>{{'#' + activeColor}}</p>
+        <div id="theme-color-view" [style.background-color]="activeColor" (click)="pickerInput.click()">
+            <p>{{activeColor}}</p>
+            <input #pickerInput id="pickerInput" [(colorPicker)]="activeColor" (colorPickerClose)="publish()" [cpAlphaChannel]="'disabled'"/>
         </div>
     </div>
     <div id="logo-description">
@@ -12,6 +13,6 @@
             Lorem ipsum dolor sit amet lorem ipsum
         </p>
 
-        <p id="sendFile" class="clickable">Wybierz</p>
+        <p id="sendFile" class="clickable" (click)="pickerInput.click()">Wybierz</p>
     </div>
 </div>

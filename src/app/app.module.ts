@@ -54,6 +54,7 @@ import { LogoCustomizationComponent } from './menu-admin/layout/admin-customizat
 import { HeaderBarComponent } from './menu-admin/layout/header-bar/header-bar.component';
 import { BackgroundPhotoCustomizationComponent } from './menu-admin/layout/admin-customization/background-photo-customization/background-photo-customization.component';
 import { ColorsCustomizationComponent } from './menu-admin/layout/admin-customization/colors-customization/colors-customization.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { ColorsCustomizationComponent } from './menu-admin/layout/admin-customiz
     FormsModule,
     MatProgressSpinnerModule,
     // TODO import only for admin page
-    NgChartsModule
+    NgChartsModule,
+    ColorPickerModule
   ],
   providers: [
     CookieService

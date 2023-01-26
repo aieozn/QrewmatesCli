@@ -20,10 +20,19 @@ export class ColorsCustomizationComponent {
   
   @Input() set restaurant(value: RestaurantDetailsGet) {
     this.restaurantCopy = JSON.parse(JSON.stringify(value));
-    this.activeColor = value.themeMainColor;
+    this.activeColor = '#' + value.themeMainColor;
   }
 
   @Output('restaurantUpdate')
   updateRestaurant = new EventEmitter<RestaurantDetailsGet>();
+
+  public publish() {
+    console.log("closeDialog")
+    if (this.restaurantCopy && this.activeColor) {
+      this.restaurantCopy.themeMainColor = this.activeColor.replace('#', '').toUpperCase();
+      this.updateRestaurant.emit(this.restaurantCopy);
+    }
+    
+  }
 
 }
