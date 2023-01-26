@@ -29,6 +29,14 @@ export class LogoCustomizationComponent {
   ) {
   }
 
+  public remove() {
+    let newRestaurantConfig = {
+      ... this.restaurantCopy!
+    }
+    newRestaurantConfig.logo = undefined;
+    this.updateRestaurant.emit(newRestaurantConfig);
+  }
+
   public upload(fileList: FileList | null) {
     if (fileList && this.restaurantCopy) {
       let file = fileList.item(0);

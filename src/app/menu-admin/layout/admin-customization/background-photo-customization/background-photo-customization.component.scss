@@ -57,8 +57,33 @@ h3 {
     font-family: PoppinsBold;
     color: #38A583;
     position: absolute;
+    color: white;
+    text-align: center;
     bottom: 0px;
     margin: 0px;
+    width: 150px;
+    height: 40px;
+    line-height: 45px;
+    background-color: #38A583;
+    border-radius: 20px;
+}
+
+#removeFile {
+    position: absolute;
+    left: 160px;
+    height: 40px;
+    width: 40px;
+    bottom: 0px;
+    border: 1px solid #C3C3C3;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+#removeFile mat-icon {
+    line-height: 40px;
+    display: inline;
+    color: #C3C3C3;
 }
 
 #file-upload {
