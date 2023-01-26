@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter, first, forkJoin, map, of, switchMap, tap } from 'rxjs';
 import { UpdateOrderStatusMessage } from 'src/app/menu-staff/model/update-order-status-message';
-import { AccountService } from 'src/app/menu-staff/services/account/account.service';
+import { AccountService } from 'src/app/shared/services/account/account.service';
 import { AcceptOrderActionDialogType } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/accept-order-aciton-dialog-type';
 import { AcceptOrderActionResult } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/accept-order-action-result';
 import { GenericDialogStuffManagerService } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/generic-dialog-stuff-manager.service';

@@ -14,6 +14,6 @@ export class AccountBarComponent implements OnInit {
   }
 
   public logout() {
-    this.router.navigate(['/menu/R00000000000']);
+    this.router.navigate(['/']);
   }
 }

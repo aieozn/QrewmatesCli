@@ -11,7 +11,7 @@ export class MenuAdminComponent {
   constructor(private router: Router) { }
 
   public logout() {
-    this.router.navigate(['/menu/R00000000000']);
+    this.router.navigate(['/']);
   }
 
 }

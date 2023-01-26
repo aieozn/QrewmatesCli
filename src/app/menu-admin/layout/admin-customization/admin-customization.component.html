@@ -1,7 +1,7 @@
-<div id="personalization">
+<div id="personalization" *ngIf="restaurant | async as restaurantDetails">
     <h1>Personalizacja</h1>
 
     <div class="personalization-element">
-        <app-logo-customization></app-logo-customization>
+        <app-logo-customization [restaurant]="restaurantDetails"></app-logo-customization>
     </div>
 </div>

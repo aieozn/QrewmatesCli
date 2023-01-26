@@ -16,17 +16,7 @@ export class RestaurantService {
   constructor(
     private restaurantControllerService: RestaurantControllerService
   ) {
-    let pathParts = window.location.pathname.substring(1).split("/");
-
-    if (pathParts[0] === "menu") {
-      this.restaurantRef = pathParts[1]
-      this.tableRef = window.location.pathname.substring(1).split("/")[2];
-    } else if (pathParts[0] === "staff") {
-      this.restaurantRef = "R00000000000"
-      this.tableRef = '';
-    } else {
-      throw "Unknown path";
-    }
+    
   }
 
   public getRestaurantRef(): string {

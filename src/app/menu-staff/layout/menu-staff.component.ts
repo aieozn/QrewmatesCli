@@ -3,7 +3,7 @@ import { OrderGet } from 'src/app/openapi-cli/models/order-get';
 import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
 import { OrderStatusControllerService } from 'src/app/openapi-cli/services';
 import { UpdateOrderStatusMessage } from '../model/update-order-status-message';
-import { AccountService } from '../services/account/account.service';
+import { AccountService } from '../../shared/services/account/account.service';
 import { OrderSocketService } from '../services/order-subscribe-socket/order-subscribe-socket.service';
 
 @Component({

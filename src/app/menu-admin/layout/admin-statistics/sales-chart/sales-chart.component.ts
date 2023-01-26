@@ -4,6 +4,7 @@ import { BehaviorSubject, first, Subject, takeUntil } from 'rxjs';
 import { CalendarUtils } from 'src/app/menu-admin/utils/calendar-utils';
 import { StatisticsHourlySalesGet } from 'src/app/openapi-cli/models';
 import { StatisticsControllerService } from 'src/app/openapi-cli/services';
+import { AccountService } from 'src/app/shared/services/account/account.service';
 
 @Component({
   selector: 'app-sales',
@@ -26,7 +27,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
   private chartLoadedSubject = new BehaviorSubject(undefined);
   private readonly onDestroy = new Subject<void>();
 
-  constructor(private statisticsService: StatisticsControllerService) {
+  constructor(private statisticsService: StatisticsControllerService, private accountService: AccountService) {
 
     let now = new Date();
     let dataYear = now.getFullYear();
@@ -124,7 +125,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
     let end : Date = new Date();
 
     this.statisticsService.getYearSales({
-      restaurantRef: 'R00000000000',
+      restaurantRef: this.accountService.getRestaurantRef(),
       'params': {
         yearStart: year,
         monthStart: 1,
@@ -153,7 +154,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private loadMonthData(year: number, month: number) {
     this.statisticsService.getDailySales({
-      restaurantRef: 'R00000000000',
+      restaurantRef: this.accountService.getRestaurantRef(),
       'params': {
         yearStart: year,
         monthStart: month,
@@ -189,7 +190,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
     start.setDate(end.getDate() - 6);
 
     this.statisticsService.getDailySales({
-      restaurantRef: 'R00000000000',
+      restaurantRef: this.accountService.getRestaurantRef(),
       'params': {
         yearStart: start.getFullYear(),
         monthStart: start.getMonth() + 1,
@@ -223,7 +224,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
     let end : Date = new Date();
 
     this.statisticsService.getHourlySales({
-      restaurantRef: 'R00000000000',
+      restaurantRef: this.accountService.getRestaurantRef(),
       'params': {
         yearStart: end.getFullYear(),
         monthStart: end.getMonth() + 1,
