@@ -3,8 +3,8 @@ import { first, firstValueFrom, Observable, tap } from 'rxjs';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { DoOrderControllerService, OrderInstanceControllerService } from 'src/app/openapi-cli/services';
-import { RestaurantService } from '../../../shared/menu-horizontal/service/restaurant/restaurant.service';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
+import { AccountService } from 'src/app/shared/services/account/account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class OrderService {
 
   constructor(
     private orderService: DoOrderControllerService,
-    private restaurantService: RestaurantService,
-    private orderInstanceService: OrderInstanceControllerService
+    private orderInstanceService: OrderInstanceControllerService,
+    private accountService: AccountService
   ) {
     this.order = {
       price: 0,
@@ -25,7 +25,7 @@ export class OrderService {
       paymentMethod: 'CASH',
       items: [],
       table: {
-        ref: restaurantService.getTableRef()
+        ref: accountService.getTableRef()
       },
       editMode: false
     }
@@ -58,7 +58,7 @@ export class OrderService {
 
   public submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
     return this.orderService.order({
-      restaurantRef: this.restaurantService.getRestaurantRef(),
+      restaurantRef: this.accountService.getRestaurantRef(),
       body: order
     }).pipe(
       first(),
@@ -73,7 +73,7 @@ export class OrderService {
       items: [],
       paymentMethod: 'CASH',
       table: {
-        ref: this.restaurantService.getTableRef()
+        ref: this.accountService.getTableRef()
       },
       editMode: false
     }

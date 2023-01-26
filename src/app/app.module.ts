@@ -51,6 +51,7 @@ import { SalesChartComponent } from './menu-admin/layout/admin-statistics/sales-
 import { NgChartsModule } from 'ng2-charts';
 import { AdminCustomizationComponent } from './menu-admin/layout/admin-customization/admin-customization.component';
 import { LogoCustomizationComponent } from './menu-admin/layout/admin-customization/logo-customization/logo-customization.component';
+import { HeaderBarComponent } from './menu-admin/layout/header-bar/header-bar.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { LogoCustomizationComponent } from './menu-admin/layout/admin-customizat
     AdminTeamComponent,
     SalesChartComponent,
     AdminCustomizationComponent,
-    LogoCustomizationComponent
+    LogoCustomizationComponent,
+    HeaderBarComponent
   ],
   imports: [
     BrowserModule,

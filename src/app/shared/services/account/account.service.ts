@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RestaurantDetailsGet, RestaurantGet } from 'src/app/openapi-cli/models';
 import { RestaurantControllerService } from 'src/app/openapi-cli/services';
+import { GenericUtils } from '../../utils/generic-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,20 @@ export class AccountService {
     return this.restaurantService.getRestaurantDetails({
       restaurantRef: this.getRestaurantRef()
     });
+  }
+
+  public getMultimediaUrl(ref: string) {
+    return GenericUtils.getMultimediaUrl(this.getRestaurantRef(), ref);
+   }
+
+   public getTableRef() : string {
+
+    let pathParts = window.location.pathname.substring(1).split("/");
+
+    if (pathParts[0] === "menu") {
+        return window.location.pathname.substring(1).split("/")[2];
+    } else {
+        throw 'No table data found';
+    }
   }
 }

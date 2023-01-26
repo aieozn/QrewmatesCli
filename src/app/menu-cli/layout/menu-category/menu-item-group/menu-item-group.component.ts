@@ -2,9 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { first, Subscription } from 'rxjs';
 import { GenericDialogCliManager } from "src/app/menu-cli/services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
-import { RestaurantService } from 'src/app/shared/menu-horizontal/service/restaurant/restaurant.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
+import { AccountService } from 'src/app/shared/services/account/account.service';
 
 @Component({
   selector: 'app-menu-item',
@@ -23,7 +23,7 @@ export class MenuItemComponent implements OnInit, OnDestroy {
     this._group = value;
 
     if (this._group.image) {
-      this.menuItemGroupImageUrl = this.restaurantService.getMultimediaUrl(this._group.image.ref)
+      this.menuItemGroupImageUrl = this.accountService.getMultimediaUrl(this._group.image.ref)
     } else {
       this.menuItemGroupImageUrl = undefined;
     }
@@ -31,7 +31,7 @@ export class MenuItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private GenericDialogCliManager: GenericDialogCliManager,
-    private restaurantService: RestaurantService,
+    private accountService: AccountService,
     private orderService: OrderService
   ) {
     this.orderUpdatedSubscription = orderService.orderChanged.subscribe(this.onOrderUpdate.bind(this));

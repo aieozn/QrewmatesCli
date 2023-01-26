@@ -3,11 +3,10 @@ import { filter, first, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { MenuCategoryGet, OrderDetailsGet, OrderGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogCliManager } from "../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
-import { RestaurantService } from '../../shared/menu-horizontal/service/restaurant/restaurant.service';
 import { OrderService } from '../services/order/order.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { CookieService } from 'ngx-cookie-service';
-import { ConstValues } from '../config/const-values';
+import { AccountService } from 'src/app/shared/services/account/account.service';
 
 @Component({
   selector: 'app-menu-cli',
@@ -30,7 +29,7 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   constructor(
     private categoriesService: MenuCategoryControllerService,
     private menuCliDialogServide: GenericDialogCliManager,
-    private restaurantService: RestaurantService,
+    private accountService: AccountService,
     private orderService: OrderService,
     private cookiesService: CookieService
   ) {
@@ -81,7 +80,7 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   }
 
   private async loadCategories() {
-    var restaurantRef = this.restaurantService.getRestaurantRef();
+    var restaurantRef = this.accountService.getRestaurantRef();
 
     this.categoriesService.getCategories1({
       "restaurantRef": restaurantRef

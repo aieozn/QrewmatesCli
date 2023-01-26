@@ -3,7 +3,6 @@ import { MenuItemGroupGet, OrderGet } from 'src/app/openapi-cli/models';
 import { AboutUsComponent } from '../../layout/footer/about-us/about-us.component';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 import { OrderSummaryComponent } from 'src/app/shared/order-form/layout/order-summary/order-summary.component';
-import { RestaurantService } from '../../../shared/menu-horizontal/service/restaurant/restaurant.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderService } from '../order/order.service';
@@ -12,6 +11,7 @@ import { WaitForOrderDialogComponent } from '../../layout/wait-for-order-dialog/
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/layout/error-dialog/error-dialog.component';
 import { ErrorDialogMessage } from 'src/app/shared/error-dialog/model/error-dialog-message';
+import { AccountService } from 'src/app/shared/services/account/account.service';
 
 
 @Injectable({
@@ -20,7 +20,7 @@ import { ErrorDialogMessage } from 'src/app/shared/error-dialog/model/error-dial
 export class GenericDialogCliManager {
 
   constructor(private dialogService: GenericDialogService,
-    private restaurantService: RestaurantService,
+    private accountService: AccountService,
     private dialog: MatDialog,
     private orderService: OrderService
   ) { }
@@ -34,7 +34,7 @@ export class GenericDialogCliManager {
     return this.dialogService.openMenuItemComponent({
       group: group,
       item: undefined,
-      restaurantRef: this.restaurantService.getRestaurantRef(),
+      restaurantRef: this.accountService.getRestaurantRef(),
       editMode: false
     }).afterClosed().pipe(first());
   }
@@ -43,7 +43,7 @@ export class GenericDialogCliManager {
     return this.dialogService.openMenuItemComponent({
       group: group,
       item: item,
-      restaurantRef: this.restaurantService.getRestaurantRef(),
+      restaurantRef: this.accountService.getRestaurantRef(),
       editMode: true
     }).afterClosed().pipe(first());
   }
@@ -52,7 +52,7 @@ export class GenericDialogCliManager {
     // TODO fix title
     return this.dialog
       .open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig({
-        restaurantRef: this.restaurantService.getRestaurantRef(),
+        restaurantRef: this.accountService.getRestaurantRef(),
         item: this.orderService.getOrder()
       }))
       .afterClosed();

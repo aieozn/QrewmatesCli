@@ -1,0 +1,20 @@
+#header-bar {
+    background-color: white;
+    width: 100%;
+    height: 80px;
+}
+
+#logo {
+    height: calc(100% - 40px);
+    padding: 20px;
+}
+
+#logo img {
+    height: 100%;
+}
+
+app-account-icon {
+    position: absolute;
+    right: 30px;
+    top: 20px
+}
