@@ -6,7 +6,7 @@ import { AccountService } from 'src/app/shared/services/account/account.service'
 @Component({
   selector: 'app-background-photo-customization',
   templateUrl: './background-photo-customization.component.html',
-  styleUrls: ['./background-photo-customization.component.scss']
+  styleUrls: ['../customization-component.scss']
 })
 export class BackgroundPhotoCustomizationComponent {
   public restaurantCopy: RestaurantDetailsGet | undefined;

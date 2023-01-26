@@ -53,6 +53,7 @@ import { AdminCustomizationComponent } from './menu-admin/layout/admin-customiza
 import { LogoCustomizationComponent } from './menu-admin/layout/admin-customization/logo-customization/logo-customization.component';
 import { HeaderBarComponent } from './menu-admin/layout/header-bar/header-bar.component';
 import { BackgroundPhotoCustomizationComponent } from './menu-admin/layout/admin-customization/background-photo-customization/background-photo-customization.component';
+import { ColorsCustomizationComponent } from './menu-admin/layout/admin-customization/colors-customization/colors-customization.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { BackgroundPhotoCustomizationComponent } from './menu-admin/layout/admin
     AdminCustomizationComponent,
     LogoCustomizationComponent,
     HeaderBarComponent,
-    BackgroundPhotoCustomizationComponent
+    BackgroundPhotoCustomizationComponent,
+    ColorsCustomizationComponent
   ],
   imports: [
     BrowserModule,
