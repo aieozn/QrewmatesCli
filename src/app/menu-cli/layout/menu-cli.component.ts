@@ -134,10 +134,16 @@ export class MenuCliComponent implements OnInit, OnDestroy {
         tap(result => {
           console.debug("Order created");
           console.debug(result);
+          let expires : Date = new Date();
+          expires.setHours(new Date().getHours() + 6)
+
           this.cookiesService.set(this.createdOrderCookieName, JSON.stringify({
             ref: result.ref,
             restaurantRef: result.restaurantRef
-          }))
+          }),
+          // Expires after 6 hours
+          expires
+          )
         }),
         switchMap(createdOrder => this.menuCliDialogServide.openWaitForOrderDialog(createdOrder.restaurantRef, createdOrder.ref)),
         tap(result => {
