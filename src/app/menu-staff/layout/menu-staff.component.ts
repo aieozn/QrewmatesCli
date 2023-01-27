@@ -75,8 +75,6 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
       "ref": order.ref,
       "body": message
     }).subscribe(response => {
-      // TODO może tutaj dojść do wyścigu, dlatego API powinno zwrócić numer wersji elementu. Należy dokonać podmiany
-      // tylko jeżeli pobrana wersja jest nowsza niż aktualna
       this.replaceOrder(order.ref, response);
       this.updateOrders(this.orders);
     });
@@ -87,7 +85,10 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
   private replaceOrder(ref: string, newData: OrderGet) {
     for (var i = 0; i < this.orders.length; i++) {
       if (this.orders[i].ref === ref) {
-        this.orders[i] = newData;
+        if (this.orders[i].version < newData.version) {
+          this.orders[i] = newData;
+        }
+
         return;
       }
     }

@@ -1,4 +1,4 @@
-<div class="pending-order box-shadow box-radius clickable" *ngIf="_order" (click)="edit()" [class.edited-pending-order]="_order.edited">
+<div class="pending-order box-shadow box-radius clickable" *ngIf="_order" (click)="edit()" [class.edited-pending-order]="_order.version > 0">
     <div class="order-description">
         <h3>{{ _order.table.name }}</h3>
         <p>Zobacz zamówienie</p>
@@ -27,7 +27,7 @@
             {{ _order.created | date:'dd.MM HH:mm'}}
         </div>
     
-        <div id="edited" *ngIf="_order.edited">
+        <div id="edited" *ngIf="_order.version > 0">
             Edytowano
         </div>
     </div>
