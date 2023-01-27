@@ -1,4 +1,4 @@
-<div class="menu-item box-shadow box-radius" *ngIf="_group" [class.selected] = "orderedItefsOfType > 0">
+<div class="menu-item box-shadow box-radius" *ngIf="_group" [class.main-theme-border-color] = "orderedItefsOfType > 0" [class.selected] = "orderedItefsOfType > 0">
     <div class="menu-item-image" *ngIf="menuItemGroupImageUrl">
         <img src="{{menuItemGroupImageUrl}}"/>
     </div>
@@ -9,7 +9,7 @@
         <!-- TODO change price to dynamic currency -->
         <p class="menu-item-price">{{ getGroupDefaultPrice(_group) }} zł</p>
 
-        <div class="menu-item-count" *ngIf="orderedItefsOfType > 0"><p>{{orderedItefsOfType}}</p></div>
-        <div class="menu-item-add clickable" (click)="addGroup(_group)"><p>+</p></div>
+        <div class="menu-item-count main-theme-background-color" *ngIf="orderedItefsOfType > 0"><p>{{orderedItefsOfType}}</p></div>
+        <div class="menu-item-add clickable main-theme-border-color main-theme-color main-theme-hover-background-color" (click)="addGroup(_group)"><p>+</p></div>
     </div>
 </div>

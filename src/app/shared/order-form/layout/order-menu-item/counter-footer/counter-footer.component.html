@@ -1,6 +1,6 @@
 <div id="counter-footer" class="box-shadow">
     <div id="count">
-        <div id="count-value">
+        <div id="count-value" class="main-theme-outline-color">
             <p id="count-value-minus" class="clickable" (click)="itemSubstract()">
                 <span *ngIf="count === 1; else minus">
                     <mat-icon id="delete-icon">delete</mat-icon>
@@ -15,7 +15,7 @@
     </div>
 
     <div id="add" *ngIf="order">
-        <div id="add-button" class="clickable" (click)="subscribeItem()">
+        <div id="add-button" class="clickable main-theme-background-color" (click)="subscribeItem()">
             <span *ngIf="editMode; else createMode">
                 Edytuj
             </span>

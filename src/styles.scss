@@ -121,12 +121,12 @@ p, h1, h2, h3, h4, div, span {
 
 .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element,
 .mat-checkbox:active:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element {
-background: #38A583;
+    background: #38A583;
 }
 
 .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
 .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
-background: #38A583;
+    background: #38A583;
 }
 
 .mat-form-field.mat-focused .mat-form-field-label {
@@ -135,6 +135,10 @@ background: #38A583;
 
 .mat-form-field.mat-focused .mat-form-field-ripple {
     background-color: #38A583;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #38A583;
 }
 
 

@@ -6,7 +6,7 @@
 
         <!-- ACCEPTED -->
         <span *ngIf="order.orderStatus === 'ACCEPTED'">
-            <div class="message-icon accepted">
+            <div class="message-icon accepted main-theme-color">
                 <mat-icon>check</mat-icon>
             </div>
             
@@ -66,7 +66,7 @@
 
         <!-- SERVED -->
         <span *ngIf="order.orderStatus === 'SERVED'">
-            <div class="message-icon accepted">
+            <div class="message-icon accepted main-theme-color">
                 <mat-icon>restaurant</mat-icon>
             </div>
             
@@ -77,7 +77,7 @@
         </span>
 
         <ng-template #back>
-            <div id="return-button" (click)="return(order)">
+            <div id="return-button" class="main-theme-background-color clickable" (click)="return(order)">
                 Wróć do menu
             </div>
         </ng-template>

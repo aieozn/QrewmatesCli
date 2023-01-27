@@ -2,7 +2,7 @@
     <div id="generic-dialog-card" class="box-shadow-top">
         <div id="generic-dialog-card-header" *ngIf="title" [ngStyle]="getShadowStyle()">
             <div id="close" *ngIf="this.onClose.observed">
-                <mat-icon id="close-icon" class="clickable" (click)="close()">close</mat-icon>
+                <mat-icon id="close-icon" class="clickable main-theme-color" (click)="close()">close</mat-icon>
             </div>
             <p id="generic-dialog-card-header-scroll-top" class="clickable" [ngStyle]="getScrollTopStyle()" (click)="goToTop()">Wróć na górę karty</p>
             <h2>{{title}}</h2>

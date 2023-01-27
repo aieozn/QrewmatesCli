@@ -25,6 +25,10 @@ export class MenuCliComponent implements OnInit, OnDestroy {
   // Display black cover over items
   public shadowItems = false;
 
+  // Menu-cli is always active so multiple css loads shouldn't occuse
+  // Just in case there is alse this variable to prevent such a situation
+  private cssLoaded = false;
+
   private readonly onDestroy = new Subject<void>();
 
   constructor(
@@ -54,6 +58,7 @@ export class MenuCliComponent implements OnInit, OnDestroy {
 
     
     var restaurantRef = this.accountService.getRestaurantRef();
+    this.loadCustomCss(restaurantRef);
 
     // Subscribe categories
     this.categories = this.categoriesService.getCategories1({
@@ -140,6 +145,20 @@ export class MenuCliComponent implements OnInit, OnDestroy {
           console.debug(result);
         })
       ).subscribe();
+  }
+
+  private loadCustomCss(ref: string) {
+    if (!this.cssLoaded) {
+      var head  = document.getElementsByTagName('head')[0];
+      var link  = document.createElement('link');
+      link.rel  = 'stylesheet';
+      link.type = 'text/css';
+      link.href = '/api/restaurant-styles/' + ref + ".css";
+      link.media = 'all';
+      head.appendChild(link);
+      this.cssLoaded = true;
+    }
+    
   }
 }
 

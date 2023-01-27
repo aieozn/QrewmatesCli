@@ -9,10 +9,6 @@
     text-align: center;
 }
 
-::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-    stroke: #38A583!important;
-}
-
 #thanks {
     font-size: 16px;
     font-family: PoppinsSemiBold;
@@ -43,11 +39,11 @@
     height: 100px;
 }
 
-.message-icon.accepted mat-icon {
+.message-icon.accepted {
     color: #38A583;
 }
 
-.message-icon.rejected mat-icon {
+.message-icon.rejected {
     color: #db2e2e;
 }
 
