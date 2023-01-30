@@ -29,8 +29,6 @@ export class OrderService {
         created: string
       } = JSON.parse(cookieValueString);
 
-      console.log("Load order")
-
       let expires = new Date();
       expires.setHours(new Date(cookieValue.created).getHours() + 6)
 
@@ -51,9 +49,6 @@ export class OrderService {
   }
 
   private saveOrderCookie(order: OrderWrapper) {
-    console.log("Order changed");
-    console.log(order.price);
-
     localStorage.setItem(this.createdOrderCookieName, JSON.stringify({
       order: order,
       created: new Date()
@@ -93,7 +88,6 @@ export class OrderService {
   }
 
   public submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
-    console.log("Submit")
     return this.orderService.order({
       restaurantRef: this.accountService.getRestaurantRef(),
       body: order

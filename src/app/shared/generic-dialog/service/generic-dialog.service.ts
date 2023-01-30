@@ -19,7 +19,14 @@ export class GenericDialogService {
       left: '0px',
       bottom: '0px'
     },
-    panelClass: 'full-width-dialog'
+    panelClass: 'full-width-dialog',
+    // Use custom scroll strategy to prevent horizontal menu jumping
+    scrollStrategy: {
+      enable: () => { document.body.classList.add('overflow-hidden') },
+      disable: () => { document.body.classList.remove('overflow-hidden') },
+      attach: (xx: any) => {},
+      detach: () => {}
+    }
   }
 
   constructor(public dialog: MatDialog) { }

@@ -6,7 +6,7 @@ import { OrderSummaryComponent } from 'src/app/shared/order-form/layout/order-su
 import { MatDialog } from '@angular/material/dialog';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderService } from '../order/order.service';
-import { filter, first, Observable, switchMap, tap } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { WaitForOrderDialogComponent } from '../../layout/wait-for-order-dialog/wait-for-order-dialog.component';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/layout/error-dialog/error-dialog.component';

@@ -36,7 +36,7 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
   @HostListener('window:scroll', ['$event'])
   public onScroll() {
     var position = window.pageYOffset + this.stickyBarHeight;
-
+    
     if (this.elementToScrollPosition.length === 1) {
       this.menuEventsService.onElementScrolled({
         name: this.elementToScrollPosition[0].element._name!,

@@ -96,8 +96,6 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit
   }
 
   private onElementScrolled(event: ChangeElementEvent) {
-    console.info("Change active menu element");
-    
     if (this.domElements) {
       var element = document.getElementById('menu-horizontal-element-' + event.element.order);
       if (element) {
