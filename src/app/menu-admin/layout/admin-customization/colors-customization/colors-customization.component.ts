@@ -27,7 +27,6 @@ export class ColorsCustomizationComponent {
   updateRestaurant = new EventEmitter<RestaurantDetailsGet>();
 
   public publish() {
-    console.log("closeDialog")
     if (this.restaurantCopy && this.activeColor) {
       this.restaurantCopy.themeMainColor = this.activeColor.replace('#', '').toUpperCase();
       this.updateRestaurant.emit(this.restaurantCopy);

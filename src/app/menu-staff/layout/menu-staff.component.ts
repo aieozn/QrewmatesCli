@@ -38,35 +38,38 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
   }
 
   private processMessage(message: SubscribeOrdersMessage) {
-    if (message.batchType === 'LOAD') {
-      this.updateOrders(message.orders);
-    } else if (message.batchType === 'CREATE') {
-      let newOrders = [];
-      newOrders = this.orders.concat(message.orders);
-      this.updateOrders(newOrders);
-    } else if (message.batchType === 'UPDATE') {
-      let newOrders: OrderGet[] = [];
+    let newOrders = [];
 
-      for (let messageOrder of message.orders) {
-        let updated = false;
+    for (let messageOrder of message.orders) {
+      let exists = false;
 
-        for (let activeOrder of this.orders) {
-          if (activeOrder.ref !== messageOrder.ref) {
-            newOrders.push(activeOrder);
-          } else {
+      for (let activeOrder of this.orders) {
+        if (activeOrder.ref === messageOrder.ref) {
+          exists = true;
+          if (messageOrder.version > activeOrder.version) {
             newOrders.push(messageOrder);
-            updated = true;
+            break;
+          } else {
+            newOrders.push(activeOrder);
+            break;
           }
-        }
-
-        if (!updated) {
-          newOrders.push(messageOrder);
         }
       }
 
-
-      this.updateOrders(newOrders);
+      if (!exists) {
+        newOrders.push(messageOrder);
+      }
     }
+    
+    let newOrdersRefs = newOrders.map(e => e.ref)
+
+    for (let activeOrder of this.orders) {
+      if (!newOrdersRefs.includes(activeOrder.ref)) {
+        newOrders.push(activeOrder);
+      }
+    }
+
+    this.updateOrders(newOrders);
   }
 
   public updateStatus(order: OrderGet, message: UpdateOrderStatusMessage) : boolean {
