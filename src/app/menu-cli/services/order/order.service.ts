@@ -1,5 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { first, firstValueFrom, Observable, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, first, Observable, tap } from 'rxjs';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { DoOrderControllerService, OrderInstanceControllerService } from 'src/app/openapi-cli/services';
@@ -11,8 +11,8 @@ import { AccountService } from 'src/app/shared/services/account/account.service'
 })
 export class OrderService {
 
-  public orderChanged = new EventEmitter<OrderWrapper>();
-  private order: OrderWrapper | undefined;
+  private createdOrderCookieName = 'qr-last-order-created';
+  public orderChanged: BehaviorSubject<OrderWrapper>;
 
   constructor(
     private orderService: DoOrderControllerService,
@@ -21,34 +21,56 @@ export class OrderService {
   ) {
     let tableRef = accountService.getTableRef();
 
-    if (tableRef) {
-      this.order = {
-        price: 0,
-        comment: undefined,
-        paymentMethod: 'CASH',
-        items: [],
-        table: {
-          ref: tableRef
-        },
-        editMode: false
+
+    let cookieValueString = localStorage.getItem(this.createdOrderCookieName);
+    if (cookieValueString !== null) {
+      let cookieValue: {
+        order: OrderWrapper,
+        created: string
+      } = JSON.parse(cookieValueString);
+
+      console.log("Load order")
+
+      let expires = new Date();
+      expires.setHours(new Date(cookieValue.created).getHours() + 6)
+
+      if (new Date() < expires) {
+        this.orderChanged = new BehaviorSubject<OrderWrapper>(cookieValue.order);
+      } else {
+        this.orderChanged = new BehaviorSubject<OrderWrapper>(this.getCleanOrder());
+        localStorage.removeItem(this.createdOrderCookieName);
       }
+    } else {
+      this.orderChanged = new BehaviorSubject<OrderWrapper>(this.getCleanOrder());
     }
+
+    this.orderChanged.subscribe(newOrder => {
+      this.saveOrderCookie(newOrder);
+    })
+
+  }
+
+  private saveOrderCookie(order: OrderWrapper) {
+    console.log("Order changed");
+    console.log(order.price);
+
+    localStorage.setItem(this.createdOrderCookieName, JSON.stringify({
+      order: order,
+      created: new Date()
+    }));
   }
 
   public addOrderElement(element: OrderElementDataWrapper) {
-    if (this.order !== undefined) {
-      this.order.items.push(JSON.parse(JSON.stringify(element)));
-      this.order.price = 0;
 
-      for (let orderItem of this.order.items) {
-        this.order.price += orderItem.price;
-      }
-  
-      this.orderChanged.emit(this.order);
-    } else {
-      throw 'No order found';
+    let order = this.orderChanged.getValue();
+    order.items.push(JSON.parse(JSON.stringify(element)));
+    order.price = 0;
+
+    for (let orderItem of order.items) {
+      order.price += orderItem.price;
     }
-    
+  
+    this.orderChanged.next(order);
   }
 
   public addOrderElements(elements: OrderElementDataWrapper[]) {
@@ -57,23 +79,21 @@ export class OrderService {
     }
   }
 
-  // Undefined when 
-  public getOrder() : OrderWrapper | undefined {
-    return this.order;
-  }
+  public updateOrder(newOrder: OrderWrapper) {
+    let activeOrder = this.orderChanged.getValue();
 
-  public updateOrder(order: OrderWrapper) {
-    this.order = order;
-    this.order.price = 0;
+    activeOrder = newOrder;
+    activeOrder.price = 0;
 
-    for (let orderItem of this.order.items) {
-      this.order.price += orderItem.price;
+    for (let orderItem of newOrder.items) {
+      activeOrder.price += orderItem.price;
     }
 
-    this.orderChanged.emit(this.order);
+    this.orderChanged.next(activeOrder);
   }
 
   public submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
+    console.log("Submit")
     return this.orderService.order({
       restaurantRef: this.accountService.getRestaurantRef(),
       body: order
@@ -84,23 +104,20 @@ export class OrderService {
   }
 
   public clearOrder() {
-    if (this.order !== undefined) {
-      this.order = {
-        price: 0,
-        comment: undefined,
-        items: [],
-        paymentMethod: 'CASH',
-        table: {
-          ref: this.order.table.ref
-        },
-        editMode: false
-      }
-  
-      this.orderChanged.emit(this.order);
-    } else {
-      throw 'Order not defined'
+    this.orderChanged.next(this.getCleanOrder());
+  }
+
+  private getCleanOrder(): OrderWrapper {
+    return {
+      price: 0,
+      comment: undefined,
+      items: [],
+      paymentMethod: 'CASH',
+      table: {
+        ref: this.accountService.getTableRef()
+      },
+      editMode: false,
     }
-    
   }
 
   public loadOrder(info: {

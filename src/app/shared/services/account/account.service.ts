@@ -15,14 +15,11 @@ export class AccountService {
 
     let pathParts = window.location.pathname.substring(1).split("/");
     var restaurantRef: string;
-    var tableRef: string
 
     if (pathParts[0] === "menu") {
       restaurantRef = pathParts[1]
-      tableRef = window.location.pathname.substring(1).split("/")[2];
     } else if (pathParts[0] === "staff") {
       restaurantRef = "R00000000000"
-      tableRef = '';
     } else {
       restaurantRef = "R00000000000"
     }
@@ -47,14 +44,14 @@ export class AccountService {
     return GenericUtils.getMultimediaUrl(this.getRestaurantRef(), ref);
    }
 
-   public getTableRef() : string | undefined {
+   public getTableRef() : string {
 
     let pathParts = window.location.pathname.substring(1).split("/");
 
     if (pathParts[0] === "menu") {
         return window.location.pathname.substring(1).split("/")[2];
     } else {
-        return undefined;
+        throw 'Table ref not found. Use only for cli';
     }
   }
 }

@@ -27,6 +27,8 @@ export class MenuItemComponent implements OnInit, OnDestroy {
     } else {
       this.menuItemGroupImageUrl = undefined;
     }
+
+    this.onOrderUpdate(this.orderService.orderChanged.getValue())
   }
 
   constructor(

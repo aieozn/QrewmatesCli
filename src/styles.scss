@@ -9,11 +9,41 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+$custom-pallete: (
+    50: #38A583,
+    100: #38A583,
+    200: #38A583,
+    300: #38A583,
+    400: #38A583,
+    500: #38A583,
+    600: #38A583,
+    700: #38A583,
+    800: #38A583,
+    900: #38A583,
+    contrast: (
+        50: #FFFFFF,
+        100: #FFFFFF,
+        200: #FFFFFF,
+        300: #FFFFFF,
+        400: #FFFFFF,
+        500: #FFFFFF,
+        600: #FFFFFF,
+        700: #FFFFFF,
+        800: #FFFFFF,
+        900: #FFFFFF
+    )
+);
+
+// Overvritten material theme values
+mat-checkbox.mat-mdc-checkbox.mat-accent {
+    --mdc-checkbox-selected-checkmark-color: #fff;
+}
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$QrewmatesCli-primary: mat.define-palette(mat.$indigo-palette);
-$QrewmatesCli-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$QrewmatesCli-primary: mat.define-palette($custom-pallete);
+$QrewmatesCli-accent: mat.define-palette($custom-pallete);
 
 // The warn palette is optional (defaults to red).
 $QrewmatesCli-warn: mat.define-palette(mat.$red-palette);
@@ -67,9 +97,11 @@ body {
 html, body { height: 100%; }
 body {
     margin: 0;
-    font-family: Poppins,
-    "Helvetica Neue",
-    sans-serif;
+    font-family: Poppins, "Helvetica Neue", sans-serif;
+}
+
+#root-mobile {
+    max-width: 1000px;
 }
 
 p, h1, h2, h3, h4, div, span {
@@ -103,47 +135,8 @@ p, h1, h2, h3, h4, div, span {
     border-radius: 10px;
 }
 
-
-.mat-radio-button.mat-accent .mat-radio-inner-circle,
-.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
-.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
-.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
-    background-color: #38A583;
-}
-
-.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-    border-color: #38A583;
-}
-
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #38A583;
-}
-
-.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element,
-.mat-checkbox:active:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element {
-    background: #38A583;
-}
-
-.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
-.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
-    background: #38A583;
-}
-
-.mat-form-field.mat-focused .mat-form-field-label {
-    color: #38A583;
-}
-
-.mat-form-field.mat-focused .mat-form-field-ripple {
-    background-color: #38A583;
-}
-
-.mat-progress-spinner circle, .mat-spinner circle {
-    stroke: #38A583;
-}
-
-
-#root-mobile {
-    max-width: 1000px;
+.clickable {
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 1000px) {
@@ -160,6 +153,56 @@ p, h1, h2, h3, h4, div, span {
     padding: 0px;
 }
 
-.clickable {
-    cursor: pointer;
-}
+
+// .mat-mdc-radio-button.mat-accent {
+//     --mdc-radio-disabled-selected-icon-color: #000;
+//     --mdc-radio-disabled-unselected-icon-color: #000;
+//     --mdc-radio-unselected-focus-icon-color: #212121;
+//     --mdc-radio-unselected-hover-icon-color: #212121;
+//     --mdc-radio-unselected-icon-color: rgba(0, 0, 0, 0.54);
+//     --mdc-radio-unselected-pressed-icon-color: rgba(0, 0, 0, 0.54);
+//     --mdc-radio-selected-focus-icon-color: #38A583;
+//     --mdc-radio-selected-hover-icon-color: #38A583;
+//     --mdc-radio-selected-icon-color: #38A583;
+//     --mdc-radio-selected-pressed-icon-color: #38A583;
+//     --mat-mdc-radio-ripple-color: #000;
+//     --mat-mdc-radio-checked-ripple-color: #38A583;
+// }
+
+
+// .mat-radio-button.mat-accent .mat-radio-inner-circle,
+// .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+// .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+// .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+//     background-color: #38A583;
+// }
+
+// .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+//     border-color: #38A583;
+// }
+
+// .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+//     background-color: #38A583;
+// }
+
+// .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element,
+// .mat-checkbox:active:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element {
+//     background: #38A583;
+// }
+
+// .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
+// .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+//     background: #38A583;
+// }
+
+// .mat-form-field.mat-focused .mat-form-field-label {
+//     color: #38A583;
+// }
+
+// .mat-form-field.mat-focused .mat-form-field-ripple {
+//     background-color: #38A583;
+// }
+
+// .mat-progress-spinner circle, .mat-spinner circle {
+//     stroke: #38A583;
+// }

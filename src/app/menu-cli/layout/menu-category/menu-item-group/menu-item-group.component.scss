@@ -57,7 +57,9 @@
 .menu-item-add p {
     margin: 0px;
     padding: 0px;
-    margin-top: 3px;
+    margin-top: 1px;
+    line-height: 25px;
+    font-size: 25px;
     font-family: PoppinsThin;
 }
 
@@ -67,7 +69,6 @@
     right: 20px;
     width: 25px;
     height: 25px;
-    font-size: 25px;
     text-align: center;
     border: 1px solid #38A583;
     border-radius: 50%;

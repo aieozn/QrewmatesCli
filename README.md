@@ -55,12 +55,14 @@ Tests to be done
     - Wyświetlenie prawidłowego podsumowania
         - lista wszystkich elementów
         - poprawna cena
+        - sprawdzenie przywracania zamówienia z cache
 
 - [CLI] Dodanie jednego złożonego produktu do koszyka
     - Wyświetlenie prawidłowego podsumowania
         - lista wszystkich elementów
         - poprawna cena
         - komentarz
+        - sprawdzenie przywracania zamówienia z cache
 
 - [CLI] Dodanie jednego wielu produktów do koszyka
     - Obwódka na karcie produktu i wyświetlenie poprawnej ilości
@@ -69,6 +71,7 @@ Tests to be done
         - rozdzielenie elementów z wybraną ilością na kolejne pozycje na liście
         - poprawna cena
         - komentarz
+        - sprawdzenie przywracania zamówienia z cache
 
 - [CLI|STAFF] Edycja produktu (sprawdzenie poprawności aktualizacji ceny, zamówienia, komentarza, podsumowania)
     - dodanie topping

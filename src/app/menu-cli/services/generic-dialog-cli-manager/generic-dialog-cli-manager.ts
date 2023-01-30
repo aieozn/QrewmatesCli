@@ -53,7 +53,7 @@ export class GenericDialogCliManager {
     return this.dialog
       .open(OrderSummaryComponent, GenericDialogService.getDefaultGenericDialogConfig({
         restaurantRef: this.accountService.getRestaurantRef(),
-        item: this.orderService.getOrder()
+        item: this.orderService.orderChanged.getValue()
       }))
       .afterClosed();
   }

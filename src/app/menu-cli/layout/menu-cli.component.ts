@@ -15,7 +15,7 @@ import { AccountService } from 'src/app/shared/services/account/account.service'
 })
 export class MenuCliComponent implements OnInit, OnDestroy {
 
-  private createdOrderCookieName = 'qr-last-order-created';
+  private createdOrderCookieName = 'qr-last-order-created-ref';
   public backgroundImageUrl = new Observable<string>();
 
   public categories: Observable<MenuCategoryGet[]>;

@@ -27,7 +27,7 @@ export class PendingOrderComponent {
   @Output('changeStatus') changeStatus = new EventEmitter<UpdateOrderStatusMessage>();
 
   public constructor(private dialogService: GenericDialogService,
-    private orderService: OrderInstanceControllerService,
+    private orderInstanceService: OrderInstanceControllerService,
     private accountService: AccountService,
     private dialogManager: GenericDialogStuffManagerService
   ) {
@@ -37,7 +37,7 @@ export class PendingOrderComponent {
   public edit() {
     if (!this._order) { throw 'Order not defined'; }
 
-    this.orderService.getOrder({
+    this.orderInstanceService.getOrder({
       restaurantRef: this.accountService.getRestaurantRef(),
       ref: this._order.ref
     })
@@ -56,7 +56,7 @@ export class PendingOrderComponent {
     .pipe(
       filter(e => e.orderWrapper !== undefined),
       switchMap(edited =>
-        this.orderService.editOrder({
+        this.orderInstanceService.editOrder({
           restaurantRef: this.accountService.getRestaurantRef(),
           ref: edited.orderDetails.ref,
           body: edited.orderWrapper
