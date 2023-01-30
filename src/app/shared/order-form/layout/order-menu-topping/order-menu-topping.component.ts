@@ -12,7 +12,7 @@ export class OrderMenuToppingComponent {
   _order: OrderElementDataWrapper | undefined;
   _collection: MenuItemToppingCollectionGet | undefined;
 
-  checked: MenuItemToppingGet[] = [];
+  checked: string[] = [];
 
   @Input() set collection(value: MenuItemToppingCollectionGet) {
     this._collection = value;
@@ -32,7 +32,8 @@ export class OrderMenuToppingComponent {
       let order = this._order;
 
       this.checked = collection.menuItemToppings
-        .filter(collectionTopping => order.menuItemToppings.map(orderTopping => orderTopping.ref).includes(collectionTopping.ref));
+        .filter(collectionTopping => order.menuItemToppings.map(orderTopping => orderTopping.ref).includes(collectionTopping.ref))
+        .map(e => e.ref);
 
       OrderUtils.updateOrderDetails(this._order);
     }

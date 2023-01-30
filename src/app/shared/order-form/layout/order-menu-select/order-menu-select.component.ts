@@ -24,6 +24,9 @@ export class OrderMenuSelectComponent implements OnInit {
   @Input('order') set order(value: OrderElementDataWrapper) {
     this._order = value;
 
+    console.log("XXX")
+    console.log(value.menuItemSelects)
+
     this.init();
   }
 

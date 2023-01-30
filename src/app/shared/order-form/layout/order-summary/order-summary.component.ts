@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { filter, first, mergeMap } from 'rxjs';
 import { GenericDialogCliManager } from 'src/app/menu-cli/services/generic-dialog-cli-manager/generic-dialog-cli-manager';
-import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
@@ -18,7 +17,7 @@ export class OrderSummaryComponent implements OnInit {
 
   order: OrderWrapper;
   
-  constructor(private orderService: OrderService, public dialogRef: MatDialogRef<OrderSummaryComponent>,
+  constructor(public dialogRef: MatDialogRef<OrderSummaryComponent>,
     private groupService: MenuItemGroupControllerService, private accountService: AccountService,
     private dialogManager: GenericDialogCliManager, @Inject(MAT_DIALOG_DATA) data: ExportSummaryData) {
       this.order = JSON.parse(JSON.stringify(data.item));
@@ -48,7 +47,6 @@ export class OrderSummaryComponent implements OnInit {
         let partI = this.order.items.slice(0, initialIndex);
         let partII = this.order.items.slice(initialIndex + 1, this.order.items.length)
         this.order.items = partI.concat(next).concat(partII);
-        this.orderService.updateOrder(this.order);
       }
     })
   }

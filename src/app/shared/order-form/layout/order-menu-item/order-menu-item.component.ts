@@ -29,13 +29,13 @@ export class OrderMenuItemComponent implements OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<OrderMenuItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: OrderMenuItemData,
-    private menuItemDetailsService: MenuItemControllerService
+    private menuItemService: MenuItemControllerService
   ) {
     this.selectItem$.pipe(
       takeUntil(this.onDestroy),
       distinctUntilChanged(),
       filter(x => x !== undefined),
-      switchMap(item => this.menuItemDetailsService.getItemDetails({
+      switchMap(item => this.menuItemService.getItemDetails({
         restaurantRef: this.restaurantRef!,
         ref: item!.ref
       }))
@@ -88,7 +88,16 @@ export class OrderMenuItemComponent implements OnDestroy {
 
     if (menuItem) {
       this.order = JSON.parse(JSON.stringify(menuItem));
-      this.selectedItem$.next(this.order?.menuItem);
+
+      if (this.order !== undefined) {
+        this.menuItemService.getItemDetails({
+          restaurantRef: restaurantRef,
+          ref: this.order.menuItem.ref
+        }).subscribe(itemDetails => this.selectedItem$.next(itemDetails));
+      } else {
+        this.selectedItem$.next(undefined);
+      }
+      
     } else {
       this.selectItem$.next(group.menuItems[0]);
     }

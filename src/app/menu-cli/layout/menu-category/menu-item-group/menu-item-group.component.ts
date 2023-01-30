@@ -3,7 +3,7 @@ import { first, Subscription } from 'rxjs';
 import { GenericDialogCliManager } from "src/app/menu-cli/services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from 'src/app/menu-cli/services/order/order.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
-import { MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
+import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { AccountService } from 'src/app/shared/services/account/account.service';
 
 @Component({

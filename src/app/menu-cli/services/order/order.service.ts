@@ -12,31 +12,43 @@ import { AccountService } from 'src/app/shared/services/account/account.service'
 export class OrderService {
 
   public orderChanged = new EventEmitter<OrderWrapper>();
-  private order: OrderWrapper;
+  private order: OrderWrapper | undefined;
 
   constructor(
     private orderService: DoOrderControllerService,
     private orderInstanceService: OrderInstanceControllerService,
     private accountService: AccountService
   ) {
-    this.order = {
-      price: 0,
-      comment: undefined,
-      paymentMethod: 'CASH',
-      items: [],
-      table: {
-        ref: accountService.getTableRef()
-      },
-      editMode: false
+    let tableRef = accountService.getTableRef();
+
+    if (tableRef) {
+      this.order = {
+        price: 0,
+        comment: undefined,
+        paymentMethod: 'CASH',
+        items: [],
+        table: {
+          ref: tableRef
+        },
+        editMode: false
+      }
     }
   }
 
   public addOrderElement(element: OrderElementDataWrapper) {
-    this.order.items.push(JSON.parse(JSON.stringify(element)));
-    this.order.price = 0;
-    this.order.items.forEach(i => this.order.price += i.price);
+    if (this.order !== undefined) {
+      this.order.items.push(JSON.parse(JSON.stringify(element)));
+      this.order.price = 0;
 
-    this.orderChanged.emit(this.order);
+      for (let orderItem of this.order.items) {
+        this.order.price += orderItem.price;
+      }
+  
+      this.orderChanged.emit(this.order);
+    } else {
+      throw 'No order found';
+    }
+    
   }
 
   public addOrderElements(elements: OrderElementDataWrapper[]) {
@@ -45,14 +57,19 @@ export class OrderService {
     }
   }
 
-  public getOrder() : OrderWrapper {
+  // Undefined when 
+  public getOrder() : OrderWrapper | undefined {
     return this.order;
   }
 
   public updateOrder(order: OrderWrapper) {
     this.order = order;
     this.order.price = 0;
-    this.order.items.forEach(i => this.order.price += i.price);
+
+    for (let orderItem of this.order.items) {
+      this.order.price += orderItem.price;
+    }
+
     this.orderChanged.emit(this.order);
   }
 
@@ -67,18 +84,23 @@ export class OrderService {
   }
 
   public clearOrder() {
-    this.order = {
-      price: 0,
-      comment: undefined,
-      items: [],
-      paymentMethod: 'CASH',
-      table: {
-        ref: this.accountService.getTableRef()
-      },
-      editMode: false
+    if (this.order !== undefined) {
+      this.order = {
+        price: 0,
+        comment: undefined,
+        items: [],
+        paymentMethod: 'CASH',
+        table: {
+          ref: this.order.table.ref
+        },
+        editMode: false
+      }
+  
+      this.orderChanged.emit(this.order);
+    } else {
+      throw 'Order not defined'
     }
-
-    this.orderChanged.emit(this.order);
+    
   }
 
   public loadOrder(info: {

@@ -4,7 +4,7 @@
 
     <div id="checkboxes">
         <section>
-            <mat-checkbox *ngFor="let topping of _collection.menuItemToppings" [checked]="checked.includes(topping)" (change)="select(topping, $event.checked)">
+            <mat-checkbox *ngFor="let topping of _collection.menuItemToppings" [checked]="checked.includes(topping.ref)" (change)="select(topping, $event.checked)">
                 {{ topping.name }}
                 {{ topping.price !== 0 ? '(+' + topping.price!.toFixed(2) + ' zł)' : '' }}
             </mat-checkbox>

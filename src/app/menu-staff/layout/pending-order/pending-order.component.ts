@@ -7,7 +7,7 @@ import { AcceptOrderActionResult } from 'src/app/menu-staff/services/generic-dia
 import { GenericDialogStuffManagerService } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/generic-dialog-stuff-manager.service';
 import { OrderGet } from 'src/app/openapi-cli/models';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
-import { OrderInstanceControllerService } from 'src/app/openapi-cli/services';
+import { MenuItemControllerService, OrderInstanceControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 

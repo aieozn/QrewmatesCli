@@ -47,14 +47,14 @@ export class AccountService {
     return GenericUtils.getMultimediaUrl(this.getRestaurantRef(), ref);
    }
 
-   public getTableRef() : string {
+   public getTableRef() : string | undefined {
 
     let pathParts = window.location.pathname.substring(1).split("/");
 
     if (pathParts[0] === "menu") {
         return window.location.pathname.substring(1).split("/")[2];
     } else {
-        throw 'No table data found';
+        return undefined;
     }
   }
 }
