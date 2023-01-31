@@ -1,7 +1,25 @@
 <div id="menu">
     <h1>Menu restauracji</h1>
 
-    <div class="cateogry" *ngFor="let category of categories | async">
-        <app-menu-category-admin></app-menu-category-admin>
+    <div id="categories-list" cdkDropList>
+        <div class="category box-shadow" *ngFor="let category of categories | async" cdkDrag>
+            <div class="drag-box clickable">
+                <mat-icon>apps</mat-icon>
+            </div>
+    
+            <div class="category-details">
+                <p class="category-name">{{ category.name }}</p>
+                <p class="extend clickable">&gt; Rozwiń kategorię</p>
+                <div class="settings-icon clickable">
+                    <mat-icon>settings</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category box-shadow new-one clickable">
+        <div>
+            <p>+ Dodaj nową kategorię</p>
+        </div>
     </div>
 </div>

@@ -55,7 +55,7 @@ import { HeaderBarComponent } from './menu-admin/layout/header-bar/header-bar.co
 import { BackgroundPhotoCustomizationComponent } from './menu-admin/layout/admin-customization/background-photo-customization/background-photo-customization.component';
 import { ColorsCustomizationComponent } from './menu-admin/layout/admin-customization/colors-customization/colors-customization.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { MenuCategoryAdminComponent } from './menu-admin/layout/admin-menu/menu-category-admin/menu-category-admin.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -97,8 +97,7 @@ import { MenuCategoryAdminComponent } from './menu-admin/layout/admin-menu/menu-
     LogoCustomizationComponent,
     HeaderBarComponent,
     BackgroundPhotoCustomizationComponent,
-    ColorsCustomizationComponent,
-    MenuCategoryAdminComponent
+    ColorsCustomizationComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +115,8 @@ import { MenuCategoryAdminComponent } from './menu-admin/layout/admin-menu/menu-
     MatProgressSpinnerModule,
     // TODO import only for admin page
     NgChartsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    DragDropModule
   ],
   providers: [
     CookieService
