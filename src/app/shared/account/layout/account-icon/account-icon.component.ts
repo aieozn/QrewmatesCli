@@ -10,19 +10,19 @@ export class AccountIconComponent {
   public boxHeight: number = 0;
   public fontSize: number = 0;
 
-  public userIconFontColor = '#38A583';
+  public userIconFontColor = '#c21d8e';
   public userIconBackgroundColor = '#FFFFFF';
   public userNameFontColor = '#FFFFFF'
 
   @Input('theme')
   set theme(value: 'DARK' | 'LIGHT') {
     if (value === 'LIGHT') {
-      this.userIconFontColor = '#38A583';
+      this.userIconFontColor = '#c21d8e';
       this.userIconBackgroundColor = '#FFFFFF';
       this.userNameFontColor = '#FFFFFF'
     } else if (value === 'DARK') {
       this.userIconFontColor = '#FFFFFF';
-      this.userIconBackgroundColor = '#38A583';
+      this.userIconBackgroundColor = '#c21d8e';
       this.userNameFontColor = '#272727'
     }
   }
