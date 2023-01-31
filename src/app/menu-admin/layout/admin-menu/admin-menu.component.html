@@ -1,1 +1,7 @@
-<p>admin-menu works!</p>
+<div id="menu">
+    <h1>Menu restauracji</h1>
+
+    <div class="cateogry" *ngFor="let category of categories | async">
+        <app-menu-category-admin></app-menu-category-admin>
+    </div>
+</div>

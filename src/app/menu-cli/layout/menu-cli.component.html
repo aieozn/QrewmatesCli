@@ -15,7 +15,7 @@
     <app-menu-horizontal-wrapper>
         <div id="menu-elements">
             <app-menu-horizontal-element-wrapper *ngFor="let category of categories | async" [name]="category.name" [description]="category.description">
-                <app-menu-category [category]="category"></app-menu-category>
+                <app-menu-category-cli [category]="category"></app-menu-category-cli>
             </app-menu-horizontal-element-wrapper>
         </div>
     </app-menu-horizontal-wrapper>

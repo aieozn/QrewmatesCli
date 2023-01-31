@@ -61,7 +61,7 @@ export class MenuCliComponent implements OnInit, OnDestroy {
     this.loadCustomCss(restaurantRef);
 
     // Subscribe categories
-    this.categories = this.categoriesService.getCategories1({
+    this.categories = this.categoriesService.getCategories({
       "restaurantRef": restaurantRef
     });
 

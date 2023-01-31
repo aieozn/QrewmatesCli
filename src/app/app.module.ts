@@ -8,8 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MenuCategoryComponent } from './menu-cli/layout/menu-category/menu-category.component';
-import { MenuItemComponent } from './menu-cli/layout/menu-category/menu-item-group/menu-item-group.component';
+import { MenuCategoryCliComponent } from './menu-cli/layout/menu-category-cli/menu-category-cli.component';
+import { MenuItemComponent } from './menu-cli/layout/menu-category-cli/menu-item-group/menu-item-group.component';
 import { MenuHorizontalElementComponent } from './shared/menu-horizontal/layout/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
 import { MenuHorizontalComponent } from './shared/menu-horizontal/layout/menu-horizontal/menu-horizontal.component';
 import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
@@ -55,6 +55,7 @@ import { HeaderBarComponent } from './menu-admin/layout/header-bar/header-bar.co
 import { BackgroundPhotoCustomizationComponent } from './menu-admin/layout/admin-customization/background-photo-customization/background-photo-customization.component';
 import { ColorsCustomizationComponent } from './menu-admin/layout/admin-customization/colors-customization/colors-customization.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { MenuCategoryAdminComponent } from './menu-admin/layout/admin-menu/menu-category-admin/menu-category-admin.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MenuCliComponent,
     MenuHorizontalComponent,
     MenuHorizontalElementComponent,
-    MenuCategoryComponent,
+    MenuCategoryCliComponent,
     MenuItemComponent,
     GenericDialogComponent,
     AboutUsComponent,
@@ -96,7 +97,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
     LogoCustomizationComponent,
     HeaderBarComponent,
     BackgroundPhotoCustomizationComponent,
-    ColorsCustomizationComponent
+    ColorsCustomizationComponent,
+    MenuCategoryAdminComponent
   ],
   imports: [
     BrowserModule,
