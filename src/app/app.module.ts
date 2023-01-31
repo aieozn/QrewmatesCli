@@ -61,6 +61,7 @@ import { EditCategoryComponent } from './menu-admin/layout/admin-menu/editors/ed
 import { ElementEditorDirective } from './menu-admin/layout/admin-menu/elementEditorDirective';
 import { SubmitBarComponent } from './menu-admin/layout/admin-menu/editors/submit-bar/submit-bar.component';
 import { EditorCategoryNameComponent } from './menu-admin/layout/admin-menu/editors/field-editors/editor-category-name/editor-category-name.component';
+import { EditorCategoryDescriptionComponent } from './menu-admin/layout/admin-menu/editors/field-editors/editor-category-description/editor-category-description.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { EditorCategoryNameComponent } from './menu-admin/layout/admin-menu/edit
     EditCategoryComponent,
     ElementEditorDirective,
     SubmitBarComponent,
-    EditorCategoryNameComponent
+    EditorCategoryNameComponent,
+    EditorCategoryDescriptionComponent
   ],
   imports: [
     BrowserModule,

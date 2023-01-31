@@ -4,7 +4,7 @@
     <div id="active-logo" class="clickable">
         <div id="theme-color-view" [style.background-color]="activeColor" (click)="pickerInput.click()">
             <p>{{activeColor}}</p>
-            <input #pickerInput id="pickerInput" [(colorPicker)]="activeColor" (colorPickerClose)="publish()" [cpAlphaChannel]="'disabled'"/>
+            <input #pickerInput id="pickerInput" autocomplete="off" [(colorPicker)]="activeColor" (colorPickerClose)="publish()" [cpAlphaChannel]="'disabled'"/>
         </div>
     </div>
     <div id="logo-description">

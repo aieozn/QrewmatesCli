@@ -32,6 +32,8 @@ export class AdminMenuComponent {
           open: false
         })
       }
+
+      this.editCategory(this.categories[0].category);
     })
   }
 
