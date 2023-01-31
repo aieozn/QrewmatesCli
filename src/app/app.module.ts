@@ -57,6 +57,8 @@ import { ColorsCustomizationComponent } from './menu-admin/layout/admin-customiz
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MenuCategoryItemsComponent } from './menu-admin/layout/admin-menu/menu-category-items/menu-category-items.component';
+import { EditCategoryComponent } from './menu-admin/layout/admin-menu/edit-category/edit-category.component';
+import { ElementEditorDirective } from './menu-admin/layout/admin-menu/elementEditorDirective';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,9 @@ import { MenuCategoryItemsComponent } from './menu-admin/layout/admin-menu/menu-
     HeaderBarComponent,
     BackgroundPhotoCustomizationComponent,
     ColorsCustomizationComponent,
-    MenuCategoryItemsComponent
+    MenuCategoryItemsComponent,
+    EditCategoryComponent,
+    ElementEditorDirective
   ],
   imports: [
     BrowserModule,
