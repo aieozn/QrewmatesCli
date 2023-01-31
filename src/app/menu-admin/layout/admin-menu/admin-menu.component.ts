@@ -2,7 +2,7 @@ import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { AccountService } from 'src/app/shared/services/account/account.service';
-import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
 import { ElementEditorDirective } from './elementEditorDirective';
 
 @Component({
