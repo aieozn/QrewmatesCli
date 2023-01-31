@@ -1,23 +1,34 @@
 <div id="menu">
     <h1>Menu restauracji</h1>
 
-    <div id="categories-list" cdkDropList>
-        <div class="category box-shadow" *ngFor="let category of categories | async" cdkDrag>
-            <div class="drag-box clickable">
-                <mat-icon>apps</mat-icon>
-            </div>
-    
-            <div class="category-details">
-                <p class="category-name">{{ category.name }}</p>
-                <p class="extend clickable">&gt; Rozwiń kategorię</p>
-                <div class="settings-icon clickable">
-                    <mat-icon>settings</mat-icon>
+    <div id="menu-elements-list" cdkDropList>
+        <div *ngFor="let category of categories" class="menu-element-drag-box" cdkDrag>
+            <div class="menu-element box-shadow">
+                <div class="drag-box clickable">
+                    <mat-icon>apps</mat-icon>
                 </div>
+        
+                <div class="menu-element-details">
+                    <p class="menu-element-name">{{ category.category.name }}</p>
+                    <p class="extend clickable" (click)="extendCategory(category.category)" *ngIf="!category.open">
+                        &gt; Rozwiń kategorię
+                    </p>
+                    <p class="extend clickable" (click)="closeCategories()" *ngIf="category.open">
+                        &lt; Zwiń kategorię
+                    </p>
+                    <div class="settings-icon clickable">
+                        <mat-icon>settings</mat-icon>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-element-items" *ngIf="category.open">
+                <app-menu-category-items [category]="category.category"></app-menu-category-items>
             </div>
         </div>
     </div>
 
-    <div class="category box-shadow new-one clickable">
+    <div class="menu-element box-shadow new-one clickable">
         <div>
             <p>+ Dodaj nową kategorię</p>
         </div>

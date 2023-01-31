@@ -56,6 +56,7 @@ import { BackgroundPhotoCustomizationComponent } from './menu-admin/layout/admin
 import { ColorsCustomizationComponent } from './menu-admin/layout/admin-customization/colors-customization/colors-customization.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MenuCategoryItemsComponent } from './menu-admin/layout/admin-menu/menu-category-items/menu-category-items.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     LogoCustomizationComponent,
     HeaderBarComponent,
     BackgroundPhotoCustomizationComponent,
-    ColorsCustomizationComponent
+    ColorsCustomizationComponent,
+    MenuCategoryItemsComponent
   ],
   imports: [
     BrowserModule,

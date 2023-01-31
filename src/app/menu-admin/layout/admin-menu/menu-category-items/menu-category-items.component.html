@@ -1,0 +1,25 @@
+<div id="menu-elements-list" cdkDropList *ngIf="_category">
+    <div *ngFor="let group of _category.menuItemGroups" class="menu-element-drag-box" cdkDrag>
+
+        <div class="menu-element box-shadow">
+            <div class="drag-box clickable">
+                <mat-icon>apps</mat-icon>
+            </div>
+    
+            <div class="menu-element-details">
+                <p class="menu-element-name">{{ group.name }}</p>
+                <p class="menu-element-description">{{ group.description }}</p>
+                <div class="settings-icon clickable">
+                    <mat-icon>settings</mat-icon>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="menu-element box-shadow new-one clickable">
+        <div>
+            <p>+ Dodaj nowe danie</p>
+        </div>
+    </div>
+</div>
