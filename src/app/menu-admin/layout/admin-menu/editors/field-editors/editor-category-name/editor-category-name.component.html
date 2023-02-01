@@ -1,9 +1,9 @@
-<div class="editor-box box-shadow">
+<div class="editor-box box-shadow" *ngIf="category">
     <p class="editor-box-title">Nazwa kategorii</p>
     <p class="editor-box-subtitle">Wpisz odpowiednią nazwę</p>
 
     <mat-form-field appearance="fill" id="category-name-input">
         <mat-label>Nazwa kategorii</mat-label>
-        <input autocomplete="off" matInput>
+        <input autocomplete="off" matInput (keyup)="setName($event.target)" [value]="category.name">
     </mat-form-field>
 </div>

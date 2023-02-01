@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { MenuCategoryData, MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
+import { AccountService } from 'src/app/shared/services/account/account.service';
+import { EditorDialogService } from '../editor-dialog.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -8,9 +11,52 @@ import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 })
 export class EditCategoryComponent {
 
-  public _category: MenuCategoryGet | undefined;
+  public originalCategory: MenuCategoryGet | undefined;
+  public updated = false;
+
+  public activeCategory: MenuCategoryData;
+
+  public constructor(
+    private editDialogService: EditorDialogService,
+    private categoryService: MenuCategoryControllerService,
+    private accountService: AccountService
+  ) {
+    this.activeCategory = {
+      description: '',
+      elementOrder: 9999,
+      name: ''
+    }
+  }
 
   @Input() set category(value: MenuCategoryGet) {
-    this._category = value;
+    this.originalCategory = value;
+    this.activeCategory = JSON.parse(JSON.stringify(value));
+  }
+
+  public onUpdate() {
+    this.updated = true;
+  }
+
+  public onSave() {
+    if (this.originalCategory !== undefined) {
+      this.categoryService.putCategory({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        categoryRef: this.originalCategory.ref,
+        body: this.activeCategory
+      }).subscribe(saved => {
+        this.editDialogService.categoryUpdated(saved);
+      })
+    } else {
+      this.categoryService.postCategory({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        body: this.activeCategory
+      }).subscribe(saved => {
+        this.editDialogService.categoryCreated(saved);
+      })
+    }
+  }
+
+  public cancel() {
+    this.editDialogService.closeDialog();
   }
 }

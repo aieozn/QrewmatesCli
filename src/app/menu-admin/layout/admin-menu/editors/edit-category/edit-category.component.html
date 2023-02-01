@@ -1,11 +1,11 @@
-<div id="edit-category" *ngIf="_category">
-    <p id="category-name">Kategoria: <b>{{ _category.name }}</b></p>
+<div id="edit-category" *ngIf="activeCategory">
+    <p id="category-name">Kategoria: <b>{{ activeCategory.name }}</b></p>
 
     <p id="help-text">Edytuj pola poniżej i zapisz zmiany </p>
     <div id="editors">
-        <app-editor-category-name class="editor"></app-editor-category-name>
+        <app-editor-category-name class="editor" [category]="activeCategory" (onUpdate)="onUpdate()"></app-editor-category-name>
         <app-editor-category-description class="editor"></app-editor-category-description>
     </div>
 </div>
 
-<app-submit-bar></app-submit-bar>
+<app-submit-bar [saveEnabled]="updated" (onClose)="cancel()" (onSave)="onSave()"></app-submit-bar>
