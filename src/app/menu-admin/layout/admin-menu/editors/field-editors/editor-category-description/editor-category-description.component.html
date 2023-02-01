@@ -1,9 +1,9 @@
-<div class="editor-box box-shadow">
+<div class="editor-box box-shadow" *ngIf="category">
     <p class="editor-box-title">Opis kategorii</p>
     <p class="editor-box-subtitle">Uzupełnij pole poniżej</p>
 
     <mat-form-field appearance="fill" id="category-description-input">
         <mat-label>Opis kategorii</mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput (keyup)="setDescription($event.target)">{{ category.description ? category.description : '' }}</textarea>
     </mat-form-field>
 </div>

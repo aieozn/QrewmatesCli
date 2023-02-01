@@ -10,6 +10,7 @@
         
                 <div class="menu-element-details">
                     <p class="menu-element-name">{{ category.category.name }}</p>
+                    <p class="menu-element-description">{{ category.category.description }}</p>
                     <p class="extend clickable" (click)="extendCategory(category.category)" *ngIf="!category.open">
                         &gt; Rozwiń kategorię
                     </p>

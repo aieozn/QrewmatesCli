@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-editor-category-name',
@@ -14,8 +13,6 @@ export class EditorCategoryNameComponent {
   category: {
     name: string
   } | undefined;
-
-  private updated = false;
 
   public setName(target: any | null) {
     if (this.category && target && target.value) {
