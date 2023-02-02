@@ -1,7 +1,7 @@
 <div id="menu">
     <h1>Menu restauracji</h1>
 
-    <div id="menu-elements-list" cdkDropList>
+    <div id="menu-elements-list" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
         <div *ngFor="let category of categories" class="menu-element-drag-box" cdkDrag>
             <div class="menu-element box-shadow">
                 <div class="drag-box clickable">

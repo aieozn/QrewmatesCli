@@ -1,3 +1,4 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
@@ -37,8 +38,6 @@ export class AdminMenuComponent implements OnDestroy {
           open: false
         })
       }
-
-      this.editCategory(this.categories[0].category);
     })
 
     this.editorDialogService.onCloseDialog
@@ -51,24 +50,17 @@ export class AdminMenuComponent implements OnDestroy {
     this.editorDialogService.onCategoryCreated
     .pipe(
       takeUntil(this.onDestroy)
-    ).subscribe(e => {
-      this.categories.push({
-        open: false,
-        category: e
-      })
-      this.closeEditor();
-    });
-
-
-    this.editorDialogService.onCategoryCreated
-    .pipe(
-      takeUntil(this.onDestroy)
     ).subscribe(e => this.categoryCreated(e));
 
     this.editorDialogService.onCategoryUpdated
     .pipe(
       takeUntil(this.onDestroy)
     ).subscribe(e => this.categoryUpdated(e));
+
+    this.editorDialogService.onCategoryDeleted
+    .pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe(e => this.categoryDeleted(e));
   }
 
   public extendCategory(category: MenuCategoryGet) {
@@ -103,11 +95,21 @@ export class AdminMenuComponent implements OnDestroy {
   }
 
   private categoryUpdated(newCategory: MenuCategoryGet) {
-    console.log("Category updated");
     for (let i = 0; i < this.categories.length; i++) {
       let existingCategory = this.categories[i];
       if (existingCategory.category.ref === newCategory.ref) {
         this.categories[i].category = newCategory;
+        break;
+      }
+    }
+    this.closeEditor();
+  }
+
+  private categoryDeleted(ref: string) {
+    for (let i = 0; i < this.categories.length; i++) {
+      let existingCategory = this.categories[i];
+      if (existingCategory.category.ref === ref) {
+        this.categories.splice(i, 1);
         break;
       }
     }
@@ -120,5 +122,19 @@ export class AdminMenuComponent implements OnDestroy {
       category: category
     })
     this.closeEditor();
+  }
+
+  private arrayMove(arr: any[], old_index: number, new_index: number) {
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+};
+
+  public dragDropListCaught(event: CdkDragDrop<string[]>) {
+    this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
   }
 }

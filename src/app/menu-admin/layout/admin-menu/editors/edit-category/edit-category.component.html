@@ -1,11 +1,11 @@
-<div id="edit-category" *ngIf="activeCategory">
-    <p id="category-name">Kategoria: <b>{{ activeCategory.name }}</b></p>
+<div id="edit-category">
+    <p id="category-name">Kategoria: <b>{{ categoryEditable.name }}</b></p>
 
     <p id="help-text">Edytuj pola poniżej i zapisz zmiany </p>
     <div id="editors">
-        <app-editor-category-name class="editor" [category]="activeCategory" (onUpdate)="onUpdate()"></app-editor-category-name>
-        <app-editor-category-description class="editor" [category]="activeCategory" (onUpdate)="onUpdate()"></app-editor-category-description>
+        <app-editor-category-name class="editor" [category]="categoryEditable" (onUpdate)="onUpdate()"></app-editor-category-name>
+        <app-editor-category-description class="editor" [category]="categoryEditable" (onUpdate)="onUpdate()"></app-editor-category-description>
     </div>
 </div>
 
-<app-submit-bar [saveEnabled]="updated" (onClose)="cancel()" (onSave)="onSave()"></app-submit-bar>
+<app-submit-bar [saveEnabled]="updated" [deleteEnabled]="originalCategoryCopy !== undefined" (onClose)="cancel()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

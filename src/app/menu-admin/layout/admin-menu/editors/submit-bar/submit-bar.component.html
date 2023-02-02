@@ -5,7 +5,7 @@
     
     <div id="right-side">
         <div id="save-button" class="clickable" *ngIf="saveEnabled" (click)="saveElement()">Zapisz zmiany</div>
-        <div id="remove-button" class="clickable">
+        <div id="remove-button" class="clickable" *ngIf="deleteEnabled" (click)="deleteElement()">
             <mat-icon>delete</mat-icon>
         </div>
     </div>

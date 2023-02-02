@@ -9,6 +9,7 @@ export class EditorDialogService {
   public onCloseDialog = new EventEmitter<void>();
   public onCategoryCreated = new EventEmitter<MenuCategoryGet>();
   public onCategoryUpdated = new EventEmitter<MenuCategoryGet>();
+  public onCategoryDeleted = new EventEmitter<string>();
 
   constructor() { }
 
@@ -22,5 +23,9 @@ export class EditorDialogService {
 
   public categoryUpdated(category: MenuCategoryGet) {
     this.onCategoryUpdated.emit(category);
+  }
+
+  public categoryDeleted(ref: string) {
+    this.onCategoryDeleted.emit(ref)
   }
 }

@@ -13,7 +13,6 @@ export class EditCategoryComponent {
 
   public originalCategory: MenuCategoryGet | undefined;
   public updated = false;
-
   public activeCategory: MenuCategoryData;
 
   public constructor(
@@ -58,5 +57,21 @@ export class EditCategoryComponent {
 
   public cancel() {
     this.editDialogService.closeDialog();
+  }
+
+  public onDelete() {
+    if (this.originalCategory !== undefined) {
+      let originalCategoryRef = this.originalCategory.ref;
+
+      this.categoryService.deleteCategory({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        categoryRef: originalCategoryRef
+      }).subscribe(_ => {
+        this.editDialogService.categoryDeleted(originalCategoryRef)
+      })
+    } else {
+      this.editDialogService.closeDialog();
+      console.error('Category not defined');
+    }
   }
 }

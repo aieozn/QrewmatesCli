@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class SubmitBarComponent {
   @Input('saveEnabled') saveEnabled = false;
+  @Input('deleteEnabled') deleteEnabled = false;
 
   @Output('onClose')
   onClose = new EventEmitter<void>();
@@ -13,11 +14,18 @@ export class SubmitBarComponent {
   @Output('onSave')
   onSave = new EventEmitter<void>();
 
+  @Output('onDelete')
+  onDelete = new EventEmitter<void>();
+
   public closeDialog() {
     this.onClose.emit();
   }
 
   public saveElement() {
     this.onSave.emit();
+  }
+
+  public deleteElement() {
+    this.onDelete.emit();
   }
 }
