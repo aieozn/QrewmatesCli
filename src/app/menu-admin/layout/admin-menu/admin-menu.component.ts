@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
@@ -25,20 +25,11 @@ export class AdminMenuComponent implements OnDestroy {
   }[] = [];
 
   constructor(
-    menuCategoryService: MenuCategoryControllerService,
-    accountService: AccountService,
+    private menuCategoryService: MenuCategoryControllerService,
+    private accountService: AccountService,
     private editorDialogService: EditorDialogService
   ) {
-    menuCategoryService.getCategories({
-      restaurantRef: accountService.getRestaurantRef()
-    }).subscribe(loadedCategories => {
-      for (let loadedCategory of loadedCategories) {
-        this.categories.push({
-          category: loadedCategory,
-          open: false
-        })
-      }
-    })
+    this.loadCategories();
 
     this.editorDialogService.onCloseDialog
     .pipe(
@@ -61,6 +52,20 @@ export class AdminMenuComponent implements OnDestroy {
     .pipe(
       takeUntil(this.onDestroy)
     ).subscribe(e => this.categoryDeleted(e));
+  }
+
+  private loadCategories() {
+    this.menuCategoryService.getCategories({
+      restaurantRef: this.accountService.getRestaurantRef()
+    }).subscribe(loadedCategories => {
+      this.categories = [];
+      for (let loadedCategory of loadedCategories) {
+        this.categories.push({
+          category: loadedCategory,
+          open: false
+        })
+      }
+    })
   }
 
   public extendCategory(category: MenuCategoryGet) {
@@ -124,17 +129,34 @@ export class AdminMenuComponent implements OnDestroy {
     this.closeEditor();
   }
 
-  private arrayMove(arr: any[], old_index: number, new_index: number) {
-    if (new_index >= arr.length) {
-        var k = new_index - arr.length + 1;
-        while (k--) {
-            arr.push(undefined);
-        }
-    }
-    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-};
+  private arrayMove(arr: {
+    category: MenuCategoryGet,
+    open: boolean
+  }[], old_index: number, new_index: number
+  ) {
+    arr[old_index].category.elementOrder = new_index + 1;
+
+      this.menuCategoryService.putCategory({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        categoryRef: arr[old_index].category.ref,
+        body: arr[old_index].category
+      }).subscribe((_) => {
+        this.loadCategories();
+      });
+
+      arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+
+      for (let i = 0; i < arr.length; i ++) {
+        let categoryOrder = i + 1;
+        let category = arr[i];
+        category.category.elementOrder = categoryOrder;
+      }
+  };
 
   public dragDropListCaught(event: CdkDragDrop<string[]>) {
     this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
+
+    // this.menuCategoryService.putCategory()
+
   }
 }
