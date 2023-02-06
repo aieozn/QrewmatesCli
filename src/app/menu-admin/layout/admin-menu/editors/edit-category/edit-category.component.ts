@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuCategoryData, MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { AccountService } from 'src/app/shared/services/account/account.service';
@@ -12,8 +13,12 @@ import { EditorDialogService } from '../editor-dialog.service';
 export class EditCategoryComponent {
 
   public originalCategory: MenuCategoryGet | undefined;
-  public updated = false;
   public activeCategory: MenuCategoryData;
+
+  public categoryFields = {
+    categoryName: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+    categoryDescription: new FormControl('', [Validators.maxLength(512)]),
+  };
 
   public constructor(
     private editDialogService: EditorDialogService,
@@ -30,13 +35,27 @@ export class EditCategoryComponent {
   @Input() set category(value: MenuCategoryGet) {
     this.originalCategory = value;
     this.activeCategory = JSON.parse(JSON.stringify(value));
+
+    this.loadCategoryFieldsValues(value);
   }
 
-  public onUpdate() {
-    this.updated = true;
+  private loadCategoryFieldsValues(value: MenuCategoryGet) {
+    this.categoryFields.categoryName.setValue(value.name);
+    this.categoryFields.categoryDescription.setValue(value.description ?? null);
+  }
+
+  public isValid(validation: {[key: string] : FormControl}) : boolean {
+    return !Object.values(validation).map(e => e.invalid).includes(true);
+  }
+
+  public isUpdated(validation: {[key: string] : FormControl}) : boolean {
+    return Object.values(validation).map(e => e.dirty).includes(true);
   }
 
   public onSave() {
+    this.activeCategory.name = this.categoryFields.categoryName.value!;
+    this.activeCategory.description = this.categoryFields.categoryDescription.value ?? undefined;
+
     if (this.originalCategory !== undefined) {
       this.categoryService.putCategory({
         restaurantRef: this.accountService.getRestaurantRef(),

@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatFormField } from '@angular/material/form-field';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-editor-category-name',
@@ -6,19 +9,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./editor-category-name.component.scss', '../common/field-editor.scss']
 })
 export class EditorCategoryNameComponent {
-  @Output('onUpdate')
-  onUpdate = new EventEmitter<void>();
-
-  @Input('category')
-  category: {
-    name: string
-  } | undefined;
-
-  public setName(target: any | null) {
-    if (this.category && target && target.value) {
-      let value = target.value;
-      this.category.name = value;
-      this.onUpdate.emit();
-    }
-  }
+  @Input('name')
+  categoryNameFormControl : FormControl<string | null> | undefined;
 }

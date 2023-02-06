@@ -31,7 +31,7 @@ import { OrderSummaryComponent } from './shared/order-form/layout/order-summary/
 import { CounterFooterComponent } from './shared/order-form/layout/order-menu-item/counter-footer/counter-footer.component';
 import { PaymentMethodComponent } from './shared/order-form/layout/order-summary/payment-method/payment-method.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PendingOrderComponent } from './menu-staff/layout/pending-order/pending-order.component';
 import { WaitForOrderDialogComponent } from './menu-cli/layout/wait-for-order-dialog/wait-for-order-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -128,7 +128,8 @@ import { EditorCategoryDescriptionComponent } from './menu-admin/layout/admin-me
     // TODO import only for admin page
     NgChartsModule,
     ColorPickerModule,
-    DragDropModule
+    DragDropModule,
+    ReactiveFormsModule
   ],
   providers: [
     CookieService

@@ -1,11 +1,11 @@
 <div id="edit-category">
     <p id="category-name">Kategoria: <b>{{ activeCategory.name }}</b></p>
 
-    <p id="help-text">Edytuj pola poniżej i zapisz zmiany </p>
+    <p id="help-text">Edytuj pola poniżej i zapisz zmiany</p>
     <div id="editors">
-        <app-editor-category-name class="editor" [category]="activeCategory" (onUpdate)="onUpdate()"></app-editor-category-name>
-        <app-editor-category-description class="editor" [category]="activeCategory" (onUpdate)="onUpdate()"></app-editor-category-description>
+        <app-editor-category-name class="editor" [name]="categoryFields.categoryName"></app-editor-category-name>
+        <app-editor-category-description class="editor" [desciprion]="categoryFields.categoryDescription"></app-editor-category-description>
     </div>
 </div>
 
-<app-submit-bar [saveEnabled]="updated" [deleteEnabled]="originalCategory !== undefined" (onClose)="cancel()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+<app-submit-bar [saveEnabled]="isValid(categoryFields) && isUpdated(categoryFields)" [deleteEnabled]="originalCategory !== undefined" (onClose)="cancel()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

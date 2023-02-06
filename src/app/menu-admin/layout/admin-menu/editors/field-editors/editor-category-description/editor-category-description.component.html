@@ -1,9 +1,10 @@
-<div class="editor-box box-shadow" *ngIf="category">
+<div class="editor-box box-shadow" *ngIf="categoryDescriptionFormControl">
     <p class="editor-box-title">Opis kategorii</p>
     <p class="editor-box-subtitle">Uzupełnij pole poniżej</p>
 
     <mat-form-field appearance="fill" id="category-description-input">
         <mat-label>Opis kategorii</mat-label>
-        <textarea matInput (keyup)="setDescription($event.target)">{{ category.description ? category.description : '' }}</textarea>
+        <textarea matInput [formControl]="categoryDescriptionFormControl"></textarea>
+        <mat-error *ngIf="categoryDescriptionFormControl.errors">Niepoprawny opis</mat-error>
     </mat-form-field>
 </div>

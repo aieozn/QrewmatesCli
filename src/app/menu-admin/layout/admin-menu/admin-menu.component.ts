@@ -134,29 +134,26 @@ export class AdminMenuComponent implements OnDestroy {
     open: boolean
   }[], old_index: number, new_index: number
   ) {
-    arr[old_index].category.elementOrder = new_index + 1;
+    arr[old_index].category.elementOrder = arr[new_index].category.elementOrder;
 
-      this.menuCategoryService.putCategory({
-        restaurantRef: this.accountService.getRestaurantRef(),
-        categoryRef: arr[old_index].category.ref,
-        body: arr[old_index].category
-      }).subscribe((_) => {
-        this.loadCategories();
-      });
+    this.menuCategoryService.putCategory({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      categoryRef: arr[old_index].category.ref,
+      body: arr[old_index].category
+    }).subscribe((_) => {
+      this.loadCategories();
+    });
 
-      arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-
-      for (let i = 0; i < arr.length; i ++) {
-        let categoryOrder = i + 1;
-        let category = arr[i];
-        category.category.elementOrder = categoryOrder;
-      }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   };
+
+  public createCategory() {
+    const viewContainerRef = this.elementEditorHost.viewContainerRef;
+    viewContainerRef.clear();
+    viewContainerRef.createComponent(EditCategoryComponent);
+  }
 
   public dragDropListCaught(event: CdkDragDrop<string[]>) {
     this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
-
-    // this.menuCategoryService.putCategory()
-
   }
 }
