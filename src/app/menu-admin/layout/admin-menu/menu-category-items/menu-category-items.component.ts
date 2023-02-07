@@ -27,6 +27,10 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     this.editorDialogService.onItemGroupUpdated.pipe(
       takeUntil(this.onDestroy)
     ).subscribe(e => this.itemGroupUpdated(e))
+
+    this.editorDialogService.onItemGroupDeleted.pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe(e => this.itemGroupDeleted(e));
   }
 
   public openEditor(menuItemGroup: MenuItemGroupGet) {
@@ -48,6 +52,19 @@ export class MenuCategoryItemsComponent implements OnDestroy {
       let existingItemGroup = this._category.menuItemGroups[i];
       if (existingItemGroup.ref === newItemGroup.ref) {
         this._category.menuItemGroups[i] = newItemGroup;
+        this.editorDialogService.closeDialog();
+        break;
+      }
+    }
+  }
+
+  private itemGroupDeleted(ref: string) {
+    if (!this._category) { throw 'Category not defined'; }
+
+    for (let i = 0; i < this._category.menuItemGroups.length; i++) {
+      let existingItemGroup = this._category.menuItemGroups[i];
+      if (existingItemGroup.ref === ref) {
+        this._category.menuItemGroups.splice(i, 1);
         this.editorDialogService.closeDialog();
         break;
       }

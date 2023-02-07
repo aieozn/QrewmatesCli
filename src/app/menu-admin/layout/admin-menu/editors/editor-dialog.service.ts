@@ -12,6 +12,7 @@ export class EditorDialogService {
   public onCategoryDeleted = new EventEmitter<string>();
 
   public onItemGroupUpdated = new EventEmitter<MenuItemGroupGet>();
+  public onItemGroupDeleted = new EventEmitter<string>();
 
   constructor() { }
 
@@ -29,6 +30,10 @@ export class EditorDialogService {
 
   public categoryDeleted(ref: string) {
     this.onCategoryDeleted.emit(ref)
+  }
+
+  public itemGroupDeleted(ref: string) {
+    this.onItemGroupDeleted.emit(ref)
   }
 
   public itemGroupUpdated(itemGroup: MenuItemGroupGet) {

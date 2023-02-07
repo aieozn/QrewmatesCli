@@ -8,4 +8,4 @@
     </div>
 </div>
 
-<app-submit-bar [saveEnabled]="isValid(groupFields) && isUpdated(groupFields)" [deleteEnabled]="originalItemGroup !== undefined" (onClose)="cancel()" (onSave)="onSave()"></app-submit-bar>
+<app-submit-bar [saveEnabled]="isValid(groupFields) && isUpdated(groupFields)" [deleteEnabled]="originalItemGroup !== undefined" (onClose)="cancel()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

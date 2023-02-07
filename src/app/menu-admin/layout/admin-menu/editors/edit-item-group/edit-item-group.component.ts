@@ -21,7 +21,7 @@ export class EditItemGroupComponent {
   };
 
   public constructor(
-    private meniItemGroupService: MenuItemGroupControllerService,
+    private menuItemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private editDialogService: EditorDialogService
   ) {
@@ -56,7 +56,7 @@ export class EditItemGroupComponent {
     this.activeItemGroup.name = this.groupFields.groupName.value!;
     this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
 
-    this.meniItemGroupService.putItemGroup({
+    this.menuItemGroupService.putItemGroup({
       restaurantRef: this.accountService.getRestaurantRef(),
       menuItemGroupRef: this.originalItemGroup.ref,
       body: this.activeItemGroup
@@ -69,19 +69,19 @@ export class EditItemGroupComponent {
     this.editDialogService.closeDialog();
   }
 
-  // public onDelete() {
-  //   if (this.originalCategory !== undefined) {
-  //     let originalCategoryRef = this.originalCategory.ref;
+  public onDelete() {
+    if (this.originalItemGroup !== undefined) {
+      let originalGroupCategoryRef = this.originalItemGroup.ref;
 
-  //     this.categoryService.deleteCategory({
-  //       restaurantRef: this.accountService.getRestaurantRef(),
-  //       categoryRef: originalCategoryRef
-  //     }).subscribe(_ => {
-  //       this.editDialogService.categoryDeleted(originalCategoryRef)
-  //     })
-  //   } else {
-  //     this.editDialogService.closeDialog();
-  //     console.error('Category not defined');
-  //   }
-  // }
+      this.menuItemGroupService.deleteMenuItemGroup({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        menuItemGroupRef: originalGroupCategoryRef
+      }).subscribe(_ => {
+        this.editDialogService.itemGroupDeleted(originalGroupCategoryRef)
+      })
+    } else {
+      this.editDialogService.closeDialog();
+      console.error('Menu item group not defined');
+    }
+  }
 }
