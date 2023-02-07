@@ -3,8 +3,9 @@
 
     <p id="help-text">Edytuj pola poniżej i zapisz zmiany</p>
     <div id="editors">
-        <app-editor-category-name class="editor" [name]="groupFields.groupName"></app-editor-category-name>
+        <app-editor-item-group-name class="editor" [name]="groupFields.groupName"></app-editor-item-group-name>
+        <app-editor-item-group-name class="editor" [name]="groupFields.groupDescription"></app-editor-item-group-name>
     </div>
 </div>
 
-<app-submit-bar [saveEnabled]="isValid(groupFields) && isUpdated(groupFields)" [deleteEnabled]="originalItemGroup !== undefined"></app-submit-bar>
+<app-submit-bar [saveEnabled]="isValid(groupFields) && isUpdated(groupFields)" [deleteEnabled]="originalItemGroup !== undefined" (onClose)="cancel()" (onSave)="onSave()"></app-submit-bar>

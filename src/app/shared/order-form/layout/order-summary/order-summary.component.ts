@@ -35,7 +35,7 @@ export class OrderSummaryComponent implements OnInit {
 
     this.groupService.getItemGroupDetails({
       restaurantRef: this.accountService.getRestaurantRef(),
-      ref: item.menuItem.menuItemGroup
+      ref: item.menuItem.menuItemGroupRef
     }).pipe(
       first(),
       filter(x => x !== undefined),

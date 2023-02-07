@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { IdentifiedByRefData, MenuItemGet, MenuItemGroupData, MenuItemGroupGet } from 'src/app/openapi-cli/models';
+import { IdentifiedByRefData, MenuItemGroupData, MenuItemGroupGet } from 'src/app/openapi-cli/models';
+import { MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
+import { AccountService } from 'src/app/shared/services/account/account.service';
+import { EditorDialogService } from '../editor-dialog.service';
 
 @Component({
   selector: 'app-edit-item-group',
@@ -13,10 +16,14 @@ export class EditItemGroupComponent {
   private itemGroupCategory: IdentifiedByRefData | undefined;
 
   public groupFields = {
-    groupName: new FormControl('', [Validators.required, Validators.maxLength(255)])
+    groupName: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+    groupDescription: new FormControl('', [Validators.maxLength(512)])
   };
 
   public constructor(
+    private meniItemGroupService: MenuItemGroupControllerService,
+    private accountService: AccountService,
+    private editDialogService: EditorDialogService
   ) {
   }
 
@@ -33,6 +40,7 @@ export class EditItemGroupComponent {
 
   private loadItemGroupFieldsValues(value: MenuItemGroupGet) {
     this.groupFields.groupName.setValue(value.name);
+    this.groupFields.groupDescription.setValue(value.description ?? null);
   }
 
   public isValid(validation: {[key: string] : FormControl}) : boolean {
@@ -42,4 +50,38 @@ export class EditItemGroupComponent {
   public isUpdated(validation: {[key: string] : FormControl}) : boolean {
     return Object.values(validation).map(e => e.dirty).includes(true);
   }
+
+  public onSave() {
+    if (!this.activeItemGroup || !this.originalItemGroup) { throw 'Unknown group'; }
+    this.activeItemGroup.name = this.groupFields.groupName.value!;
+    this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
+
+    this.meniItemGroupService.putItemGroup({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemGroupRef: this.originalItemGroup.ref,
+      body: this.activeItemGroup
+    }).subscribe(saved => {
+      this.editDialogService.itemGroupUpdated(saved);
+    })
+  }
+
+  public cancel() {
+    this.editDialogService.closeDialog();
+  }
+
+  // public onDelete() {
+  //   if (this.originalCategory !== undefined) {
+  //     let originalCategoryRef = this.originalCategory.ref;
+
+  //     this.categoryService.deleteCategory({
+  //       restaurantRef: this.accountService.getRestaurantRef(),
+  //       categoryRef: originalCategoryRef
+  //     }).subscribe(_ => {
+  //       this.editDialogService.categoryDeleted(originalCategoryRef)
+  //     })
+  //   } else {
+  //     this.editDialogService.closeDialog();
+  //     console.error('Category not defined');
+  //   }
+  // }
 }

@@ -10,5 +10,5 @@ import { filter, Subject, takeUntil } from 'rxjs';
 })
 export class EditorCategoryNameComponent {
   @Input('name')
-  categoryNameFormControl : FormControl<string | null> | undefined;
+  elementNameFormControl : FormControl<string | null> | undefined;
 }

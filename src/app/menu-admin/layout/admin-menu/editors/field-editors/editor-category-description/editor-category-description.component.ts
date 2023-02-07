@@ -8,5 +8,5 @@ import { FormControl } from '@angular/forms';
 })
 export class EditorCategoryDescriptionComponent {
   @Input('desciprion')
-  categoryDescriptionFormControl : FormControl<string | null> | undefined;
+  elementDescriptionFormControl : FormControl<string | null> | undefined;
 }

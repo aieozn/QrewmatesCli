@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,8 @@ export class EditorDialogService {
   public onCategoryCreated = new EventEmitter<MenuCategoryGet>();
   public onCategoryUpdated = new EventEmitter<MenuCategoryGet>();
   public onCategoryDeleted = new EventEmitter<string>();
+
+  public onItemGroupUpdated = new EventEmitter<MenuItemGroupGet>();
 
   constructor() { }
 
@@ -27,5 +29,9 @@ export class EditorDialogService {
 
   public categoryDeleted(ref: string) {
     this.onCategoryDeleted.emit(ref)
+  }
+
+  public itemGroupUpdated(itemGroup: MenuItemGroupGet) {
+    this.onItemGroupUpdated.emit(itemGroup);
   }
 }
