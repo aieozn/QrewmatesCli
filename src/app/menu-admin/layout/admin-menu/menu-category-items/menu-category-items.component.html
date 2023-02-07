@@ -1,4 +1,4 @@
-<div id="menu-elements-list" cdkDropList *ngIf="_category">
+<div id="menu-elements-list" cdkDropList *ngIf="_category" (cdkDropListDropped)="dragDropListCaught($event)">
     <div *ngFor="let group of _category.menuItemGroups" class="menu-element-drag-box" cdkDrag>
 
         <div class="menu-element box-shadow">

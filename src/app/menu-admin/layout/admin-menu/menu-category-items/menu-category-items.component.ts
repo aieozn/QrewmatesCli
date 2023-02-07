@@ -1,6 +1,9 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
+import { MenuCategoryControllerService, MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
+import { AccountService } from 'src/app/shared/services/account/account.service';
 import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({
@@ -23,7 +26,11 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     this._category = value;
   }
 
-  constructor(private editorDialogService: EditorDialogService) {
+  constructor(private editorDialogService: EditorDialogService,
+    private itemGroupService: MenuItemGroupControllerService,
+    private accountService: AccountService,
+    private categoryService: MenuCategoryControllerService
+  ) {
     this.editorDialogService.onItemGroupUpdated.pipe(
       takeUntil(this.onDestroy)
     ).subscribe(e => this.itemGroupUpdated(e))
@@ -74,5 +81,37 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();
+  }
+
+  private arrayMove(items: MenuItemGroupGet[], old_index: number, new_index: number
+  ) {
+    items[old_index].elementOrder = items[new_index].elementOrder;
+
+    this.itemGroupService.putItemGroup({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemGroupRef: items[old_index].ref,
+      body: items[old_index]
+    }).subscribe((_) => {
+      this.reloadCategory();
+    });
+
+    items.splice(new_index, 0, items.splice(old_index, 1)[0]);
+  };
+
+  private reloadCategory() {
+    if (!this._category) { throw 'Category not defined'; }
+
+    let activeCategory = this._category;
+    this.categoryService.getCategory({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      categoryRef: this._category.ref
+    }).subscribe(c => {
+      Object.assign(activeCategory, c);
+    })
+  }
+
+  public dragDropListCaught(event: CdkDragDrop<string[]>) {
+    if (!this._category) { throw 'Category not defined'; }
+    this.arrayMove(this._category.menuItemGroups, event.previousIndex, event.currentIndex)
   }
 }

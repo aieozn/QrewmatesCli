@@ -165,13 +165,13 @@ export class AdminMenuComponent implements OnDestroy {
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   };
 
+  public dragDropListCaught(event: CdkDragDrop<string[]>) {
+    this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
+  }
+
   public createCategory() {
     const viewContainerRef = this.elementEditorHost.viewContainerRef;
     viewContainerRef.clear();
     viewContainerRef.createComponent(EditCategoryComponent);
-  }
-
-  public dragDropListCaught(event: CdkDragDrop<string[]>) {
-    this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
   }
 }
