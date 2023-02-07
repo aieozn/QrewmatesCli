@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MenuCategoryData, MenuCategoryGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { AccountService } from 'src/app/shared/services/account/account.service';
@@ -8,7 +8,7 @@ import { EditorDialogService } from '../editor-dialog.service';
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.scss']
+  styleUrls: ['../edit-element.scss']
 })
 export class EditCategoryComponent {
 

@@ -1,10 +1,11 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { AccountService } from 'src/app/shared/services/account/account.service';
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
+import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
 import { EditorDialogService } from './editors/editor-dialog.service';
 import { ElementEditorDirective } from './elementEditorDirective';
 
@@ -92,6 +93,23 @@ export class AdminMenuComponent implements OnDestroy {
     const componentRef = viewContainerRef.createComponent(EditCategoryComponent);
     componentRef.instance.category = category;
     // componentRef.instance.data = adItem.data;
+  }
+
+  public editItem(itemGroupData: {
+    group: MenuItemGroupGet,
+    categoryRef: string
+  }) {
+
+    const viewContainerRef = this.elementEditorHost.viewContainerRef;
+    viewContainerRef.clear();
+
+    const componentRef = viewContainerRef.createComponent(EditItemGroupComponent);
+
+    componentRef.instance.group = itemGroupData.group;
+    
+    componentRef.instance.category = {
+      ref: itemGroupData.categoryRef
+    }
   }
 
   ngOnDestroy(): void {

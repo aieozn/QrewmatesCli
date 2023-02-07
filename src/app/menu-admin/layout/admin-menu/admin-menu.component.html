@@ -24,7 +24,7 @@
             </div>
 
             <div class="menu-element-items" *ngIf="category.open">
-                <app-menu-category-items [category]="category.category"></app-menu-category-items>
+                <app-menu-category-items [category]="category.category" (openItemGroupEditor)="editItem($event)"></app-menu-category-items>
             </div>
         </div>
     </div>

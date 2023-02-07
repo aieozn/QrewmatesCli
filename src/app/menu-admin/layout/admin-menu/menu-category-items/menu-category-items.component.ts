@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 
 @Component({
   selector: 'app-menu-category-items',
@@ -8,10 +8,28 @@ import { MenuCategoryGet } from 'src/app/openapi-cli/models';
 })
 export class MenuCategoryItemsComponent {
 
+  @Output('openItemGroupEditor')
+  openItemGroupEditor = new EventEmitter<{
+    group: MenuItemGroupGet,
+    categoryRef: string
+  }>();
+
   public _category: MenuCategoryGet | undefined;
 
   @Input() set category(value: MenuCategoryGet) {
     this._category = value;
+  }
+
+  public openEditor(menuItemGroup: MenuItemGroupGet) {
+    if (this._category) {
+      this.openItemGroupEditor.emit({
+        group: menuItemGroup,
+        categoryRef: menuItemGroup.category
+      })
+    } else {
+      throw 'Category not defined';
+    }
+    
   }
 
 

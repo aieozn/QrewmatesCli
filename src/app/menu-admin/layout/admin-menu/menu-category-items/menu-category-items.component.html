@@ -9,7 +9,7 @@
             <div class="menu-element-details">
                 <p class="menu-element-name">{{ group.name }}</p>
                 <p class="menu-element-description">{{ group.description }}</p>
-                <div class="settings-icon clickable">
+                <div class="settings-icon clickable" (click)="openEditor(group)">
                     <mat-icon>settings</mat-icon>
                 </div>
             </div>

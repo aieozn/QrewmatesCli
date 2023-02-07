@@ -1,0 +1,10 @@
+<div id="edit-element" *ngIf="activeItemGroup">
+    <p id="element-name">Danie: <b>{{ activeItemGroup.name }}</b></p>
+
+    <p id="help-text">Edytuj pola poniżej i zapisz zmiany</p>
+    <div id="editors">
+        <app-editor-category-name class="editor" [name]="groupFields.groupName"></app-editor-category-name>
+    </div>
+</div>
+
+<app-submit-bar [saveEnabled]="isValid(groupFields) && isUpdated(groupFields)" [deleteEnabled]="originalItemGroup !== undefined"></app-submit-bar>
