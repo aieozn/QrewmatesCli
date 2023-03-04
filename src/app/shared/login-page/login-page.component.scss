@@ -1,0 +1,36 @@
+#login-box, #already-logged {
+    width: 400px;
+    margin-left: calc(50% - 200px);
+    margin-top: 200px;
+    text-align: center;
+}
+
+.box-content {
+    padding: 20px;
+}
+
+#login-input, #password-input {
+    width: calc(100% - 20px);
+    font-family: Poppins;
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid #38A583;
+    border-radius: 10px;
+}
+
+#password-input {
+    margin-top: 30px;
+}
+
+#login-button {
+    margin-top: 20px;
+    background-color: #38A583;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+#google-login-button {
+    text-align: center;
+}

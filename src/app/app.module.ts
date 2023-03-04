@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,6 +65,10 @@ import { EditorCategoryDescriptionComponent } from './menu-admin/layout/admin-me
 import { EditItemGroupComponent } from './menu-admin/layout/admin-menu/editors/edit-item-group/edit-item-group.component';
 import { EditorItemGroupNameComponent } from './menu-admin/layout/admin-menu/editors/field-editors/editor-item-group-name/editor-item-group-name.component';
 import { EditorItemGroupDescriptionComponent } from './menu-admin/layout/admin-menu/editors/field-editors/editor-item-group-description/editor-item-group-description.component';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { LoginPageComponent } from './shared/login-page/login-page.component';
+import { AuthInterceptor } from './shared/services/account/auth-interceptor';
+import { LoginSuccessComponent } from './shared/login-page/login-success/login-success.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +119,9 @@ import { EditorItemGroupDescriptionComponent } from './menu-admin/layout/admin-m
     EditorCategoryDescriptionComponent,
     EditItemGroupComponent,
     EditorItemGroupNameComponent,
-    EditorItemGroupDescriptionComponent
+    EditorItemGroupDescriptionComponent,
+    LoginPageComponent,
+    LoginSuccessComponent
   ],
   imports: [
     BrowserModule,
@@ -131,6 +137,7 @@ import { EditorItemGroupDescriptionComponent } from './menu-admin/layout/admin-m
     MatDialogModule,
     FormsModule,
     MatProgressSpinnerModule,
+    SocialLoginModule,
     // TODO import only for admin page
     NgChartsModule,
     ColorPickerModule,
@@ -138,7 +145,29 @@ import { EditorItemGroupDescriptionComponent } from './menu-admin/layout/admin-m
     ReactiveFormsModule
   ],
   providers: [
-    CookieService
+    CookieService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '387933337523-7jvks23cg4as7m488aikod4draeij3ob.apps.googleusercontent.com'
+            )
+          }
+        ],
+        onError: (err: any) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

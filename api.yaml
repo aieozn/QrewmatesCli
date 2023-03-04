@@ -1046,7 +1046,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MenuCategoryGet'
-  /api/do/order/{restaurant}/:
+  /api/do/order/{restaurant}:
     post:
       tags:
       - do-order-controller
