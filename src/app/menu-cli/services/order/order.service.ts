@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, first, Observable, tap } from 'rxjs';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
-import { DoOrderControllerService, OrderInstanceControllerService } from 'src/app/openapi-cli/services';
+import { OrderInstanceControllerService } from 'src/app/openapi-cli/services';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
 import { AccountService } from 'src/app/shared/services/account/account.service';
 
@@ -15,7 +15,6 @@ export class OrderService {
   public orderChanged: BehaviorSubject<OrderWrapper>;
 
   constructor(
-    private orderService: DoOrderControllerService,
     private orderInstanceService: OrderInstanceControllerService,
     private accountService: AccountService
   ) {
@@ -88,7 +87,7 @@ export class OrderService {
   }
 
   public submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
-    return this.orderService.order({
+    return this.orderInstanceService.order({
       restaurantRef: this.accountService.getRestaurantRef(),
       body: order
     }).pipe(
@@ -120,7 +119,7 @@ export class OrderService {
   }) : Observable<OrderDetailsGet> {
     return this.orderInstanceService.getOrder({
       restaurantRef: info.restaurantRef,
-      ref: info.ref
+      orderInstanceRef: info.ref
     })
   }
 }

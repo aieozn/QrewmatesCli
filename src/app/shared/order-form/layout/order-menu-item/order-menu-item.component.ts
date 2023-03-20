@@ -37,7 +37,7 @@ export class OrderMenuItemComponent implements OnDestroy {
       filter(x => x !== undefined),
       switchMap(item => this.menuItemService.getItemDetails({
         restaurantRef: this.restaurantRef!,
-        ref: item!.ref
+        menuItemRef: item!.ref
       }))
     ).subscribe((item) => {
       this.order = {
@@ -92,7 +92,7 @@ export class OrderMenuItemComponent implements OnDestroy {
       if (this.order !== undefined) {
         this.menuItemService.getItemDetails({
           restaurantRef: restaurantRef,
-          ref: this.order.menuItem.ref
+          menuItemRef: this.order.menuItem.ref
         }).subscribe(itemDetails => this.selectedItem$.next(itemDetails));
       } else {
         this.selectedItem$.next(undefined);

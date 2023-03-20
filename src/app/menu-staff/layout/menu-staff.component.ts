@@ -74,9 +74,9 @@ export class MenuStaffComponent implements OnInit, OnDestroy {
 
   public updateStatus(order: OrderGet, message: UpdateOrderStatusMessage) : boolean {
     this.orderStatusService.updateStatus({
-      "restaurantRef": order.restaurantRef,
-      "ref": order.ref,
-      "body": message
+      restaurantRef: order.restaurantRef,
+      orderInstanceRef: order.ref,
+      body: message
     }).subscribe(response => {
       this.replaceOrder(order.ref, response);
       this.updateOrders(this.orders);

@@ -39,7 +39,7 @@ export class PendingOrderComponent {
 
     this.orderInstanceService.getOrder({
       restaurantRef: this.accountService.getRestaurantRef(),
-      ref: this._order.ref
+      orderInstanceRef: this._order.ref
     })
     .pipe<OrderDetailsGet, { orderDetails: OrderDetailsGet, orderWrapper: OrderWrapper}>(
       first(),
@@ -58,7 +58,7 @@ export class PendingOrderComponent {
       switchMap(edited =>
         this.orderInstanceService.editOrder({
           restaurantRef: this.accountService.getRestaurantRef(),
-          ref: edited.orderDetails.ref,
+          orderInstanceRef: edited.orderDetails.ref,
           body: edited.orderWrapper
         })
       )

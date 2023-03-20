@@ -1,5 +1,6 @@
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginResponse, RestaurantDetailsGet, RestaurantGet } from 'src/app/openapi-cli/models';
 import { LoginControllerService, RestaurantControllerService } from 'src/app/openapi-cli/services';
@@ -12,7 +13,11 @@ export class AccountService {
 
   private static authDetails = 'qr-auth-details';
 
-  constructor(private restaurantService: RestaurantControllerService, private loginController: LoginControllerService) { }
+  constructor(
+    private restaurantService: RestaurantControllerService,
+    private loginController: LoginControllerService,
+    private router: Router
+  ) { }
 
   public getRestaurantRef() : string {
 
@@ -22,9 +27,9 @@ export class AccountService {
     if (pathParts[0] === "menu") {
       restaurantRef = pathParts[1]
     } else if (pathParts[0] === "staff") {
-      restaurantRef = "R00000000000"
+      restaurantRef = "R0TAXI000000"
     } else {
-      restaurantRef = "R00000000000"
+      restaurantRef = "R0TAXI000000"
     }
 
 
@@ -106,5 +111,10 @@ export class AccountService {
       this.clearStorageUser();
       return null;
     }
+  }
+
+  // Execute this method if request is not authorized. It redirects user to login endpoint
+  public unauthorized() {
+    window.location.href = '/login';
   }
 }

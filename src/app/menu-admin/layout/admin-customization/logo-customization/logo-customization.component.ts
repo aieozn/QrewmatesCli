@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RestaurantDetailsGet } from 'src/app/openapi-cli/models';
-import { RestaurantControllerService, UploadMultimediaControllerService } from 'src/app/openapi-cli/services';
+import { MultimediaControllerService, RestaurantControllerService } from 'src/app/openapi-cli/services';
 import { AccountService } from 'src/app/shared/services/account/account.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class LogoCustomizationComponent {
 
 
   constructor(
-    private multimediaService : UploadMultimediaControllerService,
+    private multimediaService : MultimediaControllerService,
     private accountService: AccountService,
     private restaurantService: RestaurantControllerService
   ) {

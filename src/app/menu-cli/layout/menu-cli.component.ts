@@ -159,7 +159,7 @@ export class MenuCliComponent implements OnInit, OnDestroy {
       var link  = document.createElement('link');
       link.rel  = 'stylesheet';
       link.type = 'text/css';
-      link.href = '/api/restaurant-styles/' + ref + ".css";
+      link.href = `/api/public/v1/restaurant/${ref}/styles/styles.css`
       link.media = 'all';
       head.appendChild(link);
       this.cssLoaded = true;
