@@ -22,11 +22,6 @@ export class LoginPageComponent implements OnDestroy {
     });
   }
 
-  refreshToken(): void {
-    console.log("Refreshing token")
-    this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
-  }
-
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();

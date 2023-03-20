@@ -1,7 +1,7 @@
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RestaurantDetailsGet, RestaurantGet } from 'src/app/openapi-cli/models';
+import { LoginResponse, RestaurantDetailsGet, RestaurantGet } from 'src/app/openapi-cli/models';
 import { LoginControllerService, RestaurantControllerService } from 'src/app/openapi-cli/services';
 import { GenericUtils } from '../../utils/generic-utils';
 
@@ -67,15 +67,15 @@ export class AccountService {
         token: user.idToken
       }
     }).subscribe(e => {
-      console.log("What now?")
+      this.setStorageUser(e);
     });
   }
 
-  private setStorageUser(data: AuthDetails) {
+  private setStorageUser(data: LoginResponse) {
     localStorage.setItem(AccountService.authDetails, JSON.stringify(data));
   }
 
-  private getStorageUser() : AuthDetails | null{
+  private getStorageUser() : LoginResponse | null {
     let storageContent = localStorage.getItem(AccountService.authDetails);
 
     if (storageContent !== null) {
@@ -83,6 +83,10 @@ export class AccountService {
     } else {
       return null;
     }
+  }
+
+  private clearStorageUser() {
+    localStorage.removeItem(AccountService.authDetails);
   }
 
   public isLoggedIn() : boolean {
@@ -93,19 +97,14 @@ export class AccountService {
     }
   }
 
-  public getUserToken() : string | null {
+  public getActiveUser() : LoginResponse | null {
     let user = this.getStorageUser();
 
-    if (user !== null) {
-      return user.token;
+    if (user !== null && user.expiration > new Date().getTime()) {
+      return user;
     } else {
+      this.clearStorageUser();
       return null;
     }
   }
-}
-
-interface AuthDetails {
-  type: 'GOOGLE' | 'LOCAL',
-  details: any,
-  token: string
 }
