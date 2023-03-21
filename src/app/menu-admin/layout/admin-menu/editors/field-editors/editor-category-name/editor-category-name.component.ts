@@ -1,7 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MatFormField } from '@angular/material/form-field';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-editor-category-name',

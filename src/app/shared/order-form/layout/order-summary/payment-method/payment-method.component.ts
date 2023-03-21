@@ -15,10 +15,10 @@ export class PaymentMethodComponent implements OnInit {
     label: string
   }[] = [{
       id: 'CASH',
-      label: 'Gotówka'
+      label: $localize`Gotówka`
     },{
       id: 'BLIK',
-      label: 'BLIK'
+      label: $localize`BLIK`
     }
   ]
 

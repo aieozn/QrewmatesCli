@@ -1,11 +1,11 @@
 <div id="login-box" class="box-shadow" *ngIf="!isLogged">
     <div class="box-content">
-        <h1>Zaloguj</h1>
+        <h1 i18n>Zaloguj</h1>
 
         <input autocomplete="off" id="login-input" placeholder="Login">
         <input type="password" autocomplete="off" id="password-input" placeholder="Hasło">
-        <div id="login-button">Zaloguj</div>
-        <p>lub</p>
+        <div id="login-button" i18n>Zaloguj</div>
+        <p i18n>lub</p>
 
         <asl-google-signin-button id="google-login-button" type="standard" width="360"></asl-google-signin-button>
     </div>
@@ -13,6 +13,6 @@
 
 <div id="already-logged" class="box-shadow" *ngIf="isLogged">
     <div class="box-content">
-    <h1>Jesteś już zalogowany</h1>
+    <h1 i18n>Jesteś już zalogowany</h1>
 </div>
 </div>

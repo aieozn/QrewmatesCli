@@ -13,8 +13,6 @@ export class ColorsCustomizationComponent {
   public activeColor: string | undefined;
 
   constructor(
-    private multimediaService : MultimediaControllerService,
-    private accountService: AccountService
   ) {
   }
   

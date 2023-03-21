@@ -4,7 +4,7 @@
     </div>
 
     <div id="changes-actions-wrapper" class="header-bar-element">
-        <div id="submit-changes" *ngIf="collectiveChangesService.modified | async" class="clickable" (click)="publish()">Opublikuj zmiany</div>
+        <div id="submit-changes" *ngIf="collectiveChangesService.modified | async" class="clickable" (click)="publish()" i18n>Opublikuj zmiany</div>
     </div>
     
     <div id="account-icon-wrapper" class="header-bar-element">

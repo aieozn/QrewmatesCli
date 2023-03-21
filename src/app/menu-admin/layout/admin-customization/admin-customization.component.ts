@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { forkJoin, map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { RestaurantDetailsGet } from 'src/app/openapi-cli/models';
 import { RestaurantControllerService } from 'src/app/openapi-cli/services';
 import { AccountService } from 'src/app/shared/services/account/account.service';
@@ -17,7 +17,7 @@ export class AdminCustomizationComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
 
   public constructor(
-    private accountService: AccountService,
+    accountService: AccountService,
     private collectiveChanges: CollectiveChangesService,
     private restaurantService: RestaurantControllerService
   ) {

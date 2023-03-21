@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, HostListener, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { MenuHorizontalElement } from '../../../model/menu-horizontal-element';
 import { MenuEventsService } from '../../../service/menu-event/menu-events.service';

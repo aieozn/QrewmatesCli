@@ -98,8 +98,8 @@ export class MenuCliComponent implements OnInit, OnDestroy {
 
   private loadLastOrderHandleError() {
     this.menuCliDialogServide.openErrorDialog({
-      title: "Wystąpił błąd",
-      message: "Nie odnaleziono zamówienia"
+      title: $localize`Wystąpił błąd`,
+      message: $localize`Nie odnaleziono zamówienia`
     }).pipe(
       first()
     ).subscribe(_ => {

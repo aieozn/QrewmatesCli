@@ -1,10 +1,10 @@
 <div class="editor-box box-shadow" *ngIf="elementDescriptionFormControl">
-    <p class="editor-box-title">Opis kategorii</p>
-    <p class="editor-box-subtitle">Uzupełnij pole poniżej</p>
+    <p class="editor-box-title" i18n>Opis kategorii</p>
+    <p class="editor-box-subtitle" i18n>Uzupełnij pole poniżej</p>
 
     <mat-form-field appearance="fill" id="element-description-input">
-        <mat-label>Opis kategorii</mat-label>
+        <mat-label i18n>Opis kategorii</mat-label>
         <textarea matInput [formControl]="elementDescriptionFormControl"></textarea>
-        <mat-error *ngIf="elementDescriptionFormControl.errors">Niepoprawny opis</mat-error>
+        <mat-error *ngIf="elementDescriptionFormControl.errors" i18n>Niepoprawny opis</mat-error>
     </mat-form-field>
 </div>

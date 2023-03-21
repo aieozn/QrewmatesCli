@@ -171,7 +171,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
           let ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
           let ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
           this.loadChart(
-            'Liczba obsłużonych zamówień w ' + CalendarUtils.monthNumberToMiejscownik(month),
+            $localize`The number of orders served in ` + CalendarUtils.monthNumberToLocative(month),
             chartData.map(e => e.orderCount),
             chartData.map(e => String(e.orderMonth).padStart(2, '0') + '/' + String(e.orderDay).padStart(2, '0')),
             {
@@ -207,7 +207,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
           let ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
           let ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
           this.loadChart(
-            'Liczba zamówień obsłużonych w ostatnim tygodniu',
+            $localize`The number of orders served in the last week`,
             chartData.map(e => e.orderCount),
             chartData.map(e => String(e.orderMonth).padStart(2, '0') + '/' + String(e.orderDay).padStart(2, '0')),
             {
@@ -244,7 +244,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
           let ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
           
           this.loadChart(
-            'Liczba zamówień obsłużonych dziś',
+            $localize`The number of orders served today`,
             chartData.map(e => e.orderCount),
             chartData.map(e => this.formatHourlyLabel(e)),
             {

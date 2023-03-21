@@ -2,60 +2,60 @@ export class CalendarUtils {
     public static monthNumberToName(num: number) {
         switch(num) {
             case 1:
-                return 'Styczeń';
+                return $localize`Jenuary`;
             case 2:
-                return 'Luty';
+                return $localize`February`;
             case 3:
-                return 'Marzec';
+                return $localize`March`;
             case 4:
-                return 'Kwiecień';
+                return $localize`April`;
             case 5:
-                return 'Maj';
+                return $localize`May`;
             case 6:
-                return 'Czerwiec';
+                return $localize`June`;
             case 7:
-                return 'Lipiec';
+                return $localize`July`;
             case 8:
-                return 'Sierpień';
+                return $localize`Augist`;
             case 9:
-                return 'Wrzesień';
+                return $localize`September`;
             case 10:
-                return 'Październik';
+                return $localize`October`;
             case 11:
-                return 'Listopad';
+                return $localize`November`;
             case 12:
-                return 'Grudzień';
+                return $localize`Devember`;
             default:
                 throw 'Month not found';
         }
     }
 
-    public static monthNumberToMiejscownik(num: number) {
+    public static monthNumberToLocative(num: number) {
         switch(num) {
             case 1:
-                return 'Styczniu';
+                return $localize`Jenuary`;
             case 2:
-                return 'Lutym';
+                return $localize`February`;
             case 3:
-                return 'Marcu';
+                return $localize`March`;
             case 4:
-                return 'Kwietniu';
+                return $localize`April`;
             case 5:
-                return 'Maju';
+                return $localize`May`;
             case 6:
-                return 'Czerwcu';
+                return $localize`June`;
             case 7:
-                return 'Lipcu';
+                return $localize`July`;
             case 8:
-                return 'Sierpniu';
+                return $localize`Augist`;
             case 9:
-                return 'Wrzesniu';
+                return $localize`September`;
             case 10:
-                return 'Październiku';
+                return $localize`October`;
             case 11:
-                return 'Listopadzie';
+                return $localize`November`;
             case 12:
-                return 'Grudniu';
+                return $localize`Devember`;
             default:
                 throw 'Month not found';
         }

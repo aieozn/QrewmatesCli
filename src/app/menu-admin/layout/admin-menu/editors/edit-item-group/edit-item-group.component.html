@@ -1,7 +1,7 @@
 <div id="edit-element" *ngIf="activeItemGroup">
-    <p id="element-name">Danie: <b>{{ activeItemGroup.name }}</b></p>
+    <p id="element-name"><span i18n>Danie</span>: <b>{{ activeItemGroup.name }}</b></p>
 
-    <p id="help-text">Edytuj pola poniżej i zapisz zmiany</p>
+    <p id="help-text" i18n>Edytuj pola poniżej i zapisz zmiany</p>
     <div id="editors">
         <app-editor-item-group-name class="editor" [name]="groupFields.groupName"></app-editor-item-group-name>
         <app-editor-item-group-name class="editor" [name]="groupFields.groupDescription"></app-editor-item-group-name>

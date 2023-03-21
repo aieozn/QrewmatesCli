@@ -1,4 +1,6 @@
-<h2>Zdjęcie w tle</h2>
+
+
+<h2 i18n>Background photo</h2>
 
 <div class="customization-envelope box-shadow" *ngIf="restaurantCopy">
     <div id="active-logo" class="clickable" (click)="file.click()">
@@ -8,12 +10,10 @@
         </div>
     </div>
     <div id="logo-description">
-        <h3>Prześlij zdjęcie</h3>
-        <p id="logo-description-text">
-            Lorem ipsum dolor sit amet lorem ipsum
-        </p>
+        <h3 i18n>Send background picture</h3>
+        <p id="logo-description-text" i18n>Photo visible above the restaurant menu</p>
 
-        <p id="sendFile" class="clickable" (click)="file.click()">Prześlij plik</p>
+        <p id="sendFile" class="clickable" (click)="file.click()" i18n>Send file</p>
         <div *ngIf="imageUrl" id="removeFile" class="clickable" (click)="remove()">
             <mat-icon>delete</mat-icon>
         </div>

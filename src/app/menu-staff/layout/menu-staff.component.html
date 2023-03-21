@@ -13,14 +13,14 @@
         </div>
 
         <div id="menu-elements">
-            <app-menu-horizontal-element-wrapper name="Oczekujące zamówienia">
+            <app-menu-horizontal-element-wrapper i18n-name name="Oczekujące zamówienia">
                 <app-pending-order (changeStatus)="updateStatus(order, $event)" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
                 </app-pending-order>
             </app-menu-horizontal-element-wrapper>
 
             <div class="spacer"></div>
 
-            <app-menu-horizontal-element-wrapper name="Zaakceptowane">
+            <app-menu-horizontal-element-wrapper i18n-name name="Zaakceptowane">
                 <app-pending-order (changeStatus)="updateStatus(order, $event)" *ngFor="let order of orders | orderStatus:'ACCEPTED'" [order]="order">
                 </app-pending-order>
             </app-menu-horizontal-element-wrapper>

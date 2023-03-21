@@ -1,4 +1,4 @@
-<h2>Kolor motywu restauracji</h2>
+<h2 i18n>Color ot the restaurant theme</h2>
 
 <div class="customization-envelope box-shadow" *ngIf="restaurantCopy && activeColor">
     <div id="active-logo" class="clickable">
@@ -8,11 +8,9 @@
         </div>
     </div>
     <div id="logo-description">
-        <h3>Wybierz kolor motywu</h3>
-        <p id="logo-description-text">
-            Lorem ipsum dolor sit amet lorem ipsum
-        </p>
+        <h3 i18n>Select theme main color</h3>
+        <p id="logo-description-text" i18n>Your restaurant's menu theme main color</p>
 
-        <p id="sendFile" class="clickable" (click)="pickerInput.click()">Wybierz</p>
+        <p id="sendFile" class="clickable" (click)="pickerInput.click()" i18n>Select</p>
     </div>
 </div>

@@ -13,7 +13,7 @@
                         {{ topping.name }} ({{ topping.price }}zł)
                     </div>
                     <div class="summary-element-option" *ngIf="orderElement.comment">
-                        Komentarz: {{ orderElement.comment }}
+                        <span i18n>Komentarz:</span> {{ orderElement.comment }}
                     </div>
                 </div>
             </div>

@@ -5,6 +5,14 @@
   "projects": {
     "QrewmatesCli": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "pl-PL": {
+            "translation": "src/locale/messages.pl.xlf"
+          }
+        }
+      },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -20,6 +28,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": ["en-US"],
+            "i18nMissingTranslation": "error",
             "outputPath": "dist/qrewmates-cli",
             "index": "src/index.html",
             "main": "src/main.ts",

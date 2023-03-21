@@ -1,10 +1,10 @@
 <div id="submit-bar" class="box-shadow-top">
     <div id="left-side">
-        <div id="cancel-button" class="clickable" (click)="closeDialog()">Anuluj zmiany</div>
+        <div id="cancel-button" class="clickable" (click)="closeDialog()" i18n>Anuluj zmiany</div>
     </div>
     
     <div id="right-side">
-        <div id="save-button" class="clickable" *ngIf="saveEnabled" (click)="saveElement()">Zapisz zmiany</div>
+        <div id="save-button" class="clickable" *ngIf="saveEnabled" (click)="saveElement()" i18n>Zapisz zmiany</div>
         <div id="remove-button" class="clickable" *ngIf="deleteEnabled" (click)="deleteElement()">
             <mat-icon>delete</mat-icon>
         </div>
