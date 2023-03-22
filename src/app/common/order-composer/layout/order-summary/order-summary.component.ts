@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { filter, first, mergeMap } from 'rxjs';
-import { GenericDialogStuffManagerService } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/generic-dialog-stuff-manager.service';
+import { filter, first, mergeMap, Observable } from 'rxjs';
+import { FullWidthDialogService } from 'src/app/common/full-width-dialog/service/full-width-dialog.service';
+import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 import { ExportSummaryData } from './order-summary-data';
 
 @Component({
@@ -18,8 +19,10 @@ export class OrderSummaryComponent implements OnInit {
   order: OrderWrapper;
   
   constructor(public dialogRef: MatDialogRef<OrderSummaryComponent>,
-    private groupService: MenuItemGroupControllerService, private accountService: AccountService,
-    private dialogManager: GenericDialogStuffManagerService, @Inject(MAT_DIALOG_DATA) data: ExportSummaryData) {
+    private groupService: MenuItemGroupControllerService,
+    private accountService: AccountService,
+    private dialogService: FullWidthDialogService,
+    @Inject(MAT_DIALOG_DATA) data: ExportSummaryData) {
       this.order = JSON.parse(JSON.stringify(data.item));
   }
 
@@ -40,7 +43,7 @@ export class OrderSummaryComponent implements OnInit {
       first(),
       filter(x => x !== undefined),
       mergeMap(group => 
-        this.dialogManager.openEditItem(group, item)
+        this.openEditItem(group, item)
       )
     ).subscribe(next => {
       if (next) {
@@ -53,6 +56,15 @@ export class OrderSummaryComponent implements OnInit {
 
   public submit() {
     this.dialogRef.close(this.order);
+  }
+
+  public openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
+    return this.dialogService.openMenuItemComponent({
+      group: group,
+      item: item,
+      restaurantRef: this.accountService.getRestaurantRef(),
+      editMode: true
+    }).afterClosed().pipe(first());
   }
 
 }

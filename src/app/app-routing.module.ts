@@ -7,7 +7,7 @@ import { AdminOrdersComponent } from './menu-admin/layout/admin-orders/admin-ord
 import { AdminStatisticsComponent } from './menu-admin/layout/admin-statistics/admin-statistics.component';
 import { AdminTeamComponent } from './menu-admin/layout/admin-team/admin-team.component';
 import { MenuAdminComponent } from './menu-admin/layout/menu-admin.component';
-import { MenuStaffComponent } from './menu-staff/layout/menu-staff.component';
+import { AppStaffComponent } from './modules/app-staff/layout/app-staff.component';
 import { LoginPageComponent } from './shared/login-page/login-page.component';
 import { LoginSuccessComponent } from './shared/login-page/login-success/login-success.component';
 
@@ -16,7 +16,7 @@ const routes: Routes = [
   { 
     path: 'menu',
     loadChildren: () => import('./modules/app-client/app-client.module').then(m => m.AppClientModule) 
-  }
+  },
   // ,
   // { 
   //   path: 'login',
@@ -26,10 +26,10 @@ const routes: Routes = [
   //   path: 'login-success',
   //   component: LoginSuccessComponent
   // },
-  // { 
-  //   path: 'staff',
-  //   component: MenuStaffComponent
-  // },
+  { 
+    path: 'staff',
+    loadChildren: () => import('./modules/app-staff/app-staff.module').then(m => m.AppStaffModule) 
+  },
   // { 
   //   path: 'admin',
   //   component: MenuAdminComponent,

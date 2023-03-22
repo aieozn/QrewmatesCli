@@ -1,7 +1,7 @@
 import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AccountService } from '../services/account/account.service';
+import { AccountService } from '../account/services/account.service';
 
 @Component({
   selector: 'app-login-page',

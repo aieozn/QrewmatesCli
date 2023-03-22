@@ -10,7 +10,7 @@ import { first, Observable } from 'rxjs';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/layout/error-dialog/error-dialog.component';
 import { ErrorDialogMessage } from 'src/app/shared/error-dialog/model/error-dialog-message';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 
 
 @Injectable({

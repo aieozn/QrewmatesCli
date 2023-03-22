@@ -4,7 +4,7 @@ import { BehaviorSubject, first, Subject, takeUntil } from 'rxjs';
 import { CalendarUtils } from 'src/app/menu-admin/utils/calendar-utils';
 import { StatisticsHourlySalesGet } from 'src/app/openapi-cli/models';
 import { StatisticsControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 
 @Component({
   selector: 'app-sales',

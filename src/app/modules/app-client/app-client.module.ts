@@ -13,7 +13,6 @@ import { FullWidthDialogModule } from 'src/app/common/full-width-dialog/full-wid
 import { OrderComposerModule } from 'src/app/common/order-composer/order-composer.module';
 import { FooterPoweredByComponent } from './layout/footer/footer-powered-by/footer-powered-by.component';
 import { MenuHorizontalModule } from 'src/app/common/menu-horizontal/menu-horizontal.module';
-import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({

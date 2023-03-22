@@ -3,7 +3,7 @@ import { RxStomp } from '@stomp/rx-stomp';
 import { map, Observable } from 'rxjs';
 import { orderSubscribeSocketServiceConfig } from './order-subscribe-socket-service.config';
 import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 
 @Injectable()
 export class OrderSocketService implements OnDestroy {

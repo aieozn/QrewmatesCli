@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { RestaurantDetailsGet } from 'src/app/openapi-cli/models';
 import { RestaurantControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 import { CollectiveChangesService } from '../../services/collective-changes/collective-changes.service';
 
 @Component({

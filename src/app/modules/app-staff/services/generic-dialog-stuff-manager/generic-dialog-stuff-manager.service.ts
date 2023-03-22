@@ -4,7 +4,7 @@ import { first, Observable } from 'rxjs';
 import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 import { DoOrderActionDialogComponent } from '../../layout/do-order-action-dialog/do-order-action-dialog.component';
 import { AcceptOrderActionDialogType } from './accept-order-aciton-dialog-type';
 

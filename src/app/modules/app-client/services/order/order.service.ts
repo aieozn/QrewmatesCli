@@ -4,7 +4,7 @@ import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/orde
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { OrderInstanceControllerService } from 'src/app/openapi-cli/services';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 
 @Injectable({
   providedIn: 'root'

@@ -3,16 +3,16 @@ import { OrderGet } from 'src/app/openapi-cli/models/order-get';
 import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
 import { OrderStatusControllerService } from 'src/app/openapi-cli/services';
 import { UpdateOrderStatusMessage } from '../model/update-order-status-message';
-import { AccountService } from '../../shared/services/account/account.service';
+import { AccountService } from '../../../shared/account/services/account.service';
 import { OrderSocketService } from '../services/order-subscribe-socket/order-subscribe-socket.service';
 
 @Component({
   selector: 'app-menu-staff',
-  templateUrl: './menu-staff.component.html',
-  styleUrls: ['./menu-staff.component.scss'],
+  templateUrl: './app-staff.component.html',
+  styleUrls: ['./app-staff.component.scss'],
   providers: [ OrderSocketService ]
 })
-export class MenuStaffComponent implements OnInit, OnDestroy {
+export class AppStaffComponent implements OnInit, OnDestroy {
 
   public orders: OrderGet[] = [];
   public tableCounter: { [tableName: string]: {

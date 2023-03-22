@@ -4,7 +4,7 @@ import { GenericDialogCliManager } from "src/app/modules/app-client/services/gen
 import { OrderService } from 'src/app/modules/app-client/services/order/order.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 
 @Component({
   selector: 'app-menu-item-group',

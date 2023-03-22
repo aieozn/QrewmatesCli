@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter, first, forkJoin, map, of, switchMap, tap } from 'rxjs';
-import { UpdateOrderStatusMessage } from 'src/app/menu-staff/model/update-order-status-message';
-import { AccountService } from 'src/app/shared/services/account/account.service';
-import { AcceptOrderActionDialogType } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/accept-order-aciton-dialog-type';
-import { AcceptOrderActionResult } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/accept-order-action-result';
-import { GenericDialogStuffManagerService } from 'src/app/menu-staff/services/generic-dialog-stuff-manager/generic-dialog-stuff-manager.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 import { OrderGet } from 'src/app/openapi-cli/models';
 import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
-import { MenuItemControllerService, OrderInstanceControllerService } from 'src/app/openapi-cli/services';
+import { OrderInstanceControllerService } from 'src/app/openapi-cli/services';
 import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
+import { UpdateOrderStatusMessage } from '../../model/update-order-status-message';
+import { GenericDialogStuffManagerService } from '../../services/generic-dialog-stuff-manager/generic-dialog-stuff-manager.service';
+import { AcceptOrderActionDialogType } from '../../services/generic-dialog-stuff-manager/accept-order-aciton-dialog-type';
+import { AcceptOrderActionResult } from '../../services/generic-dialog-stuff-manager/accept-order-action-result';
 
 @Component({
   selector: 'app-pending-order',

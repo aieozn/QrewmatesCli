@@ -3,7 +3,7 @@ import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
 import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
 import { EditorDialogService } from './editors/editor-dialog.service';

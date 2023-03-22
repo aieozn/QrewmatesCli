@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core
 import { Subject, takeUntil } from 'rxjs';
 import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
 import { MenuCategoryControllerService, MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({

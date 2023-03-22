@@ -4,7 +4,7 @@ import { MenuCategoryGet, OrderDetailsGet, RestaurantGet } from 'src/app/openapi
 import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
 import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { CookieService } from 'ngx-cookie-service';
-import { AccountService } from 'src/app/shared/services/account/account.service';
+import { AccountService } from 'src/app/shared/account/services/account.service';
 import { GenericDialogCliManager } from '../services/generic-dialog-cli-manager/generic-dialog-cli-manager';
 import { OrderService } from '../services/order/order.service';
 import { DialogManagerService } from '../services/dialog-manager/dialog-manager.service';
