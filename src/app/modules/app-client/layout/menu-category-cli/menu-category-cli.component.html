@@ -1,0 +1,5 @@
+<div *ngIf="_category" class="menu-category">
+    <div class="menu-items-list">
+        <app-menu-item-group *ngFor="let group of _category.menuItemGroups" [group]="group"></app-menu-item-group>
+    </div>
+</div>

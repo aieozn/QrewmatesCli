@@ -1,0 +1,41 @@
+#order-submit {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    height: 44px;
+    padding: 15px;
+    display: flex;
+    background-color: #ffffff;
+}
+
+#summary {
+    width: 50%;
+}
+
+#order-submit p {
+    margin: 0px
+}
+
+#summary-label {
+    font-family: PoppinsBold;
+    font-size: 15px;
+}
+
+#summary-value {
+    font-size: 14px;
+}
+
+#order {
+    width: 50%;
+}
+
+#subscribeButton {
+    height: 44px;
+    background-color: #c21d8e;
+    color: #ffffff;
+    line-height: 44px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 25px;
+    width: 90%;
+}

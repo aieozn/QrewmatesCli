@@ -3,17 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MenuCategoryCliComponent } from './menu-cli/layout/menu-category-cli/menu-category-cli.component';
-import { MenuItemComponent } from './menu-cli/layout/menu-category-cli/menu-item-group/menu-item-group.component';
 import { MenuHorizontalElementComponent } from './shared/menu-horizontal/layout/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
 import { MenuHorizontalComponent } from './shared/menu-horizontal/layout/menu-horizontal/menu-horizontal.component';
-import { MenuCliComponent } from './menu-cli/layout/menu-cli.component';
-import { AboutUsComponent } from './menu-cli/layout/footer/about-us/about-us.component';
 import { GenericDialogComponent } from './shared/generic-dialog/layout/generic-dialog/generic-dialog.component';
 import { OrderMenuChiefNoteComponent } from './shared/order-form/layout/order-menu-chief-note/order-menu-chief-note.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,7 +28,6 @@ import { PaymentMethodComponent } from './shared/order-form/layout/order-summary
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PendingOrderComponent } from './menu-staff/layout/pending-order/pending-order.component';
-import { WaitForOrderDialogComponent } from './menu-cli/layout/wait-for-order-dialog/wait-for-order-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CookieService } from 'ngx-cookie-service';
 import { ErrorDialogComponent } from './shared/error-dialog/layout/error-dialog/error-dialog.component';
@@ -69,17 +63,14 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
 import { LoginPageComponent } from './shared/login-page/login-page.component';
 import { AuthInterceptor } from './shared/services/account/auth-interceptor';
 import { LoginSuccessComponent } from './shared/login-page/login-success/login-success.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuCliComponent,
     MenuHorizontalComponent,
     MenuHorizontalElementComponent,
-    MenuCategoryCliComponent,
-    MenuItemComponent,
     GenericDialogComponent,
-    AboutUsComponent,
     OrderMenuItemComponent,
     OrderMenuSelectComponent,
     OrderMenuToppingComponent,
@@ -95,7 +86,6 @@ import { LoginSuccessComponent } from './shared/login-page/login-success/login-s
     OrderStatusPipe,
     FooterPoweredByComponent,
     PendingOrderComponent,
-    WaitForOrderDialogComponent,
     ErrorDialogComponent,
     DoOrderActionDialogComponent,
     MenuAdminComponent,

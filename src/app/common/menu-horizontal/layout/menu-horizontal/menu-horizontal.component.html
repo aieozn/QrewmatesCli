@@ -1,0 +1,28 @@
+<div id="menu">
+
+    <div id="menu-horizontal" class="box-shadow">
+        <div id="hamburger" class="clickable" (click)="toogleFullSizeMenu()">
+            <mat-icon>menu</mat-icon>
+        </div>
+    
+        <div id="menu-horizontal-elements" #menuBar>
+            <div id="menu-horizontal-elements-content">
+                <div *ngFor="let element of _elements" id="menu-horizontal-element-{{element.order}}">
+                    <app-menu-horizontal-element [element]="element" #element></app-menu-horizontal-element>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TODO animete -->
+    <div id="full-size-menu" class="box-shadow-bottom" [ngStyle]="{'max-height': screenHeight * 0.5 + 'px'}" [hidden]="!showFullSizeMenu">
+        <h2 i18n>Kategorie:</h2>
+        <hr/>
+        <div *ngFor="let element of _elements">
+            <p (click)="goTo(element)" class="clickable">{{element.name}}</p>
+        </div>
+    </div>
+</div>
+
+<div id="curtain" [hidden]="!showFullSizeMenu" (click)="hideMenu()">
+</div>

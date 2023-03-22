@@ -1,0 +1,11 @@
+<div id="order-menu-select" class="box-shadow box-radius" *ngIf="_collection && _order">
+    <h3>{{_collection.name}}</h3>
+    <p id="select-description" i18n>Wybierz odpowiednią opcję</p>
+
+    <mat-radio-group [(ngModel)]="selected">
+        <mat-radio-button [value]="select" *ngFor="let select of _collection.menuItemSelects" (change)="change(select)">
+            {{ select.name }} 
+            {{ select.price !== 0 ? '(+' + select.price!.toFixed(2) + ' zł)' : '' }}
+        </mat-radio-button>
+    </mat-radio-group>
+</div>
