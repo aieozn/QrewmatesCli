@@ -29,31 +29,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CookieService } from 'ngx-cookie-service';
 import { ErrorDialogComponent } from './shared/error-dialog/layout/error-dialog/error-dialog.component';
-import { MenuAdminComponent } from './menu-admin/layout/menu-admin.component';
+import { MenuAdminComponent } from './modules/app-admin/layout/menu-admin.component';
 import { AccountIconComponent } from './shared/account/layout/account-icon/account-icon.component';
-import { AdminOrdersComponent } from './menu-admin/layout/admin-orders/admin-orders.component';
-import { AdminMenuComponent } from './menu-admin/layout/admin-menu/admin-menu.component';
-import { AdminHistoryComponent } from './menu-admin/layout/admin-history/admin-history.component';
-import { AdminStatisticsComponent } from './menu-admin/layout/admin-statistics/admin-statistics.component';
-import { AdminTeamComponent } from './menu-admin/layout/admin-team/admin-team.component';
-import { SalesChartComponent } from './menu-admin/layout/admin-statistics/sales-chart/sales-chart.component';
+import { SalesChartComponent } from './modules/app-admin/app-statistics/sales-chart/sales-chart.component';
 import { NgChartsModule } from 'ng2-charts';
-import { AdminCustomizationComponent } from './menu-admin/layout/admin-customization/admin-customization.component';
-import { LogoCustomizationComponent } from './menu-admin/layout/admin-customization/logo-customization/logo-customization.component';
-import { HeaderBarComponent } from './menu-admin/layout/header-bar/header-bar.component';
-import { BackgroundPhotoCustomizationComponent } from './menu-admin/layout/admin-customization/background-photo-customization/background-photo-customization.component';
-import { ColorsCustomizationComponent } from './menu-admin/layout/admin-customization/colors-customization/colors-customization.component';
+import { HeaderBarComponent } from './modules/app-admin/layout/header-bar/header-bar.component';
+import { BackgroundPhotoCustomizationComponent } from './modules/app-admin/app-customization/background-photo-customization/background-photo-customization.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MenuCategoryItemsComponent } from './menu-admin/layout/admin-menu/menu-category-items/menu-category-items.component';
-import { EditCategoryComponent } from './menu-admin/layout/admin-menu/editors/edit-category/edit-category.component';
-import { ElementEditorDirective } from './menu-admin/layout/admin-menu/elementEditorDirective';
-import { SubmitBarComponent } from './menu-admin/layout/admin-menu/editors/submit-bar/submit-bar.component';
-import { EditorCategoryNameComponent } from './menu-admin/layout/admin-menu/editors/field-editors/editor-category-name/editor-category-name.component';
-import { EditorCategoryDescriptionComponent } from './menu-admin/layout/admin-menu/editors/field-editors/editor-category-description/editor-category-description.component';
-import { EditItemGroupComponent } from './menu-admin/layout/admin-menu/editors/edit-item-group/edit-item-group.component';
-import { EditorItemGroupNameComponent } from './menu-admin/layout/admin-menu/editors/field-editors/editor-item-group-name/editor-item-group-name.component';
-import { EditorItemGroupDescriptionComponent } from './menu-admin/layout/admin-menu/editors/field-editors/editor-item-group-description/editor-item-group-description.component';
+import { EditCategoryComponent } from './modules/app-admin/app-menu/editors/edit-category/edit-category.component';
+import { SubmitBarComponent } from './modules/app-admin/app-menu/editors/submit-bar/submit-bar.component';
+import { EditorCategoryNameComponent } from './modules/app-admin/app-menu/editors/field-editors/editor-category-name/editor-category-name.component';
+import { EditorCategoryDescriptionComponent } from './modules/app-admin/app-menu/editors/field-editors/editor-category-description/editor-category-description.component';
+import { EditItemGroupComponent } from './modules/app-admin/app-menu/editors/edit-item-group/edit-item-group.component';
+import { EditorItemGroupNameComponent } from './modules/app-admin/app-menu/editors/field-editors/editor-item-group-name/editor-item-group-name.component';
+import { EditorItemGroupDescriptionComponent } from './modules/app-admin/app-menu/editors/field-editors/editor-item-group-description/editor-item-group-description.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { LoginPageComponent } from './shared/login-page/login-page.component';
 import { AuthInterceptor } from './shared/services/account/auth-interceptor';
@@ -80,20 +70,10 @@ import { AppComponent } from './app.component';
     ErrorDialogComponent,
     MenuAdminComponent,
     AccountIconComponent,
-    AdminOrdersComponent,
-    AdminMenuComponent,
-    AdminHistoryComponent,
-    AdminStatisticsComponent,
-    AdminTeamComponent,
     SalesChartComponent,
-    AdminCustomizationComponent,
-    LogoCustomizationComponent,
     HeaderBarComponent,
     BackgroundPhotoCustomizationComponent,
-    ColorsCustomizationComponent,
-    MenuCategoryItemsComponent,
     EditCategoryComponent,
-    ElementEditorDirective,
     SubmitBarComponent,
     EditorCategoryNameComponent,
     EditorCategoryDescriptionComponent,
