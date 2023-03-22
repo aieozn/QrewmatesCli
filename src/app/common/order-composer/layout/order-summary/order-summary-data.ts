@@ -1,4 +1,4 @@
-import { OrderWrapper } from "src/app/shared/openapi-cli-wrapper/order/order-wrapper";
+import { OrderWrapper } from "src/app/common/api-client/wrapper/order-wrapper";
 
 export interface ExportSummaryData {
     restaurantRef: string,

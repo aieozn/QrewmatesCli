@@ -2,8 +2,8 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LoginResponse, RestaurantDetailsGet, RestaurantGet } from 'src/app/openapi-cli/models';
-import { LoginControllerService, RestaurantControllerService } from 'src/app/openapi-cli/services';
+import { LoginResponse, RestaurantDetailsGet, RestaurantGet } from '../../api-client/models';
+import { LoginControllerService, RestaurantControllerService } from '../../api-client/services';
 
 @Injectable({
   providedIn: 'root'
@@ -49,9 +49,9 @@ export class AccountService {
 
   public getMultimediaUrl(ref: string) {
     return this.getMultimediaImplementation(this.getRestaurantRef(), ref);
-   }
+  }
 
-   public getTableRef() : string {
+  public getTableRef() : string {
 
     let pathParts = window.location.pathname.substring(1).split("/");
 

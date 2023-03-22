@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
+import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/common/api-client/models';
 
 @Injectable({
   providedIn: 'root'

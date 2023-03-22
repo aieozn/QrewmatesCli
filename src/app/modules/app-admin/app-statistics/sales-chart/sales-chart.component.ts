@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Chart } from "chart.js";
 import { BehaviorSubject, first, Subject, takeUntil } from 'rxjs';
-import { CalendarUtils } from 'src/app/menu-admin/utils/calendar-utils';
-import { StatisticsHourlySalesGet } from 'src/app/openapi-cli/models';
-import { StatisticsControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/account/services/account.service';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { StatisticsHourlySalesGet } from 'src/app/common/api-client/models';
+import { StatisticsControllerService } from 'src/app/common/api-client/services';
+import { CalendarUtils } from '../../utils/calendar-utils';
 
 @Component({
-  selector: 'app-sales',
+  selector: 'app-sales-chart',
   templateUrl: './sales-chart.component.html',
   styleUrls: ['./sales-chart.component.scss']
 })

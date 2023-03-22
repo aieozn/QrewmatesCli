@@ -1,9 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
-import { MenuCategoryControllerService, MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/account/services/account.service';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/common/api-client/models';
+import { MenuCategoryControllerService, MenuItemGroupControllerService } from 'src/app/common/api-client/services';
 import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({

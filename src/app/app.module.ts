@@ -7,30 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MenuHorizontalElementComponent } from './shared/menu-horizontal/layout/menu-horizontal/menu-horizontal-element/menu-horizontal-element.component';
-import { MenuHorizontalComponent } from './shared/menu-horizontal/layout/menu-horizontal/menu-horizontal.component';
-import { GenericDialogComponent } from './shared/generic-dialog/layout/generic-dialog/generic-dialog.component';
-import { OrderMenuChiefNoteComponent } from './shared/order-form/layout/order-menu-chief-note/order-menu-chief-note.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { OrdeSubmitComponent } from './shared/order-form/layout/order-submit/order-submit.component';
-import { MenuHorizontalElementWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-element-wrapper/menu-horizontal-element-wrapper.component';
-import { MenuHorizontalWrapperComponent } from './shared/menu-horizontal/layout/content/menu-horizontal-wrapper/menu-horizontal-wrapper.component';
-import { FooterPoweredByComponent } from './shared/footer/layout/footer-powered-by/footer-powered-by.component';
-import { OrderMenuItemComponent } from './shared/order-form/layout/order-menu-item/order-menu-item.component';
-import { OrderMenuSelectComponent } from './shared/order-form/layout/order-menu-select/order-menu-select.component';
-import { OrderMenuToppingComponent } from './shared/order-form/layout/order-menu-topping/order-menu-topping.component';
-import { OrderSummaryComponent } from './shared/order-form/layout/order-summary/order-summary.component';
-import { CounterFooterComponent } from './shared/order-form/layout/order-menu-item/counter-footer/counter-footer.component';
-import { PaymentMethodComponent } from './shared/order-form/layout/order-summary/payment-method/payment-method.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CookieService } from 'ngx-cookie-service';
-import { ErrorDialogComponent } from './shared/error-dialog/layout/error-dialog/error-dialog.component';
-import { MenuAdminComponent } from './modules/app-admin/layout/menu-admin.component';
-import { AccountIconComponent } from './shared/account/layout/account-icon/account-icon.component';
 import { SalesChartComponent } from './modules/app-admin/app-statistics/sales-chart/sales-chart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { HeaderBarComponent } from './modules/app-admin/layout/header-bar/header-bar.component';
@@ -45,46 +28,14 @@ import { EditItemGroupComponent } from './modules/app-admin/app-menu/editors/edi
 import { EditorItemGroupNameComponent } from './modules/app-admin/app-menu/editors/field-editors/editor-item-group-name/editor-item-group-name.component';
 import { EditorItemGroupDescriptionComponent } from './modules/app-admin/app-menu/editors/field-editors/editor-item-group-description/editor-item-group-description.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-import { LoginPageComponent } from './shared/login-page/login-page.component';
-import { AuthInterceptor } from './shared/services/account/auth-interceptor';
-import { LoginSuccessComponent } from './shared/login-page/login-success/login-success.component';
+import { LoginSuccessComponent } from './modules/app-login/login-success/login-success.component';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MenuHorizontalComponent,
-    MenuHorizontalElementComponent,
-    GenericDialogComponent,
-    OrderMenuItemComponent,
-    OrderMenuSelectComponent,
-    OrderMenuToppingComponent,
-    OrderMenuChiefNoteComponent,
-    CounterFooterComponent,
-    OrderSummaryComponent,
-    OrdeSubmitComponent,
-    PaymentMethodComponent,
-    MenuHorizontalElementWrapperComponent,
-    MenuHorizontalWrapperComponent,
-    FooterPoweredByComponent,
-    ErrorDialogComponent,
-    MenuAdminComponent,
-    AccountIconComponent,
-    SalesChartComponent,
-    HeaderBarComponent,
-    BackgroundPhotoCustomizationComponent,
-    EditCategoryComponent,
-    SubmitBarComponent,
-    EditorCategoryNameComponent,
-    EditorCategoryDescriptionComponent,
-    EditItemGroupComponent,
-    EditorItemGroupNameComponent,
-    EditorItemGroupDescriptionComponent,
-    LoginPageComponent,
-    LoginSuccessComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -122,11 +73,6 @@ import { AppComponent } from './app.component';
           console.error(err);
         }
       } as SocialAuthServiceConfig,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
     }
   ],
   bootstrap: [AppComponent]

@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RestaurantDetailsGet } from 'src/app/openapi-cli/models';
-import { MultimediaControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/account/services/account.service';
+import { RestaurantDetailsGet } from 'src/app/common/api-client/models';
 
 @Component({
   selector: 'app-colors-customization',

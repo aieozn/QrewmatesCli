@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
-import { delay, map, Observable, Observer, tap } from 'rxjs';
-import { OrderGet } from 'src/app/openapi-cli/models';
+import { delay, map, Observable } from 'rxjs';
+import { OrderGet } from 'src/app/common/api-client/models';
 import { orderWaitSocketServiceConfig } from './order-wait-socket.config';
 
 @Injectable({

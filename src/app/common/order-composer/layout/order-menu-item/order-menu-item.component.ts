@@ -1,11 +1,11 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from 'src/app/openapi-cli/models';
-import { MenuItemControllerService } from 'src/app/openapi-cli/services';
-import { GenericUtils } from 'src/app/shared/utils/generic-utils';
+import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrderMenuItemData } from './order-menu-item-data';
+import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from 'src/app/common/api-client/models';
+import { MenuItemControllerService } from 'src/app/common/api-client/services';
+import { OrderUtils } from '../../utils/order-utils';
 
 @Component({
   selector: 'app-order-menu-item',
@@ -83,7 +83,7 @@ export class OrderMenuItemComponent implements OnDestroy {
 
   private loadItems(restaurantRef: string, group: MenuItemGroupGet, menuItem: OrderElementDataWrapper | undefined) {
     if (group.image) {
-      this.menuItemGroupImageUrl = GenericUtils.getMultimediaUrl(restaurantRef, group.image.ref);
+      this.menuItemGroupImageUrl = OrderUtils.getMultimediaUrl(restaurantRef, group.image.ref);
     }
 
     if (menuItem) {

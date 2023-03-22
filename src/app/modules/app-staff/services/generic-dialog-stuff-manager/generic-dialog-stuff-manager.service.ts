@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { first, Observable } from 'rxjs';
-import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
-import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
-import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { AccountService } from 'src/app/shared/account/services/account.service';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { MenuItemGroupGet } from 'src/app/common/api-client/models';
+import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
+import { FullWidthDialogService } from 'src/app/common/full-width-dialog/service/full-width-dialog.service';
 import { DoOrderActionDialogComponent } from '../../layout/do-order-action-dialog/do-order-action-dialog.component';
 import { AcceptOrderActionDialogType } from './accept-order-aciton-dialog-type';
 
@@ -15,7 +15,7 @@ export class GenericDialogStuffManagerService {
 
   constructor(
     private dialog: MatDialog,
-    private dialogService: GenericDialogService,
+    private dialogService: FullWidthDialogService,
     private accountService: AccountService
   ) { }
 

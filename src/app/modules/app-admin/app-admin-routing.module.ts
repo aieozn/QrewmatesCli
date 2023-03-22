@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'statistics',
-    loadChildren: () => import('./app-statistics/admin-statistics.component').then(m => m.AdminStatisticsComponent)
+    loadChildren: () => import('./app-statistics/app-statistics.module').then(m => m.AppStatisticsModule)
   },
   {
     path: 'orders',

@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { filter, first, map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { MenuCategoryGet, OrderDetailsGet, RestaurantGet } from 'src/app/openapi-cli/models';
-import { MenuCategoryControllerService } from 'src/app/openapi-cli/services';
-import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
 import { CookieService } from 'ngx-cookie-service';
-import { AccountService } from 'src/app/shared/account/services/account.service';
 import { GenericDialogCliManager } from '../services/generic-dialog-cli-manager/generic-dialog-cli-manager';
 import { OrderService } from '../services/order/order.service';
 import { DialogManagerService } from '../services/dialog-manager/dialog-manager.service';
+import { MenuCategoryGet, OrderDetailsGet, RestaurantGet } from 'src/app/common/api-client/models';
+import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
+import { MenuCategoryControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
 
 @Component({
   selector: 'app-client',

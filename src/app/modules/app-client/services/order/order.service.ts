@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, first, Observable, tap } from 'rxjs';
-import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
-import { OrderInstanceControllerService } from 'src/app/openapi-cli/services';
-import { OrderDetailsGet } from 'src/app/openapi-cli/models/order-details-get';
-import { AccountService } from 'src/app/shared/account/services/account.service';
+import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
+import { OrderDetailsGet } from 'src/app/common/api-client/models/order-details-get';
+import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
+import { OrderInstanceControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
+import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
 
 @Component({
   selector: 'app-order-submit',

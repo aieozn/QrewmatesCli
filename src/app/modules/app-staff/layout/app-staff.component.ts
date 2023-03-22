@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { OrderGet } from 'src/app/openapi-cli/models/order-get';
-import { SubscribeOrdersMessage } from 'src/app/openapi-cli/models/subscribe-orders-message';
-import { OrderStatusControllerService } from 'src/app/openapi-cli/services';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { OrderGet } from 'src/app/common/api-client/models/order-get';
+import { SubscribeOrdersMessage } from 'src/app/common/api-client/models/subscribe-orders-message';
+import { OrderStatusControllerService } from 'src/app/common/api-client/services';
 import { UpdateOrderStatusMessage } from '../model/update-order-status-message';
-import { AccountService } from '../../../shared/account/services/account.service';
 import { OrderSocketService } from '../services/order-subscribe-socket/order-subscribe-socket.service';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { IdentifiedByRefData, MenuItemGroupData, MenuItemGroupGet } from 'src/app/openapi-cli/models';
-import { MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/account/services/account.service';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { IdentifiedByRefData, MenuItemGroupData, MenuItemGroupGet } from 'src/app/common/api-client/models';
+import { MenuItemGroupControllerService } from 'src/app/common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 
 @Component({

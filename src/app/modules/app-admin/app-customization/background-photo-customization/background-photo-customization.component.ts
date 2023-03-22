@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RestaurantDetailsGet } from 'src/app/openapi-cli/models';
-import { MultimediaControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/account/services/account.service';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { RestaurantDetailsGet } from 'src/app/common/api-client/models';
+import { MultimediaControllerService } from 'src/app/common/api-client/services';
 
 @Component({
   selector: 'app-background-photo-customization',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuCategoryGet } from 'src/app/openapi-cli/models';
+import { MenuCategoryGet } from 'src/app/common/api-client/models';
 
 @Component({
   selector: 'app-menu-category-cli',

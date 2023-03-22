@@ -13,6 +13,7 @@ import { FullWidthDialogModule } from 'src/app/common/full-width-dialog/full-wid
 import { OrderComposerModule } from 'src/app/common/order-composer/order-composer.module';
 import { FooterPoweredByComponent } from './layout/footer/footer-powered-by/footer-powered-by.component';
 import { MenuHorizontalModule } from 'src/app/common/menu-horizontal/menu-horizontal.module';
+import { ApiClientModule } from 'src/app/common/api-client/api-client.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MenuHorizontalModule } from 'src/app/common/menu-horizontal/menu-horizo
     MatProgressSpinnerModule,
     FullWidthDialogModule,
     OrderComposerModule,
-    MenuHorizontalModule
+    MenuHorizontalModule,
+    ApiClientModule
   ]
 })
 export class AppClientModule { }

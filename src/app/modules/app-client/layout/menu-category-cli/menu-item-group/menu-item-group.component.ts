@@ -1,10 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { first, Subscription } from 'rxjs';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { MenuItemGroupGet } from 'src/app/common/api-client/models';
+import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
 import { GenericDialogCliManager } from "src/app/modules/app-client/services/generic-dialog-cli-manager/generic-dialog-cli-manager";
 import { OrderService } from 'src/app/modules/app-client/services/order/order.service';
-import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
-import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
-import { AccountService } from 'src/app/shared/account/services/account.service';
 
 @Component({
   selector: 'app-menu-item-group',

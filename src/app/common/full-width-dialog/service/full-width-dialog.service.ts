@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog'
-import { OrderMenuItemData } from 'src/app/shared/order-form/layout/order-menu-item/order-menu-item-data';
-import { OrderMenuItemComponent } from 'src/app/shared/order-form/layout/order-menu-item/order-menu-item.component';
-import { ExportSummaryData } from 'src/app/shared/order-form/layout/order-summary/order-summary-data';
-import { OrderSummaryComponent } from 'src/app/shared/order-form/layout/order-summary/order-summary.component';
+import { OrderMenuItemData } from '../../order-composer/layout/order-menu-item/order-menu-item-data';
+import { OrderMenuItemComponent } from '../../order-composer/layout/order-menu-item/order-menu-item.component';
+import { ExportSummaryData } from '../../order-composer/layout/order-summary/order-summary-data';
+import { OrderSummaryComponent } from '../../order-composer/layout/order-summary/order-summary.component';
 
 @Injectable({
   providedIn: 'root'

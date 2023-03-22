@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
-import { RestaurantDetailsGet } from 'src/app/openapi-cli/models';
-import { RestaurantControllerService } from 'src/app/openapi-cli/services';
-import { AccountService } from 'src/app/shared/account/services/account.service';
-import { CollectiveChangesService } from '../../services/collective-changes/collective-changes.service';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { RestaurantDetailsGet } from 'src/app/common/api-client/models';
+import { RestaurantControllerService } from 'src/app/common/api-client/services';
+import { CollectiveChangesService } from '../services/collective-changes/collective-changes.service';
 
 @Component({
   selector: 'app-admin-customization',

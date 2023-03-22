@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { OrderUtils } from 'src/app/shared/utils/order-utils';
-import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { MenuItemToppingCollectionGet, MenuItemToppingGet } from 'src/app/openapi-cli/models';
+import { OrderUtils } from 'src/app/common/order-composer/utils/order-utils';
+import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
+import { MenuItemToppingCollectionGet, MenuItemToppingGet } from 'src/app/common/api-client/models';
 
 @Component({
   selector: 'app-order-menu-topping',

@@ -2,12 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { filter, first, mergeMap, Observable } from 'rxjs';
 import { FullWidthDialogService } from 'src/app/common/full-width-dialog/service/full-width-dialog.service';
-import { MenuItemGroupGet } from 'src/app/openapi-cli/models';
-import { MenuItemGroupControllerService } from 'src/app/openapi-cli/services';
-import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { OrderWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-wrapper';
-import { AccountService } from 'src/app/shared/account/services/account.service';
+import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
 import { ExportSummaryData } from './order-summary-data';
+import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
+import { MenuItemGroupControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { MenuItemGroupGet } from 'src/app/common/api-client/models';
 
 @Component({
   selector: 'app-order-summary',

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { OrderElementDataWrapper } from 'src/app/shared/openapi-cli-wrapper/order/order-element-data-wrapper';
-import { GenericDialogService } from 'src/app/shared/generic-dialog/service/generic-dialog.service';
+import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
+import { FullWidthDialogService } from 'src/app/common/full-width-dialog/service/full-width-dialog.service';
 
 @Component({
   selector: 'app-counter-footer',
@@ -15,7 +15,7 @@ export class CounterFooterComponent implements OnInit {
 
   count = 1;
 
-  constructor(private dialogService: GenericDialogService) { }
+  constructor(private dialogService: FullWidthDialogService) { }
 
   ngOnInit(): void {
     
