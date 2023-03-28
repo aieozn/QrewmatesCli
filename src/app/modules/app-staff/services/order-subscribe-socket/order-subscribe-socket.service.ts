@@ -2,8 +2,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
 import { map, Observable } from 'rxjs';
 import { orderSubscribeSocketServiceConfig } from './order-subscribe-socket-service.config';
-import { SubscribeOrdersMessage } from 'src/app/common/api-client/models/subscribe-orders-message';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { SubscribeOrdersMessage } from '@common/api-client/models/subscribe-orders-message';
+import { AccountService } from '@common/account-utils/services/account.service';
 
 @Injectable()
 export class OrderSocketService implements OnDestroy {
@@ -23,14 +23,14 @@ export class OrderSocketService implements OnDestroy {
   }
 
   public subscribeOrder(restaurantRef: string) : Observable<SubscribeOrdersMessage> {
-    let activeUser = this.accountService.getActiveUser();
+    const activeUser = this.accountService.getActiveUser();
 
     if (!activeUser) {
       this.accountService.unauthorized();
       throw 'Login first';
     }
 
-    let headers = {
+    const headers = {
       'Authorization': `Bearer ${activeUser.token}`
     }
 

@@ -1,9 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/common/api-client/models';
-import { MenuCategoryControllerService, MenuItemGroupControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { MenuCategoryGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuCategoryControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({
@@ -56,7 +56,7 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     if (newItemGroup.categoryRef !== this._category.ref) { return; }
 
     for (let i = 0; i < this._category.menuItemGroups.length; i++) {
-      let existingItemGroup = this._category.menuItemGroups[i];
+      const existingItemGroup = this._category.menuItemGroups[i];
       if (existingItemGroup.ref === newItemGroup.ref) {
         this._category.menuItemGroups[i] = newItemGroup;
         this.editorDialogService.closeDialog();
@@ -69,7 +69,7 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     if (!this._category) { throw 'Category not defined'; }
 
     for (let i = 0; i < this._category.menuItemGroups.length; i++) {
-      let existingItemGroup = this._category.menuItemGroups[i];
+      const existingItemGroup = this._category.menuItemGroups[i];
       if (existingItemGroup.ref === ref) {
         this._category.menuItemGroups.splice(i, 1);
         this.editorDialogService.closeDialog();
@@ -101,7 +101,7 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   private reloadCategory() {
     if (!this._category) { throw 'Category not defined'; }
 
-    let activeCategory = this._category;
+    const activeCategory = this._category;
     this.categoryService.getCategory({
       restaurantRef: this.accountService.getRestaurantRef(),
       categoryRef: this._category.ref

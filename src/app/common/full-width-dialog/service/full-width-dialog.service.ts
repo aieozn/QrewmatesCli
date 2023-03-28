@@ -24,14 +24,16 @@ export class FullWidthDialogService {
     scrollStrategy: {
       enable: () => { document.body.classList.add('overflow-hidden') },
       disable: () => { document.body.classList.remove('overflow-hidden') },
-      attach: (xx: any) => {},
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      attach: () => {},
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       detach: () => {}
     }
   }
 
   constructor(public dialog: MatDialog) { }
 
-  public static getDefaultGenericDialogConfig(data: any) : MatDialogConfig {
+  public static getDefaultGenericDialogConfig(data: unknown) : MatDialogConfig {
     return Object.assign({},
       FullWidthDialogService.defaultGenericDialogConfig,
       { data: data });

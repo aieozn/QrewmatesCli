@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OrderGet } from 'src/app/common/api-client/models/order-get';
+import { OrderGet } from '@common/api-client/models/order-get';
 
 @Pipe({
   name: 'orderStatus'

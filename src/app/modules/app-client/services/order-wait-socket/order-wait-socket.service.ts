@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
-import { delay, map, Observable } from 'rxjs';
-import { OrderGet } from 'src/app/common/api-client/models';
+import { OrderGet } from '@common/api-client/models';
 import { orderWaitSocketServiceConfig } from './order-wait-socket.config';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,7 @@ export class OrderWaitSocketService {
   }
 
   public unsubscribe(orderRef: string) {
-    if (this.orderSub.hasOwnProperty(orderRef)) {
+    if (Object.prototype.hasOwnProperty.call(this.orderSub.hasOwnProperty, orderRef)) {
       delete this.orderSub[orderRef];
       this.orderSubCount[orderRef] -= 1;
 

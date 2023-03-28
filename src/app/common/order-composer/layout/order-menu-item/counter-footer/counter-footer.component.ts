@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
-import { FullWidthDialogService } from 'src/app/common/full-width-dialog/service/full-width-dialog.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
+import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 
 @Component({
   selector: 'app-counter-footer',
   templateUrl: './counter-footer.component.html',
   styleUrls: ['./counter-footer.component.scss']
 })
-export class CounterFooterComponent implements OnInit {
+export class CounterFooterComponent {
 
   @Input('order') order: OrderElementDataWrapper | undefined;
   @Input('editMode') editMode = false;
@@ -16,10 +16,6 @@ export class CounterFooterComponent implements OnInit {
   count = 1;
 
   constructor(private dialogService: FullWidthDialogService) { }
-
-  ngOnInit(): void {
-    
-  }
 
   itemAdd() {
     this.count += 1;
@@ -36,9 +32,9 @@ export class CounterFooterComponent implements OnInit {
 
   subscribeItem() {
     if (this.order) {
-      let allElements: OrderElementDataWrapper[] = [];
+      const allElements: OrderElementDataWrapper[] = [];
 
-      for (var i = 0; i < this.count; i++) {
+      for (let i = 0; i < this.count; i++) {
         allElements.push(this.order);
       }
 

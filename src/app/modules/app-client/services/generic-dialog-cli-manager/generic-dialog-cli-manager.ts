@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FooterAboutUsComponent } from '../../layout/footer/footer-about-us/footer-about-us.component';
 import { MatDialog } from '@angular/material/dialog';
-import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
+import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
 import { OrderService } from '../order/order.service';
 import { first, Observable } from 'rxjs';
-import { ErrorDialogComponent } from 'src/app/modules/app-client/layout/error-dialog/layout/error-dialog/error-dialog.component';
-import { ErrorDialogMessage } from 'src/app/modules/app-client/layout/error-dialog/model/error-dialog-message';
-import { MenuItemGroupGet } from 'src/app/common/api-client/models';
-import { FullWidthDialogService } from 'src/app/common/full-width-dialog/service/full-width-dialog.service';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
-import { OrderSummaryComponent } from 'src/app/common/order-composer/layout/order-summary/order-summary.component';
+import { MenuItemGroupGet } from '@common/api-client/models';
+import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
+import { OrderSummaryComponent } from '@common/order-composer/layout/order-summary/order-summary.component';
+import { ErrorDialogMessage } from '../../layout/error-dialog/model/error-dialog-message';
+import { ErrorDialogComponent } from '../../layout/error-dialog/layout/error-dialog/error-dialog.component';
 
 
 @Injectable({

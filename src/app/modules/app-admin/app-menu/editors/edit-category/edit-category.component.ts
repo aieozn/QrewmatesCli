@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { MenuCategoryData, MenuCategoryGet } from 'src/app/common/api-client/models';
-import { MenuCategoryControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { MenuCategoryData, MenuCategoryGet } from '@common/api-client/models';
+import { MenuCategoryControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 
 @Component({
@@ -80,7 +80,7 @@ export class EditCategoryComponent {
 
   public onDelete() {
     if (this.originalCategory !== undefined) {
-      let originalCategoryRef = this.originalCategory.ref;
+      const originalCategoryRef = this.originalCategory.ref;
 
       this.categoryService.deleteCategory({
         restaurantRef: this.accountService.getRestaurantRef(),

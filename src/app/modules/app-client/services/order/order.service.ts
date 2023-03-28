@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, first, Observable, tap } from 'rxjs';
-import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
-import { OrderDetailsGet } from 'src/app/common/api-client/models/order-details-get';
-import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
-import { OrderInstanceControllerService } from 'src/app/common/api-client/services';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
+import { OrderDetailsGet } from '@common/api-client/models/order-details-get';
+import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
+import { OrderInstanceControllerService } from '@common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +18,14 @@ export class OrderService {
     private orderInstanceService: OrderInstanceControllerService,
     private accountService: AccountService
   ) {
-    let tableRef = accountService.getTableRef();
-
-
-    let cookieValueString = localStorage.getItem(this.createdOrderCookieName);
+    const cookieValueString = localStorage.getItem(this.createdOrderCookieName);
     if (cookieValueString !== null) {
-      let cookieValue: {
+      const cookieValue: {
         order: OrderWrapper,
         created: string
       } = JSON.parse(cookieValueString);
 
-      let expires = new Date();
+      const expires = new Date();
       expires.setHours(new Date(cookieValue.created).getHours() + 6)
 
       if (new Date() < expires) {
@@ -56,11 +53,11 @@ export class OrderService {
 
   public addOrderElement(element: OrderElementDataWrapper) {
 
-    let order = this.orderChanged.getValue();
+    const order = this.orderChanged.getValue();
     order.items.push(JSON.parse(JSON.stringify(element)));
     order.price = 0;
 
-    for (let orderItem of order.items) {
+    for (const orderItem of order.items) {
       order.price += orderItem.price;
     }
   
@@ -68,7 +65,7 @@ export class OrderService {
   }
 
   public addOrderElements(elements: OrderElementDataWrapper[]) {
-    for (let element of elements) {
+    for (const element of elements) {
       this.addOrderElement(element);
     }
   }
@@ -79,7 +76,7 @@ export class OrderService {
     activeOrder = newOrder;
     activeOrder.price = 0;
 
-    for (let orderItem of newOrder.items) {
+    for (const orderItem of newOrder.items) {
       activeOrder.price += orderItem.price;
     }
 
@@ -114,8 +111,8 @@ export class OrderService {
   }
 
   public loadOrder(info: {
-    ref: any,
-    restaurantRef: any
+    ref: string,
+    restaurantRef: string
   }) : Observable<OrderDetailsGet> {
     return this.orderInstanceService.getOrder({
       restaurantRef: info.restaurantRef,

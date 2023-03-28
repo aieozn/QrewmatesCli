@@ -1,4 +1,4 @@
-import { OrderElementDataWrapper } from "src/app/common/api-client/wrapper/order-element-data-wrapper";
+import { OrderElementDataWrapper } from "@common/api-client/wrapper/order-element-data-wrapper";
 
 export class OrderUtils {
 
@@ -7,7 +7,7 @@ export class OrderUtils {
      * @param order 
      */
     public static updateOrderDetails(order: OrderElementDataWrapper) {
-        var price = 0;
+        let price = 0;
 
         price += order.menuItem.price
         order.menuItemSelects.forEach(s => price += s.price)

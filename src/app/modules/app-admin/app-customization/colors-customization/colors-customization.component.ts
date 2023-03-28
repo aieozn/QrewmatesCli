@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RestaurantDetailsGet } from 'src/app/common/api-client/models';
+import { RestaurantDetailsGet } from '@common/api-client/models';
 
 @Component({
   selector: 'app-colors-customization',
@@ -9,10 +9,6 @@ import { RestaurantDetailsGet } from 'src/app/common/api-client/models';
 export class ColorsCustomizationComponent {
   public restaurantCopy: RestaurantDetailsGet | undefined;
   public activeColor: string | undefined;
-
-  constructor(
-  ) {
-  }
   
   @Input() set restaurant(value: RestaurantDetailsGet) {
     this.restaurantCopy = JSON.parse(JSON.stringify(value));
@@ -26,8 +22,6 @@ export class ColorsCustomizationComponent {
     if (this.restaurantCopy && this.activeColor) {
       this.restaurantCopy.themeMainColor = this.activeColor.replace('#', '').toUpperCase();
       this.updateRestaurant.emit(this.restaurantCopy);
-    }
-    
+    } 
   }
-
 }

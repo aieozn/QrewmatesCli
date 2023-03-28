@@ -20,8 +20,8 @@ export class AccountService {
 
   public getRestaurantRef() : string {
 
-    let pathParts = window.location.pathname.substring(1).split("/");
-    var restaurantRef: string;
+    const pathParts = window.location.pathname.substring(1).split("/");
+    let restaurantRef: string;
 
     if (pathParts[0] === "menu") {
       restaurantRef = pathParts[1]
@@ -53,7 +53,7 @@ export class AccountService {
 
   public getTableRef() : string {
 
-    let pathParts = window.location.pathname.substring(1).split("/");
+    const pathParts = window.location.pathname.substring(1).split("/");
 
     if (pathParts[0] === "menu") {
         return window.location.pathname.substring(1).split("/")[2];
@@ -80,7 +80,7 @@ export class AccountService {
   }
 
   private getStorageUser() : LoginResponse | null {
-    let storageContent = localStorage.getItem(AccountService.authDetails);
+    const storageContent = localStorage.getItem(AccountService.authDetails);
 
     if (storageContent !== null) {
       return JSON.parse(storageContent);
@@ -102,7 +102,7 @@ export class AccountService {
   }
 
   public getActiveUser() : LoginResponse | null {
-    let user = this.getStorageUser();
+    const user = this.getStorageUser();
 
     if (user !== null && user.expiration > new Date().getTime()) {
       return user;

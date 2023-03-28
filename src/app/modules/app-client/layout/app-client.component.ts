@@ -1,20 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { filter, first, map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { GenericDialogCliManager } from '../services/generic-dialog-cli-manager/generic-dialog-cli-manager';
 import { OrderService } from '../services/order/order.service';
 import { DialogManagerService } from '../services/dialog-manager/dialog-manager.service';
-import { MenuCategoryGet, OrderDetailsGet, RestaurantGet } from 'src/app/common/api-client/models';
-import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
-import { MenuCategoryControllerService } from 'src/app/common/api-client/services';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { MenuCategoryGet, OrderDetailsGet, RestaurantGet } from '@common/api-client/models';
+import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
+import { MenuCategoryControllerService } from '@common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
 
 @Component({
   selector: 'app-client',
   templateUrl: './app-client.component.html',
   styleUrls: ['./app-client.component.scss']
 })
-export class AppClientComponent implements OnInit, OnDestroy {
+export class AppClientComponent implements OnDestroy {
 
   private createdOrderCookieName = 'qr-last-order-created-ref';
   public backgroundImageUrl = new Observable<string>();
@@ -40,13 +40,13 @@ export class AppClientComponent implements OnInit, OnDestroy {
     private orderService: OrderService,
     private cookiesService: CookieService
   ) {
-    let cookieValue = cookiesService.get(this.createdOrderCookieName);
+    const cookieValue = cookiesService.get(this.createdOrderCookieName);
 
     // TODO edytowanie zamówienia nie powinno być możliwe do czasu pobrania informacji o poprzednim zamowieniu
     if (cookieValue) {
-      let cookieObject : {
-        ref: any,
-        restaurantRef: any
+      const cookieObject : {
+        ref: string,
+        restaurantRef: string
       } = JSON.parse(cookieValue);
 
      this.orderService.loadOrder(cookieObject)
@@ -59,7 +59,7 @@ export class AppClientComponent implements OnInit, OnDestroy {
     }
 
     
-    var restaurantRef = this.accountService.getRestaurantRef();
+    const restaurantRef = this.accountService.getRestaurantRef();
     this.loadCustomCss(restaurantRef);
 
     // Subscribe categories
@@ -83,7 +83,7 @@ export class AppClientComponent implements OnInit, OnDestroy {
 
   private getBackgroundCssImageUrl(restaurant : RestaurantGet) {
     if (restaurant.backgroundImage) {
-      let url = this.accountService.getMultimediaUrl(restaurant.backgroundImage.ref);
+      const url = this.accountService.getMultimediaUrl(restaurant.backgroundImage.ref);
       return 'url(' + url + ')';
     } else {
       return 'none';
@@ -93,7 +93,7 @@ export class AppClientComponent implements OnInit, OnDestroy {
   private loadLastOrder(lastOrder: OrderDetailsGet) {
     this.dialogManager.openWaitForOrderDialog(lastOrder.restaurantRef, lastOrder.ref)
       .pipe(first())
-      .subscribe(e => {
+      .subscribe(() => {
         this.clearCookie();
       });
   }
@@ -107,10 +107,6 @@ export class AppClientComponent implements OnInit, OnDestroy {
     ).subscribe(_ => {
       this.clearCookie();
     });
-  }
-
-  ngOnInit(): void {
-
   }
 
   private clearCookie() {
@@ -136,7 +132,7 @@ export class AppClientComponent implements OnInit, OnDestroy {
         tap(result => {
           console.debug("Order created");
           console.debug(result);
-          let expires : Date = new Date();
+          const expires : Date = new Date();
           expires.setHours(new Date().getHours() + 6)
 
           this.cookiesService.set(this.createdOrderCookieName, JSON.stringify({
@@ -157,8 +153,8 @@ export class AppClientComponent implements OnInit, OnDestroy {
 
   private loadCustomCss(ref: string) {
     if (!this.cssLoaded) {
-      var head  = document.getElementsByTagName('head')[0];
-      var link  = document.createElement('link');
+      const head  = document.getElementsByTagName('head')[0];
+      const link  = document.createElement('link');
       link.rel  = 'stylesheet';
       link.type = 'text/css';
       link.href = `/api/public/v1/restaurant/${ref}/styles/styles.css`

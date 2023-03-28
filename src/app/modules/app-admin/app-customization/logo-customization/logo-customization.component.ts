@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { RestaurantDetailsGet } from 'src/app/common/api-client/models';
-import { MultimediaControllerService, RestaurantControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { RestaurantDetailsGet } from '@common/api-client/models';
+import { MultimediaControllerService, RestaurantControllerService } from '@common/api-client/services';
 
 @Component({
   selector: 'app-logo-customization',
@@ -30,7 +30,7 @@ export class LogoCustomizationComponent {
   }
 
   public remove() {
-    let newRestaurantConfig = {
+    const newRestaurantConfig = {
       ... this.restaurantCopy!
     }
     newRestaurantConfig.logo = undefined;
@@ -39,9 +39,9 @@ export class LogoCustomizationComponent {
 
   public upload(fileList: FileList | null) {
     if (fileList && this.restaurantCopy) {
-      let file = fileList.item(0);
+      const file = fileList.item(0);
 
-      var type : 'IMAGE_PNG' | 'IMAGE_JPEG';
+      let type : 'IMAGE_PNG' | 'IMAGE_JPEG';
 
       if (file?.type.includes('png')) {
         type = 'IMAGE_PNG';
@@ -57,7 +57,7 @@ export class LogoCustomizationComponent {
             file: file
           }
         }).subscribe(uploadedImage => {
-          let newRestaurantConfig = {
+          const newRestaurantConfig = {
             ... this.restaurantCopy!
           }
 

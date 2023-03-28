@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
   templateUrl: './full-width-dialog.component.html',
   styleUrls: ['./full-width-dialog.component.scss']
 })
-export class FullWidthDialogComponent implements OnInit, OnDestroy {
+export class FullWidthDialogComponent implements OnDestroy {
 
   scrollIntroductionPercentage = 0;
   show = false;
@@ -18,22 +18,15 @@ export class FullWidthDialogComponent implements OnInit, OnDestroy {
   @Input('title') title: string | undefined;
 
   @Output('close') onClose = new EventEmitter<void>();
-  
-  constructor(
-  ) {
-  }
-
-  ngOnInit(): void {
-  }
 
   onScroll(event: any) {
     this.scrollIntroductionPercentage = Math.min(event.target.scrollTop / 50, 1);
   }
 
   getShadowStyle() : { [klass: string]: any; } {
-    var opacity = 0.5 * this.scrollIntroductionPercentage;
+    const opacity = 0.5 * this.scrollIntroductionPercentage;
 
-    var style = {
+    const style = {
       'box-shadow': '0px 0px 10px 0px rgba(0, 0, 0, ' + opacity + ')',
       '-moz-box-shadow': '0px 0px 10px 0px rgba(0, 0, 0, ' + opacity + ')',
       '-webkit-box-shadow': '0px 0px 10px 0px rgba(0, 0, 0, ' + opacity + ')',
@@ -48,7 +41,7 @@ export class FullWidthDialogComponent implements OnInit, OnDestroy {
   }
 
   getScrollTopStyle() : { [klass: string]: any; } {
-    var style = {
+    const style = {
       'opacity': this.scrollIntroductionPercentage
     }
 

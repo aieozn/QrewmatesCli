@@ -9,11 +9,11 @@ import { MenuCategoryCliComponent } from './layout/menu-category-cli/menu-catego
 import { MenuItemGroupComponent } from './layout/menu-category-cli/menu-item-group/menu-item-group.component';
 import { FooterAboutUsComponent } from './layout/footer/footer-about-us/footer-about-us.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { FullWidthDialogModule } from 'src/app/common/full-width-dialog/full-width-dialog.module';
-import { OrderComposerModule } from 'src/app/common/order-composer/order-composer.module';
+import { FullWidthDialogModule } from '@common/full-width-dialog/full-width-dialog.module';
+import { OrderComposerModule } from '@common/order-composer/order-composer.module';
 import { FooterPoweredByComponent } from './layout/footer/footer-powered-by/footer-powered-by.component';
-import { MenuHorizontalModule } from 'src/app/common/menu-horizontal/menu-horizontal.module';
-import { ApiClientModule } from 'src/app/common/api-client/api-client.module';
+import { MenuHorizontalModule } from '@common/menu-horizontal/menu-horizontal.module';
+import { ApiClientModule } from '@common/api-client/api-client.module';
 import { CookieService } from 'ngx-cookie-service';
 
 

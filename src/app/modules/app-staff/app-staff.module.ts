@@ -5,17 +5,15 @@ import { OrderStatusPipe } from './layout/pipes/order-status.pipe';
 import { PendingOrderComponent } from './layout/pending-order/pending-order.component';
 import { DoOrderActionDialogComponent } from './layout/do-order-action-dialog/do-order-action-dialog.component';
 import { AccountBarComponent } from './layout/account-bar/account-bar.component';
-import { OrderComposerModule } from 'src/app/common/order-composer/order-composer.module';
+import { OrderComposerModule } from '@common/order-composer/order-composer.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MenuHorizontalModule } from 'src/app/common/menu-horizontal/menu-horizontal.module';
-import { AccountUtilsModule } from 'src/app/common/account-utils/account-utils.module';
+import { MenuHorizontalModule } from '@common/menu-horizontal/menu-horizontal.module';
+import { AccountUtilsModule } from '@common/account-utils/account-utils.module';
 import { AppStaffRoutingModule } from './app-staff-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from 'src/app/common/account-utils/auth-interceptor';
+import { AuthInterceptor } from '@common/account-utils/auth-interceptor';
 import { FooterPoweredByComponent } from './layout/footer-powered-by/footer-powered-by.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [

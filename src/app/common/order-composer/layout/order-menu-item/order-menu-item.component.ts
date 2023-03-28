@@ -1,10 +1,10 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, filter, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
+import { BehaviorSubject, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrderMenuItemData } from './order-menu-item-data';
-import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from 'src/app/common/api-client/models';
-import { MenuItemControllerService } from 'src/app/common/api-client/services';
+import { MenuItemDetailedGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuItemControllerService } from '@common/api-client/services';
 import { OrderUtils } from '../../utils/order-utils';
 
 @Component({
@@ -73,7 +73,7 @@ export class OrderMenuItemComponent implements OnDestroy {
     this.dialogRef.close(elements);
   }
 
-  compareSelects(s1: any, s2: any) {
+  compareSelects(s1: {ref: string}, s2: {ref: string}) {
     if(s1 && s2 && s1.ref === s2.ref) {
       return true;
     } else {

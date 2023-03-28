@@ -5,9 +5,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CollectiveChangesService {
-
   public modified = new BehaviorSubject<boolean>(false);
   public publish = new Subject<void>();
-
-  constructor() { }
 }

@@ -1,7 +1,7 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
+import { AccountService } from '@common/account-utils/services/account.service';
 
 @Component({
   selector: 'app-login-page',

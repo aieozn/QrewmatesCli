@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OrderGet } from '@common/api-client/models';
 import { delay, Observable, Subject, takeUntil } from 'rxjs';
-import { OrderGet } from 'src/app/common/api-client/models';
 import { ConstValues } from '../../config/const-values';
 import { OrderWaitSocketService } from '../../services/order-wait-socket/order-wait-socket.service';
 

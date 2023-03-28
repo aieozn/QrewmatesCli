@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
+import { Component, Input } from '@angular/core';
+import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 
 @Component({
   selector: 'app-payment-method',
   templateUrl: './payment-method.component.html',
   styleUrls: ['./payment-method.component.scss']
 })
-export class PaymentMethodComponent implements OnInit {
+export class PaymentMethodComponent {
 
   @Input('order') order: OrderWrapper | undefined;
 
@@ -21,11 +21,6 @@ export class PaymentMethodComponent implements OnInit {
       label: $localize`BLIK`
     }
   ]
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   change(option: 'CASH' | 'BLIK') {
     if (!this.order) { throw 'Order not defined'; }

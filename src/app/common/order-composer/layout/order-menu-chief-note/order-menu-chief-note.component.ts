@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-order-menu-chief-note',
   templateUrl: './order-menu-chief-note.component.html',
   styleUrls: ['./order-menu-chief-note.component.scss']
 })
-export class OrderMenuChiefNoteComponent implements OnInit {
+export class OrderMenuChiefNoteComponent {
 
   // TODO fix mobile keyboard handling
 
@@ -18,15 +18,10 @@ export class OrderMenuChiefNoteComponent implements OnInit {
 
   value = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   public updateComment(textArea: EventTarget) {
     if (!this._commentable) { throw 'Order not defined'; }
 
-    let value = (textArea as HTMLInputElement).value;
+    const value = (textArea as HTMLInputElement).value;
     this._commentable.comment = value;
   }
 

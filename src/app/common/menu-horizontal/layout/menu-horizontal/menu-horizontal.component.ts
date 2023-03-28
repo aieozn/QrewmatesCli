@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuHorizontalElement } from '../../model/menu-horizontal-element';
 import { MenuEventsService } from '../../service/menu-event/menu-events.service';
@@ -62,7 +62,7 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit
     this.hideMenu();
     
     if (this.domElements) {
-      var element = document.getElementById('menu-horizontal-element-' + event.element.order);
+      const element = document.getElementById('menu-horizontal-element-' + event.element.order);
       if (element) {
         this.menuBar.nativeElement.scrollLeft = element.offsetLeft - 50;
       }
@@ -79,9 +79,9 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit
 
   private scrollCoordinator() {
     if (this.scrollEnabled) {
-      let active = this.scrollPosition;
-      let toPass = (this.scrollTarget - active);
-      let step = toPass / Math.max(1, this.scrollDuration);
+      const active = this.scrollPosition;
+      const toPass = (this.scrollTarget - active);
+      const step = toPass / Math.max(1, this.scrollDuration);
       this.scrollDuration -= 1;
 
       this.menuBar.nativeElement.scrollLeft = active + step;
@@ -97,10 +97,12 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit
 
   private onElementScrolled(event: ChangeElementEvent) {
     if (this.domElements) {
-      var element = document.getElementById('menu-horizontal-element-' + event.element.order);
+      const element = document.getElementById('menu-horizontal-element-' + event.element.order);
       if (element) {
         this.domElements.forEach(e => {
-          if (e._element!.order === event.element.order) {
+          if (e._element === undefined) {
+            throw 'Element is not defined';
+          } else if (e._element.order === event.element.order) {
             e.select();
           } else {
             e.unselect();

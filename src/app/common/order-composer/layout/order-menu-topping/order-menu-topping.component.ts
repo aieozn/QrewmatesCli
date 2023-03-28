@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { OrderUtils } from 'src/app/common/order-composer/utils/order-utils';
-import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
-import { MenuItemToppingCollectionGet, MenuItemToppingGet } from 'src/app/common/api-client/models';
+import { OrderUtils } from '@common/order-composer/utils/order-utils';
+import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
+import { MenuItemToppingCollectionGet, MenuItemToppingGet } from '@common/api-client/models';
 
 @Component({
   selector: 'app-order-menu-topping',
@@ -24,12 +24,10 @@ export class OrderMenuToppingComponent {
     this.init();
   }
 
-  constructor() { }
-
   init() {
     if (this._collection && this._order) {
-      let collection = this._collection;
-      let order = this._order;
+      const collection = this._collection;
+      const order = this._order;
 
       this.checked = collection.menuItemToppings
         .filter(collectionTopping => order.menuItemToppings.map(orderTopping => orderTopping.ref).includes(collectionTopping.ref))

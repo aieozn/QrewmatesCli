@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, HostListener, OnDestroy, OnInit, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, HostListener, OnDestroy, QueryList } from '@angular/core';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { MenuHorizontalElement } from '../../../model/menu-horizontal-element';
 import { MenuEventsService } from '../../../service/menu-event/menu-events.service';
@@ -10,7 +10,7 @@ import { MenuHorizontalElementWrapperComponent } from '../menu-horizontal-elemen
   templateUrl: './menu-horizontal-wrapper.component.html',
   styleUrls: ['./menu-horizontal-wrapper.component.scss']
 })
-export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy {
 
   // TODO tests
 
@@ -30,44 +30,50 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
       .pipe(takeUntil(this.onDestroy)).subscribe(this.onElementChanged.bind(this))
   }
 
-  ngOnInit(): void {
-  }
-
   @HostListener('window:scroll', ['$event'])
   public onScroll() {
-    var position = window.pageYOffset + this.stickyBarHeight;
+    const position = window.pageYOffset + this.stickyBarHeight;
     
     if (this.elementToScrollPosition.length === 1) {
+
       this.menuEventsService.onElementScrolled({
-        name: this.elementToScrollPosition[0].element._name!,
+        name: this.getElementName(this.elementToScrollPosition[0].element),
         order: this.elementToScrollPosition[0].order
       });
       return;
     } else if (this.elementToScrollPosition.length > 1) {
-      for (var i  = 1; i < this.elementToScrollPosition.length; i++) {
+      for (let i  = 1; i < this.elementToScrollPosition.length; i++) {
         if (this.elementToScrollPosition[i].offsetTop > position) {
           this.menuEventsService.onElementScrolled({
-            name: this.elementToScrollPosition[i - 1].element._name!,
+            name: this.getElementName(this.elementToScrollPosition[i - 1].element),
             order: this.elementToScrollPosition[i - 1].order
           });
           return;
         }
       }
 
-      var lastId = this.elementToScrollPosition.length - 1;
+      const lastId = this.elementToScrollPosition.length - 1;
       this.menuEventsService.onElementScrolled({
-        name: this.elementToScrollPosition[lastId].element._name!,
+        name: this.getElementName(this.elementToScrollPosition[lastId].element),
         order: this.elementToScrollPosition[lastId].order
       });
     }
   }
 
+  private getElementName(element: MenuHorizontalElementWrapperComponent) : string {
+    if (element._name === undefined) {
+      throw 'Element name is undefined'
+    } else {
+      return element._name;
+    }
+  }
+
   private onElementChanged(event: ChangeElementEvent) {
-    var element = this.elementsRefs!.get(event.element.order);
+    const element = this.elementsRefs!.get(event.element.order);
     if (element) {
       console.info("Scroll to list element");
 
-      var elementTopOffset = this.getElementScrollTopPosition(event);
+      let elementTopOffset = this.getElementScrollTopPosition(event);
       elementTopOffset += this.stickyBarHeight;
       elementTopOffset -= 60;
 
@@ -77,7 +83,7 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
   }
 
   private getElementScrollTopPosition(event: ChangeElementEvent) : number {
-    for (var i  = 1; i < this.elementToScrollPosition.length; i++) {
+    for (let i  = 1; i < this.elementToScrollPosition.length; i++) {
       if (this.elementToScrollPosition[i].order === event.element.order) {
         return this.elementToScrollPosition[i].offsetTop;
       }
@@ -107,11 +113,11 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
     if (!this.elementsRefs) { throw 'Elements not found'; }
 
     this.elements = [];
-    var order = 0;
+    let order = 0;
 
-    var orderedElements = this.getOrderedElements(this.getAllElements(this.elementsRefs));
+    const orderedElements = this.getOrderedElements(this.getAllElements(this.elementsRefs));
     
-    for (let element of orderedElements) {
+    for (const element of orderedElements) {
 
       if (element._name) {
         this.elements.push({
@@ -132,18 +138,19 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
   private getAllElements(event: QueryList<MenuHorizontalElementWrapperComponent>) : MenuHorizontalElementWrapperComponent[] {
     if (event.length === 0) { return []; }
 
-    var allComponents: MenuHorizontalElementWrapperComponent[] = [];
-    for (var i = 0; i < event.length; i++) {
-      allComponents.push(event.get(i)!);
+    const allComponents: MenuHorizontalElementWrapperComponent[] = [];
+
+    for (const e of event) {
+      allComponents.push(e);
     }
 
     return allComponents;
   }
 
   private getOrderedElements(allComponents: MenuHorizontalElementWrapperComponent[]) : MenuHorizontalElementWrapperComponent[] {
-    var orderedComponents = allComponents
+    const orderedComponents = allComponents
         .filter(e => e.elementContent?.nativeElement != undefined)
-        .sort(e => e.elementContent!.nativeElement.offsetTop);
+        .sort(e => e.elementContent?.nativeElement.offsetTop);
       
     return orderedComponents;
   }
@@ -153,11 +160,11 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
     // Clear
     this.elementToScrollPosition = [];
 
-    let allElements = this.getAllElements(this.elementsRefs);
-    let orderedComponents = this.getOrderedElements(allElements);
+    const allElements = this.getAllElements(this.elementsRefs);
+    const orderedComponents = this.getOrderedElements(allElements);
 
-    let orderedComponentsMap : { order: number, element: MenuHorizontalElementWrapperComponent }[] = [];
-    for (var orderedComponentNum = 0; orderedComponentNum < orderedComponents.length; orderedComponentNum ++) {
+    const orderedComponentsMap : { order: number, element: MenuHorizontalElementWrapperComponent }[] = [];
+    for (let orderedComponentNum = 0; orderedComponentNum < orderedComponents.length; orderedComponentNum ++) {
       orderedComponentsMap.push({
         order: orderedComponentNum,
         element: orderedComponents[orderedComponentNum]
@@ -165,29 +172,29 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
     }
 
 
-    var pageHeight = document.body.scrollHeight;
-    var windowHeight = window.innerHeight;
+    const pageHeight = document.body.scrollHeight;
+    const windowHeight = window.innerHeight;
 
     // Elements which can be scrolled to screen top (with margin freeMoveBorder)
-    var attachedElements = orderedComponentsMap.filter(e => {
-      var offsetTop = e.element.elementContent!.nativeElement.offsetTop;
-      var offsetBottom = pageHeight - offsetTop;
+    const attachedElements = orderedComponentsMap.filter(e => {
+      const offsetTop = e.element.elementContent!.nativeElement.offsetTop;
+      const offsetBottom = pageHeight - offsetTop;
       return offsetBottom > windowHeight;
     });
 
     // Elements which cant be scrolled over top screen border (with margin freeMoveBorder)
-    var freeElements = orderedComponentsMap.filter(e => {
-      var offsetTop = e.element.elementContent!.nativeElement.offsetTop;
-      var offsetBottom = pageHeight - offsetTop;
+    let freeElements = orderedComponentsMap.filter(e => {
+      const offsetTop = e.element.elementContent!.nativeElement.offsetTop;
+      const offsetBottom = pageHeight - offsetTop;
       return offsetBottom <= windowHeight;
     });
 
 
     // Distance from page top to last attached element top
-    var freeBorderOffset: number;
+    let freeBorderOffset: number;
     // Last of attachedElements (the bottom one)
     if (attachedElements.length > 0) {
-      var lastAttached = attachedElements[attachedElements.length - 1];
+      const lastAttached = attachedElements[attachedElements.length - 1];
       
       freeBorderOffset = lastAttached.element.elementContent!.nativeElement.offsetTop;
       freeElements = [attachedElements.pop()!].concat(freeElements);
@@ -195,11 +202,11 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
       freeBorderOffset = 0;
     }
 
-    var scrollHeight = pageHeight - windowHeight;
-    var freeBorderHeight = scrollHeight - freeBorderOffset;
+    const scrollHeight = pageHeight - windowHeight;
+    const freeBorderHeight = scrollHeight - freeBorderOffset;
 
-    for (let element of orderedComponentsMap) {
-      let topElementOffset = element.element.elementContent?.nativeElement.offsetTop;
+    for (const element of orderedComponentsMap) {
+      const topElementOffset = element.element.elementContent?.nativeElement.offsetTop;
 
       if (topElementOffset < freeBorderOffset) {
         this.elementToScrollPosition.push({
@@ -215,11 +222,11 @@ export class MenuHorizontalWrapperComponent implements OnInit, AfterViewInit, On
             order: element.order
           })
         } else {
-          var menuElementPositionN = element.order - attachedElements.length;
-          var menuElementsNCount = freeElements.length;
+          const menuElementPositionN = element.order - attachedElements.length;
+          const menuElementsNCount = freeElements.length;
 
-          var scrollPercentage = menuElementPositionN / menuElementsNCount;
-          var scrollMove = (freeBorderHeight * scrollPercentage);
+          const scrollPercentage = menuElementPositionN / menuElementsNCount;
+          const scrollMove = (freeBorderHeight * scrollPercentage);
   
           this.elementToScrollPosition.push({
             offsetTop: scrollMove + freeBorderOffset,

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AccountService } from '@common/account-utils/services/account.service';
 import { first, Observable } from 'rxjs';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { MenuItemGroupGet } from 'src/app/common/api-client/models';
-import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
-import { FullWidthDialogService } from 'src/app/common/full-width-dialog/service/full-width-dialog.service';
+import { MenuItemGroupGet } from '@common/api-client/models';
+import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
+import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 import { DoOrderActionDialogComponent } from '../../layout/do-order-action-dialog/do-order-action-dialog.component';
 import { AcceptOrderActionDialogType } from './accept-order-aciton-dialog-type';
 

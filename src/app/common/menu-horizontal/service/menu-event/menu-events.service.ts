@@ -15,8 +15,6 @@ export class MenuEventsService {
 
   private scrolledElement: MenuHorizontalElement | undefined;
 
-  constructor() { }
-
   public onElementSelected(element: MenuHorizontalElement) {
     this.elementSelected.emit(new ChangeElementEvent(element));
   }

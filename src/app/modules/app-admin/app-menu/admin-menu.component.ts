@@ -1,9 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { MenuCategoryGet, MenuItemGroupGet } from 'src/app/common/api-client/models';
-import { MenuCategoryControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { MenuCategoryGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuCategoryControllerService } from '@common/api-client/services';
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
 import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
 import { EditorDialogService } from './editors/editor-dialog.service';
@@ -60,7 +60,7 @@ export class AdminMenuComponent implements OnDestroy {
       restaurantRef: this.accountService.getRestaurantRef()
     }).subscribe(loadedCategories => {
       this.categories = [];
-      for (let loadedCategory of loadedCategories) {
+      for (const loadedCategory of loadedCategories) {
         this.categories.push({
           category: loadedCategory,
           open: false
@@ -75,7 +75,7 @@ export class AdminMenuComponent implements OnDestroy {
   }
 
   public closeCategories() {
-    for (let category of this.categories) {
+    for (const category of this.categories) {
       category.open = false;
     }
   }
@@ -119,7 +119,7 @@ export class AdminMenuComponent implements OnDestroy {
 
   private categoryUpdated(newCategory: MenuCategoryGet) {
     for (let i = 0; i < this.categories.length; i++) {
-      let existingCategory = this.categories[i];
+      const existingCategory = this.categories[i];
       if (existingCategory.category.ref === newCategory.ref) {
         this.categories[i].category = newCategory;
         break;
@@ -130,7 +130,7 @@ export class AdminMenuComponent implements OnDestroy {
 
   private categoryDeleted(ref: string) {
     for (let i = 0; i < this.categories.length; i++) {
-      let existingCategory = this.categories[i];
+      const existingCategory = this.categories[i];
       if (existingCategory.category.ref === ref) {
         this.categories.splice(i, 1);
         break;

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AppLoginRoutingModule } from './app-login-routing.module';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-import { AccountUtilsModule } from 'src/app/common/account-utils/account-utils.module';
+import { AccountUtilsModule } from '@common/account-utils/account-utils.module';
 import { LoginPageComponent } from './login-page.component';
 
 
@@ -30,7 +30,7 @@ import { LoginPageComponent } from './login-page.component';
             )
           }
         ],
-        onError: (err: any) => {
+        onError: (err: string) => {
           console.error(err);
         }
       } as SocialAuthServiceConfig,

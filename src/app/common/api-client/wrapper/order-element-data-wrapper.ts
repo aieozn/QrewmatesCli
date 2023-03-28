@@ -1,9 +1,9 @@
-import { MenuItemGet, MenuItemSelectGet, MenuItemToppingGet } from "src/app/common/api-client/models";
+import { MenuItemGet, MenuItemSelectGet, MenuItemToppingGet } from "@common/api-client/models";
 
 export interface OrderElementDataWrapper {
     comment?: string;
     menuItem: MenuItemGet;
-    menuItemSelects: Array<MenuItemSelectGet>;
-    menuItemToppings: Array<MenuItemToppingGet>;
+    menuItemSelects: MenuItemSelectGet[];
+    menuItemToppings: MenuItemToppingGet[];
     price: number;
 }

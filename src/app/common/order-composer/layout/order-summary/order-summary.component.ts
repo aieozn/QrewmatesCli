@@ -1,20 +1,20 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { filter, first, mergeMap, Observable } from 'rxjs';
-import { FullWidthDialogService } from 'src/app/common/full-width-dialog/service/full-width-dialog.service';
-import { OrderElementDataWrapper } from 'src/app/common/api-client/wrapper/order-element-data-wrapper';
+import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
+import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
 import { ExportSummaryData } from './order-summary-data';
-import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
-import { MenuItemGroupControllerService } from 'src/app/common/api-client/services';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { MenuItemGroupGet } from 'src/app/common/api-client/models';
+import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
+import { MenuItemGroupControllerService } from '@common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { MenuItemGroupGet } from '@common/api-client/models';
 
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.scss']
 })
-export class OrderSummaryComponent implements OnInit {
+export class OrderSummaryComponent {
 
   order: OrderWrapper;
   
@@ -26,15 +26,12 @@ export class OrderSummaryComponent implements OnInit {
       this.order = JSON.parse(JSON.stringify(data.item));
   }
 
-  ngOnInit(): void {
-  }
-
   public close() {
     this.dialogRef.close();
   }
 
   public editItem(item: OrderElementDataWrapper) {
-    let initialIndex = this.order.items.indexOf(item);
+    const initialIndex = this.order.items.indexOf(item);
 
     this.groupService.getItemGroupDetails({
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -47,8 +44,8 @@ export class OrderSummaryComponent implements OnInit {
       )
     ).subscribe(next => {
       if (next) {
-        let partI = this.order.items.slice(0, initialIndex);
-        let partII = this.order.items.slice(initialIndex + 1, this.order.items.length)
+        const partI = this.order.items.slice(0, initialIndex);
+        const partII = this.order.items.slice(initialIndex + 1, this.order.items.length)
         this.order.items = partI.concat(next).concat(partII);
       }
     })

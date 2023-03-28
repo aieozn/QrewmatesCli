@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class AccountIconComponent {
   // TODO manage real account
-  public boxHeight: number = 0;
-  public fontSize: number = 0;
+  public boxHeight = 0;
+  public fontSize = 0;
 
   public userIconFontColor = '#c21d8e';
   public userIconBackgroundColor = '#FFFFFF';

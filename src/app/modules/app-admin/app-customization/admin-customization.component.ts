@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { RestaurantDetailsGet } from 'src/app/common/api-client/models';
-import { RestaurantControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { RestaurantDetailsGet } from '@common/api-client/models';
+import { RestaurantControllerService } from '@common/api-client/services';
 import { CollectiveChangesService } from '../services/collective-changes/collective-changes.service';
 
 @Component({

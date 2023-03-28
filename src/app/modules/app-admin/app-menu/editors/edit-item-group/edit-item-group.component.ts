@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { IdentifiedByRefData, MenuItemGroupData, MenuItemGroupGet } from 'src/app/common/api-client/models';
-import { MenuItemGroupControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { IdentifiedByRefData, MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 
 @Component({
@@ -71,7 +71,7 @@ export class EditItemGroupComponent {
 
   public onDelete() {
     if (this.originalItemGroup !== undefined) {
-      let originalGroupCategoryRef = this.originalItemGroup.ref;
+      const originalGroupCategoryRef = this.originalItemGroup.ref;
 
       this.menuItemGroupService.deleteMenuItemGroup({
         restaurantRef: this.accountService.getRestaurantRef(),

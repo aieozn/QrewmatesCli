@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -6,14 +6,11 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './footer-about-us.component.html',
   styleUrls: ['./footer-about-us.component.scss']
 })
-export class FooterAboutUsComponent implements OnInit {
+export class FooterAboutUsComponent {
 
   constructor(
     public dialogRef: MatDialogRef<FooterAboutUsComponent>
   ) { }
-
-  ngOnInit(): void {
-  }
 
   public close() {
     this.dialogRef.close();

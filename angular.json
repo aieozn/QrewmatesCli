@@ -159,6 +159,13 @@
               "devServerTarget": "QrewmatesCli:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": ".eslintrc.json",
+            "lintFilePatterns": ["**/*.spec.ts", "**/*.ts"]
+          }
         }
       }
     },
@@ -191,6 +198,13 @@
               "zone.js",
               "zone.js/testing"
             ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": ".eslintrc.json",
+            "lintFilePatterns": ["**/*.spec.ts", "**/*.ts"]
           }
         }
       }

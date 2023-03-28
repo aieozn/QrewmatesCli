@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, ViewChild } from '@angular/core';
 import { MenuEventsService } from '../../../service/menu-event/menu-events.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { MenuEventsService } from '../../../service/menu-event/menu-events.servi
   templateUrl: './menu-horizontal-element-wrapper.component.html',
   styleUrls: ['./menu-horizontal-element-wrapper.component.scss']
 })
-export class MenuHorizontalElementWrapperComponent implements OnInit, DoCheck {
+export class MenuHorizontalElementWrapperComponent implements DoCheck {
 
   _name: string | undefined;
   _description: string | undefined;
@@ -29,9 +29,6 @@ export class MenuHorizontalElementWrapperComponent implements OnInit, DoCheck {
       this.menuEventsService.onResizeElements();
       this.previousOffset = this.elementContent.nativeElement.offsetTop;
     }
-  }
-
-  ngOnInit(): void {
   }
 
 }

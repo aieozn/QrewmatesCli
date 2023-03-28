@@ -2,10 +2,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "common": [
-        "dist/common"
+      "@common/account-utils/*": [
+        "app/common/account-utils/*"
+      ],
+      "@common/api-client/*": [
+        "app/common/api-client/*"
+      ],
+      "@common/full-width-dialog/*": [
+        "app/common/full-width-dialog/*"
+      ],
+      "@common/menu-horizontal/*": [
+        "app/common/menu-horizontal/*"
+      ],
+      "@common/order-composer/*": [
+        "app/common/order-composer/*"
       ]
     },
     "outDir": "./dist/out-tsc",

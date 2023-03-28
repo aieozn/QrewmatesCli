@@ -1,17 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { first, Subscription } from 'rxjs';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { MenuItemGroupGet } from 'src/app/common/api-client/models';
-import { OrderWrapper } from 'src/app/common/api-client/wrapper/order-wrapper';
-import { GenericDialogCliManager } from "src/app/modules/app-client/services/generic-dialog-cli-manager/generic-dialog-cli-manager";
-import { OrderService } from 'src/app/modules/app-client/services/order/order.service';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { MenuItemGroupGet } from '@common/api-client/models';
+import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
+import { GenericDialogCliManager } from "../../../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
+import { OrderService } from '../../../services/order/order.service';
 
 @Component({
   selector: 'app-menu-item-group',
   templateUrl: './menu-item-group.component.html',
   styleUrls: ['./menu-item-group.component.scss']
 })
-export class MenuItemGroupComponent implements OnInit, OnDestroy {
+export class MenuItemGroupComponent implements OnDestroy {
 
   _group: MenuItemGroupGet | undefined;
   menuItemGroupImageUrl: string | undefined;
@@ -37,9 +37,6 @@ export class MenuItemGroupComponent implements OnInit, OnDestroy {
     private orderService: OrderService
   ) {
     this.orderUpdatedSubscription = orderService.orderChanged.subscribe(this.onOrderUpdate.bind(this));
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnDestroy(): void {

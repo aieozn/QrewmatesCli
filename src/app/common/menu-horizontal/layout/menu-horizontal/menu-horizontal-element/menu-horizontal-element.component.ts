@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { MenuHorizontalElement } from '../../../model/menu-horizontal-element';
 import { MenuEventsService } from '../../../service/menu-event/menu-events.service';
 
@@ -7,10 +7,10 @@ import { MenuEventsService } from '../../../service/menu-event/menu-events.servi
   templateUrl: './menu-horizontal-element.component.html',
   styleUrls: ['./menu-horizontal-element.component.scss']
 })
-export class MenuHorizontalElementComponent implements OnInit {
+export class MenuHorizontalElementComponent {
 
   public _element: MenuHorizontalElement | undefined;
-  public selected: boolean = false;
+  public selected = false;
 
   @Input() set element(value: MenuHorizontalElement) {
     this._element = value;
@@ -21,12 +21,12 @@ export class MenuHorizontalElementComponent implements OnInit {
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
-    
-  }
-
   public createSelectEvent() {
-    this.menuEventsService.onElementSelected(this._element!);
+    if (this._element === undefined) {
+      throw 'Ement not defined';
+    }
+
+    this.menuEventsService.onElementSelected(this._element);
   }
 
   public select() {

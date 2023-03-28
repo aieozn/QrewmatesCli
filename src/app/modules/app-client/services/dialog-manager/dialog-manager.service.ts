@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { OrderGet } from 'src/app/common/api-client/models';
+import { OrderGet } from '@common/api-client/models';
 import { WaitForOrderDialogComponent } from '../../layout/wait-for-order-dialog/wait-for-order-dialog.component';
 
 @Injectable({

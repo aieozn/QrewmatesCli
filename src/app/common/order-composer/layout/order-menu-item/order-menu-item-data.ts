@@ -1,5 +1,5 @@
-import { MenuItemGroupGet } from "src/app/common/api-client/models";
-import { OrderElementDataWrapper } from "src/app/common/api-client/wrapper/order-element-data-wrapper";
+import { MenuItemGroupGet } from "@common/api-client/models";
+import { OrderElementDataWrapper } from "@common/api-client/wrapper/order-element-data-wrapper";
 
 export interface OrderMenuItemData {
     restaurantRef: string,

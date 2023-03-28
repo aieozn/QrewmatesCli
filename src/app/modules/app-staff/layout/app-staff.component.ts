@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { OrderGet } from 'src/app/common/api-client/models/order-get';
-import { SubscribeOrdersMessage } from 'src/app/common/api-client/models/subscribe-orders-message';
-import { OrderStatusControllerService } from 'src/app/common/api-client/services';
+import { Component } from '@angular/core';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { OrderGet } from '@common/api-client/models/order-get';
+import { SubscribeOrdersMessage } from '@common/api-client/models/subscribe-orders-message';
+import { OrderStatusControllerService } from '@common/api-client/services';
 import { UpdateOrderStatusMessage } from '../model/update-order-status-message';
 import { OrderSocketService } from '../services/order-subscribe-socket/order-subscribe-socket.service';
 
@@ -12,7 +12,7 @@ import { OrderSocketService } from '../services/order-subscribe-socket/order-sub
   styleUrls: ['./app-staff.component.scss'],
   providers: [ OrderSocketService ]
 })
-export class AppStaffComponent implements OnInit, OnDestroy {
+export class AppStaffComponent {
 
   public orders: OrderGet[] = [];
   public tableCounter: { [tableName: string]: {
@@ -27,9 +27,6 @@ export class AppStaffComponent implements OnInit, OnDestroy {
     private orderStatusService: OrderStatusControllerService
   ) { }
 
-  ngOnDestroy(): void {
-  }
-
   ngOnInit(): void {
     // TODO może warto dodać stronnicowanie zamówień?
     this.orderSocket.subscribeOrder(this.accountService.getRestaurantRef()).subscribe(e => {
@@ -38,12 +35,12 @@ export class AppStaffComponent implements OnInit, OnDestroy {
   }
 
   private processMessage(message: SubscribeOrdersMessage) {
-    let newOrders = [];
+    const newOrders = [];
 
-    for (let messageOrder of message.orders) {
+    for (const messageOrder of message.orders) {
       let exists = false;
 
-      for (let activeOrder of this.orders) {
+      for (const activeOrder of this.orders) {
         if (activeOrder.ref === messageOrder.ref) {
           exists = true;
           if (messageOrder.version > activeOrder.version) {
@@ -61,9 +58,9 @@ export class AppStaffComponent implements OnInit, OnDestroy {
       }
     }
     
-    let newOrdersRefs = newOrders.map(e => e.ref)
+    const newOrdersRefs = newOrders.map(e => e.ref)
 
-    for (let activeOrder of this.orders) {
+    for (const activeOrder of this.orders) {
       if (!newOrdersRefs.includes(activeOrder.ref)) {
         newOrders.push(activeOrder);
       }
@@ -86,7 +83,7 @@ export class AppStaffComponent implements OnInit, OnDestroy {
   }
 
   private replaceOrder(ref: string, newData: OrderGet) {
-    for (var i = 0; i < this.orders.length; i++) {
+    for (let i = 0; i < this.orders.length; i++) {
       if (this.orders[i].ref === ref) {
         if (this.orders[i].version < newData.version) {
           this.orders[i] = newData;
@@ -104,9 +101,9 @@ export class AppStaffComponent implements OnInit, OnDestroy {
     this.orders = this.orders.sort((a, b) => a.created.localeCompare(b.created))
 
     this.tableCounter = {};
-    let waitingOrders = this.orders.filter(e => e.orderStatus === 'PLACED')
+    const waitingOrders = this.orders.filter(e => e.orderStatus === 'PLACED')
 
-    for (var order of waitingOrders) {
+    for (const order of waitingOrders) {
       if (order.table.ref in this.tableCounter) {
         this.tableCounter[order.table.ref].count += 1;
       } else {

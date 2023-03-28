@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Chart } from "chart.js";
 import { BehaviorSubject, first, Subject, takeUntil } from 'rxjs';
-import { AccountService } from 'src/app/common/account-utils/services/account.service';
-import { StatisticsHourlySalesGet } from 'src/app/common/api-client/models';
-import { StatisticsControllerService } from 'src/app/common/api-client/services';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { StatisticsHourlySalesGet } from '@common/api-client/models';
+import { StatisticsControllerService } from '@common/api-client/services';
 import { CalendarUtils } from '../../utils/calendar-utils';
 
 @Component({
@@ -11,7 +11,7 @@ import { CalendarUtils } from '../../utils/calendar-utils';
   templateUrl: './sales-chart.component.html',
   styleUrls: ['./sales-chart.component.scss']
 })
-export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SalesChartComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('chart')
   private chartRef: ElementRef | undefined;
@@ -29,9 +29,9 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private statisticsService: StatisticsControllerService, private accountService: AccountService) {
 
-    let now = new Date();
-    let dataYear = now.getFullYear();
-    let dataMonth = now.getMonth() + 1;
+    const now = new Date();
+    const dataYear = now.getFullYear();
+    const dataMonth = now.getMonth() + 1;
 
     this.loadMonthData(dataYear, dataMonth);
   }
@@ -52,7 +52,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }) {
     this.chartDescription = chartDescription;
     this.summary = summary;
-    let chartData = {
+    const chartData = {
       datasets: [{
         data: data,
         fill: false,
@@ -61,7 +61,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
       labels: labels
     };
 
-    let chartOptions = {
+    const chartOptions = {
       responsive: false,
       scales: {
         y: {
@@ -88,18 +88,13 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.chart.config.data = chartData;
       this.chart.config.options = chartOptions;
       this.chart.update();
-    }
-    
-  }
-
-  ngOnInit(): void {
-    
+    } 
   }
 
   public changeRange(range: any) {
-    let now = new Date();
-    let dataYear = now.getFullYear();
-    let dataMonth = now.getMonth() + 1;
+    const now = new Date();
+    const dataYear = now.getFullYear();
+    const dataMonth = now.getMonth() + 1;
 
     if (range.value) {
       switch (range.value) {
@@ -122,8 +117,6 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loadYearData(year: number) {
-    let end : Date = new Date();
-
     this.statisticsService.getYearSales({
       restaurantRef: this.accountService.getRestaurantRef(),
       'params': {
@@ -136,8 +129,8 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.chartLoadedSubject
         .pipe(takeUntil(this.onDestroy))
         .subscribe(_ => {
-          let ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
-          let ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
+          const ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
+          const ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
           this.loadChart(
             'Liczba obsłużonych zamówień w roku ' + year,
             chartData.map(e => e.orderCount),
@@ -168,8 +161,8 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.chartLoadedSubject
         .pipe(first(), takeUntil(this.onDestroy))
         .subscribe(_ => {
-          let ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
-          let ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
+          const ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
+          const ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
           this.loadChart(
             $localize`The number of orders served in ` + CalendarUtils.monthNumberToLocative(month),
             chartData.map(e => e.orderCount),
@@ -185,8 +178,8 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loadWeekData() {
-    let end : Date = new Date();
-    let start = new Date();
+    const end : Date = new Date();
+    const start = new Date();
     start.setDate(end.getDate() - 6);
 
     this.statisticsService.getDailySales({
@@ -204,8 +197,8 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.chartLoadedSubject
         .pipe(first(), takeUntil(this.onDestroy))
         .subscribe(_ => {
-          let ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
-          let ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
+          const ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
+          const ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
           this.loadChart(
             $localize`The number of orders served in the last week`,
             chartData.map(e => e.orderCount),
@@ -221,7 +214,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loadDayData() {
-    let end : Date = new Date();
+    const end : Date = new Date();
 
     this.statisticsService.getHourlySales({
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -240,8 +233,8 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.chartLoadedSubject
         .pipe(first(), takeUntil(this.onDestroy))
         .subscribe(_ => {
-          let ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
-          let ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
+          const ordersCount = chartData.map(e => e.orderCount).reduce((accumulator, current) => accumulator + current);
+          const ordersValue = chartData.map(e => e.ordersValue).reduce((accumulator, current) => accumulator + current);
           
           this.loadChart(
             $localize`The number of orders served today`,
@@ -258,7 +251,7 @@ export class SalesChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private formatHourlyLabel(value: StatisticsHourlySalesGet) : string {
-    let hourString = String(value.orderHour).padStart(2, '0') + ':00';
+    const hourString = String(value.orderHour).padStart(2, '0') + ':00';
 
     return hourString;
   }

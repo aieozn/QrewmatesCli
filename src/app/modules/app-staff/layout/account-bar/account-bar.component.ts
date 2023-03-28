@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,12 +6,9 @@ import { Router } from '@angular/router';
   templateUrl: './account-bar.component.html',
   styleUrls: ['./account-bar.component.scss']
 })
-export class AccountBarComponent implements OnInit {
+export class AccountBarComponent {
 
   constructor(private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   public logout() {
     this.router.navigate(['/']);
