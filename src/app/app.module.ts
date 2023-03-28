@@ -26,24 +26,13 @@ import { AuthInterceptor } from './common/account-utils/auth-interceptor';
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule,
     HttpClientModule,
-    MatRadioModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatInputModule,
+    // Required for some reason?
     MatSelectModule,
-    MatDialogModule,
-    FormsModule,
-    MatProgressSpinnerModule,
-    // TODO import only for admin page
-    NgChartsModule,
-    ColorPickerModule,
-    DragDropModule,
-    ReactiveFormsModule
+    // Required for some reason?
+    MatDialogModule
   ],
   providers: [
-    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

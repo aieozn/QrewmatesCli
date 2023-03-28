@@ -14,6 +14,8 @@ import { AppStaffRoutingModule } from './app-staff-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/app/common/account-utils/auth-interceptor';
 import { FooterPoweredByComponent } from './layout/footer-powered-by/footer-powered-by.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [

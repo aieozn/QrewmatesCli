@@ -14,6 +14,7 @@ import { OrderComposerModule } from 'src/app/common/order-composer/order-compose
 import { FooterPoweredByComponent } from './layout/footer/footer-powered-by/footer-powered-by.component';
 import { MenuHorizontalModule } from 'src/app/common/menu-horizontal/menu-horizontal.module';
 import { ApiClientModule } from 'src/app/common/api-client/api-client.module';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -35,6 +36,9 @@ import { ApiClientModule } from 'src/app/common/api-client/api-client.module';
     OrderComposerModule,
     MenuHorizontalModule,
     ApiClientModule
+  ],
+  providers: [
+    CookieService
   ]
 })
 export class AppClientModule { }
