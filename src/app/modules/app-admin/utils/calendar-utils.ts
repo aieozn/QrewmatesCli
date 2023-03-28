@@ -33,29 +33,29 @@ export class CalendarUtils {
     public static monthNumberToLocative(num: number) {
         switch(num) {
             case 1:
-                return $localize`Jenuary`;
+                return $localize`:@@LOCATIVE-JENUARY:Jenuary`;
             case 2:
-                return $localize`February`;
+                return $localize`:@@LOCATIVE-FEBRUARY:February`;
             case 3:
-                return $localize`March`;
+                return $localize`:@@LOCATIVE-MARCH:March`;
             case 4:
-                return $localize`April`;
+                return $localize`:@@LOCATIVE-APRIL:April`;
             case 5:
-                return $localize`May`;
+                return $localize`:@@LOCATIVE-MAY:May`;
             case 6:
-                return $localize`June`;
+                return $localize`:@@LOCATIVE-JUNE:June`;
             case 7:
-                return $localize`July`;
+                return $localize`:@@LOCATIVE-JULY:July`;
             case 8:
-                return $localize`Augist`;
+                return $localize`:@@LOCATIVE-AUGUST:Augist`;
             case 9:
-                return $localize`September`;
+                return $localize`:@@LOCATIVE-SEPTEMBER:September`;
             case 10:
-                return $localize`October`;
+                return $localize`:@@LOCATIVE-OCTOBER:October`;
             case 11:
-                return $localize`November`;
+                return $localize`:@@LOCATIVE-NOVEMBER:November`;
             case 12:
-                return $localize`Devember`;
+                return $localize`:@@LOCATIVE-DECEMBER:Devember`;
             default:
                 throw 'Month not found';
         }

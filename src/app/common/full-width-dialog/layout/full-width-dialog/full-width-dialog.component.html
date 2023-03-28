@@ -4,7 +4,7 @@
             <div id="close" *ngIf="this.onClose.observed">
                 <mat-icon id="close-icon" class="clickable main-theme-color" (click)="close()">close</mat-icon>
             </div>
-            <p id="generic-dialog-card-header-scroll-top" class="clickable" [ngStyle]="getScrollTopStyle()" (click)="goToTop()" i18n>Wróć na górę karty</p>
+            <p id="generic-dialog-card-header-scroll-top" class="clickable" [ngStyle]="getScrollTopStyle()" (click)="goToTop()" i18n>Back to the top</p>
             <h2>{{title}}</h2>
         </div>
         <div id="generic-dialog-card-body" [ngStyle]="{'max-height': getMaxBodyHeight()}" (scroll)="onScroll($event)" #cardbody>

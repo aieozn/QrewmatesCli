@@ -16,7 +16,7 @@
 
     <!-- TODO animete -->
     <div id="full-size-menu" class="box-shadow-bottom" [ngStyle]="{'max-height': screenHeight * 0.5 + 'px'}" [hidden]="!showFullSizeMenu">
-        <h2 i18n>Kategorie:</h2>
+        <h2 i18n>Categories:</h2>
         <hr/>
         <div *ngFor="let element of _elements">
             <p (click)="goTo(element)" class="clickable">{{element.name}}</p>

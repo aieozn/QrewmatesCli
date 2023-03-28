@@ -1,10 +1,10 @@
 <div class="editor-box box-shadow" *ngIf="elementNameFormControl">
-    <p class="editor-box-title" i18n>Nazwa kategorii</p>
-    <p class="editor-box-subtitle" i18n>Wpisz odpowiednią nazwę</p>
+    <p class="editor-box-title" i18n>Category name</p>
+    <p class="editor-box-subtitle" i18n>Enter a valid name</p>
 
     <mat-form-field appearance="fill" id="element-name-input">
-        <mat-label i18n>Nazwa kategorii</mat-label>
+        <mat-label i18n>Category name</mat-label>
         <input autocomplete="off" [formControl]="elementNameFormControl" matInput>
-        <mat-error *ngIf="elementNameFormControl.errors" i18n>Niepoprawna nazwa</mat-error>
+        <mat-error *ngIf="elementNameFormControl.errors" i18n>Invalid name</mat-error>
     </mat-form-field>
 </div>

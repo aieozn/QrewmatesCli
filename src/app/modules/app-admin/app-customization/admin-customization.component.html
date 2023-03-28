@@ -1,5 +1,5 @@
 <div id="personalization" *ngIf="restaurant | async as restaurantDetails">
-    <h1 i18n>Personalizacja</h1>
+    <h1 i18n>Personalization</h1>
 
     <div class="personalization-element">
         <app-logo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-logo-customization>

@@ -15,7 +15,7 @@ export class PaymentMethodComponent {
     label: string
   }[] = [{
       id: 'CASH',
-      label: $localize`Gotówka`
+      label: $localize`Cash`
     },{
       id: 'BLIK',
       label: $localize`BLIK`

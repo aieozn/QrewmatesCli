@@ -1,10 +1,10 @@
 <div id="order-menu-chief-note" class="box-shadow box-radius">
-    <h3 i18n>Notka dla kucharza</h3>
-    <p id="chief-note-description" i18n>Niestandardowe zamówienie?</p>
+    <h3 i18n>Note for the cook</h3>
+    <p id="chief-note-description" i18n>Special wishes?</p>
     
 
     <mat-form-field appearance="fill">
-        <mat-label i18n>Zostaw wiadomość</mat-label>
+        <mat-label i18n>Leave a message</mat-label>
         <textarea matInput 
             cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
             (input)="updateComment($event.target!)">{{ value }}</textarea>

@@ -10,8 +10,8 @@
                 <mat-icon>check</mat-icon>
             </div>
             
-            <p id="thanks" i18n>Dziękujemy za złożenie zamówienia</p>
-            <p class="message" i18n>Twoje zamówienie zostało zatwierdzone i jest już przygotowywane</p>
+            <p id="thanks" i18n>Thank you for your order</p>
+            <p class="message" i18n>Your order has been approved and is being prepared</p>
         </span>
 
         <!-- REJECTED -->
@@ -20,9 +20,9 @@
                 <mat-icon>close</mat-icon>
             </div>
             
-            <p id="thanks" i18n>Zamówienie odrzucone</p>
+            <p id="thanks" i18n>Order rejected</p>
             <p class="message" i18n>Twoje zamówienie nie zostało przyjęte</p>
-            <p class="comment" *ngIf="order.orderStatusComment"><span i18n>Komentarz: </span> {{ order.orderStatusComment }}</p>
+            <p class="comment" *ngIf="order.orderStatusComment"><span i18n>Comment: </span> {{ order.orderStatusComment }}</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -33,9 +33,9 @@
                 <mat-icon>cancel</mat-icon>
             </div>
             
-            <p id="thanks" i18n>Zamówienie odrzucone</p>
-            <p class="message" i18n>Twoje zamówienie zostało anulowane</p>
-            <p class="comment" *ngIf="order.orderStatusComment"><span i18n>Komentarz: </span> {{ order.orderStatusComment }}</p>
+            <p id="thanks" i18n>Order rejected</p>
+            <p class="message" i18n>Your order has been cancelled</p>
+            <p class="comment" *ngIf="order.orderStatusComment"><span i18n>Comment: </span> {{ order.orderStatusComment }}</p>
             
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -46,8 +46,8 @@
                 <mat-icon>access_time</mat-icon>
             </div>
             
-            <p id="thanks" i18n>Zamówienie nie zostało przyjęte</p>
-            <p class="message" i18n>Twoje zamówienie nie zostało zatwierdzone</p>
+            <p id="thanks" i18n>The order has not been accepted</p>
+            <p class="message" i18n>Your order has not been approved</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -58,8 +58,8 @@
                 <mat-icon>access_time</mat-icon>
             </div>
             
-            <p id="thanks" i18n>Zamówienie zostało porzucone</p>
-            <p class="message" i18n>Twoje zamówienie nie zostało opłacone</p>
+            <p id="thanks" i18n>The order has been abandoned</p>
+            <p class="message" i18n>Your order has not been paid</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
@@ -70,16 +70,14 @@
                 <mat-icon>restaurant</mat-icon>
             </div>
             
-            <p id="thanks" i18n>Zamówienie zostało dostarczone</p>
-            <p class="message" i18n>Smacznego</p>
+            <p id="thanks" i18n>The order has been delivered</p>
+            <p class="message" i18n>Enjoy your meal</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
         </span>
 
         <ng-template #back>
-            <div id="return-button" class="main-theme-background-color clickable" (click)="return(order)" i18n>
-                Wróć do menu
-            </div>
+            <div id="return-button" class="main-theme-background-color clickable" (click)="return(order)" i18n>Go back to the menu</div>
         </ng-template>
     </span>
 
@@ -88,8 +86,8 @@
             <mat-spinner diameter="100"></mat-spinner>
         </div>
         
-        <p id="thanks" i18n>Trwa potwierdzanie zamówienia</p>
-        <p class="message" i18n>Poczekaj na potwierdzenie realizacji zamówienia przez restaurację</p>
+        <p id="thanks" i18n>Order confirmation is in progress</p>
+        <p class="message" i18n>Wait for the restaurant to confirm your order</p>
     </ng-template>
 
     

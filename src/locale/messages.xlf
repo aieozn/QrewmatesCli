@@ -2,11 +2,921 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="4795568530515056878" datatype="html">
-        <source>Zdjęcie w tle</source>
+      <trans-unit id="5279634174330775382" datatype="html">
+        <source>Back to the top</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/menu-admin/layout/admin-customization/background-photo-customization/background-photo-customization.component.html</context>
+          <context context-type="sourcefile">src/app/common/full-width-dialog/layout/full-width-dialog/full-width-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1370537846415473089" datatype="html">
+        <source>Categories:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/menu-horizontal/layout/menu-horizontal/menu-horizontal.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4175500519325413492" datatype="html">
+        <source>Note for the cook</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-chief-note/order-menu-chief-note.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4066863466004056311" datatype="html">
+        <source>Special wishes?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-chief-note/order-menu-chief-note.component.html</context>
           <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1705412849429309721" datatype="html">
+        <source>Leave a message</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-chief-note/order-menu-chief-note.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8313719157100074891" datatype="html">
+        <source>Edit: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-item/counter-footer/counter-footer.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3657386187981578296" datatype="html">
+        <source>Add: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-item/counter-footer/counter-footer.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5401857106105527645" datatype="html">
+        <source>Allergen information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-item/order-menu-item.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5720147673020626312" datatype="html">
+        <source>Dish options</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-item/order-menu-item.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2502388485848434957" datatype="html">
+        <source>Price: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-item/order-menu-item.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="583709625355908434" datatype="html">
+        <source>Customize your meal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-select/order-menu-select.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-menu-topping/order-menu-topping.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1685738419422973938" datatype="html">
+        <source>Summary:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-submit/order-submit.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3768927257183755959" datatype="html">
+        <source>Save</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-submit/order-submit.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/submit-bar/submit-bar.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2337796221841927384" datatype="html">
+        <source>Order and pay</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-submit/order-submit.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5852616663370292102" datatype="html">
+        <source>Comment: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-summary/order-summary.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="787798817533231355" datatype="html">
+        <source>Cash</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-summary/payment-method/payment-method.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2565424813308630099" datatype="html">
+        <source>BLIK</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/order-composer/layout/order-summary/payment-method/payment-method.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6044767337122735846" datatype="html">
+        <source>Personalization</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/admin-customization.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/menu-admin.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6990570562600013244" datatype="html">
+        <source>Background photo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/background-photo-customization/background-photo-customization.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="460290857154706651" datatype="html">
+        <source>Send background picture</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/background-photo-customization/background-photo-customization.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1046907007915182333" datatype="html">
+        <source>Photo visible above the restaurant menu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/background-photo-customization/background-photo-customization.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8180727105637913227" datatype="html">
+        <source>Send file</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/background-photo-customization/background-photo-customization.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/logo-customization/logo-customization.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1336140260182136197" datatype="html">
+        <source>Color ot the restaurant theme</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/colors-customization/colors-customization.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3280723449323692125" datatype="html">
+        <source>Select theme main color</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/colors-customization/colors-customization.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4659768116970426417" datatype="html">
+        <source>Your restaurant&apos;s menu theme main color</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/colors-customization/colors-customization.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3797570084942068182" datatype="html">
+        <source>Select</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/colors-customization/colors-customization.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5094506690949699116" datatype="html">
+        <source>Submit a logo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/logo-customization/logo-customization.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7644188197160381598" datatype="html">
+        <source>Restaurant&apos;s logo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-customization/logo-customization/logo-customization.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3056763515543389582" datatype="html">
+        <source>Restaurant menu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/admin-menu.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/menu-admin.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6453234701553853183" datatype="html">
+        <source>Expand the category</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/admin-menu.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4366415065133954082" datatype="html">
+        <source>Collapse the category</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/admin-menu.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1261850298457148647" datatype="html">
+        <source>+ Create new category</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/admin-menu.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1806667489382256324" datatype="html">
+        <source>Category</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/edit-category/edit-category.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="305010120232646392" datatype="html">
+        <source>Edit fields below and save changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/edit-category/edit-category.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/edit-item-group/edit-item-group.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5720565592371269148" datatype="html">
+        <source>Dish</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/edit-item-group/edit-item-group.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1750404332352364397" datatype="html">
+        <source>Category description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-category-description/editor-category-description.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-category-description/editor-category-description.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9096517712982826008" datatype="html">
+        <source>Complete the field below</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-category-description/editor-category-description.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-item-group-description/editor-item-group-description.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5018859496453268108" datatype="html">
+        <source>Invalid description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-category-description/editor-category-description.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-item-group-description/editor-item-group-description.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6021402377416286149" datatype="html">
+        <source>Category name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-category-name/editor-category-name.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-category-name/editor-category-name.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4844314558181208909" datatype="html">
+        <source>Enter a valid name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-category-name/editor-category-name.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-item-group-name/editor-item-group-name.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3804764653597488633" datatype="html">
+        <source>Invalid name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-category-name/editor-category-name.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-item-group-name/editor-item-group-name.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8231341065001223754" datatype="html">
+        <source>Dish description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-item-group-description/editor-item-group-description.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-item-group-description/editor-item-group-description.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1290333234375226319" datatype="html">
+        <source>Dish name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-item-group-name/editor-item-group-name.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/field-editors/editor-item-group-name/editor-item-group-name.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2159130950882492111" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/editors/submit-bar/submit-bar.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/do-order-action-dialog/do-order-action-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1284040385701562010" datatype="html">
+        <source>+ Create new dish</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-menu/menu-category-items/menu-category-items.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1069523139277190436" datatype="html">
+        <source>Statistics</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/admin-statistics.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/menu-admin.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8178752008589279399" datatype="html">
+        <source>Orders count:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="196119595118082292" datatype="html">
+        <source>Orders value:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2431841104460573698" datatype="html">
+        <source>Average:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7629408136085128968" datatype="html">
+        <source>Last: day</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5490762179706122508" datatype="html">
+        <source>Last: week</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8448306632171902957" datatype="html">
+        <source>Last: month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1451840204842349532" datatype="html">
+        <source>Last: year</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5626274633214729675" datatype="html">
+        <source>The number of orders served in </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.ts</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8239468362325443440" datatype="html">
+        <source>The number of orders served in the last week</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.ts</context>
+          <context context-type="linenumber">203</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2358004771123482659" datatype="html">
+        <source>The number of orders served today</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/app-statistics/sales-chart/sales-chart.component.ts</context>
+          <context context-type="linenumber">240</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5515209695367460027" datatype="html">
+        <source>Publish changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/header-bar/header-bar.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2527905450724477410" datatype="html">
+        <source>Active orders</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/menu-admin.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3527964877556243114" datatype="html">
+        <source>Orders history</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/menu-admin.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9164852932757368267" datatype="html">
+        <source>Team management</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/menu-admin.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2223235972711666805" datatype="html">
+        <source>Need help?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/menu-admin.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5248987331094891591" datatype="html">
+        <source>Powered by: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/layout/menu-admin.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4280070453805665453" datatype="html">
+        <source>Jenuary</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6642324138857419870" datatype="html">
+        <source>February</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7918954644624211958" datatype="html">
+        <source>March</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1809521303476565743" datatype="html">
+        <source>April</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8469692700277617405" datatype="html">
+        <source>May</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9055297580745330415" datatype="html">
+        <source>June</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9087113544612471348" datatype="html">
+        <source>July</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7801334187936727644" datatype="html">
+        <source>Augist</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5872622085239011307" datatype="html">
+        <source>September</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1491482705364427867" datatype="html">
+        <source>October</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1109977718843277527" datatype="html">
+        <source>November</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3046384882532343115" datatype="html">
+        <source>Devember</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-JENUARY" datatype="html">
+        <source>Jenuary</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-FEBRUARY" datatype="html">
+        <source>February</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-MARCH" datatype="html">
+        <source>March</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-APRIL" datatype="html">
+        <source>April</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-MAY" datatype="html">
+        <source>May</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-JUNE" datatype="html">
+        <source>June</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-JULY" datatype="html">
+        <source>July</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-AUGUST" datatype="html">
+        <source>Augist</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-SEPTEMBER" datatype="html">
+        <source>September</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-OCTOBER" datatype="html">
+        <source>October</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-NOVEMBER" datatype="html">
+        <source>November</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LOCATIVE-DECEMBER" datatype="html">
+        <source>Devember</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-admin/utils/calendar-utils.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2501489806101473286" datatype="html">
+        <source>About us</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/app-client.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/footer/footer-about-us/footer-about-us.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6090931838305354672" datatype="html">
+        <source>Privacy policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/app-client.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3755629522586854032" datatype="html">
+        <source>Legal notice</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/app-client.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="879650116501482755" datatype="html">
+        <source>How does it work?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/app-client.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4753818334674175473" datatype="html">
+        <source>An error occured</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/app-client.component.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7080600303408366407" datatype="html">
+        <source>Order not found</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/app-client.component.ts</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7819314041543176992" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/error-dialog/layout/error-dialog/error-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7563639970548447947" datatype="html">
+        <source>Thank you for your order</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7391875339600304968" datatype="html">
+        <source>Your order has been approved and is being prepared</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2484298314203259452" datatype="html">
+        <source>Order rejected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6661208980632743119" datatype="html">
+        <source>Twoje zamówienie nie zostało przyjęte</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4544619346105173225" datatype="html">
+        <source>Your order has been cancelled</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5686678045058821295" datatype="html">
+        <source>The order has not been accepted</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7698157272776577726" datatype="html">
+        <source>Your order has not been approved</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8714722039013026327" datatype="html">
+        <source>The order has been abandoned</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="32282575843620794" datatype="html">
+        <source>Your order has not been paid</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2488486123788124855" datatype="html">
+        <source>The order has been delivered</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4584908232916057808" datatype="html">
+        <source>Enjoy your meal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="103553954479867186" datatype="html">
+        <source>Go back to the menu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5311205009444436685" datatype="html">
+        <source>Order confirmation is in progress</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2001232215929491729" datatype="html">
+        <source>Wait for the restaurant to confirm your order</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-client/layout/wait-for-order-dialog/wait-for-order-dialog.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2454050363478003966" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-login/login-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-login/login-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6627551976444260400" datatype="html">
+        <source>or</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-login/login-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1219358967829057463" datatype="html">
+        <source>You are already logged in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-login/login-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3797778920049399855" datatype="html">
+        <source>Logout</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/account-bar/account-bar.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="63079808586162201" datatype="html">
+        <source>Pending orders</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/app-staff.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7317290694079257887" datatype="html">
+        <source>Accepted</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/app-staff.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="930883245427700726" datatype="html">
+        <source>Are you sure you want to decline the order?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/do-order-action-dialog/do-order-action-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9145265040676089170" datatype="html">
+        <source>Are you sure you want to cancel the order?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/do-order-action-dialog/do-order-action-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7647493340552401915" datatype="html">
+        <source>Add a comment for the user</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/do-order-action-dialog/do-order-action-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7378878529334768232" datatype="html">
+        <source>Reject</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/do-order-action-dialog/do-order-action-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3133350788051547242" datatype="html">
+        <source>View order</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/pending-order/pending-order.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3008573030448240863" datatype="html">
+        <source>Edited</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-staff/layout/pending-order/pending-order.component.html</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
     </body>

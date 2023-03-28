@@ -1,9 +1,9 @@
 <div id="dialog">
-    <p class="message" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" i18n>Czy na pewno chcesz odrzucić zamówienie?</p>
-    <p class="message" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" i18n>Czy na pewno chcesz odwołać zamówienie?</p>
+    <p class="message" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" i18n>Are you sure you want to decline the order?</p>
+    <p class="message" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" i18n>Are you sure you want to cancel the order?</p>
 
     <mat-form-field [style.fontSize]="16" appearance="fill">
-        <mat-label i18n>Dodaj komentarz dla użytkownika</mat-label>
+        <mat-label i18n>Add a comment for the user</mat-label>
         <textarea matInput
                   cdkTextareaAutosize
                   #autosize="cdkTextareaAutosize"
@@ -13,8 +13,8 @@
       </mat-form-field>
 
       <div id="buttons">
-        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" (click)="proceed()" i18n>Odrzuć</div>
-        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" (click)="proceed()" i18n>Odwołaj</div>
+        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" (click)="proceed()" i18n>Reject</div>
+        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" (click)="proceed()" i18n>Cancel</div>
         <div class="button cancel clickable" (click)="cancel()">
             Anuluj
         </div>

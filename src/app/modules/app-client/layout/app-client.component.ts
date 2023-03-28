@@ -100,8 +100,8 @@ export class AppClientComponent implements OnDestroy {
 
   private loadLastOrderHandleError() {
     this.menuCliDialogServide.openErrorDialog({
-      title: $localize`Wystąpił błąd`,
-      message: $localize`Nie odnaleziono zamówienia`
+      title: $localize`An error occured`,
+      message: $localize`Order not found`
     }).pipe(
       first()
     ).subscribe(_ => {

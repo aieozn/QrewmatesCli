@@ -2,11 +2,11 @@
     <div id="menu-item-details-scroll">
 
         <mat-icon id="close-icon" class="clickable main-theme-color" (click)="close()">close</mat-icon>
-        <div id="allergens"><mat-icon>info</mat-icon><span i18n>Informacje o alergenach</span></div>
+        <div id="allergens"><mat-icon>info</mat-icon><span i18n>Allergen information</span></div>
 
         <div id="item-select-wrapper" *ngIf="group.menuItems.length > 1">
             <mat-form-field appearance="fill" id="item-select">
-                <mat-label i18n>Opcje dania</mat-label>
+                <mat-label i18n>Dish options</mat-label>
                 <mat-select [compareWith]="compareSelects" [value]="(selectedItem$ | async)" (selectionChange)="selectItem$.next($event.value)">
                     <mat-option *ngFor="let item of group.menuItems" [value]="item">
                         {{item.name}} {{item.price}} zł
@@ -23,7 +23,7 @@
             <div class="menu-item-details" *ngIf="(selectedItem$ | async) as item">
                 <p class="menu-item-name">{{group.name}}</p>
                 <!-- TODO change price to dynamic currency -->
-                <p class="menu-item-price"><span i18n>Cena: </span> {{ item.price }} zł</p>
+                <p class="menu-item-price"><span i18n>Price: </span> {{ item.price }} zł</p>
                 <p class="menu-item-description">{{ group.description }}</p>
             </div>
         </div>
