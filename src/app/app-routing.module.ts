@@ -7,11 +7,10 @@ const routes: Routes = [
     path: 'menu',
     loadChildren: () => import('./modules/app-client/app-client.module').then(m => m.AppClientModule) 
   },
-  // ,
-  // { 
-  //   path: 'login',
-  //   component: LoginPageComponent
-  // },
+  { 
+    path: 'login',
+    loadChildren: () => import('./modules/app-login/app-login.module').then(m => m.AppLoginModule) 
+  },
   // { 
   //   path: 'login-success',
   //   component: LoginSuccessComponent

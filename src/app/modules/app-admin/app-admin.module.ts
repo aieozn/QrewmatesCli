@@ -19,13 +19,7 @@ import { HeaderBarComponent } from './layout/header-bar/header-bar.component';
     AppAdminRoutingModule,
     AccountUtilsModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [MenuAdminComponent]
 })
 export class AppAdminModule { }
