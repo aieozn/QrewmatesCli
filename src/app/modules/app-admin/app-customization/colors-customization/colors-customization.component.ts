@@ -7,8 +7,8 @@ import { RestaurantDetailsGet } from '@common/api-client/models';
   styleUrls: ['../customization-component.scss']
 })
 export class ColorsCustomizationComponent {
-  public restaurantCopy: RestaurantDetailsGet | undefined;
-  public activeColor: string | undefined;
+  restaurantCopy: RestaurantDetailsGet | undefined;
+  activeColor: string | undefined;
   
   @Input() set restaurant(value: RestaurantDetailsGet) {
     this.restaurantCopy = JSON.parse(JSON.stringify(value));
@@ -18,7 +18,7 @@ export class ColorsCustomizationComponent {
   @Output('restaurantUpdate')
   updateRestaurant = new EventEmitter<RestaurantDetailsGet>();
 
-  public publish() {
+  publish() {
     if (this.restaurantCopy && this.activeColor) {
       this.restaurantCopy.themeMainColor = this.activeColor.replace('#', '').toUpperCase();
       this.updateRestaurant.emit(this.restaurantCopy);

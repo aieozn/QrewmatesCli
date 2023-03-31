@@ -24,12 +24,12 @@ export class GenericDialogCliManager {
     private orderService: OrderService
   ) { }
 
-  public openAboutUs() {
+  openAboutUs() {
     // TODO fix AboutUsComponent title
     this.dialog.open(FooterAboutUsComponent, FullWidthDialogService.getDefaultGenericDialogConfig({}))
   }
 
-  public openAddItem(group: MenuItemGroupGet) : Observable<OrderElementDataWrapper[] | undefined> {
+  openAddItem(group: MenuItemGroupGet) : Observable<OrderElementDataWrapper[] | undefined> {
     return this.dialogService.openMenuItemComponent({
       group: group,
       item: undefined,
@@ -38,7 +38,7 @@ export class GenericDialogCliManager {
     }).afterClosed().pipe(first());
   }
 
-  public openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
+  openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
     return this.dialogService.openMenuItemComponent({
       group: group,
       item: item,
@@ -47,7 +47,7 @@ export class GenericDialogCliManager {
     }).afterClosed().pipe(first());
   }
 
-  public openSummary() : Observable<OrderWrapper> {
+  openSummary() : Observable<OrderWrapper> {
     // TODO fix title
     return this.dialog
       .open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig({
@@ -57,7 +57,7 @@ export class GenericDialogCliManager {
       .afterClosed();
   }
 
-  public openErrorDialog(message: ErrorDialogMessage) : Observable<void> {
+  openErrorDialog(message: ErrorDialogMessage) : Observable<void> {
     // TODO fix title
     return this.dialog
       .open(ErrorDialogComponent, {

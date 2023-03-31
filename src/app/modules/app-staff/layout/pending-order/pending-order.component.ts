@@ -26,7 +26,7 @@ export class PendingOrderComponent {
 
   @Output('changeStatus') changeStatus = new EventEmitter<UpdateOrderStatusMessage>();
 
-  public constructor(private dialogService: FullWidthDialogService,
+  constructor(private dialogService: FullWidthDialogService,
     private orderInstanceService: OrderInstanceControllerService,
     private accountService: AccountService,
     private dialogManager: GenericDialogStuffManagerService
@@ -34,7 +34,7 @@ export class PendingOrderComponent {
   }
   
   
-  public edit() {
+  edit() {
     if (!this._order) { throw 'Order not defined'; }
 
     this.orderInstanceService.getOrder({
@@ -72,15 +72,15 @@ export class PendingOrderComponent {
     .subscribe();
   }
 
-  public cancelOrder(event: Event) {
+  cancelOrder(event: Event) {
     this.doActionWithDialog(event, AcceptOrderActionDialogType.CANCEL, 'CANCEL');
   }
 
-  public rejectOrder(event: Event) {
+  rejectOrder(event: Event) {
     this.doActionWithDialog(event, AcceptOrderActionDialogType.REJECT, 'REJECT');
   }
 
-  public doActionWithDialog(event: Event, type: AcceptOrderActionDialogType, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) {
+  doActionWithDialog(event: Event, type: AcceptOrderActionDialogType, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) {
     this.dialogManager
       .openAcceptOrderActionDialog(type)
       .pipe(
@@ -99,7 +99,7 @@ export class PendingOrderComponent {
     event.stopPropagation();
   }
 
-  public doAction(event: Event, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
+  doAction(event: Event, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
     this.changeStatus.emit({
       orderAction: action,
       comment: undefined

@@ -17,15 +17,15 @@ export class SubmitBarComponent {
   @Output('onDelete')
   onDelete = new EventEmitter<void>();
 
-  public closeDialog() {
+  closeDialog() {
     this.onClose.emit();
   }
 
-  public saveElement() {
+  saveElement() {
     this.onSave.emit();
   }
 
-  public deleteElement() {
+  deleteElement() {
     this.onDelete.emit();
   }
 }

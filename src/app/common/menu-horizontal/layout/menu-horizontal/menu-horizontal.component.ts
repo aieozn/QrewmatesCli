@@ -12,12 +12,12 @@ import { MenuHorizontalElementComponent } from './menu-horizontal-element/menu-h
 })
 export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit {
 
-  public _elements: MenuHorizontalElement[] = [];
+  _elements: MenuHorizontalElement[] = [];
   private readonly onDestroy = new Subject<void>();
 
-  public screenHeight: number;
+  screenHeight: number;
 
-  public showFullSizeMenu = false;
+  showFullSizeMenu = false;
 
   @ViewChild('menuBar') menuBar!: ElementRef;
   @ViewChildren('element') domElements : QueryList<MenuHorizontalElementComponent> | undefined;

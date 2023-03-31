@@ -15,7 +15,6 @@ export class AuthInterceptor implements HttpInterceptor {
         next: HttpHandler
     ): Observable<HttpEvent<unknown>> {
         const activeUser = this.accountService.getActiveUser();
-        console.log(activeUser)
 
         if (activeUser) {
             const cloned = req.clone({

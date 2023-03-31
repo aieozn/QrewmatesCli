@@ -9,8 +9,8 @@ import { MultimediaControllerService } from '@common/api-client/services';
   styleUrls: ['../customization-component.scss']
 })
 export class BackgroundPhotoCustomizationComponent {
-  public restaurantCopy: RestaurantDetailsGet | undefined;
-  public imageUrl: string | undefined;
+  restaurantCopy: RestaurantDetailsGet | undefined;
+  imageUrl: string | undefined;
   
   @Input() set restaurant(value: RestaurantDetailsGet) {
     this.restaurantCopy = JSON.parse(JSON.stringify(value));
@@ -27,7 +27,7 @@ export class BackgroundPhotoCustomizationComponent {
   ) {
   }
 
-  public remove() {
+  remove() {
     const newRestaurantConfig = {
       ... this.restaurantCopy!
     }
@@ -35,7 +35,7 @@ export class BackgroundPhotoCustomizationComponent {
     this.updateRestaurant.emit(newRestaurantConfig);
   }
 
-  public upload(fileList: FileList | null) {
+  upload(fileList: FileList | null) {
     if (fileList && this.restaurantCopy) {
       const file = fileList.item(0);
 

@@ -11,10 +11,6 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./modules/app-login/app-login.module').then(m => m.AppLoginModule) 
   },
-  // { 
-  //   path: 'login-success',
-  //   component: LoginSuccessComponent
-  // },
   { 
     path: 'staff',
     loadChildren: () => import('./modules/app-staff/app-staff.module').then(m => m.AppStaffModule)

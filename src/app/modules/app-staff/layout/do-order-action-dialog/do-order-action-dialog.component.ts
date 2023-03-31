@@ -10,8 +10,8 @@ import { AcceptOrderActionResult } from '../../services/generic-dialog-stuff-man
 })
 export class DoOrderActionDialogComponent {
 
-  public acceptOrderActionDialogTypeEnum = AcceptOrderActionDialogType;
-  public textAreaValue = '';
+  acceptOrderActionDialogTypeEnum = AcceptOrderActionDialogType;
+  textAreaValue = '';
 
   constructor(
     public dialogRef: MatDialogRef<DoOrderActionDialogComponent>,
@@ -22,7 +22,7 @@ export class DoOrderActionDialogComponent {
 
   }
 
-  public onChange(event: any | null) {
+  onChange(event: any | null) {
     if (event && event.target !== null && event.target.value) {
       this.textAreaValue = event.target.value;
     } else {
@@ -30,21 +30,21 @@ export class DoOrderActionDialogComponent {
     }
   }
 
-  public proceed() {
+  proceed() {
     this.doClose({
       proceed: true,
       message: this.textAreaValue ? this.textAreaValue : undefined
     })
   }
 
-  public cancel() {
+  cancel() {
     this.doClose({
       proceed: false,
       message: undefined
     })
   }
 
-  public doClose(result: AcceptOrderActionResult) {
+  doClose(result: AcceptOrderActionResult) {
     this.dialogRef.close(result);
   }
 }

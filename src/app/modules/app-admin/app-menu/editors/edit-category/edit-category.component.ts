@@ -12,15 +12,15 @@ import { EditorDialogService } from '../editor-dialog.service';
 })
 export class EditCategoryComponent {
 
-  public originalCategory: MenuCategoryGet | undefined;
-  public activeCategory: MenuCategoryData;
+  originalCategory: MenuCategoryGet | undefined;
+  activeCategory: MenuCategoryData;
 
-  public categoryFields = {
+  categoryFields = {
     categoryName: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     categoryDescription: new FormControl('', [Validators.maxLength(512)]),
   };
 
-  public constructor(
+  constructor(
     private editDialogService: EditorDialogService,
     private categoryService: MenuCategoryControllerService,
     private accountService: AccountService
@@ -44,15 +44,15 @@ export class EditCategoryComponent {
     this.categoryFields.categoryDescription.setValue(value.description ?? null);
   }
 
-  public isValid(validation: {[key: string] : FormControl}) : boolean {
+  isValid(validation: {[key: string] : FormControl}) : boolean {
     return !Object.values(validation).map(e => e.invalid).includes(true);
   }
 
-  public isUpdated(validation: {[key: string] : FormControl}) : boolean {
+  isUpdated(validation: {[key: string] : FormControl}) : boolean {
     return Object.values(validation).map(e => e.dirty).includes(true);
   }
 
-  public onSave() {
+  onSave() {
     this.activeCategory.name = this.categoryFields.categoryName.value!;
     this.activeCategory.description = this.categoryFields.categoryDescription.value ?? undefined;
 
@@ -74,11 +74,11 @@ export class EditCategoryComponent {
     }
   }
 
-  public cancel() {
+  cancel() {
     this.editDialogService.closeDialog();
   }
 
-  public onDelete() {
+  onDelete() {
     if (this.originalCategory !== undefined) {
       const originalCategoryRef = this.originalCategory.ref;
 

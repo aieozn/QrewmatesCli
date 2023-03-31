@@ -20,7 +20,7 @@ export class AdminMenuComponent implements OnDestroy {
   
   @ViewChild(ElementEditorDirective, {static: true}) elementEditorHost!: ElementEditorDirective;
   
-  public categories: {
+  categories: {
     category: MenuCategoryGet,
     open: boolean
   }[] = [];
@@ -69,23 +69,23 @@ export class AdminMenuComponent implements OnDestroy {
     })
   }
 
-  public extendCategory(category: MenuCategoryGet) {
+  extendCategory(category: MenuCategoryGet) {
     this.closeCategories();
     this.categories.filter(e => e.category.ref === category.ref)[0].open = true;
   }
 
-  public closeCategories() {
+  closeCategories() {
     for (const category of this.categories) {
       category.open = false;
     }
   }
 
-  public closeEditor() {
+  closeEditor() {
     const viewContainerRef = this.elementEditorHost.viewContainerRef;
     viewContainerRef.clear();
   }
 
-  public editCategory(category: MenuCategoryGet) {
+  editCategory(category: MenuCategoryGet) {
 
     const viewContainerRef = this.elementEditorHost.viewContainerRef;
     viewContainerRef.clear();
@@ -95,7 +95,7 @@ export class AdminMenuComponent implements OnDestroy {
     // componentRef.instance.data = adItem.data;
   }
 
-  public editItem(itemGroupData: {
+  editItem(itemGroupData: {
     group: MenuItemGroupGet,
     categoryRef: string
   }) {
@@ -165,11 +165,11 @@ export class AdminMenuComponent implements OnDestroy {
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   };
 
-  public dragDropListCaught(event: CdkDragDrop<string[]>) {
+  dragDropListCaught(event: CdkDragDrop<string[]>) {
     this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
   }
 
-  public createCategory() {
+  createCategory() {
     const viewContainerRef = this.elementEditorHost.viewContainerRef;
     viewContainerRef.clear();
     viewContainerRef.createComponent(EditCategoryComponent);

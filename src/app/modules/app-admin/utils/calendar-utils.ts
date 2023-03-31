@@ -1,5 +1,5 @@
 export class CalendarUtils {
-    public static monthNumberToName(num: number) {
+    static monthNumberToName(num: number) {
         switch(num) {
             case 1:
                 return $localize`Jenuary`;
@@ -30,7 +30,7 @@ export class CalendarUtils {
         }
     }
 
-    public static monthNumberToLocative(num: number) {
+    static monthNumberToLocative(num: number) {
         switch(num) {
             case 1:
                 return $localize`:@@LOCATIVE-JENUARY:Jenuary`;

@@ -43,7 +43,7 @@ export class MenuItemGroupComponent implements OnDestroy {
     this.orderUpdatedSubscription.unsubscribe();
   }
 
-  public addGroup(group: MenuItemGroupGet) {
+  addGroup(group: MenuItemGroupGet) {
     this.GenericDialogCliManager.openAddItem(group)
     .pipe(first())
     .subscribe(data => {
@@ -53,11 +53,11 @@ export class MenuItemGroupComponent implements OnDestroy {
     });
   }
 
-  public getGroupDefaultPrice(item: MenuItemGroupGet) {
+  getGroupDefaultPrice(item: MenuItemGroupGet) {
     return item.menuItems[0].price;
   }
 
-  public onOrderUpdate(order: OrderWrapper) {
+  onOrderUpdate(order: OrderWrapper) {
     if (this._group) {
       this.orderedItefsOfType = order.items.filter(i => this._group?.menuItems.map(e => e.ref).includes(i.menuItem.ref)).length;
     }

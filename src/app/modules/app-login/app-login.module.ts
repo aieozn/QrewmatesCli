@@ -5,17 +5,21 @@ import { AppLoginRoutingModule } from './app-login-routing.module';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AccountUtilsModule } from '@common/account-utils/account-utils.module';
 import { LoginPageComponent } from './login-page.component';
+import { FormsModule } from '@angular/forms';
+import { SelectOrganizationComponent } from './layout/select-organization/select-organization.component';
 
 
 @NgModule({
   declarations: [
-    LoginPageComponent
+    LoginPageComponent,
+    SelectOrganizationComponent
   ],
   imports: [
     CommonModule,
     AppLoginRoutingModule,
     SocialLoginModule,
-    AccountUtilsModule
+    AccountUtilsModule,
+    FormsModule
   ],
   providers: [
     {

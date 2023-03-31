@@ -1,9 +1,10 @@
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LoginResponse, RestaurantDetailsGet, RestaurantGet } from '../../api-client/models';
 import { LoginControllerService, RestaurantControllerService } from '../../api-client/services';
+import { ActiveUser } from '../model/active-user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,40 +19,41 @@ export class AccountService {
     private router: Router
   ) { }
 
-  public getRestaurantRef() : string {
+  getRestaurantRef() : string {
 
     const pathParts = window.location.pathname.substring(1).split("/");
-    let restaurantRef: string;
 
     if (pathParts[0] === "menu") {
-      restaurantRef = pathParts[1]
-    } else if (pathParts[0] === "staff") {
-      restaurantRef = "R0TAXI000000"
+      return pathParts[1]
     } else {
-      restaurantRef = "R0TAXI000000"
+      const activeRestaurant = this.getActiveUserOrLogin().activeRestaurant;
+
+      if (activeRestaurant !== undefined) {
+        return activeRestaurant;
+      } else {
+        this.unauthorized();
+        throw 'Unauthorized';
+      }
     }
-
-
-    return restaurantRef;
   }
 
-  public getRestaurant() : Observable<RestaurantGet> {
+  getRestaurant() : Observable<RestaurantGet> {
     return this.restaurantService.getRestaurant({
       restaurantRef: this.getRestaurantRef()
     });
   }
 
-  public getRestaurantDetails() : Observable<RestaurantDetailsGet> {
+  getRestaurantDetails() : Observable<RestaurantDetailsGet> {
     return this.restaurantService.getRestaurantDetails({
       restaurantRef: this.getRestaurantRef()
     });
   }
 
-  public getMultimediaUrl(ref: string) {
+  getMultimediaUrl(ref: string) {
     return this.getMultimediaImplementation(this.getRestaurantRef(), ref);
   }
 
-  public getTableRef() : string {
+  getTableRef() : string {
 
     const pathParts = window.location.pathname.substring(1).split("/");
 
@@ -62,24 +64,42 @@ export class AccountService {
     }
   }
 
-  public loginAs(user: SocialUser) {
-    console.log("Login as:")
-    console.log(user)
-    this.loginController.socialLogin({
+  loginAs(user: SocialUser) {
+    return this.loginController.socialLogin({
       body: {
         provider: 'GOOGLE',
         token: user.idToken
       }
-    }).subscribe(e => {
-      this.setStorageUser(e);
-    });
+    }).pipe(
+      tap(e => this.onLoginSuccess(e)),
+    );
   }
 
-  private setStorageUser(data: LoginResponse) {
-    localStorage.setItem(AccountService.authDetails, JSON.stringify(data));
+  login(email: string, password: string) : Observable<LoginResponse> {
+    return this.loginController.localLogin({
+      body: {
+        email: email,
+        password: password
+      }
+    }).pipe(
+      tap(e => this.onLoginSuccess(e))
+    );
   }
 
-  private getStorageUser() : LoginResponse | null {
+  selectRestaurant(ref: string) {
+    const activeUser = this.getActiveUserOrLogin();
+    this.setStorageUser(activeUser, ref);
+    this.redirectBasedOnPrivilages(activeUser, ref);
+  }
+
+  private setStorageUser(data: LoginResponse, activeRestaurant: string | undefined) {
+    localStorage.setItem(AccountService.authDetails, JSON.stringify({
+      ...data,
+      activeRestaurant: activeRestaurant
+    }));
+  }
+
+  private getStorageUser() : ActiveUser | null {
     const storageContent = localStorage.getItem(AccountService.authDetails);
 
     if (storageContent !== null) {
@@ -93,7 +113,7 @@ export class AccountService {
     localStorage.removeItem(AccountService.authDetails);
   }
 
-  public isLoggedIn() : boolean {
+  isLoggedIn() : boolean {
     if (this.getStorageUser() !== null) {
       return true;
     } else {
@@ -101,7 +121,19 @@ export class AccountService {
     }
   }
 
-  public getActiveUser() : LoginResponse | null {
+  getActiveUserOrLogin() : ActiveUser {
+    const user = this.getStorageUser();
+
+    if (user !== null && user.expiration > new Date().getTime()) {
+      return user;
+    } else {
+      this.clearStorageUser();
+      this.unauthorized();
+      throw 'Unauthorized';
+    }
+  }
+
+  getActiveUser() : LoginResponse | null {
     const user = this.getStorageUser();
 
     if (user !== null && user.expiration > new Date().getTime()) {
@@ -113,11 +145,33 @@ export class AccountService {
   }
 
   // Execute this method if request is not authorized. It redirects user to login endpoint
-  public unauthorized() {
+  unauthorized() {
     window.location.href = '/login';
   }
 
   private getMultimediaImplementation(restaurantRef: string, ref: string) {
     return `/api/public/v1/restaurant/${restaurantRef}/multimedia/${ref}`;
+  }
+
+  onLoginSuccess(loginResponse: LoginResponse) {
+    if (loginResponse.restaurants.length === 1) {
+      this.setStorageUser(loginResponse, loginResponse.restaurants[0].ref);
+      this.redirectBasedOnPrivilages(loginResponse, loginResponse.restaurants[0].ref)
+    } else {
+      this.setStorageUser(loginResponse, undefined)
+      this.router.navigate(['login', 'select-organization']);
+    }
+  }
+
+  private redirectBasedOnPrivilages(loginResponse: LoginResponse, restaurantRef: string) {
+    const restaurantRole = loginResponse.restaurants.filter(e => e.ref === restaurantRef)[0].role;
+
+    if (['OWNER', 'ADMIN'].includes(restaurantRole)) {
+      this.router.navigate(['admin']);
+    } else if (restaurantRole === 'STAFF') {
+      this.router.navigate(['admin']);
+    } else {
+      throw 'Unkwnown privilages'
+    }
   }
 }

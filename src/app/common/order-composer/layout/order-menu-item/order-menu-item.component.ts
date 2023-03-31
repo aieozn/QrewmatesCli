@@ -14,14 +14,14 @@ import { OrderUtils } from '../../utils/order-utils';
 })
 export class OrderMenuItemComponent implements OnDestroy {
 
-  public selectedItem$ = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
-  public group: MenuItemGroupGet | undefined;
-  public menuItemGroupImageUrl: string | undefined;
-  public order: OrderElementDataWrapper | undefined;
+  selectedItem$ = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
+  group: MenuItemGroupGet | undefined;
+  menuItemGroupImageUrl: string | undefined;
+  order: OrderElementDataWrapper | undefined;
 
-  public selectItem$ = new BehaviorSubject<MenuItemGet | undefined>(undefined);
-  public restaurantRef: string | undefined;
-  public editMode = false;
+  selectItem$ = new BehaviorSubject<MenuItemGet | undefined>(undefined);
+  restaurantRef: string | undefined;
+  editMode = false;
 
   private readonly onDestroy = new Subject<void>();
   
@@ -69,7 +69,7 @@ export class OrderMenuItemComponent implements OnDestroy {
     }
   }
 
-  public submit(elements: OrderElementDataWrapper[]) {
+  submit(elements: OrderElementDataWrapper[]) {
     this.dialogRef.close(elements);
   }
 

@@ -7,30 +7,30 @@ import { ChangeElementEvent } from './message/change-element-event';
   providedIn: 'root'
 })
 export class MenuEventsService {
-  public elementSelected = new EventEmitter<ChangeElementEvent>();
-  public elementScrolled = new EventEmitter<ChangeElementEvent>();
+  elementSelected = new EventEmitter<ChangeElementEvent>();
+  elementScrolled = new EventEmitter<ChangeElementEvent>();
 
-  public menuElements = new BehaviorSubject<MenuHorizontalElement[]>([]);
-  public menuResized = new Subject<void>();
+  menuElements = new BehaviorSubject<MenuHorizontalElement[]>([]);
+  menuResized = new Subject<void>();
 
   private scrolledElement: MenuHorizontalElement | undefined;
 
-  public onElementSelected(element: MenuHorizontalElement) {
+  onElementSelected(element: MenuHorizontalElement) {
     this.elementSelected.emit(new ChangeElementEvent(element));
   }
 
-  public onElementScrolled(element: MenuHorizontalElement) {
+  onElementScrolled(element: MenuHorizontalElement) {
     if (this.scrolledElement?.order === element.order) { return; }
     this.elementScrolled.emit(new ChangeElementEvent(element));
     this.scrolledElement = element;
   }
 
-  public setMenuElements(menuElements: MenuHorizontalElement[]) {
+  setMenuElements(menuElements: MenuHorizontalElement[]) {
     this.scrolledElement = undefined;
     this.menuElements.next(menuElements);
   }
 
-  public onResizeElements() {
+  onResizeElements() {
     this.menuResized.next();
   }
 }

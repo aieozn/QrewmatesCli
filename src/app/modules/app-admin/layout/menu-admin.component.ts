@@ -10,7 +10,7 @@ export class MenuAdminComponent {
 
   constructor(private router: Router) { }
 
-  public logout() {
+  logout() {
     this.router.navigate(['/']);
   }
 

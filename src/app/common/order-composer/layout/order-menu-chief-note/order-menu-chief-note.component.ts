@@ -18,7 +18,7 @@ export class OrderMenuChiefNoteComponent {
 
   value = '';
 
-  public updateComment(textArea: EventTarget) {
+  updateComment(textArea: EventTarget) {
     if (!this._commentable) { throw 'Order not defined'; }
 
     const value = (textArea as HTMLInputElement).value;

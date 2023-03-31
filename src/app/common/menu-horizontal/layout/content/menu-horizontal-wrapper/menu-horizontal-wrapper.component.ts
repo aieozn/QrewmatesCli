@@ -31,7 +31,7 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   }
 
   @HostListener('window:scroll', ['$event'])
-  public onScroll() {
+  onScroll() {
     const position = window.pageYOffset + this.stickyBarHeight;
     
     if (this.elementToScrollPosition.length === 1) {

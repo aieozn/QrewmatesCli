@@ -11,7 +11,7 @@ export class DialogManagerService {
 
   constructor(private dialog: MatDialog) { }
 
-  public openWaitForOrderDialog(restaurantRef: string, orderRef: string) : Observable<OrderGet> {
+  openWaitForOrderDialog(restaurantRef: string, orderRef: string) : Observable<OrderGet> {
     return this.dialog
       .open(WaitForOrderDialogComponent, {
         disableClose: true,

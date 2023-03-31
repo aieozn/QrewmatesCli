@@ -1,5 +1,5 @@
 export class ConstValues {
-    public static AllStatuses = ['ACCEPTED', 'SERVED', 'PLACED', 'EXPIRED', 'ABANDONED', 'REJECTED', 'CANCELED'];
-    public static SuccessStatuses = ['ACCEPTED', 'SERVED'];
-    public static ProcessingStatuses = ['PLACED', 'ACCEPTED']
+    static AllStatuses = ['ACCEPTED', 'SERVED', 'PLACED', 'EXPIRED', 'ABANDONED', 'REJECTED', 'CANCELED'];
+    static SuccessStatuses = ['ACCEPTED', 'SERVED'];
+    static ProcessingStatuses = ['PLACED', 'ACCEPTED']
 }

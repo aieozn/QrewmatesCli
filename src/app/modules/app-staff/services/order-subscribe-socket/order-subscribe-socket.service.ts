@@ -12,7 +12,7 @@ export class OrderSocketService implements OnDestroy {
   private orderSub: {[key: string]: Observable<SubscribeOrdersMessage>} = {};
 
   // TODO provide only when required
-  public constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService) {
     this.rxStomp = new RxStomp();
     this.rxStomp.configure(orderSubscribeSocketServiceConfig);
     this.rxStomp.activate();
@@ -22,7 +22,7 @@ export class OrderSocketService implements OnDestroy {
     this.rxStomp.deactivate();
   }
 
-  public subscribeOrder(restaurantRef: string) : Observable<SubscribeOrdersMessage> {
+  subscribeOrder(restaurantRef: string) : Observable<SubscribeOrdersMessage> {
     const activeUser = this.accountService.getActiveUser();
 
     if (!activeUser) {

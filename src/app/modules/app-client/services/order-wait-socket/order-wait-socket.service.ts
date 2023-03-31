@@ -14,13 +14,13 @@ export class OrderWaitSocketService {
   private orderSubCount: {[key: string]: number} = {};
   private isActive = false;
 
-  public constructor() {
+  constructor() {
     this.rxStomp = new RxStomp();
     this.rxStomp.configure(orderWaitSocketServiceConfig);
     
   }
 
-  public wait(restaurantRef: string, orderRef: string) : Observable<OrderGet> {
+  wait(restaurantRef: string, orderRef: string) : Observable<OrderGet> {
     if (!this.isActive) {
       this.isActive = true;
       this.rxStomp.activate();
@@ -39,7 +39,7 @@ export class OrderWaitSocketService {
     return this.orderSub[orderRef];
   }
 
-  public unsubscribe(orderRef: string) {
+  unsubscribe(orderRef: string) {
     if (Object.prototype.hasOwnProperty.call(this.orderSub.hasOwnProperty, orderRef)) {
       delete this.orderSub[orderRef];
       this.orderSubCount[orderRef] -= 1;

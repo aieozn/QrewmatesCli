@@ -12,11 +12,11 @@ import { CollectiveChangesService } from '../services/collective-changes/collect
 })
 export class AdminCustomizationComponent implements OnDestroy {
 
-  public restaurant: Observable<RestaurantDetailsGet>;
+  restaurant: Observable<RestaurantDetailsGet>;
 
   private readonly onDestroy = new Subject<void>();
 
-  public constructor(
+  constructor(
     accountService: AccountService,
     private collectiveChanges: CollectiveChangesService,
     private restaurantService: RestaurantControllerService
@@ -41,7 +41,7 @@ export class AdminCustomizationComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  public restaurantUpdated(updated: RestaurantDetailsGet) {
+  restaurantUpdated(updated: RestaurantDetailsGet) {
     this.collectiveChanges.modified.next(true);
     this.restaurant = of(updated);
   }

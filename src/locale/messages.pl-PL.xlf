@@ -958,12 +958,36 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4768749765465246664" datatype="html">
+        <source>Email</source>
+        <target>Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-login/login-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1431416938026210429" datatype="html">
+        <source>Password</source>
+        <target>Hasło</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-login/login-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="6627551976444260400" datatype="html">
         <source>or</source>
 				<target>lub</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/app-login/login-page.component.html</context>
           <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4313714636974556328" datatype="html">
+        <source>Invalid email or password</source>
+        <target>Niepoprawny email lub hasło</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/app-login/login-page.component.html</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1219358967829057463" datatype="html">

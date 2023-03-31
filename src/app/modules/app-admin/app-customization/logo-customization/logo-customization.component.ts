@@ -10,8 +10,8 @@ import { MultimediaControllerService, RestaurantControllerService } from '@commo
 })
 export class LogoCustomizationComponent {
 
-  public restaurantCopy: RestaurantDetailsGet | undefined;
-  public imageUrl: string | undefined;
+  restaurantCopy: RestaurantDetailsGet | undefined;
+  imageUrl: string | undefined;
   
   @Input() set restaurant(value: RestaurantDetailsGet) {
     this.restaurantCopy = JSON.parse(JSON.stringify(value));
@@ -29,7 +29,7 @@ export class LogoCustomizationComponent {
   ) {
   }
 
-  public remove() {
+  remove() {
     const newRestaurantConfig = {
       ... this.restaurantCopy!
     }
@@ -37,7 +37,7 @@ export class LogoCustomizationComponent {
     this.updateRestaurant.emit(newRestaurantConfig);
   }
 
-  public upload(fileList: FileList | null) {
+  upload(fileList: FileList | null) {
     if (fileList && this.restaurantCopy) {
       const file = fileList.item(0);
 

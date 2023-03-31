@@ -10,7 +10,7 @@ import { OrderSummaryComponent } from '../../order-composer/layout/order-summary
 })
 export class FullWidthDialogService {
 
-  public static defaultGenericDialogConfig = {
+  static defaultGenericDialogConfig = {
     width: '100%',
     // Related to getMaxBodyHeight from generic dialog component
     height: '70%',
@@ -33,17 +33,17 @@ export class FullWidthDialogService {
 
   constructor(public dialog: MatDialog) { }
 
-  public static getDefaultGenericDialogConfig(data: unknown) : MatDialogConfig {
+  static getDefaultGenericDialogConfig(data: unknown) : MatDialogConfig {
     return Object.assign({},
       FullWidthDialogService.defaultGenericDialogConfig,
       { data: data });
   }
 
-  public openMenuItemComponent(data: OrderMenuItemData) : MatDialogRef<OrderMenuItemComponent> {
+  openMenuItemComponent(data: OrderMenuItemData) : MatDialogRef<OrderMenuItemComponent> {
     return this.dialog.open(OrderMenuItemComponent, FullWidthDialogService.getDefaultGenericDialogConfig(data));
   }
 
-  public openSummary(data: ExportSummaryData) : MatDialogRef<OrderSummaryComponent> {
+  openSummary(data: ExportSummaryData) : MatDialogRef<OrderSummaryComponent> {
     return this.dialog.open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig(data));
   }
 }

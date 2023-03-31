@@ -19,7 +19,7 @@ export class GenericDialogStuffManagerService {
     private accountService: AccountService
   ) { }
 
-  public openAcceptOrderActionDialog(type: AcceptOrderActionDialogType) {
+  openAcceptOrderActionDialog(type: AcceptOrderActionDialogType) {
     return this.dialog
       .open(DoOrderActionDialogComponent, {
         disableClose: true,
@@ -30,7 +30,7 @@ export class GenericDialogStuffManagerService {
       }).afterClosed();
   }
   
-  public openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
+  openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
     return this.dialogService.openMenuItemComponent({
       group: group,
       item: item,

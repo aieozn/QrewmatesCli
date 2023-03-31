@@ -19,7 +19,7 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     categoryRef: string
   }>();
 
-  public _category: MenuCategoryGet | undefined;
+  _category: MenuCategoryGet | undefined;
   private readonly onDestroy = new Subject<void>();
 
   @Input() set category(value: MenuCategoryGet) {
@@ -40,7 +40,7 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     ).subscribe(e => this.itemGroupDeleted(e));
   }
 
-  public openEditor(menuItemGroup: MenuItemGroupGet) {
+  openEditor(menuItemGroup: MenuItemGroupGet) {
     if (this._category) {
       this.openItemGroupEditor.emit({
         group: menuItemGroup,
@@ -110,7 +110,7 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     })
   }
 
-  public dragDropListCaught(event: CdkDragDrop<string[]>) {
+  dragDropListCaught(event: CdkDragDrop<string[]>) {
     if (!this._category) { throw 'Category not defined'; }
     this.arrayMove(this._category.menuItemGroups, event.previousIndex, event.currentIndex)
   }

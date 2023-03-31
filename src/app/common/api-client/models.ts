@@ -30,6 +30,7 @@ export { MenuCategoryGet } from './models/menu-category-get';
 export { SocialAccountLoginRequest } from './models/social-account-login-request';
 export { LoginResponse } from './models/login-response';
 export { UserRestaurant } from './models/user-restaurant';
+export { LocalAccountLoginRequest } from './models/local-account-login-request';
 export { StatisticsMonthlySalesGetParams } from './models/statistics-monthly-sales-get-params';
 export { StatisticsMonthlySalesGet } from './models/statistics-monthly-sales-get';
 export { StatisticsHourlySalesGetParams } from './models/statistics-hourly-sales-get-params';
@@ -38,6 +39,5 @@ export { StatisticsDailySalesGetParams } from './models/statistics-daily-sales-g
 export { StatisticsDailySalesGet } from './models/statistics-daily-sales-get';
 export { RestaurantGet } from './models/restaurant-get';
 export { StatusResponse } from './models/status-response';
-export { CsrfToken } from './models/csrf-token';
 export { OrderGet } from './models/order-get';
 export { SubscribeOrdersMessage } from './models/subscribe-orders-message';

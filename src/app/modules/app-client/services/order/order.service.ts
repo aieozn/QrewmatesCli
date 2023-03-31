@@ -12,7 +12,7 @@ import { AccountService } from '@common/account-utils/services/account.service';
 export class OrderService {
 
   private createdOrderCookieName = 'qr-last-order-created';
-  public orderChanged: BehaviorSubject<OrderWrapper>;
+  orderChanged: BehaviorSubject<OrderWrapper>;
 
   constructor(
     private orderInstanceService: OrderInstanceControllerService,
@@ -51,7 +51,7 @@ export class OrderService {
     }));
   }
 
-  public addOrderElement(element: OrderElementDataWrapper) {
+  addOrderElement(element: OrderElementDataWrapper) {
 
     const order = this.orderChanged.getValue();
     order.items.push(JSON.parse(JSON.stringify(element)));
@@ -64,13 +64,13 @@ export class OrderService {
     this.orderChanged.next(order);
   }
 
-  public addOrderElements(elements: OrderElementDataWrapper[]) {
+  addOrderElements(elements: OrderElementDataWrapper[]) {
     for (const element of elements) {
       this.addOrderElement(element);
     }
   }
 
-  public updateOrder(newOrder: OrderWrapper) {
+  updateOrder(newOrder: OrderWrapper) {
     let activeOrder = this.orderChanged.getValue();
 
     activeOrder = newOrder;
@@ -83,7 +83,7 @@ export class OrderService {
     this.orderChanged.next(activeOrder);
   }
 
-  public submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
+  submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
     return this.orderInstanceService.order({
       restaurantRef: this.accountService.getRestaurantRef(),
       body: order
@@ -93,7 +93,7 @@ export class OrderService {
     );
   }
 
-  public clearOrder() {
+  clearOrder() {
     this.orderChanged.next(this.getCleanOrder());
   }
 
@@ -110,7 +110,7 @@ export class OrderService {
     }
   }
 
-  public loadOrder(info: {
+  loadOrder(info: {
     ref: string,
     restaurantRef: string
   }) : Observable<OrderDetailsGet> {

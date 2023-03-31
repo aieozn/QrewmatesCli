@@ -2,12 +2,13 @@
     <div class="box-content">
         <h1 i18n>Login</h1>
 
-        <input autocomplete="off" id="login-input" placeholder="Login">
-        <input type="password" autocomplete="off" id="password-input" placeholder="Hasło">
-        <div id="login-button" i18n>Login</div>
-        <p i18n>or</p>
-
+        <input [(ngModel)]="email" (keyup.enter)="login()" autocomplete="off" id="login-input" i18n-placeholder placeholder="Email">
+        <input [(ngModel)]="password" (keyup.enter)="login()" type="password" autocomplete="off" id="password-input" i18n-placeholder placeholder="Password">
+        <div id="login-button" i18n (click)="login()" class="clickable">Login</div>
         <asl-google-signin-button id="google-login-button" type="standard" width="360"></asl-google-signin-button>
+
+        <!-- TODO this message shold be hidden after any form action -->
+        <p id="login-error" *ngIf="showErrorMessage" i18n>Invalid email or password</p>
     </div>
 </div>
 

@@ -11,16 +11,16 @@ import { EditorDialogService } from '../editor-dialog.service';
   styleUrls: ['../edit-element.scss']
 })
 export class EditItemGroupComponent {
-  public originalItemGroup: MenuItemGroupGet | undefined;
-  public activeItemGroup: MenuItemGroupData | undefined;
+  originalItemGroup: MenuItemGroupGet | undefined;
+  activeItemGroup: MenuItemGroupData | undefined;
   private itemGroupCategory: IdentifiedByRefData | undefined;
 
-  public groupFields = {
+  groupFields = {
     groupName: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     groupDescription: new FormControl('', [Validators.maxLength(512)])
   };
 
-  public constructor(
+  constructor(
     private menuItemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private editDialogService: EditorDialogService
@@ -43,15 +43,15 @@ export class EditItemGroupComponent {
     this.groupFields.groupDescription.setValue(value.description ?? null);
   }
 
-  public isValid(validation: {[key: string] : FormControl}) : boolean {
+  isValid(validation: {[key: string] : FormControl}) : boolean {
     return !Object.values(validation).map(e => e.invalid).includes(true);
   }
 
-  public isUpdated(validation: {[key: string] : FormControl}) : boolean {
+  isUpdated(validation: {[key: string] : FormControl}) : boolean {
     return Object.values(validation).map(e => e.dirty).includes(true);
   }
 
-  public onSave() {
+  onSave() {
     if (!this.activeItemGroup || !this.originalItemGroup) { throw 'Unknown group'; }
     this.activeItemGroup.name = this.groupFields.groupName.value!;
     this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
@@ -65,11 +65,11 @@ export class EditItemGroupComponent {
     })
   }
 
-  public cancel() {
+  cancel() {
     this.editDialogService.closeDialog();
   }
 
-  public onDelete() {
+  onDelete() {
     if (this.originalItemGroup !== undefined) {
       const originalGroupCategoryRef = this.originalItemGroup.ref;
 

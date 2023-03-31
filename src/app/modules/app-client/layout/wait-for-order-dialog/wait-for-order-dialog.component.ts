@@ -12,13 +12,13 @@ import { OrderWaitSocketService } from '../../services/order-wait-socket/order-w
 })
 export class WaitForOrderDialogComponent implements OnDestroy {
 
-  public orderRef: string;
-  public restaurantRef: string;
-  public receivedOrder: Observable<OrderGet>;
-  public successStatuses = ConstValues.SuccessStatuses;
+  orderRef: string;
+  restaurantRef: string;
+  receivedOrder: Observable<OrderGet>;
+  successStatuses = ConstValues.SuccessStatuses;
   private readonly onDestroy = new Subject<void>();
 
-  public constructor(
+  constructor(
     private orderWaitSocketService: OrderWaitSocketService,
     public dialogRef: MatDialogRef<WaitForOrderDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
@@ -44,7 +44,7 @@ export class WaitForOrderDialogComponent implements OnDestroy {
     this.orderWaitSocketService.unsubscribe(this.orderRef);
   }
 
-  public return(orderGet: OrderGet) {
+  return(orderGet: OrderGet) {
     this.dialogRef.close(orderGet);
   }
 }

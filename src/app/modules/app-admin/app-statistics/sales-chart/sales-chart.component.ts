@@ -16,14 +16,14 @@ export class SalesChartComponent implements AfterViewInit, OnDestroy {
   @ViewChild('chart')
   private chartRef: ElementRef | undefined;
   private chart: Chart | undefined;
-  public chartDescription: string | undefined;
-  public summary: {
+  chartDescription: string | undefined;
+  summary: {
     ordersCount: number,
     ordersValue: number,
     orderAverageValue: number
   } | undefined;
   
-  public lineChartLegend = true;
+  lineChartLegend = true;
   private chartLoadedSubject = new BehaviorSubject(undefined);
   private readonly onDestroy = new Subject<void>();
 
@@ -91,7 +91,7 @@ export class SalesChartComponent implements AfterViewInit, OnDestroy {
     } 
   }
 
-  public changeRange(range: any) {
+  changeRange(range: any) {
     const now = new Date();
     const dataYear = now.getFullYear();
     const dataMonth = now.getMonth() + 1;

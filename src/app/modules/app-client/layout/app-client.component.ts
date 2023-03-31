@@ -17,14 +17,14 @@ import { AccountService } from '@common/account-utils/services/account.service';
 export class AppClientComponent implements OnDestroy {
 
   private createdOrderCookieName = 'qr-last-order-created-ref';
-  public backgroundImageUrl = new Observable<string>();
+  backgroundImageUrl = new Observable<string>();
 
-  public categories: Observable<MenuCategoryGet[]>;
+  categories: Observable<MenuCategoryGet[]>;
 
-  public order: OrderWrapper | undefined;
+  order: OrderWrapper | undefined;
 
   // Display black cover over items
-  public shadowItems = false;
+  shadowItems = false;
 
   // Menu-cli is always active so multiple css loads shouldn't occuse
   // Just in case there is alse this variable to prevent such a situation
@@ -122,7 +122,7 @@ export class AppClientComponent implements OnDestroy {
     this.menuCliDialogServide.openAboutUs()
   }
 
-  public submit() {
+  submit() {
     this.menuCliDialogServide
       .openSummary()
       .pipe(

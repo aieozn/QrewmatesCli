@@ -8,14 +8,14 @@ import { ErrorDialogMessage } from '../../model/error-dialog-message';
   styleUrls: ['./error-dialog.component.scss']
 })
 export class ErrorDialogComponent {
-  public constructor(
+  constructor(
     public dialogRef: MatDialogRef<ErrorDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ErrorDialogMessage
   ) {
     
   }
 
-  public close() {
+  close() {
     this.dialogRef.close();
   }
 }

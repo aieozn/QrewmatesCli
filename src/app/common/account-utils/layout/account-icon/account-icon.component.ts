@@ -7,12 +7,12 @@ import { Component, Input } from '@angular/core';
 })
 export class AccountIconComponent {
   // TODO manage real account
-  public boxHeight = 0;
-  public fontSize = 0;
+  boxHeight = 0;
+  fontSize = 0;
 
-  public userIconFontColor = '#c21d8e';
-  public userIconBackgroundColor = '#FFFFFF';
-  public userNameFontColor = '#FFFFFF'
+  userIconFontColor = '#c21d8e';
+  userIconBackgroundColor = '#FFFFFF';
+  userNameFontColor = '#FFFFFF'
 
   @Input('theme')
   set theme(value: 'DARK' | 'LIGHT') {

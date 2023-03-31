@@ -26,11 +26,11 @@ export class OrderSummaryComponent {
       this.order = JSON.parse(JSON.stringify(data.item));
   }
 
-  public close() {
+  close() {
     this.dialogRef.close();
   }
 
-  public editItem(item: OrderElementDataWrapper) {
+  editItem(item: OrderElementDataWrapper) {
     const initialIndex = this.order.items.indexOf(item);
 
     this.groupService.getItemGroupDetails({
@@ -51,11 +51,11 @@ export class OrderSummaryComponent {
     })
   }
 
-  public submit() {
+  submit() {
     this.dialogRef.close(this.order);
   }
 
-  public openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
+  openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
     return this.dialogService.openMenuItemComponent({
       group: group,
       item: item,

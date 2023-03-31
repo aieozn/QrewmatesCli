@@ -14,8 +14,8 @@ import { OrderSocketService } from '../services/order-subscribe-socket/order-sub
 })
 export class AppStaffComponent {
 
-  public orders: OrderGet[] = [];
-  public tableCounter: { [tableName: string]: {
+  orders: OrderGet[] = [];
+  tableCounter: { [tableName: string]: {
     "name": string,
     "count": number
   }; } = {};
@@ -69,7 +69,7 @@ export class AppStaffComponent {
     this.updateOrders(newOrders);
   }
 
-  public updateStatus(order: OrderGet, message: UpdateOrderStatusMessage) : boolean {
+  updateStatus(order: OrderGet, message: UpdateOrderStatusMessage) : boolean {
     this.orderStatusService.updateStatus({
       restaurantRef: order.restaurantRef,
       orderInstanceRef: order.ref,

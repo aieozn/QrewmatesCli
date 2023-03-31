@@ -9,8 +9,8 @@ import { MenuEventsService } from '../../../service/menu-event/menu-events.servi
 })
 export class MenuHorizontalElementComponent {
 
-  public _element: MenuHorizontalElement | undefined;
-  public selected = false;
+  _element: MenuHorizontalElement | undefined;
+  selected = false;
 
   @Input() set element(value: MenuHorizontalElement) {
     this._element = value;
@@ -21,7 +21,7 @@ export class MenuHorizontalElementComponent {
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  public createSelectEvent() {
+  createSelectEvent() {
     if (this._element === undefined) {
       throw 'Ement not defined';
     }
@@ -29,13 +29,13 @@ export class MenuHorizontalElementComponent {
     this.menuEventsService.onElementSelected(this._element);
   }
 
-  public select() {
+  select() {
     this.selected = true;
     console.info("Selected");
     this.changeDetector.detectChanges();
   }
 
-  public unselect() {
+  unselect() {
     this.selected = false;
     console.info("Unselected");
     this.changeDetector.detectChanges();

@@ -12,7 +12,7 @@ export class FooterAboutUsComponent {
     public dialogRef: MatDialogRef<FooterAboutUsComponent>
   ) { }
 
-  public close() {
+  close() {
     this.dialogRef.close();
   }
 
