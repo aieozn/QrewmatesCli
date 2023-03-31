@@ -3,11 +3,11 @@ import { ActiveUser } from '@common/account-utils/model/active-user.interface';
 import { AccountService } from '@common/account-utils/services/account.service';
 
 @Component({
-  selector: 'app-account-icon',
-  templateUrl: './account-icon.component.html',
-  styleUrls: ['./account-icon.component.scss']
+  selector: 'app-account-bar',
+  templateUrl: './account-bar.component.html',
+  styleUrls: ['./account-bar.component.scss']
 })
-export class AccountIconComponent {
+export class AccountBarComponent {
   activeUser: ActiveUser;
   userInitials: string;
 

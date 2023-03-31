@@ -4,7 +4,6 @@ import { AppStaffComponent } from './layout/app-staff.component';
 import { OrderStatusPipe } from './layout/pipes/order-status.pipe';
 import { PendingOrderComponent } from './layout/pending-order/pending-order.component';
 import { DoOrderActionDialogComponent } from './layout/do-order-action-dialog/do-order-action-dialog.component';
-import { AccountBarComponent } from './layout/account-bar/account-bar.component';
 import { OrderComposerModule } from '@common/order-composer/order-composer.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -21,7 +20,6 @@ import { FooterPoweredByComponent } from './layout/footer-powered-by/footer-powe
     OrderStatusPipe,
     PendingOrderComponent,
     DoOrderActionDialogComponent,
-    AccountBarComponent,
     FooterPoweredByComponent
   ],
   imports: [

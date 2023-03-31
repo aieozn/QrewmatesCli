@@ -18,12 +18,12 @@
 #account-icon-wrapper {
     margin-top: 20px;
     text-align: right;
-    width: 250px;
+    width: 350px;
 }
 
 #account-icon-wrapper app-account-icon {
-    margin-right: 30px;
-    display: inline-block;
+    position: absolute;
+    right: 30px;
 }
 
 #changes-actions-wrapper {

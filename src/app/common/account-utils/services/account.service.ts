@@ -37,6 +37,11 @@ export class AccountService {
     }
   }
 
+  logout() {
+    this.clearStorageUser();
+    this.unauthorized();
+  }
+
   getRestaurant() : Observable<RestaurantGet> {
     return this.restaurantService.getRestaurant({
       restaurantRef: this.getRestaurantRef()
@@ -133,7 +138,7 @@ export class AccountService {
     }
   }
 
-  getActiveUser() : LoginResponse | null {
+  getActiveUser() : ActiveUser | null {
     const user = this.getStorageUser();
 
     if (user !== null && user.expiration > new Date().getTime()) {

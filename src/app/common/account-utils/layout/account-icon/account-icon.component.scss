@@ -1,24 +1,37 @@
 #account-details {
     position: relative;
     display: flex;
+    height: 40px;
+    font-size: 17px;
 }
 
 #user-icon {
-    height: 100%;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
-    background-color: #FFFFFF;
+    background-color: #c21d8e;
 }
 
 #user-icon p {
     margin: 0px;
     text-align: center;
+    line-height: 40px;
     font-family: PoppinsBold;
-    color: #c21d8e;
+    color: #FFFFFF;
 }
 
 #user-name {
     margin: 0px;
-    line-height: 50px;
+    line-height: 24px;
+    overflow: hidden;
     margin-left: 10px;
-    color: #FFFFFF;
+    color: #c21d8e;
+    text-align: left;
+}
+
+#logout {
+    margin: 0px;
+    margin-left: 10px;
+    font-size: 12px;
+    text-align: left;
 }
