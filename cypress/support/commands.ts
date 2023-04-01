@@ -41,3 +41,46 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+
+export function openMenuItemGroupCard(name: string) {
+    cy.get('.menu-item-details .menu-item-name')
+    .contains(name).parent()
+    .children('.menu-item-add').click()
+}
+
+export function openMenuItemGroupCardWithOption(name: string, optionName: string) {
+    openMenuItemGroupCard(name);
+
+    cy.get('#item-select mat-select').click();
+
+    cy.get('.cdk-overlay-pane mat-option').contains(optionName).click()
+}
+
+export function addMenuItemToCart(name: string, optionName: string) {
+    openMenuItemGroupCardWithOption(name, optionName);
+    cy.get('#add-button').click();
+}
+
+export interface OrderDefinition {
+    elements: {
+        group: string,
+        item: string
+    }[],
+    expectedPrice?: string
+}
+
+export function prepareOrder(order: OrderDefinition) {
+    order.elements.forEach(e => addMenuItemToCart(e.group, e.item))
+
+    if (order.expectedPrice !== undefined) {
+        cy.get('#summary-value').contains(order.expectedPrice);
+    }
+}
+
+export function createOrder(order: OrderDefinition) {
+    prepareOrder(order);
+
+    cy.get('#subscribeButton').click();
+    cy.get('.full-width-dialog #subscribeButton').click();
+}

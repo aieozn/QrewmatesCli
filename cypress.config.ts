@@ -7,7 +7,8 @@ export default defineConfig({
     supportFile: false
   },
   
-  
+  watchForFileChanges: false,
+
   component: {
     devServer: {
       framework: 'angular',
