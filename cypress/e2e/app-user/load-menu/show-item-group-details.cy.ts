@@ -85,38 +85,47 @@ describe('Show item group details', () => {
 
     it('Menu item has valid price', () => {
         expectedMenuItemPrices.forEach((testCase) => {
-            openMenuItemGroupCardWithOption(testCase.groupName, testCase.itemName)
+            openMenuItemGroupCardWithOption({
+                group: testCase.groupName,
+                item: testCase.itemName
+            })
             cy.get('.menu-item-price').contains(testCase.price)
             cy.get('#close-icon').click();
         })
     })
 
     it('Menu item has valid selects', () => {
-        openMenuItemGroupCardWithOption('Pizza Diabelska', 'Średnia');
+        openMenuItemGroupCardWithOption({
+            group: 'Pizza Diabelska',
+            item: 'Średnia'
+        });
 
         ['Pomidorowy', 'Pomidorowy (+7.99 zł)', 'Czosnkowy (+4.99 zł)'].forEach(testCase => {
             cy.get('#order-menu-select h3').contains('Baza')
                 .parent()
-                .children('mat-radio-group')
-                .children('mat-radio-button')
+                .find('mat-radio-button')
                 .contains(testCase);
         })
     })
 
     it('Menu item has valid toppings', () => {
         for (const testCase of expectedToppings) {
-            openMenuItemGroupCardWithOption(testCase.groupName, testCase.itemName);
+            openMenuItemGroupCardWithOption({
+                group: testCase.groupName,
+                item: testCase.itemName
+            });
 
             testCase.toppings.forEach(expectedTopping => {
                 cy.get('#order-menu-topping h3')
                     .contains('Dodatki do pizzy')
                     .parent()
-                    .get('mat-checkbox').contains(expectedTopping);
+                    .find('mat-checkbox')
+                    .contains(expectedTopping);
 
                 cy.get('#order-menu-topping h3')
                     .contains('Dodatki do pizzy')
                     .parent()
-                    .get('mat-checkbox')
+                    .find('mat-checkbox')
                     .should('have.length', testCase.count);
             })
 

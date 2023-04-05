@@ -7,10 +7,10 @@
                 </div>
                 <div class="summary-element-options">
                     <div class="summary-element-option" *ngFor="let select of orderElement.menuItemSelects">
-                        {{ select.name }} ({{ select.price }}zł)
+                        {{ select.name }} (+{{ select.price }} zł)
                     </div>
                     <div class="summary-element-option" *ngFor="let topping of orderElement.menuItemToppings">
-                        {{ topping.name }} ({{ topping.price }}zł)
+                        {{ topping.name }} (+{{ topping.price }} zł)
                     </div>
                     <div class="summary-element-option" *ngIf="orderElement.comment">
                         <span i18n>Comment: </span> {{ orderElement.comment }}

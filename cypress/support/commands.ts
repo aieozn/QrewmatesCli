@@ -46,41 +46,169 @@
 export function openMenuItemGroupCard(name: string) {
     cy.get('.menu-item-details .menu-item-name')
     .contains(name).parent()
-    .children('.menu-item-add').click()
+    .find('.menu-item-add').click()
 }
 
-export function openMenuItemGroupCardWithOption(name: string, optionName: string) {
-    openMenuItemGroupCard(name);
+export function openMenuItemGroupCardWithOption(element: OrderElement) {
+    openMenuItemGroupCard(element.group);
 
     cy.get('#item-select mat-select').click();
 
-    cy.get('.cdk-overlay-pane mat-option').contains(optionName).click()
+    cy.get('.cdk-overlay-pane mat-option').contains(element.item).click()
 }
 
-export function addMenuItemToCart(name: string, optionName: string) {
-    openMenuItemGroupCardWithOption(name, optionName);
+export function addMenuItemToCart(element: OrderElement) {
+    openMenuItemGroupCardWithOption(element);
+
+    if (element.count && element.count > 1) {
+        for (let i = 1; i < element.count; i++) cy.get('#count-value-plus').click();
+    }
+
+    if (element.selects) {
+        for (const select of element.selects) {
+            addSelect(select)
+        }
+    }
+    
+    if (element.toppings) {
+        for (const topping of element.toppings) {
+            addTopping(topping);
+        }
+    }
+
+    if (element.comment) {
+        cy.get('#order-menu-chief-note textarea').click().type(element.comment)
+    }
+    
     cy.get('#add-button').click();
 }
 
+// Requires open card
+function addSelect(select: MenuItemSelect) {
+    cy.get("#order-menu-select h3")
+        .contains(select.groupName)
+        .parent()
+        .find('mat-radio-button').contains(select.selectName).click();
+}
+
+// Requires open card
+function addTopping(topping: MenuItemTopping) {
+    cy.get("#order-menu-topping h3")
+        .contains(topping.groupName)
+        .parent()
+        .find('mat-checkbox').contains(topping.toppingName).click();
+}
+
 export interface OrderDefinition {
-    elements: {
-        group: string,
-        item: string
-    }[],
-    expectedPrice?: string
+    elements: OrderElement[];
+    expectedPrice?: string;
+    comment?: string;
+}
+
+export interface OrderElement {
+    group: string;
+    item: string;
+    count?: number;
+    selects?: MenuItemSelect[];
+    toppings?: MenuItemTopping[];
+    comment?: string;
+}
+
+export interface MenuItemSelect {
+    groupName: string;
+    selectName: string;
+}
+
+export interface MenuItemTopping {
+    groupName: string;
+    toppingName: string;
 }
 
 export function prepareOrder(order: OrderDefinition) {
-    order.elements.forEach(e => addMenuItemToCart(e.group, e.item))
+    order.elements.forEach(e => addMenuItemToCart(e))
 
     if (order.expectedPrice !== undefined) {
         cy.get('#summary-value').contains(order.expectedPrice);
     }
 }
 
-export function createOrder(order: OrderDefinition) {
+export function doOrderAndValidate(order: OrderDefinition) {
     prepareOrder(order);
 
     cy.get('#subscribeButton').click();
+
+    if (order.comment) {
+        cy.get('#order-menu-chief-note textarea').click().type(order.comment);
+    }
+
+    validateSummary(order);
     cy.get('.full-width-dialog #subscribeButton').click();
+}
+
+function valudateElement(element: OrderElement, elementPosition: number) {
+    const rootElement = cy.get('#order-summary .summary-element').eq(elementPosition);
+    
+    rootElement.find('.summary-element-name')
+        .contains(`${element.group} (${element.item})`);
+
+
+    let summaryElementNumber = 0;
+    if (element.selects) {
+        for (const select of element.selects) {
+            cy.get('#order-summary .summary-element').eq(elementPosition)
+                .find('.summary-element-option').eq(summaryElementNumber)
+                .contains(select.selectName);
+
+            summaryElementNumber ++;
+        }
+    }
+
+    if (element.toppings) {
+        for (const topping of element.toppings) {
+            cy.get('#order-summary .summary-element').eq(elementPosition)
+                .find('.summary-element-option').eq(summaryElementNumber)
+                .contains(topping.toppingName)
+
+            summaryElementNumber ++;
+        }
+    }
+
+    if (element.comment) {
+        cy.get('#order-summary .summary-element').eq(elementPosition)
+            .find('.summary-element-option').eq(summaryElementNumber)
+            .contains(`Comment: ${element.comment}`)
+
+        summaryElementNumber ++;
+    }
+
+    cy.get('#order-summary .summary-element')
+        .eq(elementPosition)
+        .find('.summary-element-option')
+        .should('have.length', summaryElementNumber);
+}
+
+function validateSummary(order: OrderDefinition) {
+    // Elements without count value
+    const elementsFlat: OrderElement[] = [];
+
+    for (const element of order.elements) {
+        const count = element.count ? element.count : 1;
+
+        for (let i = 0; i < count; i++) {
+            elementsFlat.push({
+                ...element,
+                count: 1
+            })
+        }
+    }
+
+    cy.get('#order-summary .summary-element').should('have.length', elementsFlat.length);
+
+    for (let i = 0; i < order.elements.length; i++) {
+        valudateElement(order.elements[i], i);
+    }
+
+    if (order.comment) {
+        cy.get('#order-menu-chief-note textarea').should('have.value', order.comment)
+    }
 }

@@ -29,21 +29,21 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Testing
 Tests to be done
 
-- Odczytanie regulaminu
-- Wyświetlanie wszysktich kategorii w menu poziomym
-- Wyświetlanie wszystkich kategorii w menu poziomym (tytuły + opis)
-- Wyświetlenie poprawnych atrybutów produktu na liście produktów:
-    - nazwa
-    - opis
-    - cena
++ Odczytanie regulaminu
++ Wyświetlanie wszysktich kategorii w menu poziomym
++ Wyświetlanie wszystkich kategorii w menu poziomym (tytuły + opis)
++ Wyświetlenie poprawnych atrybutów produktu na liście produktów:
+    + nazwa
+    + opis
+    + cena
 
-- Wyświetlenie poprawnych szczegółów produktu
-    - opcje
-    - nazwa
-    - cena
-    - opis
-    - opcje
-    - dodatki
++ Wyświetlenie poprawnych szczegółów produktu
+    + opcje
+    + nazwa
+    + cena
+    + opis
+    + opcje
+    + dodatki
 
 - Poprawne obliczanie ceny po aktualizacji
     - opcji

@@ -25,11 +25,8 @@ describe('Prepare cart', () => {
                 },
                 {
                     group: 'Pizza Capricciosa',
-                    item: 'Średnia'
-                },
-                {
-                    group: 'Pizza Capricciosa',
-                    item: 'Średnia'
+                    item: 'Średnia',
+                    count: 2
                 }
             ],
             expectedPrice: '(3) 64.97 zł'
@@ -42,4 +39,6 @@ describe('Prepare cart', () => {
         getItemGroupCard('Pizza Capricciosa').should('have.class', 'selected');
         getItemGroupCard('Pizza Capricciosa').find('.menu-item-count p').contains('2')
     })
+
+    // TODO odznaczanie elementów
 })

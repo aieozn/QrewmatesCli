@@ -1,0 +1,20 @@
+{
+    "items": [
+        {
+            "comment": "Please remove dough from pizza",
+            "menuItem": {
+                "ref": "I0S0PT000003"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0S0PT000000"
+                }
+            ],
+            "menuItemToppings": []
+        }
+    ],
+    "paymentMethod": "CASH",
+    "table": {
+        "ref": "TABLE0PT0001"
+    }
+}

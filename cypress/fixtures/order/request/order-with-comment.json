@@ -1,0 +1,20 @@
+{
+    "items": [
+        {
+            "menuItem": {
+                "ref": "I0S0PT000000"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0S0PT000000"
+                }
+            ],
+            "menuItemToppings": []
+        }
+    ],
+    "paymentMethod": "CASH",
+    "table": {
+        "ref": "TABLE0PT0001"
+    },
+    "comment": "I'm sooo hungry!"
+}
