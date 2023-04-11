@@ -51,27 +51,27 @@ Tests to be done
     - topping
     - ilości produktów
 
-- [CLI] Dodanie jednego prostego produktu do koszyka
-    - Wyświetlenie prawidłowego podsumowania
-        - lista wszystkich elementów
-        - poprawna cena
-        - sprawdzenie przywracania zamówienia z cache
++ [CLI] Dodanie jednego prostego produktu do koszyka
+    + Wyświetlenie prawidłowego podsumowania
+        + lista wszystkich elementów
+        + poprawna cena
+        + sprawdzenie przywracania zamówienia z cache
 
-- [CLI] Dodanie jednego złożonego produktu do koszyka
-    - Wyświetlenie prawidłowego podsumowania
-        - lista wszystkich elementów
-        - poprawna cena
-        - komentarz
-        - sprawdzenie przywracania zamówienia z cache
++ [CLI] Dodanie jednego złożonego produktu do koszyka
+    + Wyświetlenie prawidłowego podsumowania
+        + lista wszystkich elementów
+        + poprawna cena
+        + komentarz
+        + sprawdzenie przywracania zamówienia z cache
 
-- [CLI] Dodanie jednego wielu produktów do koszyka
-    - Obwódka na karcie produktu i wyświetlenie poprawnej ilości
-    - Wyświetlenie prawidłowego podsumowania
-        - lista wszystkich elementów
-        - rozdzielenie elementów z wybraną ilością na kolejne pozycje na liście
-        - poprawna cena
-        - komentarz
-        - sprawdzenie przywracania zamówienia z cache
++ [CLI] Dodanie jednego wielu produktów do koszyka
+    + Obwódka na karcie produktu i wyświetlenie poprawnej ilości
+    + Wyświetlenie prawidłowego podsumowania
+        + lista wszystkich elementów
+        + rozdzielenie elementów z wybraną ilością na kolejne pozycje na liście
+        + poprawna cena
+        + komentarz
+        + sprawdzenie przywracania zamówienia z cache
 
 - [CLI|STAFF] Edycja produktu (sprawdzenie poprawności aktualizacji ceny, zamówienia, komentarza, podsumowania)
     - dodanie topping
@@ -89,30 +89,30 @@ Tests to be done
 - [STAFF] Skasowanie zamówienia po akcji klienta (DELETE)
 - [STAFF] Aktualizacja zamówienia po akcji kelnera (UPDATE)
 
-- Wyświetlenie dokumentu "O nas"
-- Wyświetlenie dokumentu "Polityka prywatności"
-- Wyświetlenie dokumentu "Informacja prawna"
-- Wyświetlenie dokumentu "Jak to działa?"
-- Przechodzenie przez wszystkie statusy zamówienia
-- Odczyt komentarza do odrzuconego zamówienia
-- Odczyt komentarza do anulowanego zamówienia
++ Wyświetlenie dokumentu "O nas"
++ Wyświetlenie dokumentu "Polityka prywatności"
++ Wyświetlenie dokumentu "Informacja prawna"
++ Wyświetlenie dokumentu "Jak to działa?"
++ Przechodzenie przez wszystkie statusy zamówienia
++ Odczyt komentarza do odrzuconego zamówienia
++ Odczyt komentarza do anulowanego zamówienia
 
 
 ## Stories
 ### User
-- Użytkownik może przeczytać załączony dokument w formacie PDF:
-    - O nas
-    - Polityka prywatności
-    - Informacja prawna 
-    - Jak to działa?
-- Użytkownik może wyświetlić menu restauracji
-- Użytkownik może skompletować zamówienie zawierające
-    - Dania
-    - Dodatki
-    - Opcje
-    - Komentarz
-- Użytkownik może złożyć zamówienia
-- Użytkownik zostanie poinformowany o przyjęciu (lub nieprzyjęciu) zamówienia
++ Użytkownik może przeczytać załączony dokument w formacie PDF:
+    + O nas
+    + Polityka prywatności
+    + Informacja prawna 
+    + Jak to działa?
++ Użytkownik może wyświetlić menu restauracji
++ Użytkownik może skompletować zamówienie zawierające
+    + Dania
+    + Dodatki
+    + Opcje
+    + Komentarz
++ Użytkownik może złożyć zamówienia
++ Użytkownik zostanie poinformowany o przyjęciu (lub nieprzyjęciu) zamówienia
 - Użytkownik może wyświetlić dodatkowe informacje o restauracji:
     - Czas obsługi zamówienia
     - Godziny otwarcia

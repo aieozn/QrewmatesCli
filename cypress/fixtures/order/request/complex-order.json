@@ -1,0 +1,72 @@
+{
+    "items": [
+        {
+            "menuItem": {
+                "ref": "I0M0PT000000"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0M0PT000000"
+                }
+            ],
+            "menuItemToppings": [
+                {
+                    "ref": "T0M0PT000007"
+                }
+            ]
+        },
+        {
+            "menuItem": {
+                "ref": "I0M0PT000000"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0M0PT000000"
+                }
+            ],
+            "menuItemToppings": [
+                {
+                    "ref": "T0M0PT000007"
+                }
+            ]
+        },
+        {
+            "comment": "Bez pośpiechu",
+            "menuItem": {
+                "ref": "I0L0PT000001"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0L0PT000002"
+                }
+            ],
+            "menuItemToppings": [
+                {
+                    "ref": "T0L0PT000001"
+                },
+                {
+                    "ref": "T0L0PT000002"
+                }
+            ]
+        },
+        {
+            "comment": "Zimna",
+            "menuItem": {
+                "ref": "I0PT00000039"
+            },
+            "menuItemSelects": [],
+            "menuItemToppings": []
+        },
+        {
+            "menuItem": {
+                "ref": "I0PT00000040"
+            },
+            "menuItemSelects": [],
+            "menuItemToppings": []
+        }
+    ],
+    "paymentMethod": "CASH",
+    "table": {
+        "ref": "TABLE0PT0001"
+    }
+}

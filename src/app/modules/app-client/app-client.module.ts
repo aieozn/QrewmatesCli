@@ -13,8 +13,8 @@ import { FullWidthDialogModule } from '@common/full-width-dialog/full-width-dial
 import { OrderComposerModule } from '@common/order-composer/order-composer.module';
 import { FooterPoweredByComponent } from './layout/footer/footer-powered-by/footer-powered-by.component';
 import { MenuHorizontalModule } from '@common/menu-horizontal/menu-horizontal.module';
-import { ApiClientModule } from '@common/api-client/api-client.module';
 import { CookieService } from 'ngx-cookie-service';
+import { ApiModule } from '@common/api-client/api.module';
 
 
 @NgModule({
@@ -35,7 +35,7 @@ import { CookieService } from 'ngx-cookie-service';
     FullWidthDialogModule,
     OrderComposerModule,
     MenuHorizontalModule,
-    ApiClientModule
+    ApiModule
   ],
   providers: [
     CookieService

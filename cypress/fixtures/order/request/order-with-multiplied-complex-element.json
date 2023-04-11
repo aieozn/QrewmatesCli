@@ -1,0 +1,118 @@
+{
+    "items": [
+        {
+            "comment": "Tylko szybko!",
+            "menuItem": {
+                "ref": "I0L0PT000015"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0L0PT000001"
+                }
+            ],
+            "menuItemToppings": [
+                {
+                    "ref": "T0L0PT000003"
+                },
+                {
+                    "ref": "T0L0PT000004"
+                },
+                {
+                    "ref": "T0L0PT000005"
+                }
+            ]
+        },
+        {
+            "comment": "Tylko szybko!",
+            "menuItem": {
+                "ref": "I0L0PT000015"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0L0PT000001"
+                }
+            ],
+            "menuItemToppings": [
+                {
+                    "ref": "T0L0PT000003"
+                },
+                {
+                    "ref": "T0L0PT000004"
+                },
+                {
+                    "ref": "T0L0PT000005"
+                }
+            ]
+        },
+        {
+            "comment": "Tylko szybko!",
+            "menuItem": {
+                "ref": "I0L0PT000015"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0L0PT000001"
+                }
+            ],
+            "menuItemToppings": [
+                {
+                    "ref": "T0L0PT000003"
+                },
+                {
+                    "ref": "T0L0PT000004"
+                },
+                {
+                    "ref": "T0L0PT000005"
+                }
+            ]
+        },
+        {
+            "comment": "Tylko szybko!",
+            "menuItem": {
+                "ref": "I0L0PT000015"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0L0PT000001"
+                }
+            ],
+            "menuItemToppings": [
+                {
+                    "ref": "T0L0PT000003"
+                },
+                {
+                    "ref": "T0L0PT000004"
+                },
+                {
+                    "ref": "T0L0PT000005"
+                }
+            ]
+        },
+        {
+            "comment": "Tylko szybko!",
+            "menuItem": {
+                "ref": "I0L0PT000015"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0L0PT000001"
+                }
+            ],
+            "menuItemToppings": [
+                {
+                    "ref": "T0L0PT000003"
+                },
+                {
+                    "ref": "T0L0PT000004"
+                },
+                {
+                    "ref": "T0L0PT000005"
+                }
+            ]
+        }
+    ],
+    "paymentMethod": "CASH",
+    "table": {
+        "ref": "TABLE0PT0001"
+    }
+}

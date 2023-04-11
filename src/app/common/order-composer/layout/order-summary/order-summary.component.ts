@@ -8,6 +8,7 @@ import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupGet } from '@common/api-client/models';
+import { OrderService } from 'app/modules/app-client/services/order/order.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -22,6 +23,7 @@ export class OrderSummaryComponent {
     private groupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private dialogService: FullWidthDialogService,
+    private orderService: OrderService,
     @Inject(MAT_DIALOG_DATA) data: ExportSummaryData) {
       this.order = JSON.parse(JSON.stringify(data.item));
   }
@@ -43,10 +45,15 @@ export class OrderSummaryComponent {
         this.openEditItem(group, item)
       )
     ).subscribe(next => {
-      if (next) {
+      if (next !== undefined) {
         const partI = this.order.items.slice(0, initialIndex);
         const partII = this.order.items.slice(initialIndex + 1, this.order.items.length)
         this.order.items = partI.concat(next).concat(partII);
+        this.orderService.updateOrder(this.order);
+
+        if (this.order.items.length === 0) {
+          this.close();
+        }
       }
     })
   }

@@ -31,13 +31,11 @@ export class MenuHorizontalElementComponent {
 
   select() {
     this.selected = true;
-    console.info("Selected");
     this.changeDetector.detectChanges();
   }
 
   unselect() {
     this.selected = false;
-    console.info("Unselected");
     this.changeDetector.detectChanges();
   }
 

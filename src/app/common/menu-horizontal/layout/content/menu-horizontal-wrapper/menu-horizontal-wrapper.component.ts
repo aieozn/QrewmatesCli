@@ -71,8 +71,6 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   private onElementChanged(event: ChangeElementEvent) {
     const element = this.elementsRefs!.get(event.element.order);
     if (element) {
-      console.info("Scroll to list element");
-
       let elementTopOffset = this.getElementScrollTopPosition(event);
       elementTopOffset += this.stickyBarHeight;
       elementTopOffset -= 60;

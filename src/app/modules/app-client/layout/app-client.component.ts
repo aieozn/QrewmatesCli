@@ -133,7 +133,7 @@ export class AppClientComponent implements OnDestroy {
           console.debug("Order created");
           console.debug(result);
           const expires : Date = new Date();
-          expires.setHours(new Date().getHours() + 6)
+          expires.setTime(new Date().getTime() + 6 * (1000 * 60 * 60))
 
           this.cookiesService.set(this.createdOrderCookieName, JSON.stringify({
             ref: result.ref,

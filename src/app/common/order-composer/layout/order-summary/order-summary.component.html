@@ -1,9 +1,10 @@
-<app-full-width-dialog title="Podsumowanie zamówienia" (close)="close()">
+<app-full-width-dialog i18n-title title="Order summary" (close)="close()">
     <div id="order-summary">
         <div class="summary-element clickable" *ngFor="let orderElement of order.items" (click)="editItem(orderElement)">
             <div class="summary-element-description">
                 <div class="summary-element-name">
-                    {{ orderElement.menuItem.menuItemGroupName }} ({{ orderElement.menuItem.name }})
+                    {{ orderElement.menuItem.menuItemGroupName }}
+                    <ng-container *ngIf="!orderElement.menuItem.isTheOnlyOption">({{ orderElement.menuItem.name }})</ng-container>
                 </div>
                 <div class="summary-element-options">
                     <div class="summary-element-option" *ngFor="let select of orderElement.menuItemSelects">

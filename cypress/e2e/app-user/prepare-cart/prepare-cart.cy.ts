@@ -1,4 +1,5 @@
-import { prepareOrder } from "../../../support/commands"
+import { prepareOrder, validateSummary } from "../../../support/commands"
+import { complexOrder, simpleOrder } from "../make-order/fixtures";
 
 function getItemGroupCard(name: string) : Cypress.Chainable<JQuery<HTMLElement>> {
     return cy.get('.menu-item .menu-item-name')
@@ -40,5 +41,27 @@ describe('Prepare cart', () => {
         getItemGroupCard('Pizza Capricciosa').find('.menu-item-count p').contains('2')
     })
 
+    it('Removes order from cache after six hours', () => {
+        prepareOrder(complexOrder);
+
+        cy.clock(new Date().getTime() +(1000 * 60 * 60) * 7, ['Date']);
+
+        //Buy some time for cloak
+        cy.get('#subscribeButton').click();
+        validateSummary(complexOrder);
+
+        cy.get('#order-submit').should('exist');
+
+        cy.reload();
+
+        cy.get('#order-submit').should('not.exist');
+    })
+
+    it.only('Removes element from order', () => {
+        prepareOrder(simpleOrder);
+
+        throw new Error("not implemented yet")
+    })
+    
     // TODO odznaczanie elementów
 })

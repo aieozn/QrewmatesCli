@@ -27,7 +27,11 @@ export class OrderService {
       } = JSON.parse(cookieValueString);
 
       const expires = new Date();
-      expires.setHours(new Date(cookieValue.created).getHours() + 6)
+      expires.setTime(new Date(cookieValue.created).getTime() + 6 * (1000 * 60 * 60))
+
+      console.log("New date: " + new Date())
+      console.log("Old date: " + new Date(cookieValue.created))
+      console.log("Expires: " + expires)
 
       if (new Date() < expires) {
         this.orderChanged = new BehaviorSubject<OrderWrapper>(cookieValue.order);

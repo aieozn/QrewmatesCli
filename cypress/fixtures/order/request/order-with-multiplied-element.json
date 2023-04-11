@@ -1,0 +1,63 @@
+{
+    "items": [
+        {
+            "menuItem": {
+                "ref": "I0M0PT000000"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0M0PT000000"
+                }
+            ],
+            "menuItemToppings": []
+        },
+        {
+            "menuItem": {
+                "ref": "I0M0PT000000"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0M0PT000000"
+                }
+            ],
+            "menuItemToppings": []
+        },
+        {
+            "menuItem": {
+                "ref": "I0M0PT000000"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0M0PT000000"
+                }
+            ],
+            "menuItemToppings": []
+        },
+        {
+            "menuItem": {
+                "ref": "I0M0PT000000"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0M0PT000000"
+                }
+            ],
+            "menuItemToppings": []
+        },
+        {
+            "menuItem": {
+                "ref": "I0M0PT000000"
+            },
+            "menuItemSelects": [
+                {
+                    "ref": "S0M0PT000000"
+                }
+            ],
+            "menuItemToppings": []
+        }
+    ],
+    "paymentMethod": "CASH",
+    "table": {
+        "ref": "TABLE0PT0001"
+    }
+}

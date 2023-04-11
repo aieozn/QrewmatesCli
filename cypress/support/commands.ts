@@ -52,9 +52,12 @@ export function openMenuItemGroupCard(name: string) {
 export function openMenuItemGroupCardWithOption(element: OrderElement) {
     openMenuItemGroupCard(element.group);
 
-    cy.get('#item-select mat-select').click();
-
-    cy.get('.cdk-overlay-pane mat-option').contains(element.item).click()
+    if (element.item !== undefined) {
+        cy.get('#item-select').click();
+        cy.get('.cdk-overlay-pane mat-option').contains(element.item).click()
+    } else {
+        cy.get('#item-select').should('not.exist')
+    }
 }
 
 export function addMenuItemToCart(element: OrderElement) {
@@ -107,7 +110,7 @@ export interface OrderDefinition {
 
 export interface OrderElement {
     group: string;
-    item: string;
+    item?: string;
     count?: number;
     selects?: MenuItemSelect[];
     toppings?: MenuItemTopping[];
@@ -146,11 +149,16 @@ export function doOrderAndValidate(order: OrderDefinition) {
 }
 
 function valudateElement(element: OrderElement, elementPosition: number) {
-    const rootElement = cy.get('#order-summary .summary-element').eq(elementPosition);
+    if (element.item) {
+        cy.get('#order-summary .summary-element').eq(elementPosition)
+            .find('.summary-element-name')
+            .contains(`${element.group} (${element.item})`);
+    } else {
+        cy.get('#order-summary .summary-element').eq(elementPosition)
+            .find('.summary-element-name')
+            .contains(`${element.group}`);
+    }
     
-    rootElement.find('.summary-element-name')
-        .contains(`${element.group} (${element.item})`);
-
 
     let summaryElementNumber = 0;
     if (element.selects) {
@@ -187,7 +195,7 @@ function valudateElement(element: OrderElement, elementPosition: number) {
         .should('have.length', summaryElementNumber);
 }
 
-function validateSummary(order: OrderDefinition) {
+export function validateSummary(order: OrderDefinition) {
     // Elements without count value
     const elementsFlat: OrderElement[] = [];
 
@@ -204,8 +212,8 @@ function validateSummary(order: OrderDefinition) {
 
     cy.get('#order-summary .summary-element').should('have.length', elementsFlat.length);
 
-    for (let i = 0; i < order.elements.length; i++) {
-        valudateElement(order.elements[i], i);
+    for (let i = 0; i < elementsFlat.length; i++) {
+        valudateElement(elementsFlat[i], i);
     }
 
     if (order.comment) {

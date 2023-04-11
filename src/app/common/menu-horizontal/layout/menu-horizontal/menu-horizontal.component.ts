@@ -58,7 +58,6 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit
   }
 
   private onElementSelected(event: ChangeElementEvent) {
-    console.info("Change active menu element");
     this.hideMenu();
     
     if (this.domElements) {
