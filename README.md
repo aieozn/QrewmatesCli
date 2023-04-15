@@ -45,11 +45,11 @@ Tests to be done
     + opcje
     + dodatki
 
-- Poprawne obliczanie ceny po aktualizacji
-    - opcji
-    - select
-    - topping
-    - ilości produktów
++ Poprawne obliczanie ceny po aktualizacji
+    + opcji
+    + select
+    + topping
+    + ilości produktów
 
 + [CLI] Dodanie jednego prostego produktu do koszyka
     + Wyświetlenie prawidłowego podsumowania
@@ -74,14 +74,14 @@ Tests to be done
         + sprawdzenie przywracania zamówienia z cache
 
 - [CLI|STAFF] Edycja produktu (sprawdzenie poprawności aktualizacji ceny, zamówienia, komentarza, podsumowania)
-    - dodanie topping
-    - dodanie select
-    - usunięcie topping
-    - usunięcie select
-    - zmiana opcji (test usunięcia wszystkich toppings i selects)
-    - Usunięcie produktu z zamówienia
-    - Zmiana ilości produktów w zamówieniu
-    - Zmiana komentarza
+    + dodanie topping
+    + dodanie select
+    + usunięcie topping
+    + usunięcie select
+    + zmiana opcji (test usunięcia wszystkich toppings i selects)
+    + Usunięcie produktu z zamówienia
+    + Zmiana ilości produktów w zamówieniu
+    + Zmiana komentarza
 
 - [STAFF] Wyświetlenie wszystkich kategorii zamówień
 - [STAFF] Wyświetlenie posortowanych zamówień 

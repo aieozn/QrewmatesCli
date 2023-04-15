@@ -87,7 +87,7 @@ export function addMenuItemToCart(element: OrderElement) {
 }
 
 // Requires open card
-function addSelect(select: MenuItemSelect) {
+export function addSelect(select: MenuItemSelect) {
     cy.get("#order-menu-select h3")
         .contains(select.groupName)
         .parent()
@@ -95,7 +95,7 @@ function addSelect(select: MenuItemSelect) {
 }
 
 // Requires open card
-function addTopping(topping: MenuItemTopping) {
+export function addTopping(topping: MenuItemTopping) {
     cy.get("#order-menu-topping h3")
         .contains(topping.groupName)
         .parent()
@@ -133,6 +133,12 @@ export function prepareOrder(order: OrderDefinition) {
     if (order.expectedPrice !== undefined) {
         cy.get('#summary-value').contains(order.expectedPrice);
     }
+}
+
+export function removeOrderElement(num: number) {
+    cy.get(".summary-element").eq(num).click();
+    cy.get('#count-value-minus').click();
+    cy.get('#generic-dialog-card-header #close-icon').click();
 }
 
 export function doOrderAndValidate(order: OrderDefinition) {

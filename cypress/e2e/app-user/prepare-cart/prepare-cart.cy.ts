@@ -57,7 +57,7 @@ describe('Prepare cart', () => {
         cy.get('#order-submit').should('not.exist');
     })
 
-    it.only('Removes element from order', () => {
+    it('Removes element from order', () => {
         prepareOrder(simpleOrder);
 
         throw new Error("not implemented yet")

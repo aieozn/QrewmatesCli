@@ -15,6 +15,56 @@ export const simpleOrder : OrderDefinition = {
     expectedPrice: '14.99 zł'
 }
 
+export const simpleOrderPlusBacon : OrderDefinition = {
+    elements: [
+        {
+            group: 'Pizza Margherita',
+            item: 'Mała',
+            selects: [{
+                groupName: 'Baza',
+                selectName: 'Pomidorowy'
+            }],
+            toppings: [
+                {
+                    groupName: 'Dodatki do pizzy',
+                    toppingName: 'boczek (+4.99 zł)',
+                }
+            ]
+        },
+    ],
+    expectedPrice: '19.98 zł'
+}
+
+export const simpleDoubleOrder : OrderDefinition = {
+    elements: [
+        {
+            group: 'Pizza Margherita',
+            item: 'Mała',
+            selects: [{
+                groupName: 'Baza',
+                selectName: 'Pomidorowy'
+            }],
+            count: 2
+        },
+    ],
+    expectedPrice: '29.98 zł'
+}
+
+export const margheritaWithSanMarzanoOrder : OrderDefinition = {
+    elements: [
+        {
+            group: 'Pizza Margherita',
+            item: 'Mała',
+            selects: [{
+                groupName: 'Baza',
+                selectName: 'Pomidorowy (+6.99 zł)'
+            }]
+        },
+    ],
+    expectedPrice: '21.98 zł'
+}
+
+
 export const orderWithSelect : OrderDefinition = {
     elements: [
         {
@@ -61,6 +111,88 @@ export const orderWithToppings : OrderDefinition = {
         },
     ],
     expectedPrice: '64.96 zł'
+}
+
+export const orderWithToppingsAndSelects : OrderDefinition = {
+    elements: [
+        {
+            group: 'Pizza Barbecue Bonanza',
+            item: 'Duża',
+            selects: [
+                {
+                    groupName: 'Brzegi ciasta',
+                    selectName: 'Ze serem'
+                },
+                {
+                    groupName: 'Baza',
+                    selectName: 'Czosnkowy'
+                }
+            ],
+            toppings: [
+                {
+                    groupName: 'Dodatki do pizzy',
+                    toppingName: 'boczek (+7.99 zł)',
+                },
+                {
+                    groupName: 'Dodatki do pizzy',
+                    toppingName: 'kiełbasa wiejska (+7.99 zł)',
+                },
+                {
+                    groupName: 'Dodatki do pizzy',
+                    toppingName: 'kabanosowe boczki (+7.99 zł)',
+                }
+            ]
+        },
+    ],
+    expectedPrice: '70.95 zł'
+}
+
+export const orderWithToppingsAndSelectsCleared : OrderDefinition = {
+    elements: [
+        {
+            group: 'Pizza Barbecue Bonanza',
+            item: 'Duża',
+            selects: [
+                {
+                    groupName: 'Baza',
+                    selectName: 'Pomidorowy'
+                }
+            ],
+            toppings: [
+            ]
+        },
+    ],
+    expectedPrice: '28.99 zł'
+}
+
+export const orderWithToppingsMinusBacon : OrderDefinition = {
+    elements: [
+        {
+            group: 'Pizza Barbecue Bonanza',
+            item: 'Duża',
+            selects: [
+                {
+                    groupName: 'Brzegi ciasta',
+                    selectName: 'Ze serem'
+                },
+                {
+                    groupName: 'Baza',
+                    selectName: 'Pomidorowy'
+                }
+            ],
+            toppings: [
+                {
+                    groupName: 'Dodatki do pizzy',
+                    toppingName: 'kiełbasa wiejska (+7.99 zł)',
+                },
+                {
+                    groupName: 'Dodatki do pizzy',
+                    toppingName: 'kabanosowe boczki (+7.99 zł)',
+                }
+            ]
+        },
+    ],
+    expectedPrice: '57.97 zł'
 }
 
 export const orderWithComment : OrderDefinition = {
