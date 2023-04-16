@@ -14,14 +14,14 @@
 
         <div id="menu-elements">
             <app-menu-horizontal-element-wrapper i18n-name name="Pending orders">
-                <app-pending-order (changeStatus)="updateStatus(order, $event)" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
+                <app-pending-order (changeStatus)="triggerUpdateStatus(order, $event)" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
                 </app-pending-order>
             </app-menu-horizontal-element-wrapper>
 
             <div class="spacer"></div>
 
-            <app-menu-horizontal-element-wrapper i18n-name name="Accepted">
-                <app-pending-order (changeStatus)="updateStatus(order, $event)" *ngFor="let order of orders | orderStatus:'ACCEPTED'" [order]="order">
+            <app-menu-horizontal-element-wrapper i18n-name name="Assigned to me">
+                <app-pending-order (changeStatus)="triggerUpdateStatus(order, $event)" *ngFor="let order of orders | orderStatus:'ACCEPTED' | orderAssignee: me.userEmail" [order]="order">
                 </app-pending-order>
             </app-menu-horizontal-element-wrapper>
 

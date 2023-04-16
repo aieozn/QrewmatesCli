@@ -14,6 +14,7 @@ export { MenuItemSelectGet } from './models/menu-item-select-get';
 export { MenuItemToppingGet } from './models/menu-item-topping-get';
 export { OrderDetailsGet } from './models/order-details-get';
 export { OrderElementGet } from './models/order-element-get';
+export { UserGet } from './models/user-get';
 export { OrderActionData } from './models/order-action-data';
 export { MenuItemData } from './models/menu-item-data';
 export { MenuItemDetailedGet } from './models/menu-item-detailed-get';

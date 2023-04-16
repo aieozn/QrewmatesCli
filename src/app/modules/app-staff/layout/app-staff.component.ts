@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderGet } from '@common/api-client/models/order-get';
 import { SubscribeOrdersMessage } from '@common/api-client/models/subscribe-orders-message';
 import { OrderStatusControllerService } from '@common/api-client/services';
 import { UpdateOrderStatusMessage } from '../model/update-order-status-message';
 import { OrderSocketService } from '../services/order-subscribe-socket/order-subscribe-socket.service';
+import { ActiveUser } from '@common/account-utils/model/active-user.interface';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-menu-staff',
@@ -12,26 +14,39 @@ import { OrderSocketService } from '../services/order-subscribe-socket/order-sub
   styleUrls: ['./app-staff.component.scss'],
   providers: [ OrderSocketService ]
 })
-export class AppStaffComponent {
+export class AppStaffComponent implements OnDestroy {
 
   orders: OrderGet[] = [];
+  me: ActiveUser;
   tableCounter: { [tableName: string]: {
     "name": string,
     "count": number
   }; } = {};
+  private readonly onDestroy = new Subject<void>();
 
   // TODO change services names OrderInstanceControllerService -> OrderInstanceService (and the same for others)
   constructor(
     private orderSocket: OrderSocketService,
     private accountService: AccountService,
     private orderStatusService: OrderStatusControllerService
-  ) { }
+  ) {
+    this.me = accountService.getActiveUserOrLogin()
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
+  }
 
   ngOnInit(): void {
     // TODO może warto dodać stronnicowanie zamówień?
-    this.orderSocket.subscribeOrder(this.accountService.getRestaurantRef()).subscribe(e => {
-      this.processMessage(e)
-    });
+    this.orderSocket
+      .subscribeOrder(this.accountService.getRestaurantRef())
+      .pipe(
+        tap(e => this.processMessage(e)),
+        takeUntil(this.onDestroy)
+      )
+      .subscribe();
   }
 
   private processMessage(message: SubscribeOrdersMessage) {
@@ -65,19 +80,22 @@ export class AppStaffComponent {
         newOrders.push(activeOrder);
       }
     }
-
     this.updateOrders(newOrders);
   }
 
-  updateStatus(order: OrderGet, message: UpdateOrderStatusMessage) : boolean {
+  triggerUpdateStatus(order: OrderGet, message: UpdateOrderStatusMessage) : boolean {
     this.orderStatusService.updateStatus({
       restaurantRef: order.restaurantRef,
       orderInstanceRef: order.ref,
       body: message
-    }).subscribe(response => {
-      this.replaceOrder(order.ref, response);
-      this.updateOrders(this.orders);
-    });
+    }).subscribe(
+      // TODO fetch this data directry from response or maybye there is no need to do it?
+      // response => {
+      // console.log(response)
+      // this.replaceOrder(order.ref, response);
+      // this.updateOrders(this.orders);
+      // }
+    );
 
     return false;
   }

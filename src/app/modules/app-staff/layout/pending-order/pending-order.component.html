@@ -27,7 +27,7 @@
             {{ _order.created | date:'dd.MM HH:mm'}}
         </div>
     
-        <div id="edited" *ngIf="_order.version > 0" i18n>Edited</div>
+        <div id="edited" *ngIf="_order.edited" i18n>Edited</div>
     </div>
     
 </div>

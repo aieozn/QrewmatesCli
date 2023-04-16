@@ -13,11 +13,13 @@ import { AppStaffRoutingModule } from './app-staff-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@common/account-utils/auth-interceptor';
 import { FooterPoweredByComponent } from './layout/footer-powered-by/footer-powered-by.component';
+import { OrderAssigneePipe } from './layout/pipes/order-assignee.pipe';
 
 @NgModule({
   declarations: [
     AppStaffComponent,
     OrderStatusPipe,
+    OrderAssigneePipe,
     PendingOrderComponent,
     DoOrderActionDialogComponent,
     FooterPoweredByComponent
