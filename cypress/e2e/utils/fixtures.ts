@@ -191,7 +191,7 @@ export const orderWithToppingsMinusBacon : OrderDefinition = {
             ]
         },
     ],
-    expectedPrice: '57.97 zł'
+    expectedPrice: '56.97 zł'
 }
 
 export const orderWithComment : OrderDefinition = {

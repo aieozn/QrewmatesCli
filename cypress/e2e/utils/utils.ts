@@ -1,6 +1,6 @@
 export interface OrderDefinition {
     elements: OrderElement[];
-    expectedPrice?: string;
+    expectedPrice: string;
     comment?: string;
 }
 
@@ -23,7 +23,41 @@ export interface MenuItemTopping {
     toppingName: string;
 }
 
-function valudateElement(element: OrderElement, elementPosition: number) {
+function validateElementLoosely(element: OrderElement) {
+    if (element.item) {
+        cy.get('#order-summary .summary-element')
+            .find('.summary-element-name')
+            .contains(`${element.group} (${element.item})`);
+    } else {
+        cy.get('#order-summary .summary-element')
+            .find('.summary-element-name')
+            .contains(`${element.group}`);
+    }
+    
+    if (element.selects) {
+        for (const select of element.selects) {
+            cy.get('#order-summary .summary-element')
+                .find('.summary-element-option')
+                .contains(select.selectName);
+        }
+    }
+
+    if (element.toppings) {
+        for (const topping of element.toppings) {
+            cy.get('#order-summary .summary-element')
+                .find('.summary-element-option')
+                .contains(topping.toppingName)
+        }
+    }
+
+    if (element.comment) {
+        cy.get('#order-summary .summary-element')
+            .find('.summary-element-option')
+            .contains(`Comment: ${element.comment}`)
+    }
+}
+
+function validateElementStrictly(element: OrderElement, elementPosition: number) {
     if (element.item) {
         cy.get('#order-summary .summary-element').eq(elementPosition)
             .find('.summary-element-name')
@@ -70,7 +104,7 @@ function valudateElement(element: OrderElement, elementPosition: number) {
         .should('have.length', summaryElementNumber);
 }
 
-export function validateSummary(order: OrderDefinition) {
+export function validateSummary(order: OrderDefinition, strict = true) {
     // Elements without count value
     const elementsFlat: OrderElement[] = [];
 
@@ -88,8 +122,14 @@ export function validateSummary(order: OrderDefinition) {
     cy.get('#order-summary .summary-element').should('have.length', elementsFlat.length);
 
     for (let i = 0; i < elementsFlat.length; i++) {
-        valudateElement(elementsFlat[i], i);
+        if (strict) {
+            validateElementStrictly(elementsFlat[i], i);
+        } else {
+            validateElementLoosely(elementsFlat[i]);
+        }
     }
+
+    cy.get('#order-summary #summary-value').contains(order.expectedPrice)
 
     if (order.comment) {
         cy.get('#order-menu-chief-note textarea').should('have.value', order.comment)
