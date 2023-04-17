@@ -1,5 +1,6 @@
-import { doOrderAndValidate, prepareOrder, validateSummary } from "../../../support/commands";
-import { complexOrder, orderWithComment, orderWithMultipleElements, orderWithMultipliedComplexElement, orderWithMultipliedElement, orderWithOrderElementComment, orderWithSelect, orderWithToppings, simpleOrder } from "./fixtures";
+import { validateSummary } from "../../utils/utils";
+import { doOrderAndValidate, prepareOrder } from "../utils/utils";
+import { complexOrder, orderWithComment, orderWithMultipleElements, orderWithMultipliedComplexElement, orderWithMultipliedElement, orderWithOrderElementComment, orderWithSelect, orderWithToppings, simpleOrder } from "../../utils/fixtures";
 
 describe('Prepare make order', () => {
 

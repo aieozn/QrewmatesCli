@@ -1,4 +1,4 @@
-import { openMenuItemGroupCard, openMenuItemGroupCardWithOption } from "../../../support/commands"
+import { openMenuItemGroupCard, openMenuItemGroupCardWithOption } from "../utils/utils"
 
 const expectedMenuItemPrices = [
     {

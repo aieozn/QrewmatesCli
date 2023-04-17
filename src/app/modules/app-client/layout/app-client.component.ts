@@ -127,7 +127,11 @@ export class AppClientComponent implements OnDestroy {
       .openSummary()
       .pipe(
         first(),
-        filter(e => e !== undefined),
+        tap(e => {
+          this.orderService.updateOrder(e.order)
+        }),
+        filter(e => e.submit),
+        map(e => e.order),
         switchMap(newItem => this.orderService.submit(newItem)),
         tap(result => {
           console.debug("Order created");

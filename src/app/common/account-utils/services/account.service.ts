@@ -60,6 +60,8 @@ export class AccountService {
 
   getTableRef() : string {
 
+    console.log("GET TABLE REF")
+
     const pathParts = window.location.pathname.substring(1).split("/");
 
     if (pathParts[0] === "menu") {
@@ -174,7 +176,7 @@ export class AccountService {
     if (['OWNER', 'ADMIN'].includes(restaurantRole)) {
       this.router.navigate(['admin']);
     } else if (restaurantRole === 'STAFF') {
-      this.router.navigate(['admin']);
+      this.router.navigate(['staff']);
     } else {
       throw 'Unkwnown privilages'
     }

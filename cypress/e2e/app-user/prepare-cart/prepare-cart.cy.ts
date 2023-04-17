@@ -1,5 +1,6 @@
-import { prepareOrder, validateSummary } from "../../../support/commands"
-import { complexOrder, simpleOrder } from "../make-order/fixtures";
+import { prepareOrder } from "../utils/utils"
+import { complexOrder, simpleOrder } from "../../utils/fixtures";
+import { validateSummary } from "../../utils/utils";
 
 function getItemGroupCard(name: string) : Cypress.Chainable<JQuery<HTMLElement>> {
     return cy.get('.menu-item .menu-item-name')

@@ -1,5 +1,4 @@
-import { OrderDefinition } from "../../../support/commands";
-
+import { OrderDefinition } from "./utils"
 
 export const simpleOrder : OrderDefinition = {
     elements: [

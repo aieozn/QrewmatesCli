@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog'
 import { OrderMenuItemData } from '../../order-composer/layout/order-menu-item/order-menu-item-data';
 import { OrderMenuItemComponent } from '../../order-composer/layout/order-menu-item/order-menu-item.component';
-import { ExportSummaryData } from '../../order-composer/layout/order-summary/order-summary-data';
 import { OrderSummaryComponent } from '../../order-composer/layout/order-summary/order-summary.component';
+import { OrderSummaryInputData } from '@common/order-composer/layout/order-summary/order-summary-input-data';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class FullWidthDialogService {
     return this.dialog.open(OrderMenuItemComponent, FullWidthDialogService.getDefaultGenericDialogConfig(data));
   }
 
-  openSummary(data: ExportSummaryData) : MatDialogRef<OrderSummaryComponent> {
+  openSummary(data: OrderSummaryInputData) : MatDialogRef<OrderSummaryComponent> {
     return this.dialog.open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig(data));
   }
 }

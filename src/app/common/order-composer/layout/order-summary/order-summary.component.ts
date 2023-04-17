@@ -3,12 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { filter, first, mergeMap, Observable } from 'rxjs';
 import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
-import { ExportSummaryData } from './order-summary-data';
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupGet } from '@common/api-client/models';
-import { OrderService } from 'app/modules/app-client/services/order/order.service';
+import { OrderSummaryInputData } from './order-summary-input-data';
+import { OrderSummaryOutputData } from './order-summary-output-data';
 
 @Component({
   selector: 'app-order-summary',
@@ -18,18 +18,24 @@ import { OrderService } from 'app/modules/app-client/services/order/order.servic
 export class OrderSummaryComponent {
 
   order: OrderWrapper;
-  
+  output: OrderSummaryOutputData;
+
   constructor(public dialogRef: MatDialogRef<OrderSummaryComponent>,
     private groupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private dialogService: FullWidthDialogService,
-    private orderService: OrderService,
-    @Inject(MAT_DIALOG_DATA) data: ExportSummaryData) {
+    @Inject(MAT_DIALOG_DATA) data: OrderSummaryInputData) {
       this.order = JSON.parse(JSON.stringify(data.item));
+
+    this.output = {
+      order: this.order,
+      submit: false
+    }
   }
 
   close() {
-    this.dialogRef.close();
+    this.output.submit = false;
+    this.dialogRef.close(this.output);
   }
 
   editItem(item: OrderElementDataWrapper) {
@@ -49,17 +55,23 @@ export class OrderSummaryComponent {
         const partI = this.order.items.slice(0, initialIndex);
         const partII = this.order.items.slice(initialIndex + 1, this.order.items.length)
         this.order.items = partI.concat(next).concat(partII);
-        this.orderService.updateOrder(this.order);
 
         if (this.order.items.length === 0) {
           this.close();
+        }
+
+
+        this.order.price = 0;
+        for (const orderItem of this.order.items) {
+          this.order.price += orderItem.price;
         }
       }
     })
   }
 
   submit() {
-    this.dialogRef.close(this.order);
+    this.output.submit = true;
+    this.dialogRef.close(this.output);
   }
 
   openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {

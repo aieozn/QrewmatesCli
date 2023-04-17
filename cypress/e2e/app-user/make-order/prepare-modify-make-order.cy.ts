@@ -1,5 +1,6 @@
-import { addSelect, addTopping, prepareOrder, removeOrderElement, validateSummary } from "../../../support/commands"
-import { margheritaWithSanMarzanoOrder, orderWithToppings, orderWithToppingsAndSelects, orderWithToppingsAndSelectsCleared, orderWithToppingsMinusBacon, simpleDoubleOrder, simpleOrder, simpleOrderPlusBacon } from "./fixtures"
+import { validateSummary } from "../../utils/utils"
+import addSelect, { addTopping, prepareOrder, removeOrderElement } from "../utils/utils"
+import { margheritaWithSanMarzanoOrder, orderWithToppings, orderWithToppingsAndSelects, orderWithToppingsAndSelectsCleared, orderWithToppingsMinusBacon, simpleDoubleOrder, simpleOrder, simpleOrderPlusBacon } from "../../utils/fixtures"
 
 describe('Prepare modify make order', () => {
     // test with removing
@@ -165,7 +166,7 @@ describe('Prepare modify make order', () => {
         cy.get('#subscribeButton').click();
         validateSummary(simpleOrder);
 
-        // // Modify
+        // Modify
         cy.get("#order-summary .summary-element").click();
         cy.get("#count-value-plus").click();
         cy.get('#add-button').click();
@@ -179,6 +180,37 @@ describe('Prepare modify make order', () => {
         // Expect
         cy.wait('@makeOrder').then((interception) => {
             cy.fixture('order/request/simple-double-order.json').should('deep.equal', interception.request.body)
+        })
+    })
+
+    it('Keeps changes after dialog close', () => {
+        // Create basic order
+        prepareOrder(simpleOrder);
+        cy.get('#subscribeButton').click();
+        validateSummary(simpleOrder);
+
+        // Modify
+        cy.get("#order-summary .summary-element").click();
+        addTopping({
+            groupName: 'Dodatki do pizzy',
+            toppingName: 'boczek'
+        })
+        cy.get('#add-button').click();
+        validateSummary(simpleOrderPlusBacon);
+
+        // Close
+        cy.get('#close-icon').click();
+        cy.get('#subscribeButton').click();
+
+        // Subscribe
+        cy.get('.full-width-dialog #subscribeButton').click();
+        cy.get('#dialog #thanks').contains('Order confirmation is in progress');
+        cy.get('#dialog .message').contains('Wait for the restaurant to confirm your order');
+
+        // Expect
+        cy.wait('@makeOrder').then((interception) => {
+            cy.fixture('order/request/simple-order-plus-bacon.json')
+            .should('deep.equal', interception.request.body)
         })
     })
 })

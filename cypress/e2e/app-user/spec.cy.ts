@@ -1,0 +1,5 @@
+import './load-menu/load-menu.cy'
+import './load-menu/show-item-group-details.cy'
+import './make-order/prepare-make-order.cy'
+import './make-order/prepare-modify-make-order.cy'
+import './prepare-cart/prepare-cart.cy'

@@ -7,10 +7,10 @@ import { first, Observable } from 'rxjs';
 import { MenuItemGroupGet } from '@common/api-client/models';
 import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { OrderSummaryComponent } from '@common/order-composer/layout/order-summary/order-summary.component';
 import { ErrorDialogMessage } from '../../layout/error-dialog/model/error-dialog-message';
 import { ErrorDialogComponent } from '../../layout/error-dialog/layout/error-dialog/error-dialog.component';
+import { OrderSummaryOutputData } from '@common/order-composer/layout/order-summary/order-summary-output-data';
 
 
 @Injectable({
@@ -47,7 +47,7 @@ export class GenericDialogCliManager {
     }).afterClosed().pipe(first());
   }
 
-  openSummary() : Observable<OrderWrapper> {
+  openSummary() : Observable<OrderSummaryOutputData> {
     // TODO fix title
     return this.dialog
       .open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig({
