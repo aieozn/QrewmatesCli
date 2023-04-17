@@ -5,7 +5,7 @@ import { OrderDetailsGet } from '@common/api-client/models/order-details-get';
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { OrderInstanceControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { OrderData, OrderElementData } from '@common/api-client/models';
+import { OrderWrapperTrimmer } from '@common/api-client/wrapper/order-wrapper-trimmer';
 
 @Injectable({
   providedIn: 'root'
@@ -91,44 +91,12 @@ export class OrderService {
   submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
     return this.orderInstanceService.order({
       restaurantRef: this.accountService.getRestaurantRef(),
-      body: this.trimOrder(order)
+      body: OrderWrapperTrimmer.trimOrder(order)
     }).pipe(
       first(),
       tap(_ => this.clearOrder())
     );
   }
-
-  // Remove all not required parameterd from order
-  trimOrder(order: OrderWrapper) : OrderData {
-    return {
-      comment: order.comment,
-      items: order.items.map(e => this.trimOrderElement(e)),
-      paymentMethod: order.paymentMethod,
-      table: {
-        ref: order.table.ref
-      }
-    }
-  }
-
-  trimOrderElement(orderElement: OrderElementDataWrapper) : OrderElementData {
-      return {
-        comment: orderElement.comment,
-        menuItem: {
-          ref: orderElement.menuItem.ref
-        },
-        menuItemSelects: orderElement.menuItemSelects.map(elememnt => {
-          return {
-            ref: elememnt.ref
-          }
-        }),
-        menuItemToppings: orderElement.menuItemToppings.map(element => {
-          return {
-            ref: element.ref
-          }
-        })
-      }
-  }
-
 
   clearOrder() {
     this.orderChanged.next(this.getCleanOrder());

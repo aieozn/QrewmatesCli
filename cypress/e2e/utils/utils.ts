@@ -23,6 +23,12 @@ export interface MenuItemTopping {
     toppingName: string;
 }
 
+export function removeOrderElement(num: number) {
+    cy.get(".summary-element").eq(num).click();
+    cy.get('#count-value-minus').click();
+    // cy.get('#generic-dialog-card-header #close-icon').click();
+}
+
 function validateElementLoosely(element: OrderElement) {
     if (element.item) {
         cy.get('#order-summary .summary-element')

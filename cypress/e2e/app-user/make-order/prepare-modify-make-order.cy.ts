@@ -1,5 +1,5 @@
-import { validateSummary } from "../../utils/utils"
-import addSelect, { addTopping, prepareOrder, removeOrderElement } from "../utils/utils"
+import { removeOrderElement, validateSummary } from "../../utils/utils"
+import addSelect, { addTopping, prepareOrder } from "../utils/utils"
 import { margheritaWithSanMarzanoOrder, orderWithToppings, orderWithToppingsAndSelects, orderWithToppingsAndSelectsCleared, orderWithToppingsMinusBacon, simpleDoubleOrder, simpleOrder, simpleOrderPlusBacon } from "../../utils/fixtures"
 
 describe('Prepare modify make order', () => {

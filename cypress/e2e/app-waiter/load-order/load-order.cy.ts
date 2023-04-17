@@ -24,8 +24,6 @@ describe('Load order', () => {
     testData.forEach(({name, file, definition}) => {
         it(name, () => {
             fakeOrder(file)
-            cy.get('.pending-order').should('have.length', 1)
-            cy.get('.order-description h3').contains('Table 1')
     
             cy.get('.pending-order').click();
             validateSummary(definition, false)

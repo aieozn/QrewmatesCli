@@ -67,12 +67,6 @@ export function prepareOrder(order: OrderDefinition) {
     }
 }
 
-export function removeOrderElement(num: number) {
-    cy.get(".summary-element").eq(num).click();
-    cy.get('#count-value-minus').click();
-    cy.get('#generic-dialog-card-header #close-icon').click();
-}
-
 export function doOrderAndValidate(order: OrderDefinition) {
     prepareOrder(order);
 

@@ -9,7 +9,8 @@ import { FullWidthDialogService } from '@common/full-width-dialog/service/full-w
 import { OrderInstanceControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderGet } from '@common/api-client/models';
-import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
+import { OrderSummaryOutputData } from '@common/order-composer/layout/order-summary/order-summary-output-data';
+import { OrderWrapperTrimmer } from '@common/api-client/wrapper/order-wrapper-trimmer';
 
 @Component({
   selector: 'app-pending-order',
@@ -41,12 +42,12 @@ export class PendingOrderComponent {
       restaurantRef: this.accountService.getRestaurantRef(),
       orderInstanceRef: this._order.ref
     })
-    .pipe<OrderDetailsGet, { orderDetails: OrderDetailsGet, orderWrapper: OrderWrapper}>(
+    .pipe<OrderDetailsGet, { orderDetails: OrderDetailsGet, orderSummary: OrderSummaryOutputData}>(
       first(),
       switchMap(orderDetails => 
         forkJoin({
           orderDetails: of(orderDetails),
-          orderWrapper: this.dialogService.openSummary({
+          orderSummary: this.dialogService.openSummary({
             restaurantRef: this.accountService.getRestaurantRef(),
             item: Object.assign({ editMode: true }, orderDetails),
           }).afterClosed()
@@ -54,12 +55,12 @@ export class PendingOrderComponent {
       )
     )
     .pipe(
-      filter(e => e.orderWrapper !== undefined),
+      filter(e => e.orderSummary.submit),
       switchMap(edited =>
         this.orderInstanceService.editOrder({
           restaurantRef: this.accountService.getRestaurantRef(),
           orderInstanceRef: edited.orderDetails.ref,
-          body: edited.orderWrapper
+          body: OrderWrapperTrimmer.trimOrder(edited.orderSummary.order)
         })
       )
     )
