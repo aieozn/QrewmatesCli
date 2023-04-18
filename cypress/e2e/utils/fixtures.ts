@@ -150,7 +150,7 @@ export const orderWithToppingsAndSelectsCleared : OrderDefinition = {
     elements: [
         {
             group: 'Pizza Barbecue Bonanza',
-            item: 'Duża',
+            item: 'Średnia',
             selects: [
                 {
                     groupName: 'Baza',

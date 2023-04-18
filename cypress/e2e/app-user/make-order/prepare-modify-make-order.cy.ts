@@ -1,5 +1,5 @@
 import { removeOrderElement, validateSummary } from "../../utils/utils"
-import addSelect, { addTopping, prepareOrder } from "../utils/utils"
+import { addSelect, addTopping, prepareOrder } from "../utils/utils"
 import { margheritaWithSanMarzanoOrder, orderWithToppings, orderWithToppingsAndSelects, orderWithToppingsAndSelectsCleared, orderWithToppingsMinusBacon, simpleDoubleOrder, simpleOrder, simpleOrderPlusBacon } from "../../utils/fixtures"
 
 describe('Prepare modify make order', () => {
@@ -10,7 +10,7 @@ describe('Prepare modify make order', () => {
         cy.intercept('POST', '/api/public/v1/restaurant/R0TAXI000000/order-instances').as('makeOrder')
     })
 
-    it('Removes element from order', () => {
+    it('Remove element from order', () => {
         // Create basic order
         prepareOrder(simpleDoubleOrder);
         cy.get('#subscribeButton').click();
@@ -55,7 +55,7 @@ describe('Prepare modify make order', () => {
         })
     })
 
-    it('Changes select in order', () => {
+    it('Change select in order', () => {
         // Create basic order
         prepareOrder(margheritaWithSanMarzanoOrder);
         cy.get('#subscribeButton').click();
@@ -81,7 +81,7 @@ describe('Prepare modify make order', () => {
         })
     })
 
-    it('Removes topping from order', () => {
+    it('Remove topping from order', () => {
         // Create basic order
         prepareOrder(orderWithToppings);
         cy.get('#subscribeButton').click();
@@ -108,7 +108,7 @@ describe('Prepare modify make order', () => {
         })
     })
 
-    it('Adds topping to order', () => {
+    it('Add topping to order', () => {
         // Create basic order
         prepareOrder(simpleOrder);
         cy.get('#subscribeButton').click();
@@ -135,7 +135,7 @@ describe('Prepare modify make order', () => {
         })
     })
     
-    it('Changes order option', () => {
+    it('Change order option', () => {
         // Create basic order
         prepareOrder(orderWithToppingsAndSelects);
         cy.get('#subscribeButton').click();
@@ -183,7 +183,7 @@ describe('Prepare modify make order', () => {
         })
     })
 
-    it('Keeps changes after dialog close', () => {
+    it('Keep changes after dialog close', () => {
         // Create basic order
         prepareOrder(simpleOrder);
         cy.get('#subscribeButton').click();

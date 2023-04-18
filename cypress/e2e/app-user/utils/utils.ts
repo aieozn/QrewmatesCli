@@ -44,7 +44,7 @@ export function addMenuItemToCart(element: OrderElement) {
 }
 
 // Requires open card
-export default function addSelect(select: MenuItemSelect) {
+export function addSelect(select: MenuItemSelect) {
     cy.get("#order-menu-select h3")
         .contains(select.groupName)
         .parent()
