@@ -1,3 +1,5 @@
+import { getUserToken } from "../../utils/utils"
+
 export function loginAsStaff() {
     cy.visit('/login')
     cy.get('#login-input').click().type('taxi.staff@email.com')
@@ -5,24 +7,6 @@ export function loginAsStaff() {
     cy.get('#login-button').click()
 
     cy.location('pathname').should('eq', '/staff')
-}
-
-export async function getUserToken(email: string, password: string) {
-    const response = await fetch("http://localhost:4200/api/public/v1/account/login/local", {
-        "headers": {
-            "accept": "application/json",
-            "content-type": "application/json"
-        },
-        "body": JSON.stringify({
-            email: email,
-            password: password
-        }),
-        "method": "POST"
-    });
-
-    const responseText: string = JSON.parse(await response.text())['token'];
-
-    return responseText;
 }
 
 export async function removeAllOrders() {
@@ -42,15 +26,31 @@ export async function removeAllOrders() {
     }
 }
 
-export async function fakeOrder(file: string) {
-    cy.fixture(file).then((fixture: string) => {
-        cy.request({
+export function fakeOrder(file: string) : Cypress.Chainable<string> {
+    return cy.fixture(file).then((fixture: string) => {
+        return cy.request({
             method: 'POST',
             url: '/api/public/v1/restaurant/R0TAXI000000/order-instances',
             body: fixture,
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             }
+        }).then(e => {
+            return e.body.ref as string
         })
     })
+}
+
+export function findPendingOrder(table: string) : Cypress.Chainable<JQuery<HTMLElement>> {
+    return cy
+        .get('app-menu-horizontal-element-wrapper[name="Pending orders"] .pending-order h3')
+        .contains(table)
+        .parents('.pending-order')
+}
+
+export function findAssignedToMeOrder(table: string) : Cypress.Chainable<JQuery<HTMLElement>> {
+    return cy
+        .get('app-menu-horizontal-element-wrapper[name="Assigned to me"] .pending-order h3')
+        .contains(table)
+        .parents('.pending-order')
 }

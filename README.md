@@ -73,7 +73,7 @@ Tests to be done
         + komentarz
         + sprawdzenie przywracania zamówienia z cache
 
-- [CLI|STAFF] Edycja produktu (sprawdzenie poprawności aktualizacji ceny, zamówienia, komentarza, podsumowania)
++ [CLI|STAFF] Edycja produktu (sprawdzenie poprawności aktualizacji ceny, zamówienia, komentarza, podsumowania)
     + dodanie topping
     + dodanie select
     + usunięcie topping
@@ -119,8 +119,8 @@ Tests to be done
 - Użytkownik zostanie poinformowany kiedy restauracja nie przyjmuje zamówień
 
 ### Kelner
-- Kelner może się zalogować
-- Kelner może się wylogować
++ Kelner może się zalogować
++ Kelner może się wylogować
 - Kelner może wyświetlić listę aktywnych zamówień (niezakończonych)
 - Kelner może edytować zamówienie
 - Kelner może przyjąć zamówienie

@@ -15,8 +15,8 @@
       <div id="buttons">
         <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" (click)="proceed()" i18n>Reject</div>
         <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" (click)="proceed()" i18n>Cancel</div>
-        <div class="button cancel clickable" (click)="cancel()">
-            Anuluj
+        <div class="button cancel clickable" (click)="cancel()" i18n>
+            Cancel
         </div>
       </div>
 </div>

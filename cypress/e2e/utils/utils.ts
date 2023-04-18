@@ -141,3 +141,48 @@ export function validateSummary(order: OrderDefinition, strict = true) {
         cy.get('#order-menu-chief-note textarea').should('have.value', order.comment)
     }
 }
+
+export async function getUserToken(email: string, password: string) {
+    const response = await fetch("http://localhost:4200/api/public/v1/account/login/local", {
+        "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+        },
+        "body": JSON.stringify({
+            email: email,
+            password: password
+        }),
+        "method": "POST"
+    });
+
+    const responseText: string = JSON.parse(await response.text())['token'];
+
+    return responseText;
+}
+
+export async function acceptOrder(ref: string) {
+    const token = await getUserToken('taxi.staff@email.com', 'taxi.staff');
+    await acceptOrderImplementation(ref, token, 'ACCEPT')
+}
+
+export async function acceptOrderAsAdmin(ref: string) {
+    const token = await getUserToken('taxi.admin@email.com', 'taxi.admin');
+    await acceptOrderImplementation(ref, token, 'ACCEPT')
+}
+
+async function acceptOrderImplementation(ref: string, token: string, action: string) {
+
+    const response = await fetch("/api/staff/v1/restaurant/R0TAXI000000/order-instances/" + ref + "/status", {
+        "headers": {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "body": '{"orderAction":"' + action + '"}',
+        "method": "PUT"
+    });
+
+    if (response.status !== 200) {
+        throw 'Invalid response status'
+    }
+}
