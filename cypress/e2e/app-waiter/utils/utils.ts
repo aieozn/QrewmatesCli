@@ -9,26 +9,20 @@ export function loginAsStaff() {
     cy.location('pathname').should('eq', '/staff')
 }
 
-export async function removeAllOrders() {
-    const token = await getUserToken('root@email.com', 'root');
-
-    const response = await fetch("/api/staff/v1/restaurant/R0TAXI000000/order-instances", {
-        "headers": {
-            "accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": "Bearer " + token
-        },
-        "method": "DELETE"
-    });
-
-    if (response.status !== 200) {
-        throw 'Invalid response status'
-    }
+export function removeAllOrders() {
+    return getUserToken('root@email.com', 'root').then(token => cy.request({
+            method: 'DELETE',
+            url: '/api/staff/v1/restaurant/R0TAXI000000/order-instances',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Authorization": "Bearer " + token
+            }
+        })
+    )
 }
 
 export function fakeOrder(file: string) : Cypress.Chainable<string> {
-    return cy.fixture(file).then((fixture: string) => {
-        return cy.request({
+    return cy.fixture(file).then((fixture: string) => cy.request({
             method: 'POST',
             url: '/api/public/v1/restaurant/R0TAXI000000/order-instances',
             body: fixture,
@@ -38,7 +32,7 @@ export function fakeOrder(file: string) : Cypress.Chainable<string> {
         }).then(e => {
             return e.body.ref as string
         })
-    })
+    )
 }
 
 export function findPendingOrder(table: string) : Cypress.Chainable<JQuery<HTMLElement>> {

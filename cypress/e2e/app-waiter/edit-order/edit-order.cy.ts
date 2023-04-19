@@ -6,8 +6,8 @@ import { fakeOrder, loginAsStaff, removeAllOrders } from "../utils/utils";
 describe('Edit order', () => {
 
     beforeEach(() => {
-        cy.wrap(removeAllOrders())
-        cy.session('login', () => loginAsStaff())
+        removeAllOrders()
+        cy.session('login as staff 1', () => loginAsStaff())
         cy.visit('/staff')
 
         cy.intercept('PUT', '/api/staff/v1/restaurant/R0TAXI000000/order-instances/*').as('updateOrder')
@@ -41,6 +41,7 @@ describe('Edit order', () => {
         cy.get('#subscribeButton').click();
 
         // Validate
+        cy.get('.pending-order #edited').contains('Edited')
         cy.get('.pending-order').click();
         validateSummary(simpleOrder);
 
@@ -156,7 +157,7 @@ describe('Edit order', () => {
         })
     })
 
-    it.only('Changes element count', () => {
+    it('Changes element count', () => {
         fakeOrder('order/request/simple-order.json')
 
         // Load

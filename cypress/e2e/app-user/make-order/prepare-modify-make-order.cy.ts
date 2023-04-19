@@ -18,7 +18,6 @@ describe('Prepare modify make order', () => {
 
         // Modify
         removeOrderElement(1);
-        cy.get('#subscribeButton').click();
         validateSummary(simpleOrder);
         
         // Subscribe

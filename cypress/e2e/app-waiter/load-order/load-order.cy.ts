@@ -4,8 +4,8 @@ import { fakeOrder, loginAsStaff, removeAllOrders } from "../utils/utils";
 
 describe('Load order', () => {
     beforeEach(() => {
-        cy.wrap(removeAllOrders())
-        cy.session('login', () => loginAsStaff())
+        removeAllOrders()
+        cy.session('login as staff 2', () => loginAsStaff())
         cy.visit('/staff')
     })
 

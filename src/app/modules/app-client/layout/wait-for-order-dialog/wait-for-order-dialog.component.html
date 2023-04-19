@@ -21,7 +21,7 @@
             </div>
             
             <p id="thanks" i18n>Order rejected</p>
-            <p class="message" i18n>Twoje zamówienie nie zostało przyjęte</p>
+            <p class="message" i18n>Your order has been rejected</p>
             <p class="comment" *ngIf="order.orderStatusComment"><span i18n>Comment: </span> {{ order.orderStatusComment }}</p>
 
             <ng-container *ngTemplateOutlet="back"></ng-container>
@@ -33,7 +33,7 @@
                 <mat-icon>cancel</mat-icon>
             </div>
             
-            <p id="thanks" i18n>Order rejected</p>
+            <p id="thanks" i18n>Order cancelled</p>
             <p class="message" i18n>Your order has been cancelled</p>
             <p class="comment" *ngIf="order.orderStatusComment"><span i18n>Comment: </span> {{ order.orderStatusComment }}</p>
             

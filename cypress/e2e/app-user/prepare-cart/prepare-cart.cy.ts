@@ -1,5 +1,5 @@
 import { prepareOrder } from "../utils/utils"
-import { complexOrder, simpleOrder } from "../../utils/fixtures";
+import { complexOrder } from "../../utils/fixtures";
 import { validateSummary } from "../../utils/utils";
 
 function getItemGroupCard(name: string) : Cypress.Chainable<JQuery<HTMLElement>> {
