@@ -9,8 +9,9 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { AllergenGet } from '../models/allergen-get';
 import { MenuItemToppingData } from '../models/menu-item-topping-data';
-import { MenuItemToppingGet } from '../models/menu-item-topping-get';
+import { MenuItemToppingDetailedGet } from '../models/menu-item-topping-detailed-get';
 import { StatusResponse } from '../models/status-response';
 
 @Injectable({
@@ -39,7 +40,7 @@ export class MenuItemToppingControllerService extends BaseService {
     restaurantRef: string;
     menuItemToppingRef: string;
     body: MenuItemToppingData
-  }): Observable<StrictHttpResponse<MenuItemToppingGet>> {
+  }): Observable<StrictHttpResponse<MenuItemToppingDetailedGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, MenuItemToppingControllerService.PutToppingPath, 'put');
     if (params) {
@@ -54,7 +55,7 @@ export class MenuItemToppingControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MenuItemToppingGet>;
+        return r as StrictHttpResponse<MenuItemToppingDetailedGet>;
       })
     );
   }
@@ -69,10 +70,10 @@ export class MenuItemToppingControllerService extends BaseService {
     restaurantRef: string;
     menuItemToppingRef: string;
     body: MenuItemToppingData
-  }): Observable<MenuItemToppingGet> {
+  }): Observable<MenuItemToppingDetailedGet> {
 
     return this.putTopping$Response(params).pipe(
-      map((r: StrictHttpResponse<MenuItemToppingGet>) => r.body as MenuItemToppingGet)
+      map((r: StrictHttpResponse<MenuItemToppingDetailedGet>) => r.body as MenuItemToppingDetailedGet)
     );
   }
 
@@ -139,7 +140,7 @@ export class MenuItemToppingControllerService extends BaseService {
   postTopping$Response(params: {
     restaurantRef: string;
     body: MenuItemToppingData
-  }): Observable<StrictHttpResponse<MenuItemToppingGet>> {
+  }): Observable<StrictHttpResponse<MenuItemToppingDetailedGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, MenuItemToppingControllerService.PostToppingPath, 'post');
     if (params) {
@@ -153,7 +154,7 @@ export class MenuItemToppingControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MenuItemToppingGet>;
+        return r as StrictHttpResponse<MenuItemToppingDetailedGet>;
       })
     );
   }
@@ -167,10 +168,10 @@ export class MenuItemToppingControllerService extends BaseService {
   postTopping(params: {
     restaurantRef: string;
     body: MenuItemToppingData
-  }): Observable<MenuItemToppingGet> {
+  }): Observable<MenuItemToppingDetailedGet> {
 
     return this.postTopping$Response(params).pipe(
-      map((r: StrictHttpResponse<MenuItemToppingGet>) => r.body as MenuItemToppingGet)
+      map((r: StrictHttpResponse<MenuItemToppingDetailedGet>) => r.body as MenuItemToppingDetailedGet)
     );
   }
 
@@ -188,7 +189,7 @@ export class MenuItemToppingControllerService extends BaseService {
   getTopping$Response(params: {
     restaurantRef: string;
     menuItemToppingRef: string;
-  }): Observable<StrictHttpResponse<MenuItemToppingGet>> {
+  }): Observable<StrictHttpResponse<MenuItemToppingDetailedGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, MenuItemToppingControllerService.GetToppingPath, 'get');
     if (params) {
@@ -202,7 +203,7 @@ export class MenuItemToppingControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MenuItemToppingGet>;
+        return r as StrictHttpResponse<MenuItemToppingDetailedGet>;
       })
     );
   }
@@ -216,10 +217,59 @@ export class MenuItemToppingControllerService extends BaseService {
   getTopping(params: {
     restaurantRef: string;
     menuItemToppingRef: string;
-  }): Observable<MenuItemToppingGet> {
+  }): Observable<MenuItemToppingDetailedGet> {
 
     return this.getTopping$Response(params).pipe(
-      map((r: StrictHttpResponse<MenuItemToppingGet>) => r.body as MenuItemToppingGet)
+      map((r: StrictHttpResponse<MenuItemToppingDetailedGet>) => r.body as MenuItemToppingDetailedGet)
+    );
+  }
+
+  /**
+   * Path part for operation getToppingAllergens
+   */
+  static readonly GetToppingAllergensPath = '/api/public/v1/restaurant/{restaurantRef}/menu-item-toppings/{menuItemToppingRef}/allergens';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getToppingAllergens()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getToppingAllergens$Response(params: {
+    restaurantRef: string;
+    menuItemToppingRef: string;
+  }): Observable<StrictHttpResponse<Array<AllergenGet>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemToppingControllerService.GetToppingAllergensPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('menuItemToppingRef', params.menuItemToppingRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<AllergenGet>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getToppingAllergens$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getToppingAllergens(params: {
+    restaurantRef: string;
+    menuItemToppingRef: string;
+  }): Observable<Array<AllergenGet>> {
+
+    return this.getToppingAllergens$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<AllergenGet>>) => r.body as Array<AllergenGet>)
     );
   }
 

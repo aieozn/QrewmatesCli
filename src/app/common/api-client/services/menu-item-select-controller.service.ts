@@ -9,8 +9,9 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { AllergenGet } from '../models/allergen-get';
 import { MenuItemSelectData } from '../models/menu-item-select-data';
-import { MenuItemSelectGet } from '../models/menu-item-select-get';
+import { MenuItemSelectDetailedGet } from '../models/menu-item-select-detailed-get';
 import { StatusResponse } from '../models/status-response';
 
 @Injectable({
@@ -39,7 +40,7 @@ export class MenuItemSelectControllerService extends BaseService {
     restaurantRef: string;
     menuItemSelectRef: string;
     body: MenuItemSelectData
-  }): Observable<StrictHttpResponse<MenuItemSelectGet>> {
+  }): Observable<StrictHttpResponse<MenuItemSelectDetailedGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, MenuItemSelectControllerService.PutSelectPath, 'put');
     if (params) {
@@ -54,7 +55,7 @@ export class MenuItemSelectControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MenuItemSelectGet>;
+        return r as StrictHttpResponse<MenuItemSelectDetailedGet>;
       })
     );
   }
@@ -69,10 +70,10 @@ export class MenuItemSelectControllerService extends BaseService {
     restaurantRef: string;
     menuItemSelectRef: string;
     body: MenuItemSelectData
-  }): Observable<MenuItemSelectGet> {
+  }): Observable<MenuItemSelectDetailedGet> {
 
     return this.putSelect$Response(params).pipe(
-      map((r: StrictHttpResponse<MenuItemSelectGet>) => r.body as MenuItemSelectGet)
+      map((r: StrictHttpResponse<MenuItemSelectDetailedGet>) => r.body as MenuItemSelectDetailedGet)
     );
   }
 
@@ -139,7 +140,7 @@ export class MenuItemSelectControllerService extends BaseService {
   postSelect$Response(params: {
     restaurantRef: string;
     body: MenuItemSelectData
-  }): Observable<StrictHttpResponse<MenuItemSelectGet>> {
+  }): Observable<StrictHttpResponse<MenuItemSelectDetailedGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, MenuItemSelectControllerService.PostSelectPath, 'post');
     if (params) {
@@ -153,7 +154,7 @@ export class MenuItemSelectControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MenuItemSelectGet>;
+        return r as StrictHttpResponse<MenuItemSelectDetailedGet>;
       })
     );
   }
@@ -167,10 +168,10 @@ export class MenuItemSelectControllerService extends BaseService {
   postSelect(params: {
     restaurantRef: string;
     body: MenuItemSelectData
-  }): Observable<MenuItemSelectGet> {
+  }): Observable<MenuItemSelectDetailedGet> {
 
     return this.postSelect$Response(params).pipe(
-      map((r: StrictHttpResponse<MenuItemSelectGet>) => r.body as MenuItemSelectGet)
+      map((r: StrictHttpResponse<MenuItemSelectDetailedGet>) => r.body as MenuItemSelectDetailedGet)
     );
   }
 
@@ -188,7 +189,7 @@ export class MenuItemSelectControllerService extends BaseService {
   getSelect$Response(params: {
     restaurantRef: string;
     menuItemSelectRef: string;
-  }): Observable<StrictHttpResponse<MenuItemSelectGet>> {
+  }): Observable<StrictHttpResponse<MenuItemSelectDetailedGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, MenuItemSelectControllerService.GetSelectPath, 'get');
     if (params) {
@@ -202,7 +203,7 @@ export class MenuItemSelectControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MenuItemSelectGet>;
+        return r as StrictHttpResponse<MenuItemSelectDetailedGet>;
       })
     );
   }
@@ -216,10 +217,59 @@ export class MenuItemSelectControllerService extends BaseService {
   getSelect(params: {
     restaurantRef: string;
     menuItemSelectRef: string;
-  }): Observable<MenuItemSelectGet> {
+  }): Observable<MenuItemSelectDetailedGet> {
 
     return this.getSelect$Response(params).pipe(
-      map((r: StrictHttpResponse<MenuItemSelectGet>) => r.body as MenuItemSelectGet)
+      map((r: StrictHttpResponse<MenuItemSelectDetailedGet>) => r.body as MenuItemSelectDetailedGet)
+    );
+  }
+
+  /**
+   * Path part for operation getSelectAllergens
+   */
+  static readonly GetSelectAllergensPath = '/api/public/v1/restaurant/{restaurantRef}/menu-item-selects/{menuItemSelectRef}/allergens';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getSelectAllergens()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSelectAllergens$Response(params: {
+    restaurantRef: string;
+    menuItemSelectRef: string;
+  }): Observable<StrictHttpResponse<Array<AllergenGet>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemSelectControllerService.GetSelectAllergensPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('menuItemSelectRef', params.menuItemSelectRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<AllergenGet>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getSelectAllergens$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSelectAllergens(params: {
+    restaurantRef: string;
+    menuItemSelectRef: string;
+  }): Observable<Array<AllergenGet>> {
+
+    return this.getSelectAllergens$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<AllergenGet>>) => r.body as Array<AllergenGet>)
     );
   }
 

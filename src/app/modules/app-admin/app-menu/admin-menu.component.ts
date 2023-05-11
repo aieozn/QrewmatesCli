@@ -12,7 +12,7 @@ import { ElementEditorDirective } from './elementEditorDirective';
 @Component({
   selector: 'app-admin-menu',
   templateUrl: './admin-menu.component.html',
-  styleUrls: ['./admin-menu.component.scss', './menu-element-drag-drop-list.scss']
+  styleUrls: ['./menu-element-drag-drop-list.scss', './admin-menu.component.scss']
 })
 export class AdminMenuComponent implements OnDestroy {
 
@@ -63,7 +63,7 @@ export class AdminMenuComponent implements OnDestroy {
       for (const loadedCategory of loadedCategories) {
         this.categories.push({
           category: loadedCategory,
-          open: false
+          open: true
         })
       }
     })

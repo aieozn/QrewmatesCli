@@ -1,4 +1,27 @@
-<div id="menu-elements-list" cdkDropList *ngIf="_category" (cdkDropListDropped)="dragDropListCaught($event)">
+<div id="menu-elements-list" *ngIf="_category">
+    <div *ngFor="let group of _category.menuItemGroups">
+
+        <div class="menu-element box-shadow box-radius">
+            <div class="drag-box clickable">
+                <mat-icon>more_vert</mat-icon>
+            </div>
+
+            <div class="menu-element-details">
+                <div class="left">
+                    <p class="menu-element-name">{{ group.name }}</p>
+                    <p class="menu-element-description">{{ group.description }}</p>
+                </div>
+                <div class="right">
+                    <div class="settings-icon clickable" (click)="openEditor(group)">
+                        <mat-icon>settings</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="menu-elements-list" cdkDropList *ngIf="_category" (cdkDropListDropped)="dragDropListCaught($event)">
     <div *ngFor="let group of _category.menuItemGroups" class="menu-element-drag-box" cdkDrag>
 
         <div class="menu-element box-shadow">
@@ -22,4 +45,4 @@
             <p i18n>+ Create new dish</p>
         </div>
     </div>
-</div>
+</div> -->

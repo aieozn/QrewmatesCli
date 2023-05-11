@@ -1,8 +1,39 @@
 <div id="menu">
     <h1 i18n>Restaurant menu</h1>
 
+    <div id="menu-elements-list">
+        <div *ngFor="let category of categories" class="category-pane box-shadow box-radius">
+            <div class="menu-element-details">
+                <div class="left">
+                    <p class="menu-element-name">{{ category.category.name }}</p>
+                    <p class="menu-element-description">{{ category.category.description }}</p>
+
+                    <p class="extend clickable" (click)="extendCategory(category.category)" *ngIf="!category.open">
+                        <span i18n>Expand the category</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
+                    </p>
+                    <p class="extend clickable" (click)="closeCategories()" *ngIf="category.open">
+                        <span i18n>Collapse the category</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
+                    </p>
+                </div>
+                <div class="right">
+                    <mat-icon class="settings-icon">settings</mat-icon>
+                </div>
+            </div>
+
+            <div class="menu-element-items" *ngIf="category.open">
+                <app-menu-category-items [category]="category.category" (openItemGroupEditor)="editItem($event)"></app-menu-category-items>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div id="menu">
+    <h1 i18n>Restaurant menu</h1>
+
+    <p>W tym oknie możesz dodawać kategorie i produkty do swojego menu. Produkt musi być przypisany do kategorii, dlatego zacznij od ich dodania.
+        Edycja kategorii lub dodanie do niej wariantu wywoła zmianę dla wszystkich produktów wewnątrz niej, duplikowanie skopiuje ją z całą zawartością.</p>
+
     <div id="menu-elements-list" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
-        <div *ngFor="let category of categories" class="menu-element-drag-box" cdkDrag>
+        <div *ngFor="let category of categories" class="menu-element-drag-box category-pane" cdkDrag>
             <div class="menu-element box-shadow">
                 <div class="drag-box clickable">
                     <mat-icon>apps</mat-icon>
@@ -29,7 +60,7 @@
         </div>
     </div>
 
-    <div class="menu-element box-shadow new-one clickable" (click)="createCategory()">
+    <div class="clickable new-one" (click)="createCategory()">
         <div>
             <p i18n>+ Create new category</p>
         </div>
@@ -42,4 +73,4 @@
 
 <div id="floating-editor" class="box-shadow-top">
     <ng-template elementEditorHost></ng-template>
-</div>
+</div> -->

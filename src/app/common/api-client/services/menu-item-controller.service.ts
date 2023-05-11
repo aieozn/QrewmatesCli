@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { AllergenGet } from '../models/allergen-get';
 import { MenuItemData } from '../models/menu-item-data';
 import { MenuItemDetailedGet } from '../models/menu-item-detailed-get';
 import { StatusResponse } from '../models/status-response';
@@ -220,6 +221,55 @@ export class MenuItemControllerService extends BaseService {
 
     return this.getItemDetails$Response(params).pipe(
       map((r: StrictHttpResponse<MenuItemDetailedGet>) => r.body as MenuItemDetailedGet)
+    );
+  }
+
+  /**
+   * Path part for operation getItemAllergens
+   */
+  static readonly GetItemAllergensPath = '/api/public/v1/restaurant/{restaurantRef}/menu-items/{menuItemRef}/allergens';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getItemAllergens()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getItemAllergens$Response(params: {
+    restaurantRef: string;
+    menuItemRef: string;
+  }): Observable<StrictHttpResponse<Array<AllergenGet>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemControllerService.GetItemAllergensPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('menuItemRef', params.menuItemRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<AllergenGet>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getItemAllergens$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getItemAllergens(params: {
+    restaurantRef: string;
+    menuItemRef: string;
+  }): Observable<Array<AllergenGet>> {
+
+    return this.getItemAllergens$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<AllergenGet>>) => r.body as Array<AllergenGet>)
     );
   }
 

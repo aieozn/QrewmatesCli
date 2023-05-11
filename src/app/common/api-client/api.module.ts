@@ -16,6 +16,7 @@ import { MenuItemSelectControllerService } from './services/menu-item-select-con
 import { MenuItemSelectCollectionControllerService } from './services/menu-item-select-collection-controller.service';
 import { MenuItemGroupControllerService } from './services/menu-item-group-controller.service';
 import { MenuCategoryControllerService } from './services/menu-category-controller.service';
+import { AllergenControllerService } from './services/allergen-controller.service';
 import { MultimediaControllerService } from './services/multimedia-controller.service';
 import { LoginControllerService } from './services/login-controller.service';
 import { StatisticsControllerService } from './services/statistics-controller.service';
@@ -41,6 +42,7 @@ import { RestaurantStylesControllerService } from './services/restaurant-styles-
     MenuItemSelectCollectionControllerService,
     MenuItemGroupControllerService,
     MenuCategoryControllerService,
+    AllergenControllerService,
     MultimediaControllerService,
     LoginControllerService,
     StatisticsControllerService,

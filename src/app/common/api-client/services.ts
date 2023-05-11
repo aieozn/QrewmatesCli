@@ -10,6 +10,7 @@ export { MenuItemSelectControllerService } from './services/menu-item-select-con
 export { MenuItemSelectCollectionControllerService } from './services/menu-item-select-collection-controller.service';
 export { MenuItemGroupControllerService } from './services/menu-item-group-controller.service';
 export { MenuCategoryControllerService } from './services/menu-category-controller.service';
+export { AllergenControllerService } from './services/allergen-controller.service';
 export { MultimediaControllerService } from './services/multimedia-controller.service';
 export { LoginControllerService } from './services/login-controller.service';
 export { StatisticsControllerService } from './services/statistics-controller.service';
