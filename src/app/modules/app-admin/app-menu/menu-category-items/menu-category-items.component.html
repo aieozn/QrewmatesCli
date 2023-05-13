@@ -1,5 +1,5 @@
-<div id="menu-elements-list" *ngIf="_category">
-    <div *ngFor="let group of _category.menuItemGroups">
+<div id="menu-elements-list" *ngIf="groups">
+    <div *ngFor="let group of groups">
 
         <div class="menu-element box-shadow box-radius">
             <div class="drag-box clickable">
@@ -8,14 +8,32 @@
 
             <div class="menu-element-details">
                 <div class="left">
-                    <p class="menu-element-name">{{ group.name }}</p>
-                    <p class="menu-element-description">{{ group.description }}</p>
+                    <div class="menu-element-details-image" *ngIf="group.group.image">
+                        <img [src]="getImageUrl(group.group.image.ref)"/>
+                    </div>
+                    <div class="menu-element-details-content">
+                        <p class="menu-element-name">{{ group.group.name }}</p>
+                        <p class="menu-element-description">{{ group.group.description }}</p>
+                    </div>
+
+                    <p class="extend clickable" (click)="extend(group.group)" *ngIf="!group.open">
+                        <span i18n>Expand variants</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
+                    </p>
+                    <p class="extend clickable" (click)="closeAll()" *ngIf="group.open">
+                        <span i18n>Collapse variants</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
+                    </p>
                 </div>
                 <div class="right">
-                    <div class="settings-icon clickable" (click)="openEditor(group)">
+                    <div class="settings-icon clickable" (click)="openEditor(group.group)">
                         <mat-icon>settings</mat-icon>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div *ngIf="group.open">
+            <div *ngFor="let item of group.group.menuItems">
+                <app-menu-group-items [item]="item"></app-menu-group-items>
             </div>
         </div>
     </div>

@@ -63,7 +63,7 @@ export class AdminMenuComponent implements OnDestroy {
       for (const loadedCategory of loadedCategories) {
         this.categories.push({
           category: loadedCategory,
-          open: true
+          open: false
         })
       }
     })

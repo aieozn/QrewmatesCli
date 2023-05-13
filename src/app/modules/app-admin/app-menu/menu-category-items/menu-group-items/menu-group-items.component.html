@@ -1,0 +1,17 @@
+<div class="menu-element box-shadow box-radius" *ngIf="_item as item">
+    <div class="drag-box clickable">
+        <mat-icon>more_vert</mat-icon>
+    </div>
+
+    <div class="menu-element-details">
+        <div class="left">
+            <p class="menu-element-name">{{ item.menuItemGroupName}}: {{ item.name }}</p>
+            <p class="menu-element-price">{{ item.price }} zł</p>
+        </div>
+        <div class="right">
+            <div class="settings-icon clickable">
+                <mat-icon>settings</mat-icon>
+            </div>
+        </div>
+    </div>
+</div>

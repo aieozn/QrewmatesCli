@@ -4,6 +4,9 @@
     <div id="menu-elements-list">
         <div *ngFor="let category of categories" class="category-pane box-shadow box-radius">
             <div class="menu-element-details">
+                <div class="drag-box clickable">
+                    <mat-icon>more_vert</mat-icon>
+                </div>
                 <div class="left">
                     <p class="menu-element-name">{{ category.category.name }}</p>
                     <p class="menu-element-description">{{ category.category.description }}</p>

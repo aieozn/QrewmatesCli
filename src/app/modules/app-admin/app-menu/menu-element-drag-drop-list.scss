@@ -74,6 +74,7 @@
 .menu-element-details .right {
     width: 70px;
     border-left: 1px solid #C3C3C3;
+    margin-left: 20px;
 }
 
 .menu-element-details .left {
@@ -88,6 +89,7 @@
     margin: 0px;
     padding: 0px;
     color: #C3C3C3;
+    margin-top: 10px;
 }
 
 .settings-icon {
@@ -104,4 +106,35 @@
 .settings-icon mat-icon {
     display: inline;
     vertical-align: middle;
+}
+
+.menu-element {
+    margin-top: 30px;
+    padding: 20px;
+    padding-right: 0px;
+    padding-left: 0px;
+    display: flex;
+    background-color: #FFFFFF;
+}
+
+.drag-box {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #C3C3C3;
+}
+
+.drag-box mat-icon {
+    font-size: 50px;
+    width: 50px;
+    line-height: 60px;
+    height: 60px;
+    color: #C3C3C3;
+}
+
+.menu-element-name {
+    font-family: PoppinsSemiBold;
+    color: #272727;
+    margin: 0px;
+    padding: 0px;
 }

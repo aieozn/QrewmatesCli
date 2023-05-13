@@ -9,7 +9,7 @@ import { EditorDialogService } from '../editors/editor-dialog.service';
 @Component({
   selector: 'app-menu-category-items',
   templateUrl: './menu-category-items.component.html',
-  styleUrls: ['./menu-category-items.component.scss', '../menu-element-drag-drop-list.scss']
+  styleUrls: ['../menu-element-drag-drop-list.scss', './menu-category-items.component.scss']
 })
 export class MenuCategoryItemsComponent implements OnDestroy {
 
@@ -19,11 +19,24 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     categoryRef: string
   }>();
 
+  groups: {
+    group: MenuItemGroupGet,
+    open: boolean
+  }[] = []
+
   _category: MenuCategoryGet | undefined;
   private readonly onDestroy = new Subject<void>();
 
   @Input() set category(value: MenuCategoryGet) {
     this._category = value;
+
+    this.groups = [];
+    for (const group of value.menuItemGroups) {
+      this.groups.push({
+        group: group,
+        open: false
+      })
+    }
   }
 
   constructor(private editorDialogService: EditorDialogService,
@@ -49,6 +62,11 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     } else {
       throw 'Category not defined';
     }
+  }
+
+  getImageUrl(ref: string) {
+    const restaurantRef = this.accountService.getRestaurantRef()
+    return `/api/public/v1/restaurant/${restaurantRef}/multimedia/${ref}`;
   }
 
   private itemGroupUpdated(newItemGroup: MenuItemGroupGet) {
@@ -113,5 +131,16 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   dragDropListCaught(event: CdkDragDrop<string[]>) {
     if (!this._category) { throw 'Category not defined'; }
     this.arrayMove(this._category.menuItemGroups, event.previousIndex, event.currentIndex)
+  }
+
+  extend(group: MenuItemGroupGet) {
+    this.closeAll();
+    this.groups.filter(e => e.group.ref === group.ref)[0].open = true;
+  }
+
+  closeAll() {
+    for (const group of this.groups) {
+      group.open = false;
+    }
   }
 }
