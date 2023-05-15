@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuCategoryGet, MenuItemGroupGet } from '@common/api-client/models';
@@ -12,12 +12,6 @@ import { EditorDialogService } from '../editors/editor-dialog.service';
   styleUrls: ['../menu-element-drag-drop-list.scss', './menu-category-items.component.scss']
 })
 export class MenuCategoryItemsComponent implements OnDestroy {
-
-  @Output('openItemGroupEditor')
-  openItemGroupEditor = new EventEmitter<{
-    group: MenuItemGroupGet,
-    categoryRef: string
-  }>();
 
   groups: {
     group: MenuItemGroupGet,
@@ -54,7 +48,7 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   }
 
   openEditor(menuItemGroup: MenuItemGroupGet) {
-    this.openItemGroupEditor.emit({
+    this.editorDialogService.onEditItemGroup.emit({
       group: menuItemGroup,
       categoryRef: menuItemGroup.categoryRef
     })

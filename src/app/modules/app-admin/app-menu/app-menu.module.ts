@@ -19,6 +19,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MenuGroupItemsComponent } from './menu-category-items/menu-group-items/menu-group-items.component';
 import { ElementEditorDirective } from './elementEditorDirective';
 import { EditItemComponent } from './editors/edit-item/edit-item.component';
+import { ToppingsComponent } from './editors/edit-item/toppings/toppings.component';
+import { SelectsComponent } from './editors/edit-item/selects/selects.component';
+import { AllergensComponent } from './editors/edit-item/allergens/allergens.component';
+import { SettingsComponent } from './editors/edit-item/settings/settings.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -34,7 +39,11 @@ import { EditItemComponent } from './editors/edit-item/edit-item.component';
     SubmitBarComponent,
     MenuGroupItemsComponent,
     ElementEditorDirective,
-    EditItemComponent
+    EditItemComponent,
+    ToppingsComponent,
+    SelectsComponent,
+    AllergensComponent,
+    SettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +53,8 @@ import { EditItemComponent } from './editors/edit-item/edit-item.component';
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule
   ]
 })
 export class AppMenuModule { }

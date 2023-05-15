@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { IdentifiedByRefData, MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 
@@ -13,7 +13,6 @@ import { EditorDialogService } from '../editor-dialog.service';
 export class EditItemGroupComponent {
   originalItemGroup: MenuItemGroupGet | undefined;
   activeItemGroup: MenuItemGroupData | undefined;
-  private itemGroupCategory: IdentifiedByRefData | undefined;
 
   groupFields = {
     groupName: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -32,10 +31,6 @@ export class EditItemGroupComponent {
     this.activeItemGroup = JSON.parse(JSON.stringify(value));
 
     this.loadItemGroupFieldsValues(value);
-  }
-
-  @Input() set category(category: IdentifiedByRefData) {
-    this.itemGroupCategory = category;
   }
 
   private loadItemGroupFieldsValues(value: MenuItemGroupGet) {

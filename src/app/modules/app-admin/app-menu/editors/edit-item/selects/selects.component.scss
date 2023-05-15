@@ -1,0 +1,108 @@
+#all {
+    padding: 15px;
+}
+
+#all h2 {
+    font-size: 16px;
+    font-family: PoppinsSemiBold;
+    color: #272727;
+    margin: 0px;
+}
+
+.action-description {
+    font-size: 12px;
+    color: #C3C3C3;
+    margin: 0px;
+}
+
+#colections-list-list {
+    margin-top: 20px;
+}
+
+.select-collection {
+    border: 1px solid #C3C3C3;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-right: 50px;
+    position: relative;
+}
+
+.select-collection-description {
+    display: flex;
+}
+
+.name-field {
+    line-height: 40px;
+    border-left: 1px solid #c3c3c3;
+    padding-left: 10px;
+    font-size: 16px;
+    font-family: PoppinsSemiBold;
+    color: #272727;
+}
+
+.checkbox-field mat-checkbox {
+    margin: 0px;
+}
+
+.remove-button {
+    position: absolute;
+    line-height: 40px;
+    margin-top: 10px;
+    width: 40px;
+    right: -50px;
+    top: 0px;
+    border: 1px solid #E73A2F;
+    color: #E73A2F;
+    border-radius: 60px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.remove-button mat-icon {
+    position: relative;
+    top: 3px;
+}
+
+.collapse-button {
+    line-height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #C3C3C3;
+}
+.collapse-button p{
+ margin: 0px;
+}
+
+.extend-arrow {
+    font-size: 22px;
+    line-height: 22px;
+    display: inline;
+    position: relative;
+    top: 5px;
+}
+
+.sub-select {
+    margin-left: 40px;
+    color: #777777;
+    font-family: Poppins;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.select-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.sub-selects .remove-button{
+    margin-top: 0px;
+    width: 40px;
+    border: 1px solid #D9D9D9;
+    color: #D9D9D9;
+}
+
+.sub-selects {
+    margin-bottom: 40px;
+}

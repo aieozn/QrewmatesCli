@@ -126,6 +126,52 @@ export class MenuItemSelectCollectionControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation getSelectCollections
+   */
+  static readonly GetSelectCollectionsPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-select-collections';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getSelectCollections()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSelectCollections$Response(params: {
+    restaurantRef: string;
+  }): Observable<StrictHttpResponse<Array<MenuItemSelectCollectionGet>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemSelectCollectionControllerService.GetSelectCollectionsPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<MenuItemSelectCollectionGet>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getSelectCollections$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getSelectCollections(params: {
+    restaurantRef: string;
+  }): Observable<Array<MenuItemSelectCollectionGet>> {
+
+    return this.getSelectCollections$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<MenuItemSelectCollectionGet>>) => r.body as Array<MenuItemSelectCollectionGet>)
+    );
+  }
+
+  /**
    * Path part for operation postSelectCollection
    */
   static readonly PostSelectCollectionPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-select-collections';

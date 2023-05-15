@@ -1,1 +1,32 @@
-<p>edit-item works!</p>
+<div id="edit-element" *ngIf="fullItem">
+    <p id="element-name"><span i18n>Option</span>: <b>{{ fullItem.name }}</b></p>
+
+    <p id="help-text" i18n>Edit fields below and save changes</p>
+    <div id="editors">
+    </div>
+
+    <div id="item-tabs">
+        <div class="tab clickable">
+            <mat-icon>add_circle</mat-icon>
+            <span i18n>Dodatki</span>
+        </div>
+        <div class="tab clickable" (click)="openSelects(fullItem)">
+            <mat-icon>check_circle</mat-icon>
+            <span i18n>Obieralne</span>
+        </div>
+        <div class="tab clickable" (click)="openAllergens(fullItem)">
+            <mat-icon>info</mat-icon>
+            <span i18n>Alergeny</span>
+        </div>
+        <div class="tab clickable">
+            <mat-icon>settings</mat-icon>
+            <span i18n>Edytuj</span>
+        </div>
+    </div>
+</div>
+
+<div id="editor">
+    <ng-template elementEditorHost></ng-template>
+</div>
+
+<app-submit-bar [saveEnabled]="isValid(itemFields) && isUpdated(itemFields)" [deleteEnabled]="originalItem !== undefined" (onClose)="cancel()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

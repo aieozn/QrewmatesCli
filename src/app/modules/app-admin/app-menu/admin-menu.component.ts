@@ -1,13 +1,14 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuCategoryGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuCategoryControllerService } from '@common/api-client/services';
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
 import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
 import { EditorDialogService } from './editors/editor-dialog.service';
 import { ElementEditorDirective } from './elementEditorDirective';
+import { EditItemComponent } from './editors/edit-item/edit-item.component';
 
 @Component({
   selector: 'app-admin-menu',
@@ -53,6 +54,16 @@ export class AdminMenuComponent implements OnDestroy {
     .pipe(
       takeUntil(this.onDestroy)
     ).subscribe(e => this.categoryDeleted(e));
+
+    this.editorDialogService.onEditItemGroup.pipe(
+      takeUntil(this.onDestroy),
+      tap(e => this.editItemGroup(e))
+    ).subscribe();
+
+    this.editorDialogService.onEditItem.pipe(
+      takeUntil(this.onDestroy),
+      tap(e => this.editItem(e))
+    ).subscribe();
   }
 
   private loadCategories() {
@@ -66,6 +77,11 @@ export class AdminMenuComponent implements OnDestroy {
           open: false
         })
       }
+      
+      // TODO remove
+      this.editItem({
+        item: loadedCategories[0].menuItemGroups[0].menuItems[0]
+      })
     })
   }
 
@@ -95,7 +111,7 @@ export class AdminMenuComponent implements OnDestroy {
     // componentRef.instance.data = adItem.data;
   }
 
-  editItem(itemGroupData: {
+  editItemGroup(itemGroupData: {
     group: MenuItemGroupGet,
     categoryRef: string
   }) {
@@ -106,10 +122,15 @@ export class AdminMenuComponent implements OnDestroy {
     const componentRef = viewContainerRef.createComponent(EditItemGroupComponent);
 
     componentRef.instance.group = itemGroupData.group;
-    
-    componentRef.instance.category = {
-      ref: itemGroupData.categoryRef
-    }
+  }
+
+  editItem(itemData: {
+    item: MenuItemGet
+  }) {
+    const viewContainerRef = this.elementEditorHost.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(EditItemComponent);
+    componentRef.instance.item = itemData.item;
   }
 
   ngOnDestroy(): void {

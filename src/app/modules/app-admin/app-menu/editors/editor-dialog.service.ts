@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { MenuCategoryGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,15 @@ export class EditorDialogService {
 
   onItemGroupUpdated = new EventEmitter<MenuItemGroupGet>();
   onItemGroupDeleted = new EventEmitter<string>();
+
+  onEditItemGroup = new EventEmitter<{
+    group: MenuItemGroupGet,
+    categoryRef: string
+  }>();
+
+  onEditItem = new EventEmitter<{
+    item: MenuItemGet
+  }>();
 
   closeDialog() {
     this.onCloseDialog.emit();

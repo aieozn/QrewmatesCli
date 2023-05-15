@@ -1,0 +1,10 @@
+<div id="all" class="box-shadow box-radius">
+    <h2 i18n>Allergens</h2>
+    <p i18n class="action-description">Choose the right allergens for this dish</p>
+
+    <div id="allergens-list">
+        <div class="allergen" *ngFor="let allergen of allergens">
+            <mat-checkbox [(ngModel)]="allergen.checked" (change)="select(allergen.value, $event.checked)">{{ allergen.value.name }}</mat-checkbox>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { switchMap, tap } from 'rxjs';
+import { EditorDialogService } from '../../editors/editor-dialog.service';
 
 @Component({
   selector: 'app-menu-group-items',
@@ -21,7 +22,8 @@ export class MenuGroupItemsComponent {
   constructor(
     private menuItemService: MenuItemControllerService,
     private accountService: AccountService,
-    private groupService: MenuItemGroupControllerService
+    private groupService: MenuItemGroupControllerService,
+    private editorDialogService: EditorDialogService
   ) {
 
   }
@@ -64,10 +66,15 @@ export class MenuGroupItemsComponent {
   };
 
   dragDropListCaught(event: CdkDragDrop<string[]>) {
-    console.log("DROP")
     if (!this._group) { throw 'Groups not defined'; }
     if (event.previousIndex != event.currentIndex) {
       this.arrayMove(this._group.menuItems, event.previousIndex, event.currentIndex)
     }
+  }
+
+  edit(item: MenuItemGet) {
+    this.editorDialogService.onEditItem.emit({
+      item: item
+    });
   }
 }

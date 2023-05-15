@@ -12,7 +12,7 @@
                     <p class="menu-element-price">{{ item.price }} zł</p>
                 </div>
                 <div class="right">
-                    <div class="settings-icon clickable">
+                    <div class="settings-icon clickable" (click)="edit(item)">
                         <mat-icon>settings</mat-icon>
                     </div>
                 </div>
