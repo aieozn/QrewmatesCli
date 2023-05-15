@@ -166,7 +166,9 @@ export class AdminMenuComponent implements OnDestroy {
   };
 
   dragDropListCaught(event: CdkDragDrop<string[]>) {
-    this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
+    if (event.previousIndex != event.currentIndex) {
+      this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
+    }
   }
 
   createCategory() {

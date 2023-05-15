@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MenuGroupItemsComponent } from './menu-category-items/menu-group-items/menu-group-items.component';
+import { ElementEditorDirective } from './elementEditorDirective';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { MenuGroupItemsComponent } from './menu-category-items/menu-group-items/
     EditorItemGroupDescriptionComponent,
     EditorItemGroupNameComponent,
     SubmitBarComponent,
-    MenuGroupItemsComponent
+    MenuGroupItemsComponent,
+    ElementEditorDirective
   ],
   imports: [
     CommonModule,

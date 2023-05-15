@@ -37,14 +37,6 @@ h1 {
     margin-bottom: 40px;
 }
 
-.extend-arrow {
-    font-size: 22px;
-    line-height: 22px;
-    display: inline;
-    position: relative;
-    top: 5px;
-}
-
 .left {
     margin-left: 20px;
 }
@@ -56,15 +48,15 @@ h1 {
 //     margin-top: 10px;
 // }
 
-// #floating-editor {
-//     position: absolute;
-//     bottom: 0px;
-//     left: 0px;
-//     width: 100%;
-//     background-color: #FFF;
-//     border-top-left-radius: 15px;
-//     border-top-right-radius: 15px;
-// }
+#floating-editor {
+    position: sticky;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: #FFF;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
 
 // .category-pane {
 //     background-color: #F7F7F7;

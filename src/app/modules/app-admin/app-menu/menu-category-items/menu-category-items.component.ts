@@ -101,14 +101,17 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  private arrayMove(items: MenuItemGroupGet[], old_index: number, new_index: number
+  private arrayMove(items: {
+    group: MenuItemGroupGet,
+    open: boolean
+  }[], old_index: number, new_index: number
   ) {
-    items[old_index].elementOrder = items[new_index].elementOrder;
+    items[old_index].group.elementOrder = items[new_index].group.elementOrder;
 
     this.itemGroupService.putItemGroup({
       restaurantRef: this.accountService.getRestaurantRef(),
-      menuItemGroupRef: items[old_index].ref,
-      body: items[old_index]
+      menuItemGroupRef: items[old_index].group.ref,
+      body: items[old_index].group
     }).subscribe((_) => {
       this.reloadCategory();
     });
@@ -129,8 +132,11 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   }
 
   dragDropListCaught(event: CdkDragDrop<string[]>) {
-    if (!this._category) { throw 'Category not defined'; }
-    this.arrayMove(this._category.menuItemGroups, event.previousIndex, event.currentIndex)
+    console.log("DROP")
+    if (!this.groups) { throw 'Groups not defined'; }
+    if (event.previousIndex != event.currentIndex) {
+      this.arrayMove(this.groups, event.previousIndex, event.currentIndex)
+    }
   }
 
   extend(group: MenuItemGroupGet) {

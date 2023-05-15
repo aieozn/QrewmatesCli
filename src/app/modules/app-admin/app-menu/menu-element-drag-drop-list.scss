@@ -84,7 +84,7 @@
 
 .extend {
     position: absolute;
-    right: 20px;
+    right: 0px;
     bottom: 0px;
     margin: 0px;
     padding: 0px;
@@ -137,4 +137,12 @@
     color: #272727;
     margin: 0px;
     padding: 0px;
+}
+
+.extend-arrow {
+    font-size: 22px;
+    line-height: 22px;
+    display: inline;
+    position: relative;
+    top: 5px;
 }

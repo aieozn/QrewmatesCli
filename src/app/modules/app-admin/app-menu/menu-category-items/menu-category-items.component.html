@@ -1,5 +1,5 @@
-<div id="menu-elements-list" *ngIf="groups">
-    <div *ngFor="let group of groups">
+<div id="menu-elements-list" *ngIf="groups" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
+    <div *ngFor="let group of groups" cdkDrag>
 
         <div class="menu-element box-shadow box-radius">
             <div class="drag-box clickable">
@@ -31,10 +31,10 @@
             </div>
         </div>
 
+        
+
         <div *ngIf="group.open">
-            <div *ngFor="let item of group.group.menuItems">
-                <app-menu-group-items [item]="item"></app-menu-group-items>
-            </div>
+            <app-menu-group-items [group]="group.group"></app-menu-group-items>
         </div>
     </div>
 </div>

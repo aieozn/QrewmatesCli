@@ -1,8 +1,8 @@
 <div id="menu">
     <h1 i18n>Restaurant menu</h1>
 
-    <div id="menu-elements-list">
-        <div *ngFor="let category of categories" class="category-pane box-shadow box-radius">
+    <div id="menu-elements-list" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
+        <div *ngFor="let category of categories" class="category-pane box-shadow box-radius" cdkDrag>
             <div class="menu-element-details">
                 <div class="drag-box clickable">
                     <mat-icon>more_vert</mat-icon>
@@ -18,7 +18,7 @@
                         <span i18n>Collapse the category</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
                     </p>
                 </div>
-                <div class="right">
+                <div class="right clickable" (click)="editCategory(category.category)">
                     <mat-icon class="settings-icon">settings</mat-icon>
                 </div>
             </div>
@@ -29,6 +29,11 @@
         </div>
     </div>
 </div>
+
+<div id="floating-editor" class="box-shadow-top">
+    <ng-template elementEditorHost></ng-template>
+</div>
+
 <!-- <div id="menu">
     <h1 i18n>Restaurant menu</h1>
 
@@ -73,7 +78,4 @@
 
     </div>
 </div>
-
-<div id="floating-editor" class="box-shadow-top">
-    <ng-template elementEditorHost></ng-template>
-</div> -->
+-->
