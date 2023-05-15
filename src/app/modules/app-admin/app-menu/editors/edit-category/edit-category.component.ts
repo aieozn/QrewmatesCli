@@ -82,12 +82,15 @@ export class EditCategoryComponent {
     if (this.originalCategory !== undefined) {
       const originalCategoryRef = this.originalCategory.ref;
 
-      this.categoryService.deleteCategory({
-        restaurantRef: this.accountService.getRestaurantRef(),
-        categoryRef: originalCategoryRef
-      }).subscribe(_ => {
-        this.editDialogService.categoryDeleted(originalCategoryRef)
-      })
+      if (confirm($localize`Are you sure you want to delete this category?`)) {
+        this.categoryService.deleteCategory({
+          restaurantRef: this.accountService.getRestaurantRef(),
+          categoryRef: originalCategoryRef
+        }).subscribe(_ => {
+          this.editDialogService.categoryDeleted(originalCategoryRef)
+        })
+      }
+      
     } else {
       this.editDialogService.closeDialog();
       console.error('Category not defined');

@@ -24,11 +24,11 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     open: boolean
   }[] = []
 
-  _category: MenuCategoryGet | undefined;
+  categoryRef: string | undefined;
   private readonly onDestroy = new Subject<void>();
 
   @Input() set category(value: MenuCategoryGet) {
-    this._category = value;
+    this.categoryRef = value.ref;
 
     this.groups = [];
     for (const group of value.menuItemGroups) {
@@ -54,14 +54,10 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   }
 
   openEditor(menuItemGroup: MenuItemGroupGet) {
-    if (this._category) {
-      this.openItemGroupEditor.emit({
-        group: menuItemGroup,
-        categoryRef: menuItemGroup.categoryRef
-      })
-    } else {
-      throw 'Category not defined';
-    }
+    this.openItemGroupEditor.emit({
+      group: menuItemGroup,
+      categoryRef: menuItemGroup.categoryRef
+    })
   }
 
   getImageUrl(ref: string) {
@@ -70,13 +66,13 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   }
 
   private itemGroupUpdated(newItemGroup: MenuItemGroupGet) {
-    if (!this._category) { throw 'Category not defined'; }
-    if (newItemGroup.categoryRef !== this._category.ref) { return; }
+    if (!this.categoryRef) { throw 'Category not defined'; }
+    if (newItemGroup.categoryRef !== this.categoryRef) { return; }
 
-    for (let i = 0; i < this._category.menuItemGroups.length; i++) {
-      const existingItemGroup = this._category.menuItemGroups[i];
+    for (let i = 0; i < this.groups.length; i++) {
+      const existingItemGroup = this.groups[i].group;
       if (existingItemGroup.ref === newItemGroup.ref) {
-        this._category.menuItemGroups[i] = newItemGroup;
+        this.groups[i].group = newItemGroup;
         this.editorDialogService.closeDialog();
         break;
       }
@@ -84,12 +80,10 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   }
 
   private itemGroupDeleted(ref: string) {
-    if (!this._category) { throw 'Category not defined'; }
-
-    for (let i = 0; i < this._category.menuItemGroups.length; i++) {
-      const existingItemGroup = this._category.menuItemGroups[i];
-      if (existingItemGroup.ref === ref) {
-        this._category.menuItemGroups.splice(i, 1);
+    for (let i = 0; i < this.groups.length; i++) {
+      const existingItemGroup = this.groups[i];
+      if (existingItemGroup.group.ref === ref) {
+        this.groups.splice(i, 1);
         this.editorDialogService.closeDialog();
         break;
       }
@@ -120,12 +114,12 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   };
 
   private reloadCategory() {
-    if (!this._category) { throw 'Category not defined'; }
+    if (!this.categoryRef) { throw 'Category not defined'; }
 
-    const activeCategory = this._category;
+    const activeCategory = this.categoryRef;
     this.categoryService.getCategory({
       restaurantRef: this.accountService.getRestaurantRef(),
-      categoryRef: this._category.ref
+      categoryRef: activeCategory
     }).subscribe(c => {
       Object.assign(activeCategory, c);
     })

@@ -1,11 +1,10 @@
-<h1>XXX</h1>
 <div id="edit-element" *ngIf="activeItemGroup">
     <p id="element-name"><span i18n>Dish</span>: <b>{{ activeItemGroup.name }}</b></p>
 
     <p id="help-text" i18n>Edit fields below and save changes</p>
     <div id="editors">
         <app-editor-item-group-name class="editor" [name]="groupFields.groupName"></app-editor-item-group-name>
-        <app-editor-item-group-name class="editor" [name]="groupFields.groupDescription"></app-editor-item-group-name>
+        <app-editor-item-group-description class="editor" [desciprion]="groupFields.groupDescription"></app-editor-item-group-description>
     </div>
 </div>
 

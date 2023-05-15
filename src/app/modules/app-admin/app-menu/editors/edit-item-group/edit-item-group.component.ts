@@ -73,12 +73,14 @@ export class EditItemGroupComponent {
     if (this.originalItemGroup !== undefined) {
       const originalGroupCategoryRef = this.originalItemGroup.ref;
 
-      this.menuItemGroupService.deleteMenuItemGroup({
-        restaurantRef: this.accountService.getRestaurantRef(),
-        menuItemGroupRef: originalGroupCategoryRef
-      }).subscribe(_ => {
-        this.editDialogService.itemGroupDeleted(originalGroupCategoryRef)
-      })
+      if (confirm($localize`Are you sure you want to delete this element?`)) {
+        this.menuItemGroupService.deleteMenuItemGroup({
+          restaurantRef: this.accountService.getRestaurantRef(),
+          menuItemGroupRef: originalGroupCategoryRef
+        }).subscribe(_ => {
+          this.editDialogService.itemGroupDeleted(originalGroupCategoryRef)
+        })
+      }
     } else {
       this.editDialogService.closeDialog();
       console.error('Menu item group not defined');
