@@ -1,11 +1,14 @@
 <div id="submit-bar" class="box-shadow-top">
     <div id="left-side">
-        <div id="cancel-button" class="clickable" (click)="closeDialog()" i18n>Cancel</div>
+        <div class="any-button cancel-button clickable" (click)="closeDialog()" i18n>Cancel</div>
     </div>
     
     <div id="right-side">
-        <div id="save-button" class="clickable" *ngIf="saveEnabled" (click)="saveElement()" i18n>Save</div>
-        <div id="remove-button" class="clickable" *ngIf="deleteEnabled" (click)="deleteElement()">
+        <div class="save-button clickable" *ngIf="saveEnabled" (click)="saveElement()" i18n>Save</div>
+        <a *ngIf="detailsLink" [routerLink]="detailsLink">
+            <div class="any-button details-button clickable" i18n>View</div>
+        </a>
+        <div class="remove-button clickable" *ngIf="deleteEnabled" (click)="deleteElement()">
             <mat-icon>delete</mat-icon>
         </div>
     </div>

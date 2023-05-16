@@ -4,6 +4,7 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-item-group',
@@ -22,7 +23,8 @@ export class EditItemGroupComponent {
   constructor(
     private menuItemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
-    private editDialogService: EditorDialogService
+    private editDialogService: EditorDialogService,
+    private router: Router
   ) {
   }
 
@@ -61,7 +63,8 @@ export class EditItemGroupComponent {
   }
 
   cancel() {
-    this.editDialogService.closeDialog();
+    throw 'Not implemented yet'
+    // this.router.navigate(['/admin/menu/category'])
   }
 
   onDelete() {
@@ -77,7 +80,6 @@ export class EditItemGroupComponent {
         })
       }
     } else {
-      this.editDialogService.closeDialog();
       console.error('Menu item group not defined');
     }
   }

@@ -7,36 +7,17 @@
             <div class="select-collection">
                 <div class="select-collection-description">
                     <div class="checkbox-field">
-                        <mat-checkbox (change)="select(collection.value, $event.checked)"></mat-checkbox>
+                        <mat-checkbox (change)="select(collection, $event.checked)"></mat-checkbox>
                     </div>
                     <div class="name-field">
-                        {{ collection.value.name }}
+                        {{ collection.name }}
                     </div>
-                </div>
-    
-                <div class="remove-button">
-                    <mat-icon>delete</mat-icon>
                 </div>
                 
-                <div class="collapse-button clickable">
-                    <p *ngIf="collection.open" (click)="collection.open = false"><span i18n>Collapse the group</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon></p>
-                    <p *ngIf="!collection.open" (click)="collection.open = true"><span i18n>Expand the group</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon></p>
+                <div class="detials-button clickable">
+                    <p i18n>View</p>
                 </div>
             </div>
-        
-
-            <div class="sub-selects" *ngIf="collection.open">
-                <div class="sub-select select-collection" *ngFor="let select of collection.value.menuItemSelects">
-                    <div class="select-collection-description">
-                        {{ select.name }}
-                    </div>
-
-                    <div class="remove-button">
-                        <mat-icon>delete</mat-icon>
-                    </div>
-                </div>
-            </div>
-            
         </div>
     </div>
 </div>

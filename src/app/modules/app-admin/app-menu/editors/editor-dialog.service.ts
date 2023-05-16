@@ -5,8 +5,6 @@ import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-clie
   providedIn: 'root'
 })
 export class EditorDialogService {
-
-  onCloseDialog = new EventEmitter<void>();
   onCategoryCreated = new EventEmitter<MenuCategoryGet>();
   onCategoryUpdated = new EventEmitter<MenuCategoryGet>();
   onCategoryDeleted = new EventEmitter<string>();
@@ -14,13 +12,7 @@ export class EditorDialogService {
   onItemGroupUpdated = new EventEmitter<MenuItemGroupGet>();
   onItemGroupDeleted = new EventEmitter<string>();
 
-  onEditItem = new EventEmitter<{
-    item: MenuItemGet
-  }>();
-
-  closeDialog() {
-    this.onCloseDialog.emit();
-  }
+  onEditItem = new EventEmitter<MenuItemGet>();
 
   categoryCreated(category: MenuCategoryGet) {
     this.onCategoryCreated.emit(category);

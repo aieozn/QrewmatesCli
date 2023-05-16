@@ -17,17 +17,26 @@
     right: 20px;
 }
 
-#cancel-button {
+.any-button {
     line-height: 45px;
-    background-color: #C3C3C3;
     display: inline-block;
     padding-left: 20px;
     padding-right: 20px;
-    color: #FFF;
     border-radius: 25px;
 }
 
-#save-button {
+.cancel-button {
+    background-color: #C3C3C3;
+    color: #FFF;
+}
+
+.details-button {
+    background-color: #c21d8e;
+    margin-right: 20px;
+    color: #FFF;
+}
+
+.save-button {
     display: inline-block;
     line-height: 45px;
     padding-left: 20px;
@@ -38,7 +47,7 @@
     margin-right: 20px;
 }
 
-#remove-button {
+.remove-button {
     border: 1px solid #E73A2F;
     height: 45px;
     width: 45px;
@@ -47,7 +56,7 @@
     border-radius: 30px;
 }
 
-#remove-button mat-icon {
+.remove-button mat-icon {
     color: #E73A2F;
     display: inline-block;
     line-height: 45px;

@@ -24,6 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdminMenuCategoriesComponent } from './admin-menu-categories/admin-menu-categories.component';
 import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-category.component';
 import { AdminMenuItemGroupComponent } from './admin-menu-item-group/admin-menu-item-group.component';
+import { AdminMenuItemSelectCollectionComponent } from './admin-menu-item-select-collection/admin-menu-item-select-collection.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { AdminMenuItemGroupComponent } from './admin-menu-item-group/admin-menu-
     AdminMenuCategoriesComponent,
     AdminMenuCategoryComponent,
     AdminMenuItemGroupComponent,
+    AdminMenuItemSelectCollectionComponent,
   ],
   imports: [
     CommonModule,

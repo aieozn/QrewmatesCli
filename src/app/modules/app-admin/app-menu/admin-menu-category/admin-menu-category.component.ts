@@ -45,13 +45,6 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe(e => this.editItem(e));
 
-    this.editorDialogService.onCloseDialog
-    .pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe(_ => {
-      this.closeEditor();
-    })
-
     const categoryRef = this.route.snapshot.paramMap.get('id');
 
     if (categoryRef === null) {
@@ -68,6 +61,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       tap(category => {
         this.groups = [];
         this.category = category;
+        // this.editItem(category.menuItemGroups[0].menuItems[0])
 
         for (const group of category.menuItemGroups) {
           this.groups.push({
@@ -101,13 +95,11 @@ export class AdminMenuCategoryComponent implements OnDestroy {
     componentRef.instance.group = itemGroupData.group;
   }
 
-  editItem(itemData: {
-    item: MenuItemGet
-  }) {
+  editItem(item: MenuItemGet) {
     const viewContainerRef = this.elementEditorHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(EditItemComponent);
-    componentRef.instance.item = itemData.item;
+    componentRef.instance.item = item;
   }
 
   getImageUrl(ref: string) {
@@ -123,7 +115,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       const existingItemGroup = this.groups[i].group;
       if (existingItemGroup.ref === newItemGroup.ref) {
         this.groups[i].group = newItemGroup;
-        this.editorDialogService.closeDialog();
+        this.closeDialog();
         break;
       }
     }
@@ -134,7 +126,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       const existingItemGroup = this.groups[i];
       if (existingItemGroup.group.ref === ref) {
         this.groups.splice(i, 1);
-        this.editorDialogService.closeDialog();
+        this.closeDialog();
         break;
       }
     }
@@ -181,6 +173,10 @@ export class AdminMenuCategoryComponent implements OnDestroy {
     if (event.previousIndex != event.currentIndex) {
       this.arrayMove(this.groups, event.previousIndex, event.currentIndex)
     }
+  }
+
+  closeDialog() {
+    throw 'Not implemented yet'
   }
 
   extend(group: MenuItemGroupGet) {

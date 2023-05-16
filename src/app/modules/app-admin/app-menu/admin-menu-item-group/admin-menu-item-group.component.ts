@@ -72,8 +72,6 @@ export class AdminMenuItemGroupComponent {
   }
 
   edit(item: MenuItemGet) {
-    this.editorDialogService.onEditItem.emit({
-      item: item
-    });
+    this.editorDialogService.onEditItem.emit(item);
   }
 }

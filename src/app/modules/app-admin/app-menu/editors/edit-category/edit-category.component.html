@@ -8,4 +8,11 @@
     </div>
 </div>
 
-<app-submit-bar [saveEnabled]="isValid(categoryFields) && isUpdated(categoryFields)" [deleteEnabled]="originalCategory !== undefined" (onClose)="cancel()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+<app-submit-bar
+    [saveEnabled]="isValid(categoryFields) && isUpdated(categoryFields)"
+    [deleteEnabled]="category !== undefined"
+    [detailsLink]="detailsLink"
+    (onClose)="cancel()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()">
+</app-submit-bar>

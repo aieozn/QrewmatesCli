@@ -1,12 +1,11 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuCategoryGet } from '@common/api-client/models';
 import { MenuCategoryControllerService } from '@common/api-client/services';
-import { EditCategoryComponent } from '../editors/edit-category/edit-category.component';
 import { EditorDialogService } from '../editors/editor-dialog.service';
-import { ElementEditorDirective } from '../elementEditorDirective';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu-categories',
@@ -16,23 +15,15 @@ import { ElementEditorDirective } from '../elementEditorDirective';
 export class AdminMenuCategoriesComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
   
-  @ViewChild(ElementEditorDirective, {static: true}) elementEditorHost!: ElementEditorDirective;
-  
   categories: MenuCategoryGet[] = [];
 
   constructor(
     private menuCategoryService: MenuCategoryControllerService,
     private accountService: AccountService,
-    private editorDialogService: EditorDialogService
+    private editorDialogService: EditorDialogService,
+    private router: Router
   ) {
     this.loadCategories();
-
-    this.editorDialogService.onCloseDialog
-    .pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe(_ => {
-      this.closeEditor();
-    })
 
     this.editorDialogService.onCategoryCreated
     .pipe(
@@ -56,18 +47,8 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
     }).subscribe(loadedCategories => this.categories = loadedCategories)
   }
 
-  closeEditor() {
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-  }
-
   editCategory(category: MenuCategoryGet) {
-
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-
-    const componentRef = viewContainerRef.createComponent(EditCategoryComponent);
-    componentRef.instance.category = category;
+    this.router.navigate(['/admin/menu/categories/edit/', category.ref])
   }
 
   ngOnDestroy(): void {
@@ -83,7 +64,6 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
         break;
       }
     }
-    this.closeEditor();
   }
 
   private categoryDeleted(ref: string) {
@@ -94,12 +74,10 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
         break;
       }
     }
-    this.closeEditor();
   }
 
   private categoryCreated(category: MenuCategoryGet) {
     this.categories.push(category)
-    this.closeEditor();
   }
 
   private arrayMove(arr: MenuCategoryGet[], old_index: number, new_index: number
@@ -123,9 +101,9 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
     }
   }
 
-  createCategory() {
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-    viewContainerRef.createComponent(EditCategoryComponent);
-  }
+  // createCategory() {
+  //   const viewContainerRef = this.elementEditorHost.viewContainerRef;
+  //   viewContainerRef.clear();
+  //   viewContainerRef.createComponent(EditCategoryComponent);
+  // }
 }

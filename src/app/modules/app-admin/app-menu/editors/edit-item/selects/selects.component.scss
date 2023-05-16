@@ -24,7 +24,6 @@
     padding: 10px;
     border-radius: 10px;
     margin-top: 10px;
-    margin-right: 50px;
     position: relative;
 }
 
@@ -45,64 +44,18 @@
     margin: 0px;
 }
 
-.remove-button {
-    position: absolute;
-    line-height: 40px;
-    margin-top: 10px;
-    width: 40px;
-    right: -50px;
-    top: 0px;
-    border: 1px solid #E73A2F;
-    color: #E73A2F;
-    border-radius: 60px;
-    text-align: center;
-    font-size: 24px;
-}
-
-.remove-button mat-icon {
-    position: relative;
-    top: 3px;
-}
-
-.collapse-button {
+.detials-button {
     line-height: 40px;
     position: absolute;
     top: 10px;
     right: 20px;
-    color: #C3C3C3;
+    color: #c21d8e;
 }
-.collapse-button p{
- margin: 0px;
-}
-
-.extend-arrow {
-    font-size: 22px;
-    line-height: 22px;
-    display: inline;
-    position: relative;
-    top: 5px;
-}
-
-.sub-select {
-    margin-left: 40px;
-    color: #777777;
-    font-family: Poppins;
-    margin-top: 10px;
-    margin-bottom: 5px;
+.detials-button p{
+    margin: 0px;
 }
 
 .select-container {
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-.sub-selects .remove-button{
-    margin-top: 0px;
-    width: 40px;
-    border: 1px solid #D9D9D9;
-    color: #D9D9D9;
-}
-
-.sub-selects {
-    margin-bottom: 40px;
 }

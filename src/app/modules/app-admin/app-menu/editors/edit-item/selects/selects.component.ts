@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemDetailedGet, MenuItemSelectCollectionGet } from '@common/api-client/models';
 import { MenuItemSelectCollectionControllerService } from '@common/api-client/services';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-selects',
@@ -11,10 +11,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 })
 export class SelectsComponent implements OnDestroy {
   _item: MenuItemDetailedGet | undefined;
-  collections: {
-    value: MenuItemSelectCollectionGet,
-    open: boolean
-  }[] | undefined;
+  collections: MenuItemSelectCollectionGet[] | undefined;
 
   private readonly onDestroy = new Subject<void>();
 
@@ -29,11 +26,7 @@ export class SelectsComponent implements OnDestroy {
     selectsService.getSelectCollections({
       restaurantRef: accountService.getRestaurantRef()
     }).pipe(
-      tap(collections => this.collections = collections.map(collection => ({
-        value: collection,
-        open: false
-      }))),
-      takeUntil(this.onDestroy)
+      tap(collections => this.collections = collections)
     ).subscribe();
   }
 

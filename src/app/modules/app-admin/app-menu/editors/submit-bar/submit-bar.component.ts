@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SubmitBarComponent {
   @Input('saveEnabled') saveEnabled = false;
   @Input('deleteEnabled') deleteEnabled = false;
+  @Input('detailsLink') detailsLink: string[] | undefined;
 
   @Output('onClose')
   onClose = new EventEmitter<void>();

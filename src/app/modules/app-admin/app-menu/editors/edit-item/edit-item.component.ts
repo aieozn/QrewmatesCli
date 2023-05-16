@@ -1,13 +1,13 @@
 import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MenuItemDetailedGet, MenuItemGet } from '@common/api-client/models';
-import { EditorDialogService } from '../editor-dialog.service';
 import { ElementEditorDirective } from '../../elementEditorDirective';
 import { MenuItemControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { AllergensComponent } from './allergens/allergens.component';
 import { SelectsComponent } from './selects/selects.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-item',
@@ -29,9 +29,9 @@ export class EditItemComponent implements OnDestroy {
   };
 
   constructor(
-    private editDialogService: EditorDialogService,
     private itemService: MenuItemControllerService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router: Router
   ) {
     
   }
@@ -54,7 +54,8 @@ export class EditItemComponent implements OnDestroy {
   }
 
   cancel() {
-    this.editDialogService.closeDialog();
+    throw 'Not implemented yet'
+    // this.router.navigate(['/admin/menu/category', this.originalItem.re])
   }
 
   onDelete() {
