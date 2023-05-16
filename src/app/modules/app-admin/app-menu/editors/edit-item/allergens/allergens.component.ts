@@ -1,8 +1,9 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { AllergenGet, MenuItemDetailedGet } from '@common/api-client/models';
 import { AllergenControllerService } from '@common/api-client/services';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+import { EditItemService } from '../edit-item-service/edit-item.service';
 
 @Component({
   selector: 'app-allergens',
@@ -11,23 +12,18 @@ import { Subject, takeUntil, tap } from 'rxjs';
 })
 export class AllergensComponent implements OnDestroy {
 
-  _item:  MenuItemDetailedGet | undefined;
   allergens: {
     value: AllergenGet,
     checked: boolean
   }[] | undefined;
 
+  fullItem: BehaviorSubject<MenuItemDetailedGet | undefined> = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
   private readonly onDestroy = new Subject<void>();
-
-  @Input() set item(value: MenuItemDetailedGet) {
-    this._item = value;
-
-    this.checkAllergens()
-  }
 
   constructor(
     allergensService: AllergenControllerService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    editItemService: EditItemService
   ) {
     allergensService.getAllergens({
       restaurantRef: this.accountService.getRestaurantRef()
@@ -38,21 +34,29 @@ export class AllergensComponent implements OnDestroy {
           checked: false
         }))
 
-        this.checkAllergens()
+        this.checkAllergens(this.fullItem.getValue())
       }),
       takeUntil(this.onDestroy)
     ).subscribe()
+
+    this.fullItem = editItemService.activeItem;
+
+    this.fullItem.pipe(
+      tap(item => this.checkAllergens(item))
+    )
   }
 
-  checkAllergens() {
-    if (this._item && this.allergens) {
+  checkAllergens(item: MenuItemDetailedGet | undefined) {
+    if (item && this.allergens) {
       for (const allergen of this.allergens) {
-        if (this._item.allergens.filter(e => e.ref === allergen.value.ref).length > 0) {
+        if (item.allergens.filter(e => e.ref === allergen.value.ref).length > 0) {
           allergen.checked = true
         } else {
           allergen.checked = false
         }
       }
+    } else {
+      this.allergens?.forEach(e => e.checked = false);
     }
   }
 
@@ -62,11 +66,12 @@ export class AllergensComponent implements OnDestroy {
   }
 
   select(allergen: AllergenGet, selected: boolean) {
-    if (!this._item) { throw 'Item not defined'; }
+    const itemMail = this.fullItem.getValue()
+    if (!itemMail) { throw 'Item not defined'; }
 
-    this._item.allergens = this._item.allergens.filter(e => e.ref !== allergen.ref)
+    itemMail.allergens = itemMail.allergens.filter(e => e.ref !== allergen.ref)
     if (selected) {
-      this._item.allergens.push(allergen)
+      itemMail.allergens.push(allergen)
     }
   }
 }

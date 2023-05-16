@@ -3,8 +3,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { MenuItemDetailedGet } from '@common/api-client/models';
 import { MenuItemControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EditItemService } from './edit-item-service/edit-item.service';
 
 @Component({
   selector: 'app-edit-item',
@@ -13,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditItemComponent implements OnDestroy {
   
-  fullItem: MenuItemDetailedGet | undefined;
+  fullItem: BehaviorSubject<MenuItemDetailedGet | undefined> = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
   
   private readonly onDestroy = new Subject<void>();
 
@@ -26,11 +27,14 @@ export class EditItemComponent implements OnDestroy {
     private itemService: MenuItemControllerService,
     private accountService: AccountService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private editItemService: EditItemService
   ) {
     this.route.params.subscribe(params => {
       this.loadItemDetails(params['menuItemRef']);
     })
+
+    this.fullItem = editItemService.activeItem;
   }
 
   isValid(validation: {[key: string] : FormControl}) : boolean {
@@ -59,7 +63,7 @@ export class EditItemComponent implements OnDestroy {
       menuItemRef: itemRef
     }).pipe(
       takeUntil(this.onDestroy),
-      tap(e => this.fullItem = e)
+      tap(e => this.editItemService.activeItem.next(e))
     ).subscribe()
   }
 

@@ -1,8 +1,9 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemDetailedGet, MenuItemSelectCollectionGet } from '@common/api-client/models';
 import { MenuItemSelectCollectionControllerService } from '@common/api-client/services';
-import { Subject, tap } from 'rxjs';
+import { BehaviorSubject, Subject, tap } from 'rxjs';
+import { EditItemService } from '../edit-item-service/edit-item.service';
 
 @Component({
   selector: 'app-selects',
@@ -10,24 +11,23 @@ import { Subject, tap } from 'rxjs';
   styleUrls: ['./selects.component.scss']
 })
 export class SelectsComponent implements OnDestroy {
-  _item: MenuItemDetailedGet | undefined;
   collections: MenuItemSelectCollectionGet[] | undefined;
-
+  fullItem: BehaviorSubject<MenuItemDetailedGet | undefined> = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
+  
   private readonly onDestroy = new Subject<void>();
-
-  @Input() set item(value: MenuItemDetailedGet) {
-    this._item = value;
-  }
 
   constructor(
     selectsService: MenuItemSelectCollectionControllerService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private editItemService: EditItemService
   ) {
     selectsService.getSelectCollections({
       restaurantRef: accountService.getRestaurantRef()
     }).pipe(
       tap(collections => this.collections = collections)
     ).subscribe();
+
+    this.fullItem = editItemService.activeItem;
   }
 
   ngOnDestroy(): void {
@@ -36,12 +36,13 @@ export class SelectsComponent implements OnDestroy {
   }
 
   select(collection: MenuItemSelectCollectionGet, selected: boolean) {
-    if (!this._item) { throw 'Item not defined'; }
+    const itemMail = this.fullItem.getValue()
+    if (!itemMail) { throw 'Item not defined'; }
 
-    this._item.selectCollections = this._item.selectCollections.filter(e => e.ref !== collection.ref)
+    itemMail.selectCollections = itemMail.selectCollections.filter(e => e.ref !== collection.ref)
 
     if (selected) {
-      this._item.selectCollections.push(collection)
+      itemMail.selectCollections.push(collection)
     }
   }
 }

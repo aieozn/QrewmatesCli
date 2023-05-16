@@ -1,5 +1,5 @@
-<div id="edit-element" *ngIf="fullItem">
-    <p id="element-name"><span i18n>Option</span>: <b>{{ fullItem.name }}</b></p>
+<div id="edit-element" *ngIf="fullItem | async as item">
+    <p id="element-name"><span i18n>Option</span>: <b>{{ item.name }}</b></p>
 
     <p id="help-text" i18n>Edit fields below and save changes</p>
     <div id="editors">
