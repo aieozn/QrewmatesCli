@@ -1,14 +1,11 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuCategoryControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editors/editor-dialog.service';
-import { ActivatedRoute } from '@angular/router';
-import { ElementEditorDirective } from '../elementEditorDirective';
-import { EditItemGroupComponent } from '../editors/edit-item-group/edit-item-group.component';
-import { EditItemComponent } from '../editors/edit-item/edit-item.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu-category',
@@ -17,8 +14,6 @@ import { EditItemComponent } from '../editors/edit-item/edit-item.component';
 })
 export class AdminMenuCategoryComponent implements OnDestroy {
 
-  @ViewChild(ElementEditorDirective, {static: true}) elementEditorHost!: ElementEditorDirective;
-
   groups: {
     group: MenuItemGroupGet,
     open: boolean
@@ -26,12 +21,14 @@ export class AdminMenuCategoryComponent implements OnDestroy {
 
   category: MenuCategoryGet | undefined;
   private readonly onDestroy = new Subject<void>();
+  private categoryRef: string;
 
   constructor(private editorDialogService: EditorDialogService,
     private itemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private categoryService: MenuCategoryControllerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.editorDialogService.onItemGroupUpdated.pipe(
       takeUntil(this.onDestroy)
@@ -45,11 +42,13 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe(e => this.editItem(e));
 
-    const categoryRef = this.route.snapshot.paramMap.get('id');
+    const categoryRef = this.route.snapshot.paramMap.get('categoryRef');
 
     if (categoryRef === null) {
       throw 'Category ref not defined';
     }
+
+    this.categoryRef = categoryRef;
     this.loadCategory(categoryRef);
   }
 
@@ -61,8 +60,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       tap(category => {
         this.groups = [];
         this.category = category;
-        // this.editItem(category.menuItemGroups[0].menuItems[0])
-
+        
         for (const group of category.menuItemGroups) {
           this.groups.push({
             group: group,
@@ -74,32 +72,15 @@ export class AdminMenuCategoryComponent implements OnDestroy {
   }
 
   openEditor(menuItemGroup: MenuItemGroupGet) {
-    this.editItemGroup({
-      group: menuItemGroup,
-      categoryRef: menuItemGroup.categoryRef
-    })
+    this.editItemGroup(menuItemGroup)
   }
 
-  closeEditor() {
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-  }
-
-  editItemGroup(itemGroupData: {
-    group: MenuItemGroupGet,
-    categoryRef: string
-  }) {
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(EditItemGroupComponent);
-    componentRef.instance.group = itemGroupData.group;
+  editItemGroup(group: MenuItemGroupGet) {
+    this.router.navigate(['/admin/menu/category/', this.categoryRef, 'edit', group.ref])
   }
 
   editItem(item: MenuItemGet) {
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(EditItemComponent);
-    componentRef.instance.item = item;
+    throw 'Not implemented yet'
   }
 
   getImageUrl(ref: string) {
@@ -115,7 +96,6 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       const existingItemGroup = this.groups[i].group;
       if (existingItemGroup.ref === newItemGroup.ref) {
         this.groups[i].group = newItemGroup;
-        this.closeDialog();
         break;
       }
     }
@@ -126,7 +106,6 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       const existingItemGroup = this.groups[i];
       if (existingItemGroup.group.ref === ref) {
         this.groups.splice(i, 1);
-        this.closeDialog();
         break;
       }
     }
@@ -173,10 +152,6 @@ export class AdminMenuCategoryComponent implements OnDestroy {
     if (event.previousIndex != event.currentIndex) {
       this.arrayMove(this.groups, event.previousIndex, event.currentIndex)
     }
-  }
-
-  closeDialog() {
-    throw 'Not implemented yet'
   }
 
   extend(group: MenuItemGroupGet) {

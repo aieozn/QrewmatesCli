@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminMenuCategoriesComponent } from './admin-menu-categories/admin-menu-categories.component';
 import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-category.component';
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
+import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
 
 const routes: Routes = [
   {
@@ -10,14 +11,20 @@ const routes: Routes = [
     component: AdminMenuCategoriesComponent,
     children: [
       {
-        path: 'edit/:id',
+        path: 'edit/:categoryRef',
         component: EditCategoryComponent
       }
     ]
   },
   {
-    path: 'category/:id',
-    component: AdminMenuCategoryComponent
+    path: 'category/:categoryRef',
+    component: AdminMenuCategoryComponent,
+    children: [
+      {
+        path: 'edit/:menuItemGroupRef',
+        component: EditItemGroupComponent
+      }
+    ]
   }
 ];
 

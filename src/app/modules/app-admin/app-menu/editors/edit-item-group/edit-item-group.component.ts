@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-edit-item-group',
@@ -12,8 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['../edit-element.scss']
 })
 export class EditItemGroupComponent {
-  originalItemGroup: MenuItemGroupGet | undefined;
-  activeItemGroup: MenuItemGroupData | undefined;
+  group: MenuItemGroupGet | undefined;
+  activeItemGroup: MenuItemGroupData;
+  private categoryRef: string;
 
   groupFields = {
     groupName: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -24,20 +26,45 @@ export class EditItemGroupComponent {
     private menuItemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private editDialogService: EditorDialogService,
+    private route: ActivatedRoute,
     private router: Router
   ) {
+    this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
+
+    this.activeItemGroup = {
+      available: true,
+      categoryRef: this.categoryRef,
+      elementOrder: 99999,
+      name: ''
+    }
+
+    this.route.params.subscribe(params => {
+      this.initComponent(params['menuItemGroupRef'])
+    })
   }
 
-  @Input() set group(value: MenuItemGroupGet) {
-    this.originalItemGroup = value;
-    this.activeItemGroup = JSON.parse(JSON.stringify(value));
+  private initComponent(menuItemGroupRef: string) {
+    this.activeItemGroup = {
+      available: true,
+      categoryRef: this.categoryRef,
+      elementOrder: 99999,
+      name: ''
+    }
 
-    this.loadItemGroupFieldsValues(value);
+    this.menuItemGroupService.getItemGroupDetails({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemGroupRef: menuItemGroupRef
+    }).pipe(
+      tap(group => this.loadItemGroupFieldsValues(group))
+    ).subscribe()
   }
 
   private loadItemGroupFieldsValues(value: MenuItemGroupGet) {
+    this.group = value
     this.groupFields.groupName.setValue(value.name);
     this.groupFields.groupDescription.setValue(value.description ?? null);
+
+    this.activeItemGroup = JSON.parse(JSON.stringify(value));
   }
 
   isValid(validation: {[key: string] : FormControl}) : boolean {
@@ -49,27 +76,27 @@ export class EditItemGroupComponent {
   }
 
   onSave() {
-    if (!this.activeItemGroup || !this.originalItemGroup) { throw 'Unknown group'; }
+    if (!this.activeItemGroup || !this.group) { throw 'Unknown group'; }
     this.activeItemGroup.name = this.groupFields.groupName.value!;
     this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
 
     this.menuItemGroupService.putItemGroup({
       restaurantRef: this.accountService.getRestaurantRef(),
-      menuItemGroupRef: this.originalItemGroup.ref,
+      menuItemGroupRef: this.group.ref,
       body: this.activeItemGroup
     }).subscribe(saved => {
       this.editDialogService.itemGroupUpdated(saved);
+      this.close()
     })
   }
 
-  cancel() {
-    throw 'Not implemented yet'
-    // this.router.navigate(['/admin/menu/category'])
+  close() {
+    this.router.navigate(['/admin/menu/category', this.categoryRef])
   }
 
   onDelete() {
-    if (this.originalItemGroup !== undefined) {
-      const originalGroupCategoryRef = this.originalItemGroup.ref;
+    if (this.group !== undefined) {
+      const originalGroupCategoryRef = this.group.ref;
 
       if (confirm($localize`Are you sure you want to delete this element?`)) {
         this.menuItemGroupService.deleteMenuItemGroup({
@@ -77,6 +104,7 @@ export class EditItemGroupComponent {
           menuItemGroupRef: originalGroupCategoryRef
         }).subscribe(_ => {
           this.editDialogService.itemGroupDeleted(originalGroupCategoryRef)
+          this.close()
         })
       }
     } else {

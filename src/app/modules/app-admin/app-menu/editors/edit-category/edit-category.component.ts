@@ -30,14 +30,18 @@ export class EditCategoryComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    const categoryRef = this.route.snapshot.paramMap.get('id');
-
+    this.route.params.subscribe(params => {
+      this.reloadComponent(params['categoryRef']);
+    })
+    
     this.activeCategory = {
       description: '',
-      elementOrder: 9999,
+      elementOrder: 99999,
       name: ''
     }
+  }
 
+  private reloadComponent(categoryRef: string) {
     if (categoryRef) {
       this.categoryService.getCategory({
         restaurantRef: this.accountService.getRestaurantRef(),
@@ -53,6 +57,8 @@ export class EditCategoryComponent {
     this.category = value
     this.categoryFields.categoryName.setValue(value.name);
     this.categoryFields.categoryDescription.setValue(value.description ?? null);
+
+    this.activeCategory = JSON.parse(JSON.stringify(value))
   }
 
   isValid(validation: {[key: string] : FormControl}) : boolean {
@@ -68,13 +74,10 @@ export class EditCategoryComponent {
   }
 
   onSave() {
-
     this.activeCategory.name = this.categoryFields.categoryName.value!;
     this.activeCategory.description = this.categoryFields.categoryDescription.value ?? undefined;
 
     if (this.category !== undefined) {
-      this.activeCategory.elementOrder = this.category.elementOrder
-      
       this.categoryService.putCategory({
         restaurantRef: this.accountService.getRestaurantRef(),
         categoryRef: this.category.ref,
