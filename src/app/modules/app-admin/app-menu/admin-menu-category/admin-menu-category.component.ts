@@ -76,11 +76,11 @@ export class AdminMenuCategoryComponent implements OnDestroy {
   }
 
   editItemGroup(group: MenuItemGroupGet) {
-    this.router.navigate(['/admin/menu/category/', this.categoryRef, 'edit', group.ref])
+    this.router.navigate(['/admin/menu/category/', this.categoryRef, 'group', group.ref, 'edit'])
   }
 
   editItem(item: MenuItemGet) {
-    throw 'Not implemented yet'
+    this.router.navigate(['/admin/menu/category/', this.categoryRef, 'item', item.ref, 'edit', 'selects'])
   }
 
   getImageUrl(ref: string) {

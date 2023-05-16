@@ -1,6 +1,6 @@
 <div id="menu" *ngIf="category">
     <h1>
-        <a routerLink="/admin/menu/categories"><mat-icon id="back-icon">arrow_back</mat-icon></a>
+        <mat-icon id="back-icon" class="clickable" routerLink="/admin/menu/categories">arrow_back</mat-icon>
         <span i18n>Category:</span>
         {{ category.name }}
     </h1>

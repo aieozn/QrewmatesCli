@@ -48,7 +48,7 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
   }
 
   editCategory(category: MenuCategoryGet) {
-    this.router.navigate(['/admin/menu/categories/edit/', category.ref])
+    this.router.navigate(['/admin/menu/categories/category', category.ref, 'edit'])
   }
 
   ngOnDestroy(): void {

@@ -97,10 +97,6 @@ export class EditCategoryComponent {
     }
   }
 
-  cancel() {
-    this.router.navigate(['/admin/menu/categories'])
-  }
-
   onDelete() {
     if (this.category !== undefined) {
       const originalCategoryRef = this.category.ref;

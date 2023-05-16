@@ -1,13 +1,10 @@
-import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MenuItemDetailedGet, MenuItemGet } from '@common/api-client/models';
-import { ElementEditorDirective } from '../../elementEditorDirective';
+import { MenuItemDetailedGet } from '@common/api-client/models';
 import { MenuItemControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { AllergensComponent } from './allergens/allergens.component';
-import { SelectsComponent } from './selects/selects.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-item',
@@ -15,10 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-item.component.scss', '../edit-element.scss']
 })
 export class EditItemComponent implements OnDestroy {
-
-  @ViewChild(ElementEditorDirective, {static: true}) elementEditorHost!: ElementEditorDirective;
   
-  originalItem: MenuItemGet | undefined;
   fullItem: MenuItemDetailedGet | undefined;
   
   private readonly onDestroy = new Subject<void>();
@@ -31,14 +25,12 @@ export class EditItemComponent implements OnDestroy {
   constructor(
     private itemService: MenuItemControllerService,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    
-  }
-
-  @Input() set item(value: MenuItemGet) {
-    this.originalItem = value;
-    this.loadItemDetails(value)
+    this.route.params.subscribe(params => {
+      this.loadItemDetails(params['menuItemRef']);
+    })
   }
 
   isValid(validation: {[key: string] : FormControl}) : boolean {
@@ -55,21 +47,19 @@ export class EditItemComponent implements OnDestroy {
 
   cancel() {
     throw 'Not implemented yet'
-    // this.router.navigate(['/admin/menu/category', this.originalItem.re])
   }
 
   onDelete() {
     throw 'Not implemented yet'
   }
 
-  loadItemDetails(item: MenuItemGet) {
+  loadItemDetails(itemRef: string) {
     this.itemService.getItemDetails({
       restaurantRef: this.accountService.getRestaurantRef(),
-      menuItemRef: item.ref
+      menuItemRef: itemRef
     }).pipe(
       takeUntil(this.onDestroy),
-      tap(e => this.fullItem = e),
-      tap(e => this.openSelects(e))
+      tap(e => this.fullItem = e)
     ).subscribe()
   }
 
@@ -78,17 +68,11 @@ export class EditItemComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  openAllergens(item: MenuItemDetailedGet) {
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(AllergensComponent);
-    componentRef.instance.item = item;
+  openAllergens() {
+    this.router.navigate(['allergens'], { relativeTo: this.route })
   }
 
-  openSelects(item: MenuItemDetailedGet) {
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(SelectsComponent);
-    componentRef.instance.item = item;
+  openSelects() {
+    this.router.navigate(['selects'], { relativeTo: this.route })
   }
 }

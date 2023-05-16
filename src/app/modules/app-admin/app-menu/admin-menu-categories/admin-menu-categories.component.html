@@ -11,8 +11,8 @@
                     <p class="menu-element-name">{{ category.name }}</p>
                     <p class="menu-element-description">{{ category.description }}</p>
 
-                    <p class="extend clickable">
-                        <a [routerLink]="['/admin/menu/category/', category.ref]">View details</a>
+                    <p class="extend clickable" [routerLink]="['/admin/menu/category/', category.ref]">
+                        View details
                     </p>
                 </div>
                 <div class="right clickable" (click)="editCategory(category)">

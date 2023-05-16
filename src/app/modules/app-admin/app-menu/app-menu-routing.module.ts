@@ -4,6 +4,11 @@ import { AdminMenuCategoriesComponent } from './admin-menu-categories/admin-menu
 import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-category.component';
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
 import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
+import { EditItemComponent } from './editors/edit-item/edit-item.component';
+import { AllergensComponent } from './editors/edit-item/allergens/allergens.component';
+import { SelectsComponent } from './editors/edit-item/selects/selects.component';
+import { ToppingsComponent } from './editors/edit-item/toppings/toppings.component';
+import { SettingsComponent } from './editors/edit-item/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -11,7 +16,7 @@ const routes: Routes = [
     component: AdminMenuCategoriesComponent,
     children: [
       {
-        path: 'edit/:categoryRef',
+        path: 'category/:categoryRef/edit',
         component: EditCategoryComponent
       }
     ]
@@ -21,8 +26,30 @@ const routes: Routes = [
     component: AdminMenuCategoryComponent,
     children: [
       {
-        path: 'edit/:menuItemGroupRef',
+        path: 'group/:menuItemGroupRef/edit',
         component: EditItemGroupComponent
+      },
+      {
+        path: 'item/:menuItemRef/edit',
+        component: EditItemComponent,
+        children: [
+          {
+            path: 'allergens',
+            component: AllergensComponent
+          },
+          {
+            path: 'selects',
+            component: SelectsComponent
+          },
+          {
+            path: 'toppings',
+            component: ToppingsComponent
+          },
+          {
+            path: 'settings',
+            component: SettingsComponent
+          }
+        ]
       }
     ]
   }

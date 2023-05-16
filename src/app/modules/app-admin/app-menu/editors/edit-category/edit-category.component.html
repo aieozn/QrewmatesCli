@@ -12,7 +12,7 @@
     [saveEnabled]="isValid(categoryFields) && isUpdated(categoryFields)"
     [deleteEnabled]="category !== undefined"
     [detailsLink]="detailsLink"
-    (onClose)="cancel()"
+    (onClose)="close()"
     (onSave)="onSave()"
     (onDelete)="onDelete()">
 </app-submit-bar>
