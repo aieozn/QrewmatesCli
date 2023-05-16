@@ -1,0 +1,50 @@
+<div id="menu" *ngIf="category">
+    <h1>
+        <a routerLink=".."><mat-icon id="back-icon">arrow_back</mat-icon></a>
+        <span i18n>Category:</span>
+        {{ category.name }}
+    </h1>
+
+    <div id="menu-elements-list" *ngIf="groups" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
+        <div *ngFor="let group of groups" cdkDrag>
+
+            <div class="menu-element box-shadow box-radius">
+                <div class="drag-box clickable">
+                    <mat-icon>more_vert</mat-icon>
+                </div>
+
+                <div class="menu-element-details">
+                    <div class="left">
+                        <div class="menu-element-details-image" *ngIf="group.group.image">
+                            <img [src]="getImageUrl(group.group.image.ref)"/>
+                        </div>
+                        <div class="menu-element-details-content">
+                            <p class="menu-element-name">{{ group.group.name }}</p>
+                            <p class="menu-element-description">{{ group.group.description }}</p>
+                        </div>
+
+                        <p class="extend clickable" (click)="extend(group.group)" *ngIf="!group.open">
+                            <span i18n>Expand variants</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
+                        </p>
+                        <p class="extend clickable" (click)="closeAll()" *ngIf="group.open">
+                            <span i18n>Collapse variants</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
+                        </p>
+                    </div>
+                    <div class="right">
+                        <div class="settings-icon clickable" (click)="openEditor(group.group)">
+                            <mat-icon>settings</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="group.open">
+                <app-admin-menu-item-group [group]="group.group"></app-admin-menu-item-group>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="floating-editor" class="box-shadow-top">
+    <ng-template elementEditorHost></ng-template>
+</div>

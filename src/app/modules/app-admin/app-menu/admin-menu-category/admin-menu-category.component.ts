@@ -1,42 +1,37 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, Input, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuCategoryGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuCategoryControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editors/editor-dialog.service';
+import { ActivatedRoute } from '@angular/router';
+import { ElementEditorDirective } from '../elementEditorDirective';
+import { EditItemGroupComponent } from '../editors/edit-item-group/edit-item-group.component';
+import { EditItemComponent } from '../editors/edit-item/edit-item.component';
 
 @Component({
-  selector: 'app-menu-category-items',
-  templateUrl: './menu-category-items.component.html',
-  styleUrls: ['../menu-element-drag-drop-list.scss', './menu-category-items.component.scss']
+  selector: 'app-admin-menu-category',
+  templateUrl: './admin-menu-category.component.html',
+  styleUrls: ['../menu-element-drag-drop-list.scss', './admin-menu-category.component.scss']
 })
-export class MenuCategoryItemsComponent implements OnDestroy {
+export class AdminMenuCategoryComponent implements OnDestroy {
+
+  @ViewChild(ElementEditorDirective, {static: true}) elementEditorHost!: ElementEditorDirective;
 
   groups: {
     group: MenuItemGroupGet,
     open: boolean
   }[] = []
 
-  categoryRef: string | undefined;
+  category: MenuCategoryGet | undefined;
   private readonly onDestroy = new Subject<void>();
-
-  @Input() set category(value: MenuCategoryGet) {
-    this.categoryRef = value.ref;
-
-    this.groups = [];
-    for (const group of value.menuItemGroups) {
-      this.groups.push({
-        group: group,
-        open: false
-      })
-    }
-  }
 
   constructor(private editorDialogService: EditorDialogService,
     private itemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
-    private categoryService: MenuCategoryControllerService
+    private categoryService: MenuCategoryControllerService,
+    private route: ActivatedRoute
   ) {
     this.editorDialogService.onItemGroupUpdated.pipe(
       takeUntil(this.onDestroy)
@@ -45,13 +40,74 @@ export class MenuCategoryItemsComponent implements OnDestroy {
     this.editorDialogService.onItemGroupDeleted.pipe(
       takeUntil(this.onDestroy)
     ).subscribe(e => this.itemGroupDeleted(e));
+
+    this.editorDialogService.onEditItem.pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe(e => this.editItem(e));
+
+    this.editorDialogService.onCloseDialog
+    .pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe(_ => {
+      this.closeEditor();
+    })
+
+    const categoryRef = this.route.snapshot.paramMap.get('id');
+
+    if (categoryRef === null) {
+      throw 'Category ref not defined';
+    }
+    this.loadCategory(categoryRef);
+  }
+
+  loadCategory(ref: string) {
+    this.categoryService.getCategory({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      categoryRef: ref
+    }).pipe(
+      tap(category => {
+        this.groups = [];
+        this.category = category;
+
+        for (const group of category.menuItemGroups) {
+          this.groups.push({
+            group: group,
+            open: false
+          })
+        }
+      })
+    ).subscribe();
   }
 
   openEditor(menuItemGroup: MenuItemGroupGet) {
-    this.editorDialogService.onEditItemGroup.emit({
+    this.editItemGroup({
       group: menuItemGroup,
       categoryRef: menuItemGroup.categoryRef
     })
+  }
+
+  closeEditor() {
+    const viewContainerRef = this.elementEditorHost.viewContainerRef;
+    viewContainerRef.clear();
+  }
+
+  editItemGroup(itemGroupData: {
+    group: MenuItemGroupGet,
+    categoryRef: string
+  }) {
+    const viewContainerRef = this.elementEditorHost.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(EditItemGroupComponent);
+    componentRef.instance.group = itemGroupData.group;
+  }
+
+  editItem(itemData: {
+    item: MenuItemGet
+  }) {
+    const viewContainerRef = this.elementEditorHost.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(EditItemComponent);
+    componentRef.instance.item = itemData.item;
   }
 
   getImageUrl(ref: string) {
@@ -60,8 +116,8 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   }
 
   private itemGroupUpdated(newItemGroup: MenuItemGroupGet) {
-    if (!this.categoryRef) { throw 'Category not defined'; }
-    if (newItemGroup.categoryRef !== this.categoryRef) { return; }
+    if (!this.category) { throw 'Category not defined'; }
+    if (newItemGroup.categoryRef !== this.category.ref) { return; }
 
     for (let i = 0; i < this.groups.length; i++) {
       const existingItemGroup = this.groups[i].group;
@@ -108,9 +164,9 @@ export class MenuCategoryItemsComponent implements OnDestroy {
   };
 
   private reloadCategory() {
-    if (!this.categoryRef) { throw 'Category not defined'; }
+    if (!this.category) { throw 'Category not defined'; }
 
-    const activeCategory = this.categoryRef;
+    const activeCategory = this.category.ref;
     this.categoryService.getCategory({
       restaurantRef: this.accountService.getRestaurantRef(),
       categoryRef: activeCategory

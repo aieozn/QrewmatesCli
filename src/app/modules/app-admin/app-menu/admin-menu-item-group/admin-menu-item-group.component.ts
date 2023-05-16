@@ -4,15 +4,14 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { switchMap, tap } from 'rxjs';
-import { EditorDialogService } from '../../editors/editor-dialog.service';
+import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({
-  selector: 'app-menu-group-items',
-  templateUrl: './menu-group-items.component.html',
-  styleUrls: ['../../menu-element-drag-drop-list.scss', './menu-group-items.component.scss']
+  selector: 'app-admin-menu-item-group',
+  templateUrl: './admin-menu-item-group.component.html',
+  styleUrls: ['../menu-element-drag-drop-list.scss', './admin-menu-item-group.component.scss']
 })
-export class MenuGroupItemsComponent {
-
+export class AdminMenuItemGroupComponent {
   _group: MenuItemGroupGet | undefined;
 
   @Input() set group(group: MenuItemGroupGet) {

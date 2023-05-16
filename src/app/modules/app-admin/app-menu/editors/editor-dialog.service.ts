@@ -14,11 +14,6 @@ export class EditorDialogService {
   onItemGroupUpdated = new EventEmitter<MenuItemGroupGet>();
   onItemGroupDeleted = new EventEmitter<string>();
 
-  onEditItemGroup = new EventEmitter<{
-    group: MenuItemGroupGet,
-    categoryRef: string
-  }>();
-
   onEditItem = new EventEmitter<{
     item: MenuItemGet
   }>();

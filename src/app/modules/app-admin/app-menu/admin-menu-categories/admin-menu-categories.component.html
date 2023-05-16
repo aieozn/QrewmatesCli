@@ -1,0 +1,28 @@
+<div id="menu">
+    <h1 i18n>Restaurant categories</h1>
+
+    <div id="menu-elements-list" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
+        <div *ngFor="let category of categories" class="category-pane box-shadow box-radius" cdkDrag>
+            <div class="menu-element-details">
+                <div class="drag-box clickable">
+                    <mat-icon>more_vert</mat-icon>
+                </div>
+                <div class="left">
+                    <p class="menu-element-name">{{ category.name }}</p>
+                    <p class="menu-element-description">{{ category.description }}</p>
+
+                    <p class="extend clickable">
+                        <a [routerLink]="['/admin/menu/categories/', category.ref]">Go to details</a>
+                    </p>
+                </div>
+                <div class="right clickable" (click)="editCategory(category)">
+                    <mat-icon class="settings-icon">settings</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="floating-editor" class="box-shadow-top">
+    <ng-template elementEditorHost></ng-template>
+</div>

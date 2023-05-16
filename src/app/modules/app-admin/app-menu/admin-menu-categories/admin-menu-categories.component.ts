@@ -1,30 +1,24 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuCategoryGet } from '@common/api-client/models';
 import { MenuCategoryControllerService } from '@common/api-client/services';
-import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
-import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
-import { EditorDialogService } from './editors/editor-dialog.service';
-import { ElementEditorDirective } from './elementEditorDirective';
-import { EditItemComponent } from './editors/edit-item/edit-item.component';
+import { EditCategoryComponent } from '../editors/edit-category/edit-category.component';
+import { EditorDialogService } from '../editors/editor-dialog.service';
+import { ElementEditorDirective } from '../elementEditorDirective';
 
 @Component({
-  selector: 'app-admin-menu',
-  templateUrl: './admin-menu.component.html',
-  styleUrls: ['./menu-element-drag-drop-list.scss', './admin-menu.component.scss']
+  selector: 'app-admin-menu-categories',
+  templateUrl: './admin-menu-categories.component.html',
+  styleUrls: ['../menu-element-drag-drop-list.scss', './admin-menu-categories.component.scss']
 })
-export class AdminMenuComponent implements OnDestroy {
-
+export class AdminMenuCategoriesComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
   
   @ViewChild(ElementEditorDirective, {static: true}) elementEditorHost!: ElementEditorDirective;
   
-  categories: {
-    category: MenuCategoryGet,
-    open: boolean
-  }[] = [];
+  categories: MenuCategoryGet[] = [];
 
   constructor(
     private menuCategoryService: MenuCategoryControllerService,
@@ -54,46 +48,12 @@ export class AdminMenuComponent implements OnDestroy {
     .pipe(
       takeUntil(this.onDestroy)
     ).subscribe(e => this.categoryDeleted(e));
-
-    this.editorDialogService.onEditItemGroup.pipe(
-      takeUntil(this.onDestroy),
-      tap(e => this.editItemGroup(e))
-    ).subscribe();
-
-    this.editorDialogService.onEditItem.pipe(
-      takeUntil(this.onDestroy),
-      tap(e => this.editItem(e))
-    ).subscribe();
   }
 
   private loadCategories() {
     this.menuCategoryService.getCategories({
       restaurantRef: this.accountService.getRestaurantRef()
-    }).subscribe(loadedCategories => {
-      this.categories = [];
-      for (const loadedCategory of loadedCategories) {
-        this.categories.push({
-          category: loadedCategory,
-          open: false
-        })
-      }
-      
-      // TODO remove
-      this.editItem({
-        item: loadedCategories[0].menuItemGroups[0].menuItems[0]
-      })
-    })
-  }
-
-  extendCategory(category: MenuCategoryGet) {
-    this.closeCategories();
-    this.categories.filter(e => e.category.ref === category.ref)[0].open = true;
-  }
-
-  closeCategories() {
-    for (const category of this.categories) {
-      category.open = false;
-    }
+    }).subscribe(loadedCategories => this.categories = loadedCategories)
   }
 
   closeEditor() {
@@ -108,29 +68,6 @@ export class AdminMenuComponent implements OnDestroy {
 
     const componentRef = viewContainerRef.createComponent(EditCategoryComponent);
     componentRef.instance.category = category;
-    // componentRef.instance.data = adItem.data;
-  }
-
-  editItemGroup(itemGroupData: {
-    group: MenuItemGroupGet,
-    categoryRef: string
-  }) {
-
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-
-    const componentRef = viewContainerRef.createComponent(EditItemGroupComponent);
-
-    componentRef.instance.group = itemGroupData.group;
-  }
-
-  editItem(itemData: {
-    item: MenuItemGet
-  }) {
-    const viewContainerRef = this.elementEditorHost.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(EditItemComponent);
-    componentRef.instance.item = itemData.item;
   }
 
   ngOnDestroy(): void {
@@ -141,8 +78,8 @@ export class AdminMenuComponent implements OnDestroy {
   private categoryUpdated(newCategory: MenuCategoryGet) {
     for (let i = 0; i < this.categories.length; i++) {
       const existingCategory = this.categories[i];
-      if (existingCategory.category.ref === newCategory.ref) {
-        this.categories[i].category = newCategory;
+      if (existingCategory.ref === newCategory.ref) {
+        this.categories[i] = newCategory;
         break;
       }
     }
@@ -152,7 +89,7 @@ export class AdminMenuComponent implements OnDestroy {
   private categoryDeleted(ref: string) {
     for (let i = 0; i < this.categories.length; i++) {
       const existingCategory = this.categories[i];
-      if (existingCategory.category.ref === ref) {
+      if (existingCategory.ref === ref) {
         this.categories.splice(i, 1);
         break;
       }
@@ -161,24 +98,18 @@ export class AdminMenuComponent implements OnDestroy {
   }
 
   private categoryCreated(category: MenuCategoryGet) {
-    this.categories.push({
-      open: false,
-      category: category
-    })
+    this.categories.push(category)
     this.closeEditor();
   }
 
-  private arrayMove(arr: {
-    category: MenuCategoryGet,
-    open: boolean
-  }[], old_index: number, new_index: number
+  private arrayMove(arr: MenuCategoryGet[], old_index: number, new_index: number
   ) {
-    arr[old_index].category.elementOrder = arr[new_index].category.elementOrder;
+    arr[old_index].elementOrder = arr[new_index].elementOrder;
 
     this.menuCategoryService.putCategory({
       restaurantRef: this.accountService.getRestaurantRef(),
-      categoryRef: arr[old_index].category.ref,
-      body: arr[old_index].category
+      categoryRef: arr[old_index].ref,
+      body: arr[old_index]
     }).subscribe((_) => {
       this.loadCategories();
     });

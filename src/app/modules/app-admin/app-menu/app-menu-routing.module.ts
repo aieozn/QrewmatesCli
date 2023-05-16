@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminMenuComponent } from './admin-menu.component';
+import { AdminMenuCategoriesComponent } from './admin-menu-categories/admin-menu-categories.component';
+import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-category.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminMenuComponent
+    path: 'categories',
+    component: AdminMenuCategoriesComponent
+  },
+  {
+    path: 'categories/:id',
+    component: AdminMenuCategoryComponent
   }
 ];
 
