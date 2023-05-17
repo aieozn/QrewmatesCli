@@ -5,10 +5,10 @@ import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-cat
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
 import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
 import { EditItemComponent } from './editors/edit-item/edit-item.component';
-import { AllergensComponent } from './editors/edit-item/allergens/allergens.component';
-import { SelectsComponent } from './editors/edit-item/selects/selects.component';
-import { ToppingsComponent } from './editors/edit-item/toppings/toppings.component';
-import { SettingsComponent } from './editors/edit-item/settings/settings.component';
+import { EditItemAllergensComponent } from './editors/edit-item/edit-item-allergens/edit-item-allergens.component';
+import { EditItemSelectsComponent } from './editors/edit-item/edit-item-selects/edit-item-selects.component';
+import { EditItemToppingsComponent } from './editors/edit-item/edit-item-toppings/edit-item-toppings.component';
+import { EditItemSettingsComponent } from './editors/edit-item/edit-item-settings/edit-item-settings.component';
 
 const editItemRoutes: Routes = [
   {
@@ -18,19 +18,19 @@ const editItemRoutes: Routes = [
   },
   {
     path: 'allergens',
-    component: AllergensComponent
+    component: EditItemAllergensComponent
   },
   {
     path: 'selects',
-    component: SelectsComponent
+    component: EditItemSelectsComponent
   },
   {
     path: 'toppings',
-    component: ToppingsComponent
+    component: EditItemToppingsComponent
   },
   {
     path: 'settings',
-    component: SettingsComponent
+    component: EditItemSettingsComponent
   }
 ]
 

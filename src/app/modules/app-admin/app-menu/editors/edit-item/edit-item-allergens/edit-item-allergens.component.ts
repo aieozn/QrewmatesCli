@@ -6,11 +6,11 @@ import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap, }
 import { EditItemService } from '../edit-item-service/edit-item.service';
 
 @Component({
-  selector: 'app-allergens',
-  templateUrl: './allergens.component.html',
-  styleUrls: ['./allergens.component.scss']
+  selector: 'app-edit-item-allergens',
+  templateUrl: './edit-item-allergens.component.html',
+  styleUrls: ['./edit-item-allergens.component.scss']
 })
-export class AllergensComponent implements OnDestroy {
+export class EditItemAllergensComponent implements OnDestroy {
 
   allergens: {
     value: AllergenGet,

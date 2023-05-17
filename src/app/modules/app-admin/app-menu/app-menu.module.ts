@@ -16,15 +16,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ElementEditorDirective } from './elementEditorDirective';
 import { EditItemComponent } from './editors/edit-item/edit-item.component';
-import { ToppingsComponent } from './editors/edit-item/toppings/toppings.component';
-import { SelectsComponent } from './editors/edit-item/selects/selects.component';
-import { AllergensComponent } from './editors/edit-item/allergens/allergens.component';
-import { SettingsComponent } from './editors/edit-item/settings/settings.component';
+import { EditItemToppingsComponent } from './editors/edit-item/edit-item-toppings/edit-item-toppings.component';
+import { EditItemSelectsComponent } from './editors/edit-item/edit-item-selects/edit-item-selects.component';
+import { EditItemAllergensComponent } from './editors/edit-item/edit-item-allergens/edit-item-allergens.component';
+import { EditItemSettingsComponent } from './editors/edit-item/edit-item-settings/edit-item-settings.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdminMenuCategoriesComponent } from './admin-menu-categories/admin-menu-categories.component';
 import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-category.component';
 import { AdminMenuItemGroupComponent } from './admin-menu-item-group/admin-menu-item-group.component';
 import { AdminMenuItemSelectCollectionComponent } from './admin-menu-item-select-collection/admin-menu-item-select-collection.component';
+import { EditorItemNameComponent } from './editors/field-editors/editor-item-name/editor-item-name.component';
 
 
 @NgModule({
@@ -38,14 +39,15 @@ import { AdminMenuItemSelectCollectionComponent } from './admin-menu-item-select
     SubmitBarComponent,
     ElementEditorDirective,
     EditItemComponent,
-    ToppingsComponent,
-    SelectsComponent,
-    AllergensComponent,
-    SettingsComponent,
+    EditItemToppingsComponent,
+    EditItemSelectsComponent,
+    EditItemAllergensComponent,
+    EditItemSettingsComponent,
     AdminMenuCategoriesComponent,
     AdminMenuCategoryComponent,
     AdminMenuItemGroupComponent,
     AdminMenuItemSelectCollectionComponent,
+    EditorItemNameComponent,
   ],
   imports: [
     CommonModule,

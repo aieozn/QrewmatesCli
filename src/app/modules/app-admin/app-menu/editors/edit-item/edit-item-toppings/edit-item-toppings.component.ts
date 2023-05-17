@@ -7,11 +7,11 @@ import { EditItemService } from '../edit-item-service/edit-item.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-toppings',
-  templateUrl: './toppings.component.html',
-  styleUrls: ['./toppings.component.scss']
+  selector: 'app-edit-item-toppings',
+  templateUrl: './edit-item-toppings.component.html',
+  styleUrls: ['./edit-item-toppings.component.scss']
 })
-export class ToppingsComponent implements OnDestroy {
+export class EditItemToppingsComponent implements OnDestroy {
   allCollections: MenuItemToppingCollectionGet[] = []
   checked: MenuItemToppingCollectionGet[] = [];
   notChecked: MenuItemToppingCollectionGet[] = [];

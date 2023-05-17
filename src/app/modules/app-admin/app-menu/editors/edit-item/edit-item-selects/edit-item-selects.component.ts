@@ -7,11 +7,11 @@ import { EditItemService } from '../edit-item-service/edit-item.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-selects',
-  templateUrl: './selects.component.html',
-  styleUrls: ['./selects.component.scss']
+  selector: 'app-edit-item-selects',
+  templateUrl: './edit-item-selects.component.html',
+  styleUrls: ['./edit-item-selects.component.scss']
 })
-export class SelectsComponent implements OnDestroy {
+export class EditItemSelectsComponent implements OnDestroy {
   allCollections: MenuItemSelectCollectionGet[] = []
   checked: MenuItemSelectCollectionGet[] = [];
   notChecked: MenuItemSelectCollectionGet[] = [];

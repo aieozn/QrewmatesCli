@@ -3,11 +3,11 @@ import { MenuItemDetailedGet } from '@common/api-client/models';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  selector: 'app-edit-item-settings',
+  templateUrl: './edit-item-settings.component.html',
+  styleUrls: ['./edit-item-settings.component.scss']
 })
-export class SettingsComponent implements OnDestroy {
+export class EditItemSettingsComponent implements OnDestroy {
   _item: MenuItemDetailedGet | undefined;
 
   private readonly onDestroy = new Subject<void>();
