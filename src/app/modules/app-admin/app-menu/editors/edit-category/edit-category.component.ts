@@ -85,7 +85,7 @@ export class EditCategoryComponent {
         categoryRef: this.category.ref,
         body: this.activeCategory
       }).subscribe(saved => {
-        this.editDialogService.categoryUpdated(saved);
+        this.editDialogService.onCategoryUpdated.next(saved);
         this.close();
       })
     } else {
@@ -93,7 +93,7 @@ export class EditCategoryComponent {
         restaurantRef: this.accountService.getRestaurantRef(),
         body: this.activeCategory
       }).subscribe(saved => {
-        this.editDialogService.categoryCreated(saved);
+        this.editDialogService.onCategoryCreated.next(saved);
         this.close();
       })
     }
@@ -108,7 +108,7 @@ export class EditCategoryComponent {
           restaurantRef: this.accountService.getRestaurantRef(),
           categoryRef: originalCategoryRef
         }).subscribe(_ => {
-          this.editDialogService.categoryDeleted(originalCategoryRef)
+          this.editDialogService.onCategoryDeleted.next(originalCategoryRef)
           this.close()
         })
       }

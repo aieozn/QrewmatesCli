@@ -5,7 +5,7 @@
         {{ category.name }}
     </h1>
 
-    <div class="create-new clickable" routerLink="group/create"><p>+ Add new element</p></div>
+    <div class="create-new clickable" routerLink="group/create"><p>+ Add new dish</p></div>
 
     <div id="menu-elements-list" *ngIf="groups" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
         <div *ngFor="let group of groups" cdkDrag>
@@ -33,7 +33,7 @@
                         </p>
                     </div>
                     <div class="right">
-                        <div class="settings-icon clickable" (click)="openEditor(group.group)">
+                        <div class="settings-icon clickable" [routerLink]="['group', group.group.ref, 'edit']">
                             <mat-icon>settings</mat-icon>
                         </div>
                     </div>

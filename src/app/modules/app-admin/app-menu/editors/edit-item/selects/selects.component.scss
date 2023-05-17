@@ -23,8 +23,9 @@
     border: 1px solid #C3C3C3;
     padding: 10px;
     border-radius: 10px;
-    margin-top: 10px;
     position: relative;
+    width: 100%;
+    background-color: white;
 }
 
 .select-collection-description {
@@ -58,4 +59,20 @@
 .select-container {
     margin-top: 20px;
     margin-bottom: 20px;
+    display: flex;
+    margin-top: 10px;
+}
+
+.order-holder{
+    line-height: 40px;
+    height: 40px;
+    margin: 10px;
+}
+
+.order-holder mat-icon {
+    height: 100%;
+    font-size: 30px;
+    color: #C3C3C3;
+    position: relative;
+    top: 6px;
 }

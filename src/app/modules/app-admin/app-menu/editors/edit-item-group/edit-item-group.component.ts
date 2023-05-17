@@ -84,7 +84,7 @@ export class EditItemGroupComponent {
         menuItemGroupRef: this.group.ref,
         body: this.activeItemGroup
       }).subscribe(saved => {
-        this.editDialogService.itemGroupUpdated(saved);
+        this.editDialogService.onItemGroupUpdated.next(saved);
         this.close()
       })
     } else {
@@ -95,7 +95,7 @@ export class EditItemGroupComponent {
         restaurantRef: this.accountService.getRestaurantRef(),
         body: this.activeItemGroup
       }).subscribe(saved => {
-        this.editDialogService.itemGroupCreated(saved);
+        this.editDialogService.onItemGroupCreated.next(saved);
         this.close()
       })
     }
@@ -115,7 +115,7 @@ export class EditItemGroupComponent {
           restaurantRef: this.accountService.getRestaurantRef(),
           menuItemGroupRef: originalGroupCategoryRef
         }).subscribe(_ => {
-          this.editDialogService.itemGroupDeleted(originalGroupCategoryRef)
+          this.editDialogService.onItemGroupDeleted.next(originalGroupCategoryRef)
           this.close()
         })
       }

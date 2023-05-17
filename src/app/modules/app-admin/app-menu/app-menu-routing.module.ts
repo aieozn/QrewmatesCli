@@ -10,6 +10,30 @@ import { SelectsComponent } from './editors/edit-item/selects/selects.component'
 import { ToppingsComponent } from './editors/edit-item/toppings/toppings.component';
 import { SettingsComponent } from './editors/edit-item/settings/settings.component';
 
+const editItemRoutes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'selects'
+  },
+  {
+    path: 'allergens',
+    component: AllergensComponent
+  },
+  {
+    path: 'selects',
+    component: SelectsComponent
+  },
+  {
+    path: 'toppings',
+    component: ToppingsComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
+  }
+]
+
 const routes: Routes = [
   {
     path: 'categories',
@@ -38,26 +62,14 @@ const routes: Routes = [
         component: EditItemGroupComponent
       },
       {
-        path: 'item/:menuItemRef/edit',
+        path: 'group/:menuItemGroupRef/item/:menuItemRef/edit',
         component: EditItemComponent,
-        children: [
-          {
-            path: 'allergens',
-            component: AllergensComponent
-          },
-          {
-            path: 'selects',
-            component: SelectsComponent
-          },
-          {
-            path: 'toppings',
-            component: ToppingsComponent
-          },
-          {
-            path: 'settings',
-            component: SettingsComponent
-          }
-        ]
+        children: editItemRoutes
+      },
+      {
+        path: 'group/:menuItemGroupRef/item/create',
+        component: EditItemComponent,
+        children: editItemRoutes
       }
     ]
   }

@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MenuItemDetailedGet } from '@common/api-client/models';
+import { MenuItemData, MenuItemDetailedGet } from '@common/api-client/models';
 import { MenuItemControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
@@ -15,10 +14,12 @@ import { EditorDialogService } from '../editor-dialog.service';
 })
 export class EditItemComponent implements OnDestroy {
   
-  fullItem: BehaviorSubject<MenuItemDetailedGet | undefined> = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
+  emptyItem: MenuItemData | undefined;
+  activeItem: BehaviorSubject<MenuItemData | undefined>;
   
   private readonly onDestroy = new Subject<void>();
   private categoryRef: string
+  item: MenuItemDetailedGet | undefined;
   dirty = false
 
   constructor(
@@ -30,41 +31,44 @@ export class EditItemComponent implements OnDestroy {
     private editorDialogService: EditorDialogService
   ) {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
+    this.activeItem = editItemService.activeItem;
 
     this.route.params.subscribe(params => {
-      this.loadItemDetails(params['menuItemRef']);
+      this.loadItemDetails(params['menuItemRef'], params['menuItemGroupRef']);
     })
 
     this.editItemService.onUpdate.pipe(
       tap(() => this.dirty = true),
       takeUntil(this.onDestroy)
     ).subscribe()
-
-    this.fullItem = editItemService.activeItem;
-  }
-
-  isValid(validation: {[key: string] : FormControl}) : boolean {
-    return !Object.values(validation).map(e => e.invalid).includes(true);
-  }
-
-  isUpdated(validation: {[key: string] : FormControl}) : boolean {
-    return Object.values(validation).map(e => e.dirty).includes(true);
   }
 
   onSave() {
-    const itemValue = this.fullItem.getValue();
+    const itemValue = this.activeItem.getValue();
     if (itemValue === undefined) { throw 'Undefined item value'; }
 
-    this.itemService.putItem({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      menuItemRef: itemValue.ref,
-      body: itemValue
-    }).pipe(
-      tap(e => {
-        this.fullItem.next(e);
-        this.close()
-      })
-    ).subscribe()
+    if (this.item !== undefined) {
+      this.itemService.putItem({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        menuItemRef: this.item.ref,
+        body: itemValue
+      }).pipe(
+        tap(e => {
+          this.editorDialogService.onItemUpdated.next(e);
+          this.close()
+        })
+      ).subscribe()
+    } else {
+      this.itemService.postItem({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        body: itemValue
+      }).pipe(
+        tap(e => {
+          this.editorDialogService.onItemCreated.next(e);
+          this.close()
+        })
+      ).subscribe()
+    } 
   }
 
   close() {
@@ -72,15 +76,15 @@ export class EditItemComponent implements OnDestroy {
   }
 
   onDelete() {
-    const itemValue = this.fullItem.getValue();
-    if (itemValue === undefined) { throw 'Undefined item value'; }
+    const itemValue = this.item;
+    if (itemValue === undefined) { throw 'Undefined item'; }
 
     if (confirm($localize`Are you sure you want to delete this option?`)) {
       this.itemService.deleteItem({
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemRef: itemValue.ref
       }).pipe(
-        tap(() => this.editorDialogService.onDeleteItem.next({
+        tap(() => this.editorDialogService.onItemDeleted.next({
           ref: itemValue.ref
         })),
         tap(() => this.close())
@@ -88,14 +92,29 @@ export class EditItemComponent implements OnDestroy {
     } 
   }
 
-  loadItemDetails(itemRef: string) {
-    this.itemService.getItemDetails({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      menuItemRef: itemRef
-    }).pipe(
-      takeUntil(this.onDestroy),
-      tap(e => this.editItemService.activeItem.next(e))
-    ).subscribe()
+  loadItemDetails(itemRef: string | undefined, groupRef: string) {
+    this.emptyItem = {
+      allergens: [],
+      name: '',
+      selectCollections: [],
+      toppingCollections: [],
+      available: true,
+      elementOrder: 99999,
+      menuItemGroupRef: groupRef
+    };
+
+    if (itemRef !== undefined) {
+      this.itemService.getItemDetails({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        menuItemRef: itemRef
+      }).pipe(
+        takeUntil(this.onDestroy),
+        tap(e => this.activeItem.next(e)),
+        tap(e => this.item = e)
+      ).subscribe()
+    } else {
+      this.activeItem.next(this.emptyItem)
+    }
   }
 
   ngOnDestroy(): void {
@@ -103,11 +122,11 @@ export class EditItemComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  openAllergens() {
-    this.router.navigate(['allergens'], { relativeTo: this.route })
-  }
+  // openAllergens() {
+  //   this.router.navigate(['allergens'], { relativeTo: this.route })
+  // }
 
-  openSelects() {
-    this.router.navigate(['selects'], { relativeTo: this.route })
-  }
+  // openSelects() {
+  //   this.router.navigate(['selects'], { relativeTo: this.route })
+  // }
 }

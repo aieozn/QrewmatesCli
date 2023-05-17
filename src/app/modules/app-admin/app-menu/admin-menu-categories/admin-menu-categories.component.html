@@ -18,7 +18,7 @@
                         View details
                     </p>
                 </div>
-                <div class="right clickable" (click)="editCategory(category)">
+                <div class="right clickable" [routerLink]="['category', category.ref, 'edit']">
                     <mat-icon class="settings-icon">settings</mat-icon>
                 </div>
             </div>

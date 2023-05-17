@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { AllergenGet, MenuItemDetailedGet } from '@common/api-client/models';
+import { AllergenGet, MenuItemData, MenuItemDetailedGet } from '@common/api-client/models';
 import { AllergenControllerService } from '@common/api-client/services';
 import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap, } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
@@ -17,7 +17,7 @@ export class AllergensComponent implements OnDestroy {
     checked: boolean
   }[] | undefined;
 
-  fullItem: BehaviorSubject<MenuItemDetailedGet | undefined> = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
+  fullItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
   private readonly onDestroy = new Subject<void>();
 
   constructor(

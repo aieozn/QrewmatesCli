@@ -25,7 +25,7 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
     private groupService: MenuItemGroupControllerService,
     private editorDialogService: EditorDialogService
   ) {
-    this.editorDialogService.onDeleteItem.pipe(
+    this.editorDialogService.onItemDeleted.pipe(
       tap(e => this.onDeleteItem(e.ref)),
       takeUntil(this.onDestroy)
     ).subscribe()
@@ -80,13 +80,8 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
     }
   }
 
-  edit(item: MenuItemGet) {
-    this.editorDialogService.onEditItem.emit(item);
-  }
-
   onDeleteItem(ref: string) {
     if (!this._group) { throw 'Groups not defined'; }
-
     this._group.menuItems = this._group.menuItems.filter(e => e.ref !== ref)
   }
 }

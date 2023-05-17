@@ -1,9 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuItemDetailedGet, MenuItemSelectCollectionGet } from '@common/api-client/models';
+import { MenuItemData, MenuItemDetailedGet, MenuItemSelectCollectionGet } from '@common/api-client/models';
 import { MenuItemSelectCollectionControllerService } from '@common/api-client/services';
 import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-selects',
@@ -11,11 +12,11 @@ import { EditItemService } from '../edit-item-service/edit-item.service';
   styleUrls: ['./selects.component.scss']
 })
 export class SelectsComponent implements OnDestroy {
-  collections: {
-    value: MenuItemSelectCollectionGet,
-    checked: boolean
-  }[] | undefined;
-  fullItem: BehaviorSubject<MenuItemDetailedGet | undefined> = new BehaviorSubject<MenuItemDetailedGet | undefined>(undefined);
+  allCollections: MenuItemSelectCollectionGet[] = []
+  checked: MenuItemSelectCollectionGet[] = [];
+  notChecked: MenuItemSelectCollectionGet[] = [];
+
+  fullItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
   
   private readonly onDestroy = new Subject<void>();
 
@@ -35,6 +36,7 @@ export class SelectsComponent implements OnDestroy {
         restaurantRef: accountService.getRestaurantRef()
       })
     ]).pipe(
+      tap(([, selects]) => this.allCollections = selects),
       tap(([item, selects]) => {
         this.checkSelects(item, selects)
       }),
@@ -47,17 +49,24 @@ export class SelectsComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  checkSelects(item: MenuItemDetailedGet, collections: MenuItemSelectCollectionGet[]) {
-    this.collections = [];
+  checkSelects(item: MenuItemData, collections: MenuItemSelectCollectionGet[]) {
+    this.checked = [];
+    this.notChecked = [];
+
+    for (const itemCollectionRef of item.selectCollections) {
+      this.checked.push(this.findCollectionByRef(collections, itemCollectionRef.ref))
+    }
 
     for (const collection of collections) {
-      const checked = item.selectCollections.filter(e => e.ref == collection.ref).length > 0
-      
-      this.collections.push({
-        value: collection,
-        checked
-      })
+      const assigned = item.selectCollections.filter(i => i.ref === collection.ref).length > 0
+      if (!assigned) {
+        this.notChecked.push(collection);
+      }
     }
+  }
+
+  findCollectionByRef(collections: MenuItemSelectCollectionGet[], ref: string) {
+    return collections.filter(c => c.ref === ref)[0]
   }
 
   select(collection: MenuItemSelectCollectionGet, selected: boolean) {
@@ -70,6 +79,22 @@ export class SelectsComponent implements OnDestroy {
       itemMail.selectCollections.push(collection)
     }
 
+    this.checkSelects(itemMail, this.allCollections)
+
     this.editItemService.onUpdate.next()
+  }
+
+  dragDropListCaught(event: CdkDragDrop<string[]>) {
+    const itemMail = this.fullItem.getValue()
+    if (!itemMail) { throw 'Item not defined'; }
+
+    if (event.previousIndex != event.currentIndex) {
+      const newIntex = event.currentIndex;
+      const oldIndex = event.previousIndex
+      this.checked.splice(newIntex, 0, this.checked.splice(oldIndex, 1)[0]);
+
+      itemMail.selectCollections = this.checked.slice()
+      this.editItemService.onUpdate.next()
+    }
   }
 }

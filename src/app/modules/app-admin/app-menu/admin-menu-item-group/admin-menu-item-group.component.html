@@ -1,5 +1,6 @@
-
 <div id="menu-elements-list" *ngIf="_group as group" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
+    <div class="create-new clickable" [routerLink]="['group', group.ref, 'item', 'create']"><p>+ Add new option</p></div>
+    
     <div *ngFor="let item of group.menuItems" cdkDrag>
         <div class="menu-element box-shadow box-radius">
             <div class="drag-box clickable">
@@ -12,7 +13,7 @@
                     <p class="menu-element-price">{{ item.price }} zł</p>
                 </div>
                 <div class="right">
-                    <div class="settings-icon clickable" (click)="edit(item)">
+                    <div class="settings-icon clickable" [routerLink]="['group', group.ref, 'item', item.ref, 'edit']">
                         <mat-icon>settings</mat-icon>
                     </div>
                 </div>

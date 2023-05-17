@@ -2,7 +2,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuCategoryGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuCategoryControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editors/editor-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -37,10 +37,6 @@ export class AdminMenuCategoryComponent implements OnDestroy {
     this.editorDialogService.onItemGroupDeleted.pipe(
       takeUntil(this.onDestroy)
     ).subscribe(e => this.itemGroupDeleted(e));
-
-    this.editorDialogService.onEditItem.pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe(e => this.editItem(e));
 
     this.editorDialogService.onItemGroupCreated.pipe(
       tap(e => this.itemGroupCreated(e)),
@@ -83,18 +79,6 @@ export class AdminMenuCategoryComponent implements OnDestroy {
         }
       })
     ).subscribe();
-  }
-
-  openEditor(menuItemGroup: MenuItemGroupGet) {
-    this.editItemGroup(menuItemGroup)
-  }
-
-  editItemGroup(group: MenuItemGroupGet) {
-    this.router.navigate(['/admin/menu/category/', this.categoryRef, 'group', group.ref, 'edit'])
-  }
-
-  editItem(item: MenuItemGet) {
-    this.router.navigate(['/admin/menu/category/', this.categoryRef, 'item', item.ref, 'edit', 'selects'])
   }
 
   getImageUrl(ref: string) {
