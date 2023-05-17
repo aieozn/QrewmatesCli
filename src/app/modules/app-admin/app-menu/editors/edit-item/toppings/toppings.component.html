@@ -1,1 +1,42 @@
-<p>toppings works!</p>
+<div id="all" class="box-shadow box-radius">
+    <h2 i18n>Toppings</h2>
+    <p i18n class="action-description">Choose the right toppings for this dish</p>
+
+    <div id="colections-list" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
+        <div *ngFor="let collection of checked" class="container clickable" cdkDrag>
+            <div class="order-holder">
+                <mat-icon>more_vert</mat-icon>
+            </div>
+            <div class="collection">
+                <div class="collection-description">
+                    <div class="checkbox-field">
+                        <mat-checkbox checked="true" (change)="select(collection, $event.checked)"></mat-checkbox>
+                    </div>
+                    <div class="name-field">
+                        {{ collection.name }}
+                    </div>
+                </div>
+                
+                <div class="detials-button clickable">
+                    <p i18n>View</p>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let collection of notChecked" class="container">
+            <div class="collection">
+                <div class="collection-description">
+                    <div class="checkbox-field">
+                        <mat-checkbox checked="false" (change)="select(collection, $event.checked)"></mat-checkbox>
+                    </div>
+                    <div class="name-field">
+                        {{ collection.name }}
+                    </div>
+                </div>
+                
+                <div class="detials-button clickable">
+                    <p i18n>View</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

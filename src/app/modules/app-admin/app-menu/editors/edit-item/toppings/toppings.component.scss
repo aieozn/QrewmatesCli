@@ -1,0 +1,78 @@
+#all {
+    padding: 15px;
+}
+
+#all h2 {
+    font-size: 16px;
+    font-family: PoppinsSemiBold;
+    color: #272727;
+    margin: 0px;
+}
+
+.action-description {
+    font-size: 12px;
+    color: #C3C3C3;
+    margin: 0px;
+}
+
+#colections-list-list {
+    margin-top: 20px;
+}
+
+.collection {
+    border: 1px solid #C3C3C3;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    background-color: white;
+}
+
+.collection-description {
+    display: flex;
+}
+
+.name-field {
+    line-height: 40px;
+    border-left: 1px solid #c3c3c3;
+    padding-left: 10px;
+    font-size: 16px;
+    font-family: PoppinsSemiBold;
+    color: #272727;
+}
+
+.checkbox-field mat-checkbox {
+    margin: 0px;
+}
+
+.detials-button {
+    line-height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #c21d8e;
+}
+.detials-button p{
+    margin: 0px;
+}
+
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    margin-top: 10px;
+}
+
+.order-holder{
+    line-height: 40px;
+    height: 40px;
+    margin: 10px;
+}
+
+.order-holder mat-icon {
+    height: 100%;
+    font-size: 30px;
+    color: #C3C3C3;
+    position: relative;
+    top: 6px;
+}

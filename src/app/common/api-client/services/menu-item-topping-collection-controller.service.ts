@@ -126,6 +126,52 @@ export class MenuItemToppingCollectionControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation getToppingCollections
+   */
+  static readonly GetToppingCollectionsPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-topping-collections';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getToppingCollections()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getToppingCollections$Response(params: {
+    restaurantRef: string;
+  }): Observable<StrictHttpResponse<Array<MenuItemToppingCollectionGet>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemToppingCollectionControllerService.GetToppingCollectionsPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<MenuItemToppingCollectionGet>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getToppingCollections$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getToppingCollections(params: {
+    restaurantRef: string;
+  }): Observable<Array<MenuItemToppingCollectionGet>> {
+
+    return this.getToppingCollections$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<MenuItemToppingCollectionGet>>) => r.body as Array<MenuItemToppingCollectionGet>)
+    );
+  }
+
+  /**
    * Path part for operation postToppingCollection
    */
   static readonly PostToppingCollectionPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-topping-collections';

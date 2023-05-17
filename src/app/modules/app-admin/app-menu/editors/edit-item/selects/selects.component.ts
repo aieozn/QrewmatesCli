@@ -63,9 +63,11 @@ export class SelectsComponent implements OnDestroy {
         this.notChecked.push(collection);
       }
     }
+
+    this.notChecked = this.notChecked.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
   }
 
-  findCollectionByRef(collections: MenuItemSelectCollectionGet[], ref: string) {
+  findCollectionByRef(collections: MenuItemSelectCollectionGet[], ref: string) : MenuItemSelectCollectionGet {
     return collections.filter(c => c.ref === ref)[0]
   }
 
