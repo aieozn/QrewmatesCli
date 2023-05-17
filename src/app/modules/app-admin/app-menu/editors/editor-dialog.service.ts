@@ -13,6 +13,7 @@ export class EditorDialogService {
   onItemGroupDeleted = new EventEmitter<string>();
 
   onEditItem = new EventEmitter<MenuItemGet>();
+  onDeleteItem = new EventEmitter<{ref: string}>();
 
   categoryCreated(category: MenuCategoryGet) {
     this.onCategoryCreated.emit(category);

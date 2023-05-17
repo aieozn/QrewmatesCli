@@ -7,10 +7,10 @@
             <div class="select-collection">
                 <div class="select-collection-description">
                     <div class="checkbox-field">
-                        <mat-checkbox (change)="select(collection, $event.checked)"></mat-checkbox>
+                        <mat-checkbox [(ngModel)]="collection.checked" (change)="select(collection.value, $event.checked)"></mat-checkbox>
                     </div>
                     <div class="name-field">
-                        {{ collection.name }}
+                        {{ collection.value.name }}
                     </div>
                 </div>
                 

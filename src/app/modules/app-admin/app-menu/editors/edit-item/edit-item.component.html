@@ -29,4 +29,4 @@
     <router-outlet></router-outlet>
 </div>
 
-<app-submit-bar [saveEnabled]="isValid(itemFields) && isUpdated(itemFields)" [deleteEnabled]="fullItem !== undefined" (onClose)="cancel()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+<app-submit-bar [saveEnabled]="dirty" [deleteEnabled]="fullItem !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

@@ -1,9 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
-import { switchMap, tap } from 'rxjs';
+import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({
@@ -11,8 +11,9 @@ import { EditorDialogService } from '../editors/editor-dialog.service';
   templateUrl: './admin-menu-item-group.component.html',
   styleUrls: ['../menu-element-drag-drop-list.scss', './admin-menu-item-group.component.scss']
 })
-export class AdminMenuItemGroupComponent {
+export class AdminMenuItemGroupComponent implements OnDestroy {
   _group: MenuItemGroupGet | undefined;
+  private readonly onDestroy = new Subject<void>();
 
   @Input() set group(group: MenuItemGroupGet) {
     this._group = group;
@@ -24,7 +25,15 @@ export class AdminMenuItemGroupComponent {
     private groupService: MenuItemGroupControllerService,
     private editorDialogService: EditorDialogService
   ) {
+    this.editorDialogService.onDeleteItem.pipe(
+      tap(e => this.onDeleteItem(e.ref)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+  }
 
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 
   private reloadGroup() {
@@ -73,5 +82,11 @@ export class AdminMenuItemGroupComponent {
 
   edit(item: MenuItemGet) {
     this.editorDialogService.onEditItem.emit(item);
+  }
+
+  onDeleteItem(ref: string) {
+    if (!this._group) { throw 'Groups not defined'; }
+
+    this._group.menuItems = this._group.menuItems.filter(e => e.ref !== ref)
   }
 }

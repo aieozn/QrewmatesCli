@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { AllergenGet, MenuItemDetailedGet } from '@common/api-client/models';
 import { AllergenControllerService } from '@common/api-client/services';
-import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap, } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
 
 @Component({
@@ -23,40 +23,37 @@ export class AllergensComponent implements OnDestroy {
   constructor(
     allergensService: AllergenControllerService,
     private accountService: AccountService,
-    editItemService: EditItemService
+    private editItemService: EditItemService
   ) {
-    allergensService.getAllergens({
-      restaurantRef: this.accountService.getRestaurantRef()
-    }).pipe(
-      tap(allergens => {
-        this.allergens = allergens.map(allergen => ({
-          value: allergen,
-          checked: false
-        }))
-
-        this.checkAllergens(this.fullItem.getValue())
-      }),
-      takeUntil(this.onDestroy)
-    ).subscribe()
-
     this.fullItem = editItemService.activeItem;
 
-    this.fullItem.pipe(
-      tap(item => this.checkAllergens(item))
-    )
+
+    combineLatest([
+      this.fullItem.pipe(
+        filter(e => e !== undefined),
+        map(e => e as MenuItemDetailedGet)
+      ),
+      allergensService.getAllergens({
+        restaurantRef: this.accountService.getRestaurantRef()
+      })
+    ]).pipe(
+      tap(([item, allergens]) => {
+        this.checkAllergens(item, allergens)
+      }),
+      takeUntil(this.onDestroy)
+    ).subscribe();
   }
 
-  checkAllergens(item: MenuItemDetailedGet | undefined) {
-    if (item && this.allergens) {
-      for (const allergen of this.allergens) {
-        if (item.allergens.filter(e => e.ref === allergen.value.ref).length > 0) {
-          allergen.checked = true
-        } else {
-          allergen.checked = false
-        }
-      }
-    } else {
-      this.allergens?.forEach(e => e.checked = false);
+  checkAllergens(item: MenuItemDetailedGet, allergens: AllergenGet[]) {
+    this.allergens = [];
+
+    for (const allergen of allergens) {
+      const checked = item.allergens.filter(e => e.ref === allergen.ref).length > 0;
+
+      this.allergens.push({
+        value: allergen,
+        checked
+      })
     }
   }
 
@@ -73,5 +70,7 @@ export class AllergensComponent implements OnDestroy {
     if (selected) {
       itemMail.allergens.push(allergen)
     }
+
+    this.editItemService.onUpdate.next()
   }
 }
