@@ -43,7 +43,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe()
 
-    const categoryRef = this.route.snapshot.paramMap.get('categoryRef');
+    const categoryRef = this.route.snapshot.paramMap.get('categoryRef');  
 
     if (categoryRef === null) {
       throw 'Category ref not defined';
@@ -74,11 +74,25 @@ export class AdminMenuCategoryComponent implements OnDestroy {
         for (const group of category.menuItemGroups) {
           this.groups.push({
             group: group,
-            open: false
+            open: this.getActiveGroupRef() === group.ref
           })
         }
       })
     ).subscribe();
+  }
+
+  getActiveGroupRef() : string | undefined {
+    let activeGroupRef: string | undefined;
+
+    if (this.route.children && this.route.children.length > 0) {
+      const value = this.route.children[0].snapshot.paramMap.get('menuItemGroupRef');
+
+      if (value) {
+        activeGroupRef = value
+      }
+    }
+
+    return activeGroupRef
   }
 
   getImageUrl(ref: string) {
