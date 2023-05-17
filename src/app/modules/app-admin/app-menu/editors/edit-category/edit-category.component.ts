@@ -15,7 +15,13 @@ import { tap } from 'rxjs';
 export class EditCategoryComponent {
 
   category: MenuCategoryGet | undefined;
-  activeCategory: MenuCategoryData;
+
+  emptyCategory = {
+    description: '',
+    elementOrder: 99999,
+    name: ''
+  };
+  activeCategory: MenuCategoryData = this.emptyCategory;
   detailsLink: string[] | undefined
   
   categoryFields = {
@@ -33,15 +39,11 @@ export class EditCategoryComponent {
     this.route.params.subscribe(params => {
       this.reloadComponent(params['categoryRef']);
     })
-    
-    this.activeCategory = {
-      description: '',
-      elementOrder: 99999,
-      name: ''
-    }
   }
 
   private reloadComponent(categoryRef: string) {
+    this.activeCategory = this.emptyCategory;
+
     if (categoryRef) {
       this.categoryService.getCategory({
         restaurantRef: this.accountService.getRestaurantRef(),

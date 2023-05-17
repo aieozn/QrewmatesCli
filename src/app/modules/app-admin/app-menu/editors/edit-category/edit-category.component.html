@@ -1,5 +1,6 @@
 <div id="edit-element">
-    <p id="element-name"><span i18n>Category</span>: <b>{{ activeCategory.name }}</b></p>
+    <p id="element-name" *ngIf="category !== undefined"><span i18n>Category</span>: <b>{{ category.name }}</b></p>
+    <p id="element-name" *ngIf="category === undefined"><span i18n>Create new category</span></p>
 
     <p id="help-text" i18n>Edit fields below and save changes</p>
     <div id="editors">

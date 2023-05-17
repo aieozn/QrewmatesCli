@@ -4,7 +4,7 @@
 
     <mat-form-field appearance="fill" id="element-description-input">
         <mat-label i18n>Dish description</mat-label>
-        <textarea matInput [formControl]="elementDescriptionFormControl"></textarea>
+        <input autocomplete="off" [formControl]="elementDescriptionFormControl" matInput>
         <mat-error *ngIf="elementDescriptionFormControl.errors" i18n>Invalid description</mat-error>
     </mat-form-field>
 </div>

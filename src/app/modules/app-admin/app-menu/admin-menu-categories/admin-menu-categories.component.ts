@@ -100,10 +100,4 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
       this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
     }
   }
-
-  // createCategory() {
-  //   const viewContainerRef = this.elementEditorHost.viewContainerRef;
-  //   viewContainerRef.clear();
-  //   viewContainerRef.createComponent(EditCategoryComponent);
-  // }
 }

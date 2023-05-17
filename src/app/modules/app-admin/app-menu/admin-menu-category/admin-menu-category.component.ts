@@ -42,6 +42,11 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe(e => this.editItem(e));
 
+    this.editorDialogService.onItemGroupCreated.pipe(
+      tap(e => this.itemGroupCreated(e)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+
     const categoryRef = this.route.snapshot.paramMap.get('categoryRef');
 
     if (categoryRef === null) {
@@ -50,6 +55,15 @@ export class AdminMenuCategoryComponent implements OnDestroy {
 
     this.categoryRef = categoryRef;
     this.loadCategory(categoryRef);
+  }
+
+  itemGroupCreated(group: MenuItemGroupGet) {
+    if (group.categoryRef === this.categoryRef) {
+      this.groups.push({
+        group: group,
+        open: false
+      });
+    }
   }
 
   loadCategory(ref: string) {

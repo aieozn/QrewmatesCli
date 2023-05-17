@@ -18,6 +18,10 @@ const routes: Routes = [
       {
         path: 'category/:categoryRef/edit',
         component: EditCategoryComponent
+      },
+      {
+        path: 'category/create',
+        component: EditCategoryComponent
       }
     ]
   },
@@ -27,6 +31,10 @@ const routes: Routes = [
     children: [
       {
         path: 'group/:menuItemGroupRef/edit',
+        component: EditItemGroupComponent
+      },
+      {
+        path: 'group/create',
         component: EditItemGroupComponent
       },
       {

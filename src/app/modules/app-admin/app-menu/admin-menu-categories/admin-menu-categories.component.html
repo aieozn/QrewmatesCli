@@ -1,7 +1,10 @@
 <div id="menu">
     <h1 i18n>Restaurant categories</h1>
 
+    <div class="create-new clickable" routerLink="category/create"><p>+ Add new category</p></div>
+
     <div id="menu-elements-list" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
+
         <div *ngFor="let category of categories" class="category-pane box-shadow box-radius" cdkDrag>
             <div class="menu-element-details">
                 <div class="drag-box clickable">

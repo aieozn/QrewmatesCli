@@ -10,6 +10,7 @@ export class EditorDialogService {
   onCategoryDeleted = new EventEmitter<string>();
 
   onItemGroupUpdated = new EventEmitter<MenuItemGroupGet>();
+  onItemGroupCreated = new EventEmitter<MenuItemGroupGet>();
   onItemGroupDeleted = new EventEmitter<string>();
 
   onEditItem = new EventEmitter<MenuItemGet>();
@@ -33,5 +34,9 @@ export class EditorDialogService {
 
   itemGroupUpdated(itemGroup: MenuItemGroupGet) {
     this.onItemGroupUpdated.emit(itemGroup);
+  }
+
+  itemGroupCreated(itemGroup: MenuItemGroupGet) {
+    this.onItemGroupCreated.emit(itemGroup);
   }
 }

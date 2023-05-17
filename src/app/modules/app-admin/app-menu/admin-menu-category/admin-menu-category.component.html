@@ -5,6 +5,8 @@
         {{ category.name }}
     </h1>
 
+    <div class="create-new clickable" routerLink="group/create"><p>+ Add new element</p></div>
+
     <div id="menu-elements-list" *ngIf="groups" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
         <div *ngFor="let group of groups" cdkDrag>
 
