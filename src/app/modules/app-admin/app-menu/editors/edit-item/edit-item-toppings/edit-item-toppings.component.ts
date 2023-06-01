@@ -8,7 +8,7 @@ import { EditItemService } from '../edit-item-service/edit-item.service';
 @Component({
   selector: 'app-edit-item-toppings',
   templateUrl: './edit-item-toppings.component.html',
-  styleUrls: ['./edit-item-toppings.component.scss']
+  styleUrls: ['../../../shared-css/drag-box.scss', './edit-item-toppings.component.scss']
 })
 export class EditItemToppingsComponent implements OnDestroy {
   allCollections: MenuItemToppingCollectionGet[] = []
@@ -82,6 +82,30 @@ export class EditItemToppingsComponent implements OnDestroy {
 
     this.checkToppings(itemMail, this.allCollections)
 
+    this.editItemService.onUpdate.next()
+  }
+
+  moveUp(element: MenuItemToppingCollectionGet) {
+    const itemMail = this.fullItem.getValue()
+    if (!itemMail) { throw 'Item not defined'; }
+
+    const index = this.checked.indexOf(element)
+    this.checked[index] = this.checked[index + 1]
+    this.checked[index + 1] = element
+
+    itemMail.toppingCollections = this.checked.slice()
+    this.editItemService.onUpdate.next()
+  }
+
+  moveDown(element: MenuItemToppingCollectionGet) {
+    const itemMail = this.fullItem.getValue()
+    if (!itemMail) { throw 'Item not defined'; }
+
+    const index = this.checked.indexOf(element)
+    this.checked[index] = this.checked[index - 1]
+    this.checked[index - 1] = element
+
+    itemMail.toppingCollections = this.checked.slice()
     this.editItemService.onUpdate.next()
   }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuItemGroupGet } from '@common/api-client/models';
+import { MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editors/editor-dialog.service';
@@ -8,7 +8,7 @@ import { EditorDialogService } from '../editors/editor-dialog.service';
 @Component({
   selector: 'app-admin-menu-item-group',
   templateUrl: './admin-menu-item-group.component.html',
-  styleUrls: ['../menu-element-drag-drop-list.scss', './admin-menu-item-group.component.scss']
+  styleUrls: ['../shared-css/menu-element-drag-drop-list.scss', './admin-menu-item-group.component.scss']
 })
 export class AdminMenuItemGroupComponent implements OnDestroy {
   _group: MenuItemGroupGet | undefined;
@@ -50,5 +50,38 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
   onDeleteItem(ref: string) {
     if (!this._group) { throw 'Groups not defined'; }
     this._group.menuItems = this._group.menuItems.filter(e => e.ref !== ref)
+  }
+
+  moveUp(item: MenuItemGet) {
+    if (!this._group) { throw 'Group not defined'; }
+    
+    const group = this._group;
+    const activeIndex = group.menuItems.indexOf(item)
+
+    this.menuItemService.moveUp({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemRef: item.ref
+    }).pipe(
+      tap(e => {
+        group.menuItems[activeIndex] = group.menuItems[activeIndex + 1];
+        group.menuItems[activeIndex + 1] = e
+      })
+    ).subscribe();
+  }
+
+  moveDown(item: MenuItemGet) {
+    if (!this._group) { throw 'Group not defined'; }
+    const activeIndex = this._group.menuItems.indexOf(item)
+    const group = this._group;
+
+    this.menuItemService.moveDown({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemRef: item.ref
+    }).pipe(
+      tap(e => {
+        group.menuItems[activeIndex] = group.menuItems[activeIndex - 1];
+        group.menuItems[activeIndex - 1] = e
+      })
+    ).subscribe();
   }
 }

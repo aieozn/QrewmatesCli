@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-menu-categories',
   templateUrl: './admin-menu-categories.component.html',
-  styleUrls: ['../menu-element-drag-drop-list.scss', './admin-menu-categories.component.scss']
+  styleUrls: ['../shared-css/menu-element-drag-drop-list.scss', './admin-menu-categories.component.scss']
 })
 export class AdminMenuCategoriesComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();

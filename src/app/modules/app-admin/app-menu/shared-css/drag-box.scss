@@ -1,0 +1,25 @@
+.drag-box {
+    width: 60px;
+    align-items: center;
+    border-right: 1px solid #C3C3C3;
+    position: relative;
+}
+
+.drag-box mat-icon {
+    font-size: 40px;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    color: #C3C3C3;
+    margin-left: 10px;
+}
+
+.drag-box mat-icon.top {
+    position: absolute;
+    top: 0px;
+}
+
+.drag-box mat-icon.bottom {
+    position: absolute;
+    bottom: 0px;
+}

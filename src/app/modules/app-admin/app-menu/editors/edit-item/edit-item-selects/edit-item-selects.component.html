@@ -3,9 +3,10 @@
     <p i18n class="action-description">Choose the right options for this dish</p>
 
     <div id="colections-list">
-        <div *ngFor="let collection of checked" class="container clickable">
-            <div class="order-holder">
-                <mat-icon>more_vert</mat-icon>
+        <div *ngFor="let collection of checked; let i = index" class="container clickable">
+            <div class="drag-box clickable">
+                <mat-icon (click)="moveDown(collection)" *ngIf="i != 0" class="top">keyboard_arrow_up</mat-icon>
+                <mat-icon (click)="moveUp(collection)" *ngIf="i + 1 != checked.length" class="bottom">keyboard_arrow_down</mat-icon>
             </div>
             <div class="collection">
                 <div class="collection-description">

@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-admin-menu-category',
   templateUrl: './admin-menu-category.component.html',
-  styleUrls: ['../menu-element-drag-drop-list.scss', './admin-menu-category.component.scss']
+  styleUrls: ['../shared-css/menu-element-drag-drop-list.scss', './admin-menu-category.component.scss']
 })
 export class AdminMenuCategoryComponent implements OnDestroy {
 
@@ -136,5 +136,40 @@ export class AdminMenuCategoryComponent implements OnDestroy {
     for (const group of this.groups) {
       group.open = false;
     }
+  }
+
+  moveUp(group: MenuItemGroupGet) {
+    const activeIndex = this.groups.map(e => e.group).indexOf(group)
+
+    this.itemGroupService.moveUp3({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemGroupRef: group.ref
+    }).pipe(
+      tap(e => {
+        this.groups[activeIndex] = this.groups[activeIndex + 1];
+        this.groups[activeIndex + 1] = {
+          group: e,
+          open: false
+        }
+      })
+    ).subscribe();
+  }
+
+  moveDown(group: MenuItemGroupGet) {
+    const activeIndex = this.groups.map(e => e.group).indexOf(group)
+    const isOpen = this.groups[activeIndex].open;
+
+    this.itemGroupService.moveDown3({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemGroupRef: group.ref
+    }).pipe(
+      tap(e => {
+        this.groups[activeIndex] = this.groups[activeIndex - 1];
+        this.groups[activeIndex - 1] = {
+          group: e,
+          open: isOpen
+        }
+      })
+    ).subscribe();
   }
 }

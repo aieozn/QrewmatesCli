@@ -8,7 +8,7 @@ import { EditItemService } from '../edit-item-service/edit-item.service';
 @Component({
   selector: 'app-edit-item-selects',
   templateUrl: './edit-item-selects.component.html',
-  styleUrls: ['./edit-item-selects.component.scss']
+  styleUrls: ['../../../shared-css/drag-box.scss', './edit-item-selects.component.scss']
 })
 export class EditItemSelectsComponent implements OnDestroy {
   allCollections: MenuItemSelectCollectionGet[] = []
@@ -82,6 +82,30 @@ export class EditItemSelectsComponent implements OnDestroy {
 
     this.checkSelects(itemMail, this.allCollections)
 
+    this.editItemService.onUpdate.next()
+  }
+
+  moveUp(element: MenuItemSelectCollectionGet) {
+    const itemMail = this.fullItem.getValue()
+    if (!itemMail) { throw 'Item not defined'; }
+
+    const index = this.checked.indexOf(element)
+    this.checked[index] = this.checked[index + 1]
+    this.checked[index + 1] = element
+
+    itemMail.selectCollections = this.checked.slice()
+    this.editItemService.onUpdate.next()
+  }
+
+  moveDown(element: MenuItemSelectCollectionGet) {
+    const itemMail = this.fullItem.getValue()
+    if (!itemMail) { throw 'Item not defined'; }
+
+    const index = this.checked.indexOf(element)
+    this.checked[index] = this.checked[index - 1]
+    this.checked[index - 1] = element
+
+    itemMail.selectCollections = this.checked.slice()
     this.editItemService.onUpdate.next()
   }
 }

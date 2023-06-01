@@ -8,11 +8,12 @@
     <div class="create-new clickable" routerLink="group/create"><p>+ Add new dish</p></div>
 
     <div id="menu-elements-list" *ngIf="groups">
-        <div *ngFor="let group of groups">
+        <div *ngFor="let group of groups; let i = index">
 
             <div class="menu-element box-shadow box-radius">
                 <div class="drag-box clickable">
-                    <mat-icon>more_vert</mat-icon>
+                    <mat-icon (click)="moveDown(group.group)" *ngIf="i != 0" class="top">keyboard_arrow_up</mat-icon>
+                    <mat-icon (click)="moveUp(group.group)" *ngIf="i + 1 != groups.length" class="bottom">keyboard_arrow_down</mat-icon>
                 </div>
 
                 <div class="menu-element-details">

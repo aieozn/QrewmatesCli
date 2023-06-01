@@ -1,3 +1,5 @@
+@import url('drag-box.scss');
+
 .menu-element-details {
     display: flex;
     align-items: stretch;
@@ -47,31 +49,6 @@
     padding-left: 0px;
     display: flex;
     background-color: #FFFFFF;
-}
-
-.drag-box {
-    width: 60px;
-    align-items: center;
-    border-right: 1px solid #C3C3C3;
-    position: relative;
-}
-
-.drag-box mat-icon {
-    font-size: 40px;
-    width: 40px;
-    line-height: 40px;
-    height: 40px;
-    color: #C3C3C3;
-}
-
-.drag-box mat-icon.top {
-    position: absolute;
-    top: 0px;
-}
-
-.drag-box mat-icon.bottom {
-    position: absolute;
-    bottom: 0px;
 }
 
 .menu-element-name {
