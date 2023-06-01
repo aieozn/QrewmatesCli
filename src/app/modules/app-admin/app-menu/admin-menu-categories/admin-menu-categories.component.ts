@@ -1,4 +1,3 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
@@ -74,26 +73,5 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
 
   private categoryCreated(category: MenuCategoryGet) {
     this.categories.push(category)
-  }
-
-  private arrayMove(arr: MenuCategoryGet[], old_index: number, new_index: number
-  ) {
-    arr[old_index].elementOrder = arr[new_index].elementOrder;
-
-    this.menuCategoryService.putCategory({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      categoryRef: arr[old_index].ref,
-      body: arr[old_index]
-    }).subscribe((_) => {
-      this.loadCategories();
-    });
-
-    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-  };
-
-  dragDropListCaught(event: CdkDragDrop<string[]>) {
-    if (event.previousIndex != event.currentIndex) {
-      this.arrayMove(this.categories, event.previousIndex, event.currentIndex)
-    }
   }
 }

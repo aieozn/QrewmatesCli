@@ -9,7 +9,6 @@ import { EditorCategoryNameComponent } from './editors/field-editors/editor-cate
 import { EditorItemGroupDescriptionComponent } from './editors/field-editors/editor-item-group-description/editor-item-group-description.component';
 import { EditorItemGroupNameComponent } from './editors/field-editors/editor-item-group-name/editor-item-group-name.component';
 import { SubmitBarComponent } from './editors/submit-bar/submit-bar.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -52,7 +51,6 @@ import { EditorItemNameComponent } from './editors/field-editors/editor-item-nam
   imports: [
     CommonModule,
     AppMenuRoutingModule,
-    DragDropModule,
     MatIconModule,
     MatFormFieldModule,
     FormsModule,

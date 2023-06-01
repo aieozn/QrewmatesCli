@@ -127,6 +127,104 @@ export class MenuItemSelectControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation moveUp2
+   */
+  static readonly MoveUp2Path = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-selects/{menuItemSelectRef}/element-order/up';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `moveUp2()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveUp2$Response(params: {
+    restaurantRef: string;
+    menuItemSelectRef: string;
+  }): Observable<StrictHttpResponse<MenuItemSelectDetailedGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemSelectControllerService.MoveUp2Path, 'put');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('menuItemSelectRef', params.menuItemSelectRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<MenuItemSelectDetailedGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `moveUp2$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveUp2(params: {
+    restaurantRef: string;
+    menuItemSelectRef: string;
+  }): Observable<MenuItemSelectDetailedGet> {
+
+    return this.moveUp2$Response(params).pipe(
+      map((r: StrictHttpResponse<MenuItemSelectDetailedGet>) => r.body as MenuItemSelectDetailedGet)
+    );
+  }
+
+  /**
+   * Path part for operation moveDown2
+   */
+  static readonly MoveDown2Path = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-selects/{menuItemSelectRef}/element-order/down';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `moveDown2()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveDown2$Response(params: {
+    restaurantRef: string;
+    menuItemSelectRef: string;
+  }): Observable<StrictHttpResponse<MenuItemSelectDetailedGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemSelectControllerService.MoveDown2Path, 'put');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('menuItemSelectRef', params.menuItemSelectRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<MenuItemSelectDetailedGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `moveDown2$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveDown2(params: {
+    restaurantRef: string;
+    menuItemSelectRef: string;
+  }): Observable<MenuItemSelectDetailedGet> {
+
+    return this.moveDown2$Response(params).pipe(
+      map((r: StrictHttpResponse<MenuItemSelectDetailedGet>) => r.body as MenuItemSelectDetailedGet)
+    );
+  }
+
+  /**
    * Path part for operation postSelect
    */
   static readonly PostSelectPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-selects';

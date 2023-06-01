@@ -4,7 +4,6 @@ import { IdentifiedByRefData } from './identified-by-ref-data';
 export interface MenuItemData {
   allergens: Array<IdentifiedByRefData>;
   available: boolean;
-  elementOrder: number;
   menuItemGroupRef: string;
   name: string;
   price?: number;

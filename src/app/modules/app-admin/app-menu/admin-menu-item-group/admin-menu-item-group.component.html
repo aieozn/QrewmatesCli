@@ -1,7 +1,7 @@
-<div id="menu-elements-list" *ngIf="_group as group" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
+<div id="menu-elements-list" *ngIf="_group as group">
     <div class="create-new clickable" [routerLink]="['group', group.ref, 'item', 'create']"><p>+ Add new option</p></div>
     
-    <div *ngFor="let item of group.menuItems" cdkDrag>
+    <div *ngFor="let item of group.menuItems">
         <div class="menu-element box-shadow box-radius">
             <div class="drag-box clickable">
                 <mat-icon>more_vert</mat-icon>

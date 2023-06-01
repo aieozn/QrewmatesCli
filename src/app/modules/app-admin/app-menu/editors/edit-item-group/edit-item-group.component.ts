@@ -35,7 +35,6 @@ export class EditItemGroupComponent {
     this.emptyItemGroup = {
       available: true,
       categoryRef: this.categoryRef,
-      elementOrder: 99999,
       name: ''
     }
     this.activeItemGroup = this.emptyItemGroup;

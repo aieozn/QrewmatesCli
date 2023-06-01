@@ -126,6 +126,104 @@ export class MenuCategoryControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation moveUp4
+   */
+  static readonly MoveUp4Path = '/api/staff/v1/restaurant/{restaurantRef}/menu-categories/{categoryRef}/element-order/up';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `moveUp4()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveUp4$Response(params: {
+    restaurantRef: string;
+    categoryRef: string;
+  }): Observable<StrictHttpResponse<MenuCategoryGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuCategoryControllerService.MoveUp4Path, 'put');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('categoryRef', params.categoryRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<MenuCategoryGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `moveUp4$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveUp4(params: {
+    restaurantRef: string;
+    categoryRef: string;
+  }): Observable<MenuCategoryGet> {
+
+    return this.moveUp4$Response(params).pipe(
+      map((r: StrictHttpResponse<MenuCategoryGet>) => r.body as MenuCategoryGet)
+    );
+  }
+
+  /**
+   * Path part for operation moveDown4
+   */
+  static readonly MoveDown4Path = '/api/staff/v1/restaurant/{restaurantRef}/menu-categories/{categoryRef}/element-order/down';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `moveDown4()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveDown4$Response(params: {
+    restaurantRef: string;
+    categoryRef: string;
+  }): Observable<StrictHttpResponse<MenuCategoryGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuCategoryControllerService.MoveDown4Path, 'put');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('categoryRef', params.categoryRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<MenuCategoryGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `moveDown4$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveDown4(params: {
+    restaurantRef: string;
+    categoryRef: string;
+  }): Observable<MenuCategoryGet> {
+
+    return this.moveDown4$Response(params).pipe(
+      map((r: StrictHttpResponse<MenuCategoryGet>) => r.body as MenuCategoryGet)
+    );
+  }
+
+  /**
    * Path part for operation postCategory
    */
   static readonly PostCategoryPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-categories';

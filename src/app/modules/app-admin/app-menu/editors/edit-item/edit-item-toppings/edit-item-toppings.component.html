@@ -2,8 +2,8 @@
     <h2 i18n>Toppings</h2>
     <p i18n class="action-description">Choose the right toppings for this dish</p>
 
-    <div id="colections-list" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
-        <div *ngFor="let collection of checked" class="container clickable" cdkDrag>
+    <div id="colections-list">
+        <div *ngFor="let collection of checked" class="container clickable">
             <div class="order-holder">
                 <mat-icon>more_vert</mat-icon>
             </div>

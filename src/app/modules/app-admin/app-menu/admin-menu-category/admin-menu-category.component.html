@@ -7,8 +7,8 @@
 
     <div class="create-new clickable" routerLink="group/create"><p>+ Add new dish</p></div>
 
-    <div id="menu-elements-list" *ngIf="groups" cdkDropList (cdkDropListDropped)="dragDropListCaught($event)">
-        <div *ngFor="let group of groups" cdkDrag>
+    <div id="menu-elements-list" *ngIf="groups">
+        <div *ngFor="let group of groups">
 
             <div class="menu-element box-shadow box-radius">
                 <div class="drag-box clickable">

@@ -99,7 +99,6 @@ export class EditItemComponent implements OnDestroy {
       selectCollections: [],
       toppingCollections: [],
       available: true,
-      elementOrder: 99999,
       menuItemGroupRef: groupRef
     };
 

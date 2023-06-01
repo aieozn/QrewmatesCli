@@ -127,6 +127,104 @@ export class MenuItemToppingControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation moveUp1
+   */
+  static readonly MoveUp1Path = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-toppings/{menuItemToppingRef}/element-order/up';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `moveUp1()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveUp1$Response(params: {
+    restaurantRef: string;
+    menuItemToppingRef: string;
+  }): Observable<StrictHttpResponse<MenuItemToppingDetailedGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemToppingControllerService.MoveUp1Path, 'put');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('menuItemToppingRef', params.menuItemToppingRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<MenuItemToppingDetailedGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `moveUp1$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveUp1(params: {
+    restaurantRef: string;
+    menuItemToppingRef: string;
+  }): Observable<MenuItemToppingDetailedGet> {
+
+    return this.moveUp1$Response(params).pipe(
+      map((r: StrictHttpResponse<MenuItemToppingDetailedGet>) => r.body as MenuItemToppingDetailedGet)
+    );
+  }
+
+  /**
+   * Path part for operation moveDown1
+   */
+  static readonly MoveDown1Path = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-toppings/{menuItemToppingRef}/element-order/down';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `moveDown1()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveDown1$Response(params: {
+    restaurantRef: string;
+    menuItemToppingRef: string;
+  }): Observable<StrictHttpResponse<MenuItemToppingDetailedGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemToppingControllerService.MoveDown1Path, 'put');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('menuItemToppingRef', params.menuItemToppingRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<MenuItemToppingDetailedGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `moveDown1$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  moveDown1(params: {
+    restaurantRef: string;
+    menuItemToppingRef: string;
+  }): Observable<MenuItemToppingDetailedGet> {
+
+    return this.moveDown1$Response(params).pipe(
+      map((r: StrictHttpResponse<MenuItemToppingDetailedGet>) => r.body as MenuItemToppingDetailedGet)
+    );
+  }
+
+  /**
    * Path part for operation postTopping
    */
   static readonly PostToppingPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-toppings';

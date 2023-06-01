@@ -1,4 +1,3 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
@@ -126,44 +125,6 @@ export class AdminMenuCategoryComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();
-  }
-
-  private arrayMove(items: {
-    group: MenuItemGroupGet,
-    open: boolean
-  }[], old_index: number, new_index: number
-  ) {
-    items[old_index].group.elementOrder = items[new_index].group.elementOrder;
-
-    this.itemGroupService.putItemGroup({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      menuItemGroupRef: items[old_index].group.ref,
-      body: items[old_index].group
-    }).subscribe((_) => {
-      this.reloadCategory();
-    });
-
-    items.splice(new_index, 0, items.splice(old_index, 1)[0]);
-  };
-
-  private reloadCategory() {
-    if (!this.category) { throw 'Category not defined'; }
-
-    const activeCategory = this.category.ref;
-    this.categoryService.getCategory({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      categoryRef: activeCategory
-    }).subscribe(c => {
-      Object.assign(activeCategory, c);
-    })
-  }
-
-  dragDropListCaught(event: CdkDragDrop<string[]>) {
-    console.log("DROP")
-    if (!this.groups) { throw 'Groups not defined'; }
-    if (event.previousIndex != event.currentIndex) {
-      this.arrayMove(this.groups, event.previousIndex, event.currentIndex)
-    }
   }
 
   extend(group: MenuItemGroupGet) {

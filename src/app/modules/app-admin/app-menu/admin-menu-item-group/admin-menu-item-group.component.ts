@@ -1,9 +1,8 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
-import { Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({
@@ -46,38 +45,6 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
     }).subscribe(c => {
       Object.assign(activeGroup, c);
     })
-  }
-
-  private arrayMove(items: MenuItemGet[], old_index: number, new_index: number
-  ) {
-    items[old_index].elementOrder = items[new_index].elementOrder;
-    const newOrder = items[new_index].elementOrder;
-
-    this.menuItemService.getItemDetails({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      menuItemRef: items[old_index].ref
-    }).pipe(
-      switchMap(item => {
-        item.elementOrder = newOrder;
-        return this.menuItemService.putItem({
-          restaurantRef: this.accountService.getRestaurantRef(),
-          menuItemRef: item.ref,
-          body: item
-        })
-      }),
-      tap(() => {
-        this.reloadGroup();
-      })
-    ).subscribe();
-
-    items.splice(new_index, 0, items.splice(old_index, 1)[0]);
-  };
-
-  dragDropListCaught(event: CdkDragDrop<string[]>) {
-    if (!this._group) { throw 'Groups not defined'; }
-    if (event.previousIndex != event.currentIndex) {
-      this.arrayMove(this._group.menuItems, event.previousIndex, event.currentIndex)
-    }
   }
 
   onDeleteItem(ref: string) {
