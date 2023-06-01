@@ -4,7 +4,6 @@ import { MenuItemData, MenuItemDetailedGet, MenuItemToppingCollectionGet } from 
 import { MenuItemToppingCollectionControllerService } from '@common/api-client/services';
 import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-edit-item-toppings',
@@ -84,19 +83,5 @@ export class EditItemToppingsComponent implements OnDestroy {
     this.checkToppings(itemMail, this.allCollections)
 
     this.editItemService.onUpdate.next()
-  }
-
-  dragDropListCaught(event: CdkDragDrop<string[]>) {
-    const itemMail = this.fullItem.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
-
-    if (event.previousIndex != event.currentIndex) {
-      const newIntex = event.currentIndex;
-      const oldIndex = event.previousIndex
-      this.checked.splice(newIntex, 0, this.checked.splice(oldIndex, 1)[0]);
-
-      itemMail.toppingCollections = this.checked.slice()
-      this.editItemService.onUpdate.next()
-    }
   }
 }

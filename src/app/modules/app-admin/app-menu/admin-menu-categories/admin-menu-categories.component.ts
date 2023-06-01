@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuCategoryGet } from '@common/api-client/models';
 import { MenuCategoryControllerService } from '@common/api-client/services';
@@ -73,5 +73,33 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
 
   private categoryCreated(category: MenuCategoryGet) {
     this.categories.push(category)
+  }
+
+  moveUp(category: MenuCategoryGet) {
+    const activeIndex = this.categories.indexOf(category)
+
+    this.menuCategoryService.moveUp4({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      categoryRef: category.ref
+    }).pipe(
+      tap(e => {
+        this.categories[activeIndex] = this.categories[activeIndex + 1];
+        this.categories[activeIndex + 1] = e;
+      })
+    ).subscribe();
+  }
+
+  moveDown(category: MenuCategoryGet) {
+    const activeIndex = this.categories.indexOf(category)
+
+    this.menuCategoryService.moveDown4({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      categoryRef: category.ref
+    }).pipe(
+      tap(e => {
+        this.categories[activeIndex] = this.categories[activeIndex - 1];
+        this.categories[activeIndex - 1] = e;
+      })
+    ).subscribe();
   }
 }
