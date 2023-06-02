@@ -16,11 +16,13 @@ export class EditItemComponent implements OnDestroy {
   
   emptyItem: MenuItemData | undefined;
   activeItem: BehaviorSubject<MenuItemData | undefined>;
-  
+  name: string | undefined;
+
   private readonly onDestroy = new Subject<void>();
   private categoryRef: string
   item: MenuItemDetailedGet | undefined;
   dirty = false
+  valid = false
 
   constructor(
     private itemService: MenuItemControllerService,
@@ -33,9 +35,15 @@ export class EditItemComponent implements OnDestroy {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
     this.activeItem = editItemService.activeItem;
 
-    this.route.params.subscribe(params => {
-      this.loadItemDetails(params['menuItemRef'], params['menuItemGroupRef']);
-    })
+    editItemService.isValid.pipe(
+      tap(e => this.valid = e),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
+    this.route.params.pipe(
+      tap(params => this.loadItemDetails(params['menuItemRef'], params['menuItemGroupRef'])),
+      takeUntil(this.onDestroy)
+    ).subscribe();
 
     this.editItemService.onUpdate.pipe(
       tap(() => this.dirty = true),
@@ -109,6 +117,7 @@ export class EditItemComponent implements OnDestroy {
       }).pipe(
         takeUntil(this.onDestroy),
         tap(e => this.activeItem.next(e)),
+        tap(e => this.name = e.name),
         tap(e => this.item = e)
       ).subscribe()
     } else {

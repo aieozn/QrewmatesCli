@@ -1,5 +1,5 @@
 <div id="edit-element">
-    <p id="element-name" *ngIf="item !== undefined"><span i18n>Option</span>: <b>{{ item.name }}</b></p>
+    <p id="element-name" *ngIf="item !== undefined"><span i18n>Option</span>: <b>{{ name }}</b></p>
     <p id="element-name" *ngIf="item === undefined"><span i18n>Create new option</span></p>
 
     <p id="help-text" i18n>Edit fields below and save changes</p>
@@ -28,4 +28,4 @@
     <router-outlet></router-outlet>
 </div>
 
-<app-submit-bar [saveEnabled]="dirty" [deleteEnabled]="item !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+<app-submit-bar [saveEnabled]="dirty && valid" [deleteEnabled]="item !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

@@ -14,7 +14,7 @@ const editItemRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'selects'
+    redirectTo: 'settings'
   },
   {
     path: 'allergens',

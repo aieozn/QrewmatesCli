@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-editor-item-name',
   templateUrl: './editor-item-name.component.html',
-  styleUrls: ['./editor-item-name.component.scss']
+  styleUrls: ['./editor-item-name.component.scss', '../common/field-editor.scss']
 })
 export class EditorItemNameComponent {
   @Input('name')
