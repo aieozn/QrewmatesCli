@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { MenuItemData } from '@common/api-client/models';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -8,6 +8,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class EditItemService {
   activeItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
   isValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  onSaveTry = new EventEmitter<void>();
   onUpdate = new Subject<void>();
   private errors: string[] = [];
 

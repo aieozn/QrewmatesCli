@@ -104,6 +104,7 @@ export class EditItemComponent implements OnDestroy {
     this.emptyItem = {
       allergens: [],
       name: '',
+      price: 0,
       selectCollections: [],
       toppingCollections: [],
       available: true,

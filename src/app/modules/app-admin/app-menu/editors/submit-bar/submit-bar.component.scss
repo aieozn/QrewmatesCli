@@ -47,6 +47,10 @@
     margin-right: 20px;
 }
 
+.save-button.disabled {
+    opacity: 0.3;
+}
+
 .remove-button {
     border: 1px solid #E73A2F;
     height: 45px;

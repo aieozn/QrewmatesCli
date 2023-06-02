@@ -25,6 +25,7 @@ import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-cat
 import { AdminMenuItemGroupComponent } from './admin-menu-item-group/admin-menu-item-group.component';
 import { AdminMenuItemSelectCollectionComponent } from './admin-menu-item-select-collection/admin-menu-item-select-collection.component';
 import { EditorItemNameComponent } from './editors/field-editors/editor-item-name/editor-item-name.component';
+import { EditorItemPriceComponent } from './editors/field-editors/editor-item-price/editor-item-price.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { EditorItemNameComponent } from './editors/field-editors/editor-item-nam
     AdminMenuItemGroupComponent,
     AdminMenuItemSelectCollectionComponent,
     EditorItemNameComponent,
+    EditorItemPriceComponent,
   ],
   imports: [
     CommonModule,

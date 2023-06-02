@@ -6,7 +6,7 @@ export interface MenuItemData {
   available: boolean;
   menuItemGroupRef: string;
   name: string;
-  price?: number;
+  price: number;
   selectCollections: Array<IdentifiedByRefData>;
   toppingCollections: Array<IdentifiedByRefData>;
 }

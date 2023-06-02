@@ -5,6 +5,7 @@
     
     <div id="right-side">
         <div class="save-button clickable" *ngIf="saveEnabled" (click)="saveElement()" i18n>Save</div>
+        <div class="save-button disabled clickable" *ngIf="!saveEnabled" (click)="trySaveElement()" i18n>Save</div>
         <div *ngIf="detailsLink" [routerLink]="detailsLink" class="any-button details-button clickable" i18n>View</div>
         <div class="remove-button clickable" *ngIf="deleteEnabled" (click)="deleteElement()">
             <mat-icon>delete</mat-icon>

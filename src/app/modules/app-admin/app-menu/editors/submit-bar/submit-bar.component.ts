@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { EditItemService } from '../edit-item/edit-item-service/edit-item.service';
 @Component({
   selector: 'app-submit-bar',
   templateUrl: './submit-bar.component.html',
@@ -18,6 +19,10 @@ export class SubmitBarComponent {
   @Output('onDelete')
   onDelete = new EventEmitter<void>();
 
+  constructor(private editorService: EditItemService) {
+
+  }
+
   closeDialog() {
     this.onClose.emit();
   }
@@ -28,5 +33,9 @@ export class SubmitBarComponent {
 
   deleteElement() {
     this.onDelete.emit();
+  }
+
+  trySaveElement() {
+    this.editorService.onSaveTry.emit();
   }
 }

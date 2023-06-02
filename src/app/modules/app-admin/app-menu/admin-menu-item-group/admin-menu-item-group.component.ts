@@ -33,6 +33,11 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
       tap(e => this.onUpdateItem(e)),
       takeUntil(this.onDestroy)
     ).subscribe()
+
+    this.editorDialogService.onItemCreated.pipe(
+      tap(e => this.onCreateItem(e)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
   }
 
   ngOnDestroy(): void {
@@ -64,6 +69,14 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
       if (menuItem.ref === item.ref) {
         Object.assign(menuItem, item);
       }
+    }
+  }
+
+  onCreateItem(item: MenuItemGet) {
+    if (!this._group) { throw 'Groups not defined'; }
+
+    if (item.menuItemGroupRef === this._group.ref) {
+      this._group.menuItems.push(item);
     }
   }
 

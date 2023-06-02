@@ -20,7 +20,6 @@ export class AccountService {
   ) { }
 
   getRestaurantRef() : string {
-
     const pathParts = window.location.pathname.substring(1).split("/");
 
     if (pathParts[0] === "menu") {
