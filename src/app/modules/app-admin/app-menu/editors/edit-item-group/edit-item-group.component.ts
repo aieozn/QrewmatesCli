@@ -74,30 +74,30 @@ export class EditItemGroupComponent {
   }
 
   onSave() {
-    if (this.group !== undefined) {
-      this.activeItemGroup.name = this.groupFields.groupName.value!;
-      this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
+    // if (this.group !== undefined) {
+    //   this.activeItemGroup.name = this.groupFields.groupName.value!;
+    //   this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
   
-      this.menuItemGroupService.putItemGroup({
-        restaurantRef: this.accountService.getRestaurantRef(),
-        menuItemGroupRef: this.group.ref,
-        body: this.activeItemGroup
-      }).subscribe(saved => {
-        this.editDialogService.onItemGroupUpdated.next(saved);
-        this.close()
-      })
-    } else {
-      this.activeItemGroup.name = this.groupFields.groupName.value!;
-      this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
+    //   this.menuItemGroupService.putItemGroup({
+    //     restaurantRef: this.accountService.getRestaurantRef(),
+    //     menuItemGroupRef: this.group.ref,
+    //     body: this.activeItemGroup
+    //   }).subscribe(saved => {
+    //     this.editDialogService.onItemGroupUpdated.next(saved);
+    //     this.close()
+    //   })
+    // } else {
+    //   this.activeItemGroup.name = this.groupFields.groupName.value!;
+    //   this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
   
-      this.menuItemGroupService.postItemGroup({
-        restaurantRef: this.accountService.getRestaurantRef(),
-        body: this.activeItemGroup
-      }).subscribe(saved => {
-        this.editDialogService.onItemGroupCreated.next(saved);
-        this.close()
-      })
-    }
+    //   this.menuItemGroupService.postItemGroup({
+    //     restaurantRef: this.accountService.getRestaurantRef(),
+    //     body: this.activeItemGroup
+    //   }).subscribe(saved => {
+    //     this.editDialogService.onItemGroupCreated.next(saved);
+    //     this.close()
+    //   })
+    // }
     
   }
 

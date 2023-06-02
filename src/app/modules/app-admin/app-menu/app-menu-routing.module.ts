@@ -9,6 +9,8 @@ import { EditItemAllergensComponent } from './editors/edit-item/edit-item-allerg
 import { EditItemSelectsComponent } from './editors/edit-item/edit-item-selects/edit-item-selects.component';
 import { EditItemToppingsComponent } from './editors/edit-item/edit-item-toppings/edit-item-toppings.component';
 import { EditItemSettingsComponent } from './editors/edit-item/edit-item-settings/edit-item-settings.component';
+import { EditItemGroupAggregateSettingsComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate-settings/edit-item-group-aggregate-settings.component';
+import { EditItemGroupAggregateComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate.component';
 
 const editItemRoutes: Routes = [
   {
@@ -31,6 +33,30 @@ const editItemRoutes: Routes = [
   {
     path: 'settings',
     component: EditItemSettingsComponent
+  }
+]
+
+const editGroupAggregateRoutes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'settings'
+  },
+  {
+    path: 'allergens',
+    component: EditItemAllergensComponent
+  },
+  {
+    path: 'selects',
+    component: EditItemSelectsComponent
+  },
+  {
+    path: 'toppings',
+    component: EditItemToppingsComponent
+  },
+  {
+    path: 'settings',
+    component: EditItemGroupAggregateSettingsComponent
   }
 ]
 
@@ -58,8 +84,9 @@ const routes: Routes = [
         component: EditItemGroupComponent
       },
       {
-        path: 'group/create',
-        component: EditItemGroupComponent
+        path: 'group-aggregate/create',
+        component: EditItemGroupAggregateComponent,
+        children: editGroupAggregateRoutes
       },
       {
         path: 'group/:menuItemGroupRef/item/:menuItemRef/edit',

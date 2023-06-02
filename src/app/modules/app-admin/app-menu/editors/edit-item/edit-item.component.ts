@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { MenuItemData, MenuItemDetailedGet } from '@common/api-client/models';
 import { MenuItemControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemService } from './edit-item-service/edit-item.service';
 import { EditorDialogService } from '../editor-dialog.service';
@@ -15,12 +15,12 @@ import { EditorDialogService } from '../editor-dialog.service';
 export class EditItemComponent implements OnDestroy {
   
   emptyItem: MenuItemData | undefined;
-  activeItem: BehaviorSubject<MenuItemData | undefined>;
   name: string | undefined;
 
   private readonly onDestroy = new Subject<void>();
   private categoryRef: string
-  item: MenuItemDetailedGet | undefined;
+  // Data fetched from server, available only in edit mode
+  fullItem: MenuItemDetailedGet | undefined;
   dirty = false
   valid = false
 
@@ -33,7 +33,6 @@ export class EditItemComponent implements OnDestroy {
     private editorDialogService: EditorDialogService
   ) {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
-    this.activeItem = editItemService.activeItem;
 
     editItemService.isValid.pipe(
       tap(e => this.valid = e),
@@ -52,13 +51,13 @@ export class EditItemComponent implements OnDestroy {
   }
 
   onSave() {
-    const itemValue = this.activeItem.getValue();
+    const itemValue = this.editItemService.activeItem.getValue();
     if (itemValue === undefined) { throw 'Undefined item value'; }
 
-    if (this.item !== undefined) {
+    if (this.fullItem !== undefined) {
       this.itemService.putItem({
         restaurantRef: this.accountService.getRestaurantRef(),
-        menuItemRef: this.item.ref,
+        menuItemRef: this.fullItem.ref,
         body: itemValue
       }).pipe(
         tap(e => {
@@ -84,7 +83,7 @@ export class EditItemComponent implements OnDestroy {
   }
 
   onDelete() {
-    const itemValue = this.item;
+    const itemValue = this.fullItem;
     if (itemValue === undefined) { throw 'Undefined item'; }
 
     if (confirm($localize`Are you sure you want to delete this option?`)) {
@@ -117,12 +116,12 @@ export class EditItemComponent implements OnDestroy {
         menuItemRef: itemRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.activeItem.next(e)),
+        tap(e => this.editItemService.activeItem.next(e)),
         tap(e => this.name = e.name),
-        tap(e => this.item = e)
+        tap(e => this.fullItem = e)
       ).subscribe()
     } else {
-      this.activeItem.next(this.emptyItem)
+      this.editItemService.activeItem.next(this.emptyItem)
     }
   }
 

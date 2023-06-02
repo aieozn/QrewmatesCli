@@ -25,6 +25,7 @@ export class EditItemSettingsComponent implements OnDestroy {
   fullItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
 
   constructor(private editItemService: EditItemService) {
+    this.editItemService.clearErrors();
     this.fullItem = editItemService.activeItem;
 
     this.fullItem.pipe(

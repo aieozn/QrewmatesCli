@@ -26,6 +26,8 @@ import { AdminMenuItemGroupComponent } from './admin-menu-item-group/admin-menu-
 import { AdminMenuItemSelectCollectionComponent } from './admin-menu-item-select-collection/admin-menu-item-select-collection.component';
 import { EditorItemNameComponent } from './editors/field-editors/editor-item-name/editor-item-name.component';
 import { EditorItemPriceComponent } from './editors/field-editors/editor-item-price/editor-item-price.component';
+import { EditItemGroupAggregateComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate.component';
+import { EditItemGroupAggregateSettingsComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate-settings/edit-item-group-aggregate-settings.component';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { EditorItemPriceComponent } from './editors/field-editors/editor-item-pr
     AdminMenuItemSelectCollectionComponent,
     EditorItemNameComponent,
     EditorItemPriceComponent,
+    EditItemGroupAggregateComponent,
+    EditItemGroupAggregateSettingsComponent,
   ],
   imports: [
     CommonModule,

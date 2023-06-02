@@ -1,6 +1,6 @@
 <div id="edit-element">
-    <p id="element-name" *ngIf="fullItem !== undefined"><span i18n>Option</span>: <b>{{ name }}</b></p>
-    <p id="element-name" *ngIf="fullItem === undefined"><span i18n>Create new option</span></p>
+    <p id="element-name" *ngIf="fullGroup !== undefined"><span i18n>Option</span>: <b>{{ name }}</b></p>
+    <p id="element-name" *ngIf="fullGroup === undefined"><span i18n>Create new dish</span></p>
 
     <p id="help-text" i18n>Edit fields below and save changes</p>
 
@@ -28,4 +28,4 @@
     <router-outlet></router-outlet>
 </div>
 
-<app-submit-bar [saveEnabled]="dirty && valid" [deleteEnabled]="fullItem !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+<app-submit-bar [saveEnabled]="dirty && valid" [deleteEnabled]="fullGroup !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

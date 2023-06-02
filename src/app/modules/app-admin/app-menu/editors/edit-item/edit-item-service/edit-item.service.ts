@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { MenuItemData } from '@common/api-client/models';
+import { MenuItemData, MenuItemGroupData } from '@common/api-client/models';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -7,6 +7,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class EditItemService {
   activeItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
+  activeGroup: BehaviorSubject<MenuItemGroupData | undefined> = new BehaviorSubject<MenuItemGroupData | undefined>(undefined);
   isValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   onSaveTry = new EventEmitter<void>();
   onUpdate = new Subject<void>();
@@ -20,5 +21,9 @@ export class EditItemService {
   public removeError(name: string) {
     this.errors = this.errors.filter(e => e !== name);
     this.isValid.next(this.errors.length == 0);
+  }
+  public clearErrors() {
+    this.errors = [];
+    this.isValid.next(true);
   }
 }

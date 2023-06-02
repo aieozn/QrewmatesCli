@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { CreateGroupRequest } from '../models/create-group-request';
 import { MenuItemGroupData } from '../models/menu-item-group-data';
 import { MenuItemGroupGet } from '../models/menu-item-group-get';
 import { StatusResponse } from '../models/status-response';
@@ -236,7 +237,7 @@ export class MenuItemGroupControllerService extends BaseService {
    */
   postItemGroup$Response(params: {
     restaurantRef: string;
-    body: MenuItemGroupData
+    body: CreateGroupRequest
   }): Observable<StrictHttpResponse<MenuItemGroupGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, MenuItemGroupControllerService.PostItemGroupPath, 'post');
@@ -264,7 +265,7 @@ export class MenuItemGroupControllerService extends BaseService {
    */
   postItemGroup(params: {
     restaurantRef: string;
-    body: MenuItemGroupData
+    body: CreateGroupRequest
   }): Observable<MenuItemGroupGet> {
 
     return this.postItemGroup$Response(params).pipe(
