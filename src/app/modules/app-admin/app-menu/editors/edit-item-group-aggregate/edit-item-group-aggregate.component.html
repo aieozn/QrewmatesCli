@@ -28,4 +28,10 @@
     <router-outlet></router-outlet>
 </div>
 
-<app-submit-bar [saveEnabled]="((editItemGroupService.updated() && editItemGroupService.valid()) | async) === true" [deleteEnabled]="fullGroup !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+<app-submit-bar 
+    [saveEnabled]="((editItemGroupService.valid() | async) && (editItemGroupService.updated() | async)) === true"
+    [deleteEnabled]="fullGroup !== undefined"
+    (onClose)="close()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()">
+</app-submit-bar>

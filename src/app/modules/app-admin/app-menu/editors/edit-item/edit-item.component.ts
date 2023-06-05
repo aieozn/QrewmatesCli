@@ -21,15 +21,13 @@ export class EditItemComponent implements OnDestroy {
   private categoryRef: string
   // Data fetched from server, available only in edit mode
   fullItem: MenuItemDetailedGet | undefined;
-  dirty = false
-  valid = false
 
   constructor(
     private itemService: MenuItemControllerService,
     private accountService: AccountService,
     private router: Router,
     private route: ActivatedRoute,
-    private editItemService: EditItemService,
+    protected editItemService: EditItemService,
     private editGroupService: MenuItemGroupControllerService,
     private editorDialogService: EditorDialogService
   ) {

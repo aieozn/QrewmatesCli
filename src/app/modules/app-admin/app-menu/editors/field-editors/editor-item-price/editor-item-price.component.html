@@ -4,8 +4,8 @@
 
     <mat-form-field appearance="fill" id="element-price-input">
         <mat-label i18n>Item price</mat-label>
-        <input autocomplete="off" [formControl]="itemPrice" matInput>
-        <mat-error *ngIf="itemPrice.errors" i18n>Invalid price</mat-error>
+        <input autocomplete="off" [formControl]="priceField" matInput>
+        <mat-error *ngIf="priceField.errors" i18n>Invalid price</mat-error>
 
         <div class="currency-box">
             {{ currency }}

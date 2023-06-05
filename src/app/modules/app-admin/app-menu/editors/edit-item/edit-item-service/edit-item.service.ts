@@ -11,20 +11,20 @@ export class EditItemService {
   private isValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   onSaveTry = new EventEmitter<void>();
   private isUpdated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  errors: string[] = [];
+  errors = new Set<string>()
 
   public addError(name: string) {
-    this.errors.push(name);
+    this.errors.add(name);
     this.isValid.next(false)
   }
 
   public removeError(name: string) {
-    this.errors = this.errors.filter(e => e !== name);
-    this.isValid.next(this.errors.length == 0);
+    this.errors.delete(name);
+    this.isValid.next(this.errors.size === 0);
   }
 
   public clearErrors() {
-    this.errors = [];
+    this.errors.clear();
     this.isValid.next(true);
   }
 
@@ -43,7 +43,19 @@ export class EditItemService {
   }
 
   public updateItem(data: MenuItemExtendedData) {
+    if (this.itemData.getValue() !== undefined) {
+      this.isUpdated.next(true);
+    }
+
+    console.log(data)
     this.itemData.next(data);
-    this.isUpdated.next(true);
+  }
+
+  public valid(): Observable<boolean> {
+    return this.isValid;
+  }
+
+  public updated(): Observable<boolean> {
+    return this.isUpdated;
   }
 }

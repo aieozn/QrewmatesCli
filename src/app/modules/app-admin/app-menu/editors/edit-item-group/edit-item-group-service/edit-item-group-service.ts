@@ -11,28 +11,31 @@ export class EditItemGroupService {
     
     private isUpdated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private isValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-    errors: string[] = [];
+    errors = new Set<string>()
     onSaveTry = new EventEmitter<void>();
 
 
     public addError(name: string) {
-        this.errors.push(name);
+        this.errors.add(name);
         this.isValid.next(false)
     }
 
     public removeError(name: string) {
-        this.errors = this.errors.filter(e => e !== name);
-        this.isValid.next(this.errors.length == 0);
+        this.errors.delete(name);
+        this.isValid.next(this.errors.size == 0);
     }
 
     public clearErrors() {
-        this.errors = [];
+        this.errors.clear()
         this.isValid.next(true);
     }
 
     public updateGroup(group: MenuItemGroupData) {
+        if (this.groupData.getValue() !== undefined) {
+            this.isUpdated.next(true);
+        }
+        
         this.groupData.next(group);
-        this.isUpdated.next(true);
     }
 
     public observeGroupData(): Observable<MenuItemGroupData | undefined> {

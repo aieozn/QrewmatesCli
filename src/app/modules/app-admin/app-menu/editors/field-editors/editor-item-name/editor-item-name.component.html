@@ -6,7 +6,7 @@
         <span class="prefix" matPrefix>{{ groupName }}: </span>
         
         <mat-label i18n>Item name</mat-label>
-        <input autocomplete="off" [formControl]="itemName" matInput>
-        <mat-error *ngIf="itemName.errors" i18n>Invalid name</mat-error>
+        <input autocomplete="off" [formControl]="nameField" matInput>
+        <mat-error *ngIf="nameField.errors" i18n>Invalid name</mat-error>
     </mat-form-field>
 </div>

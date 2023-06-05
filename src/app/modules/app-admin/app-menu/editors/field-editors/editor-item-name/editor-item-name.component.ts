@@ -12,39 +12,47 @@ export class EditorItemNameComponent implements OnDestroy {
 
   private static readonly invalidItemNameError = 'ITEM_MAIL_INVALID_NAME';
 
-  itemName : FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.maxLength(255)]);
+  nameField : FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.maxLength(255)]);
   groupName: string | undefined;
 
   private readonly onDestroy = new Subject<void>();
 
   constructor(private editItemService: EditItemService) {
-    this.itemName.valueChanges.pipe(
-      tap(value => this.updateName(value)),
-      takeUntil(this.onDestroy)
-    ).subscribe();
-
     this.editItemService.observeItemData().pipe(
-      tap(value => this.groupName = value?.menuItemGroupName),
+      tap(e => this.loadName(e?.name)),
+      tap(e => this.groupName = e?.menuItemGroupName),
       takeUntil(this.onDestroy)
-    ).subscribe();
+    ).subscribe()
 
     this.editItemService.onSaveTry.pipe(
-      tap(() => this.itemName.markAllAsTouched()),
+      tap(() => this.nameField.markAllAsTouched()),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
+    this.nameField.valueChanges.pipe(
+      tap(() => this.onUpdateName()),
       takeUntil(this.onDestroy)
     ).subscribe();
   }
 
-  private updateName(value: string | null) {
-    const itemMail = this.editItemService.getItemData()
+  private loadName(name: string | undefined) {
+    this.nameField.setValue(name ? name : '');
+  }
 
-    if (this.itemName.valid) {
+  private onUpdateName() {
+    const itemMailData = this.editItemService.getItemData()
+
+    if (this.nameField.valid) {
       this.editItemService.removeError(EditorItemNameComponent.invalidItemNameError)
     } else {
       this.editItemService.addError(EditorItemNameComponent.invalidItemNameError);
     }
 
-    itemMail.name = value === null ? '' : value;
-    this.editItemService.updateItem(itemMail)
+    
+    if (itemMailData.name != this.nameField.value) {
+      itemMailData.name = this.nameField.value === null ? '' : this.nameField.value;
+      this.editItemService.updateItem(itemMailData);
+    }
   }
 
   ngOnDestroy(): void {

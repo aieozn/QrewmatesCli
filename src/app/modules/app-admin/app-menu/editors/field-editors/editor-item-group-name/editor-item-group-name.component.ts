@@ -21,6 +21,11 @@ export class EditorItemGroupNameComponent implements OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe()
 
+    this.editItemGroupService.onSaveTry.pipe(
+      tap(() => this.nameField.markAllAsTouched()),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
     this.nameField.valueChanges.pipe(
       tap(() => this.onUpdateName()),
       takeUntil(this.onDestroy)

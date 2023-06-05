@@ -40,15 +40,20 @@ export class EditItemAllergensComponent implements OnDestroy {
   }
 
   checkAllergens(item: MenuItemDetailedGet, allergens: AllergenGet[]) {
-    this.allergens = [];
+    this.allergens = this.allergens ? this.allergens : [];
 
     for (const allergen of allergens) {
       const checked = item.allergens.filter(e => e.ref === allergen.ref).length > 0;
 
-      this.allergens.push({
-        value: allergen,
-        checked
-      })
+      const existing = this.allergens.filter(e => e.value.ref === allergen.ref);
+      if (existing.length === 1) {
+        existing[0].checked = checked
+      } else {
+        this.allergens.push({
+          value: allergen,
+          checked
+        })
+      }
     }
   }
 

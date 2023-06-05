@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { EditItemGroupService } from '../../edit-item-group/edit-item-group-service/edit-item-group-service';
+import { MenuItemGroupData } from '@common/api-client/models';
 
 @Component({
   selector: 'app-editor-item-group-description',
@@ -17,13 +18,28 @@ export class EditorItemGroupDescriptionComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
 
   constructor(private editItemGroupService: EditItemGroupService) {
+
+    this.editItemGroupService.observeGroupData().pipe(
+      tap(e => this.loadDescription(e)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+
+    this.editItemGroupService.onSaveTry.pipe(
+      tap(() => this.itemGroupDescription.markAllAsTouched()),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
     this.itemGroupDescription.valueChanges.pipe(
-      tap(value => this.updateDescription(value)),
+      tap(() => this.updateDescription()),
       takeUntil(this.onDestroy)
     ).subscribe();
   }
 
-  private updateDescription(value: string | null) {
+  private loadDescription(data: MenuItemGroupData | undefined) {
+    this.itemGroupDescription.setValue(data?.description ? data.description : '')
+  }
+
+  private updateDescription() {
     const itemMailGroup = this.editItemGroupService.getGroupData()
 
     if (this.itemGroupDescription.valid) {
@@ -32,8 +48,10 @@ export class EditorItemGroupDescriptionComponent implements OnDestroy {
       this.editItemGroupService.addError(EditorItemGroupDescriptionComponent.invalidItemGroupDescriptionError);
     }
 
-    itemMailGroup.description = value === null ? '' : value;
-    this.editItemGroupService.updateGroup(itemMailGroup)
+    if (itemMailGroup.description != this.itemGroupDescription.value) {
+      itemMailGroup.description = this.itemGroupDescription.value === null ? '' : this.itemGroupDescription.value;
+      this.editItemGroupService.updateGroup(itemMailGroup);
+    }
   }
 
   ngOnDestroy(): void {
