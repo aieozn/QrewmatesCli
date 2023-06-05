@@ -26,6 +26,10 @@
                             <p class="menu-element-description">{{ group.group.description }}</p>
                         </div>
 
+                        <p class="extend clickable" *ngIf="group.isAggregate" [routerLink]="['group', group.group.ref, 'item', 'create']">
+                            <span i18n>Create a variant</span> <mat-icon class="extend-arrow">add</mat-icon>
+                        </p>
+
                         <p class="extend clickable" (click)="extend(group.group)" *ngIf="!group.open && !group.isAggregate">
                             <span i18n>Expand variants</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
                         </p>

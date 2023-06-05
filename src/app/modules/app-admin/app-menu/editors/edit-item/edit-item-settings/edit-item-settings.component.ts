@@ -1,8 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MenuItemData, MenuItemDetailedGet } from '@common/api-client/models';
+import { MenuItemData } from '@common/api-client/models';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
+import { MenuItemExtendedData } from '../edit-item-service/menu-item-extended-data';
 
 @Component({
   selector: 'app-edit-item-settings',
@@ -16,13 +17,11 @@ export class EditItemSettingsComponent implements OnDestroy {
     itemPrice: new FormControl<string>('', [Validators.required, Validators.pattern('^[0-9]{0,5}(.[0-9]{1,2}){0,1}')])
   };
 
-  _item: MenuItemDetailedGet | undefined;
-
   private static readonly invalidNameError = 'ITEM_MAIL_NAME';
   private static readonly invalidPriceError = 'ITEM_MAIL_PRICE';
   private readonly onDestroy = new Subject<void>();
 
-  fullItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
+  fullItem: BehaviorSubject<MenuItemExtendedData | undefined> = new BehaviorSubject<MenuItemExtendedData | undefined>(undefined);
 
   constructor(private editItemService: EditItemService) {
     this.editItemService.clearErrors();

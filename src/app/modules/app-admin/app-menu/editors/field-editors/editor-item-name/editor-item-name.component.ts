@@ -9,4 +9,11 @@ import { FormControl } from '@angular/forms';
 export class EditorItemNameComponent {
   @Input('name')
   elementNameFormControl : FormControl<string | null> | undefined;
+
+  _groupName: string | undefined;
+
+  @Input() set groupName(value: string | undefined) {
+    console.log(value)
+    this._groupName = value;
+  }
 }

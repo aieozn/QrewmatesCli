@@ -1,17 +1,18 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { MenuItemData, MenuItemGroupData } from '@common/api-client/models';
+import { MenuItemGroupData } from '@common/api-client/models';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { MenuItemExtendedData } from './menu-item-extended-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EditItemService {
-  activeItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
+  activeItem: BehaviorSubject<MenuItemExtendedData | undefined> = new BehaviorSubject<MenuItemExtendedData | undefined>(undefined);
   activeGroup: BehaviorSubject<MenuItemGroupData | undefined> = new BehaviorSubject<MenuItemGroupData | undefined>(undefined);
   isValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   onSaveTry = new EventEmitter<void>();
   onUpdate = new Subject<void>();
-  private errors: string[] = [];
+  errors: string[] = [];
 
   public addError(name: string) {
     this.errors.push(name);

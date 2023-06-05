@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MenuItemData, MenuItemDetailedGet, MenuItemGroupData } from '@common/api-client/models';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../../edit-item/edit-item-service/edit-item.service';
+import { MenuItemExtendedData } from '../../edit-item/edit-item-service/menu-item-extended-data';
 
 @Component({
   selector: 'app-edit-item-group-aggregate-settings',
@@ -23,7 +24,7 @@ export class EditItemGroupAggregateSettingsComponent {
   private static readonly invalidPriceError = 'ITEM_MAIL_PRICE';
   private readonly onDestroy = new Subject<void>();
 
-  fullItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
+  fullItem: BehaviorSubject<MenuItemExtendedData | undefined> = new BehaviorSubject<MenuItemExtendedData | undefined>(undefined);
   fullGroup: BehaviorSubject<MenuItemGroupData | undefined> = new BehaviorSubject<MenuItemGroupData | undefined>(undefined);
 
   constructor(private editItemService: EditItemService) {

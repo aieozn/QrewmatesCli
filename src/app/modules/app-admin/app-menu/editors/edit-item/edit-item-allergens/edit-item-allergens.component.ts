@@ -4,6 +4,7 @@ import { AllergenGet, MenuItemData, MenuItemDetailedGet } from '@common/api-clie
 import { AllergenControllerService } from '@common/api-client/services';
 import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap, } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
+import { MenuItemExtendedData } from '../edit-item-service/menu-item-extended-data';
 
 @Component({
   selector: 'app-edit-item-allergens',
@@ -17,7 +18,7 @@ export class EditItemAllergensComponent implements OnDestroy {
     checked: boolean
   }[] | undefined;
 
-  fullItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
+  fullItem: BehaviorSubject<MenuItemExtendedData | undefined> = new BehaviorSubject<MenuItemExtendedData | undefined>(undefined);
   private readonly onDestroy = new Subject<void>();
 
   constructor(

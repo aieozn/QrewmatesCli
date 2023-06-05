@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
-import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
+import { MenuItemControllerService } from '@common/api-client/services';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editors/editor-dialog.service';
 
@@ -15,13 +15,12 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
 
   @Input() set group(group: MenuItemGroupGet) {
-    this._group = group;
+    this._group = JSON.parse(JSON.stringify(group));
   }
 
   constructor(
     private menuItemService: MenuItemControllerService,
     private accountService: AccountService,
-    private groupService: MenuItemGroupControllerService,
     private editorDialogService: EditorDialogService
   ) {
     this.editorDialogService.onItemDeleted.pipe(
@@ -45,25 +44,13 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  private reloadGroup() {
-    if (!this._group) { throw 'Group not defined'; }
-
-    const activeGroup = this._group;
-    this.groupService.getItemGroupDetails({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      menuItemGroupRef: this._group.ref
-    }).subscribe(c => {
-      Object.assign(activeGroup, c);
-    })
-  }
-
   onDeleteItem(ref: string) {
-    if (!this._group) { throw 'Groups not defined'; }
+    if (!this._group) { throw 'Group not defined'; }
     this._group.menuItems = this._group.menuItems.filter(e => e.ref !== ref)
   }
 
   onUpdateItem(item: MenuItemGet) {
-    if (!this._group) { throw 'Groups not defined'; }
+    if (!this._group) { throw 'Group not defined'; }
 
     for (const menuItem of this._group.menuItems) {
       if (menuItem.ref === item.ref) {
@@ -73,7 +60,7 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
   }
 
   onCreateItem(item: MenuItemGet) {
-    if (!this._group) { throw 'Groups not defined'; }
+    if (!this._group) { throw 'Group not defined'; }
 
     if (item.menuItemGroupRef === this._group.ref) {
       this._group.menuItems.push(item);
@@ -108,7 +95,7 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
     }).pipe(
       tap(e => {
         group.menuItems[activeIndex] = group.menuItems[activeIndex - 1];
-        group.menuItems[activeIndex - 1] = e
+        group.menuItems[activeIndex - 1] = e;
       })
     ).subscribe();
   }

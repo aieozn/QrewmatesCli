@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuCategoryGet, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuCategoryControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editors/editor-dialog.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu-category',
@@ -27,8 +27,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
     private itemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private categoryService: MenuCategoryControllerService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {
     this.editorDialogService.onItemGroupUpdated.pipe(
       takeUntil(this.onDestroy)
@@ -43,6 +42,16 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe()
 
+    this.editorDialogService.onItemDeleted.pipe(
+      tap(e => this.onDeleteItem(e.ref, e.groupRef)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+
+    this.editorDialogService.onItemCreated.pipe(
+      tap(e => this.onCreateItem(e)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+
     const categoryRef = this.route.snapshot.paramMap.get('categoryRef');  
 
     if (categoryRef === null) {
@@ -51,6 +60,26 @@ export class AdminMenuCategoryComponent implements OnDestroy {
 
     this.categoryRef = categoryRef;
     this.loadCategory(categoryRef);
+  }
+
+  onCreateItem(item: MenuItemGet) {
+    for (const group of this.groups) {
+      if (item.menuItemGroupRef === group.group.ref) {
+        group.group.menuItems.push(item)
+        group.isAggregate = this.isAggregate(group.group)
+        group.open = group.open && !this.isAggregate(group.group)
+      }
+    }
+  }
+
+  onDeleteItem(ref: string, groupRef: string) {
+    for (const group of this.groups) {
+      if (groupRef === group.group.ref) {
+        group.group.menuItems = group.group.menuItems.filter(e => e.ref !== ref)
+        group.isAggregate = this.isAggregate(group.group)
+        group.open = group.open && !this.isAggregate(group.group)
+      }
+    }
   }
 
   itemGroupCreated(group: MenuItemGroupGet) {
@@ -80,11 +109,15 @@ export class AdminMenuCategoryComponent implements OnDestroy {
           this.groups.push({
             group: group,
             isAggregate: this.isAggregate(group),
-            open: this.getActiveGroupRef() === group.ref && !this.isAggregate(group)
+            open: this.isGroupOpen(group)
           })
         }
       })
     ).subscribe();
+  }
+
+  isGroupOpen(group: MenuItemGroupGet) {
+    return this.getActiveGroupRef() === group.ref && !this.isAggregate(group)
   }
 
   getActiveGroupRef() : string | undefined {
@@ -114,6 +147,8 @@ export class AdminMenuCategoryComponent implements OnDestroy {
       const existingItemGroup = this.groups[i].group;
       if (existingItemGroup.ref === newItemGroup.ref) {
         this.groups[i].group = newItemGroup;
+        this.groups[i].isAggregate = this.isAggregate(newItemGroup);
+        this.groups[i].open = this.groups[i].open && !this.isAggregate(newItemGroup);
         break;
       }
     }
@@ -165,7 +200,6 @@ export class AdminMenuCategoryComponent implements OnDestroy {
 
   moveDown(group: MenuItemGroupGet) {
     const activeIndex = this.groups.map(e => e.group).indexOf(group)
-    const isOpen = this.groups[activeIndex].open;
 
     this.itemGroupService.moveDown3({
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -176,7 +210,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
         this.groups[activeIndex - 1] = {
           group: e,
           isAggregate: this.isAggregate(e),
-          open: isOpen
+          open: false
         }
       })
     ).subscribe();

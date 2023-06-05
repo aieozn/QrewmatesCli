@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MenuItemData, MenuItemDetailedGet } from '@common/api-client/models';
-import { MenuItemControllerService } from '@common/api-client/services';
+import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,6 +30,7 @@ export class EditItemComponent implements OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private editItemService: EditItemService,
+    private editGroupService: MenuItemGroupControllerService,
     private editorDialogService: EditorDialogService
   ) {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
@@ -92,7 +93,9 @@ export class EditItemComponent implements OnDestroy {
         menuItemRef: itemValue.ref
       }).pipe(
         tap(() => this.editorDialogService.onItemDeleted.next({
-          ref: itemValue.ref
+          ref: itemValue.ref,
+          groupRef: itemValue.menuItemGroupRef,
+          categoryRef: this.categoryRef
         })),
         tap(() => this.close())
       ).subscribe()
@@ -100,16 +103,6 @@ export class EditItemComponent implements OnDestroy {
   }
 
   loadItemDetails(itemRef: string | undefined, groupRef: string) {
-    this.emptyItem = {
-      allergens: [],
-      name: '',
-      price: 0,
-      selectCollections: [],
-      toppingCollections: [],
-      available: true,
-      menuItemGroupRef: groupRef
-    };
-
     if (itemRef !== undefined) {
       this.itemService.getItemDetails({
         restaurantRef: this.accountService.getRestaurantRef(),
@@ -121,7 +114,21 @@ export class EditItemComponent implements OnDestroy {
         tap(e => this.fullItem = e)
       ).subscribe()
     } else {
-      this.editItemService.activeItem.next(this.emptyItem)
+      this.editGroupService.getItemGroupDetails({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        menuItemGroupRef: groupRef
+      }).pipe(
+        tap(e => this.editItemService.activeItem.next({
+          allergens: [],
+          name: '',
+          price: 0,
+          selectCollections: [],
+          toppingCollections: [],
+          available: true,
+          menuItemGroupRef: groupRef,
+          menuItemGroupName: e.name
+        }))
+      ).subscribe();
     }
   }
 

@@ -3,6 +3,8 @@
     <p class="editor-box-subtitle" i18n>Enter a valid name</p>
 
     <mat-form-field appearance="fill" id="element-name-input">
+        <span class="prefix" matPrefix>{{ _groupName }}: </span>
+        
         <mat-label i18n>Item name</mat-label>
         <input autocomplete="off" [formControl]="elementNameFormControl" matInput>
         <mat-error *ngIf="elementNameFormControl.errors" i18n>Invalid name</mat-error>

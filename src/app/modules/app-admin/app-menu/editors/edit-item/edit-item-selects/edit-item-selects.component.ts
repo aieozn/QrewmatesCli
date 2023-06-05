@@ -4,6 +4,7 @@ import { MenuItemData, MenuItemDetailedGet, MenuItemSelectCollectionGet } from '
 import { MenuItemSelectCollectionControllerService } from '@common/api-client/services';
 import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
+import { MenuItemExtendedData } from '../edit-item-service/menu-item-extended-data';
 
 @Component({
   selector: 'app-edit-item-selects',
@@ -15,7 +16,7 @@ export class EditItemSelectsComponent implements OnDestroy {
   checked: MenuItemSelectCollectionGet[] = [];
   notChecked: MenuItemSelectCollectionGet[] = [];
 
-  fullItem: BehaviorSubject<MenuItemData | undefined> = new BehaviorSubject<MenuItemData | undefined>(undefined);
+  fullItem: BehaviorSubject<MenuItemExtendedData | undefined> = new BehaviorSubject<MenuItemExtendedData | undefined>(undefined);
   
   private readonly onDestroy = new Subject<void>();
 

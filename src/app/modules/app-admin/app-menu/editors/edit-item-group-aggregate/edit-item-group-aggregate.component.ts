@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuItemData, MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
+import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item/edit-item-service/edit-item.service';
@@ -14,7 +14,6 @@ import { EditorDialogService } from '../editor-dialog.service';
 })
 export class EditItemGroupAggregateComponent {
   emptyGroup: MenuItemGroupData | undefined;
-  emptyItem: MenuItemData | undefined;
   name: string | undefined;
 
   private readonly onDestroy = new Subject<void>();
@@ -123,7 +122,7 @@ export class EditItemGroupAggregateComponent {
       }).pipe(
         takeUntil(this.onDestroy),
         tap(e => this.editItemService.activeGroup.next(e)),
-        tap(e => this.loadItemDetails(e.menuItems[0].ref, e.ref)),
+        tap(e => this.loadItemDetails(e.menuItems[0].ref, e)),
         tap(e => this.name = e.name),
         tap(e => this.fullGroup = e)
       ).subscribe()
@@ -133,15 +132,16 @@ export class EditItemGroupAggregateComponent {
     }
   }
 
-  loadItemDetails(itemRef: string | undefined, groupRef: string | undefined) {
-    this.emptyItem = {
+  loadItemDetails(itemRef: string | undefined, group: MenuItemGroupGet | undefined) {
+    const emptyItem = {
       allergens: [],
       name: '',
       price: 0,
       selectCollections: [],
       toppingCollections: [],
       available: true,
-      menuItemGroupRef: groupRef ? groupRef : ''
+      menuItemGroupRef: group ? group.ref : '',
+      menuItemGroupName: group ? group.name : ''
     };
 
     if (itemRef !== undefined) {
@@ -153,7 +153,7 @@ export class EditItemGroupAggregateComponent {
         tap(e => this.editItemService.activeItem.next(e)),
       ).subscribe()
     } else {
-      this.editItemService.activeItem.next(this.emptyItem)
+      this.editItemService.activeItem.next(emptyItem)
     }
   }
 

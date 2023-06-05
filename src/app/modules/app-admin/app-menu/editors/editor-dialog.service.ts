@@ -13,7 +13,7 @@ export class EditorDialogService {
   onItemGroupCreated = new EventEmitter<MenuItemGroupGet>();
   onItemGroupDeleted = new EventEmitter<string>();
 
-  onItemDeleted = new EventEmitter<{ref: string}>();
+  onItemDeleted = new EventEmitter<{ref: string, groupRef: string, categoryRef: string}>();
   onItemUpdated = new EventEmitter<MenuItemDetailedGet>();
   onItemCreated = new EventEmitter<MenuItemDetailedGet>();
 }
