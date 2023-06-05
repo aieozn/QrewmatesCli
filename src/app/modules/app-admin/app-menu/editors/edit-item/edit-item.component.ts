@@ -35,24 +35,14 @@ export class EditItemComponent implements OnDestroy {
   ) {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
 
-    editItemService.isValid.pipe(
-      tap(e => this.valid = e),
-      takeUntil(this.onDestroy)
-    ).subscribe();
-
     this.route.params.pipe(
       tap(params => this.loadItemDetails(params['menuItemRef'], params['menuItemGroupRef'])),
       takeUntil(this.onDestroy)
     ).subscribe();
-
-    this.editItemService.onUpdate.pipe(
-      tap(() => this.dirty = true),
-      takeUntil(this.onDestroy)
-    ).subscribe()
   }
 
   onSave() {
-    const itemValue = this.editItemService.activeItem.getValue();
+    const itemValue = this.editItemService.itemData.getValue();
     if (itemValue === undefined) { throw 'Undefined item value'; }
 
     if (this.fullItem !== undefined) {
@@ -109,7 +99,7 @@ export class EditItemComponent implements OnDestroy {
         menuItemRef: itemRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.editItemService.activeItem.next(e)),
+        tap(e => this.editItemService.itemData.next(e)),
         tap(e => this.name = e.name),
         tap(e => this.fullItem = e)
       ).subscribe()
@@ -118,7 +108,7 @@ export class EditItemComponent implements OnDestroy {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: groupRef
       }).pipe(
-        tap(e => this.editItemService.activeItem.next({
+        tap(e => this.editItemService.itemData.next({
           allergens: [],
           name: '',
           price: 0,

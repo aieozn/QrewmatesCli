@@ -1,23 +1,22 @@
-import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs';
-import { EditItemService } from '../edit-item/edit-item-service/edit-item.service';
+import { Subject, tap } from 'rxjs';
+import { EditItemGroupService } from './edit-item-group-service/edit-item-group-service';
 
 @Component({
   selector: 'app-edit-item-group',
   templateUrl: './edit-item-group.component.html',
   styleUrls: ['../edit-element.scss']
 })
-export class EditItemGroupComponent {
+export class EditItemGroupComponent implements OnDestroy {
   group: MenuItemGroupGet | undefined;
   emptyItemGroup: MenuItemGroupData;
-  activeItemGroup: MenuItemGroupData;
   private categoryRef: string;
+  private readonly onDestroy = new Subject<void>();
 
   constructor(
     private menuItemGroupService: MenuItemGroupControllerService,
@@ -25,7 +24,7 @@ export class EditItemGroupComponent {
     private editDialogService: EditorDialogService,
     private route: ActivatedRoute,
     private router: Router,
-    private editItemService: EditItemService,
+    protected editItemGroupService: EditItemGroupService,
   ) {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
 
@@ -34,7 +33,6 @@ export class EditItemGroupComponent {
       categoryRef: this.categoryRef,
       name: ''
     }
-    this.activeItemGroup = this.emptyItemGroup;
 
     this.route.params.subscribe(params => {
       this.initComponent(params['menuItemGroupRef'])
@@ -42,44 +40,33 @@ export class EditItemGroupComponent {
   }
 
   private initComponent(menuItemGroupRef: string | undefined) {
-    this.activeItemGroup = this.emptyItemGroup;
-
     if (menuItemGroupRef) {
       this.menuItemGroupService.getItemGroupDetails({
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: menuItemGroupRef
       }).pipe(
-        tap(group => this.loadItemGroupFieldsValues(group)),
-        tap(e => this.editItemService.activeGroup.next(e)),
+        tap(e => this.editItemGroupService.groupData.next(e)),
       ).subscribe()
     }
   }
 
-  private loadItemGroupFieldsValues(value: MenuItemGroupGet) {
-    this.group = value
-    this.groupFields.groupName.setValue(value.name);
-    this.groupFields.groupDescription.setValue(value.description ?? null);
-
-    this.activeItemGroup = JSON.parse(JSON.stringify(value));
+  isValid(): boolean {
+    return this.editItemGroupService.isValid.getValue();
   }
 
-  isValid(validation: {[key: string] : FormControl}) : boolean {
-    return !Object.values(validation).map(e => e.invalid).includes(true);
-  }
-
-  isUpdated(validation: {[key: string] : FormControl}) : boolean {
-    return Object.values(validation).map(e => e.dirty).includes(true);
+  isUpdated(): boolean {
+    return this.editItemGroupService.isUpdated.getValue();
   }
 
   onSave() {
     if (this.group !== undefined) {
-      this.activeItemGroup.name = this.groupFields.groupName.value!;
-      this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
+      const data = this.editItemGroupService.groupData.getValue();
+      if (data === undefined) { throw 'Group data is not defined'; }
   
       this.menuItemGroupService.putItemGroup({
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: this.group.ref,
-        body: this.activeItemGroup
+        body: data
       }).subscribe(saved => {
         this.editDialogService.onItemGroupUpdated.next(saved);
         this.close()
@@ -87,7 +74,6 @@ export class EditItemGroupComponent {
     } else {
       throw 'Operation not allowed';
     }
-    
   }
 
   close() {
@@ -110,5 +96,10 @@ export class EditItemGroupComponent {
     } else {
       console.error('Menu item group not defined');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 }

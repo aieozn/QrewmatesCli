@@ -1,12 +1,12 @@
-<div id="edit-element" *ngIf="activeItemGroup">
+<div id="edit-element">
     <p id="element-name" *ngIf="group !== undefined"><span i18n>Dish</span>: <b>{{ group.name }}</b></p>
     <p id="element-name" *ngIf="group === undefined"><span i18n>Create new dish</span></p>
 
     <p id="help-text" i18n>Edit fields below and save changes</p>
     <div id="editors">
-        <app-editor-item-group-name class="editor" [name]="groupFields.groupName"></app-editor-item-group-name>
-        <app-editor-item-group-description class="editor" [desciprion]="groupFields.groupDescription"></app-editor-item-group-description>
+        <app-editor-item-group-name class="editor"></app-editor-item-group-name>
+        <app-editor-item-group-description class="editor"></app-editor-item-group-description>
     </div>
 </div>
 
-<app-submit-bar [saveEnabled]="isValid(groupFields) && isUpdated(groupFields)" [deleteEnabled]="group !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+<app-submit-bar [saveEnabled]="isValid() && isUpdated()" [deleteEnabled]="group !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

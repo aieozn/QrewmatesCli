@@ -4,8 +4,9 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { EditItemService } from '../edit-item/edit-item-service/edit-item.service';
 import { EditorDialogService } from '../editor-dialog.service';
+import { EditItemGroupService } from '../edit-item-group/edit-item-group-service/edit-item-group-service';
+import { EditItemService } from '../edit-item/edit-item-service/edit-item.service';
 
 @Component({
   selector: 'app-edit-item-group-aggregate',
@@ -20,8 +21,6 @@ export class EditItemGroupAggregateComponent {
   private categoryRef: string
   // Data fetched from server, available only in edit mode
   fullGroup: MenuItemGroupGet | undefined;
-  dirty = false
-  valid = false
 
   constructor(
     private gorupService: MenuItemGroupControllerService,
@@ -29,31 +28,22 @@ export class EditItemGroupAggregateComponent {
     private accountService: AccountService,
     private router: Router,
     private route: ActivatedRoute,
+    protected editItemGroupService: EditItemGroupService,
     private editItemService: EditItemService,
     private editorDialogService: EditorDialogService
   ) {
-    this.editItemService.clearErrors();
+    this.editItemGroupService.clearErrors();
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
-
-    editItemService.isValid.pipe(
-      tap(e => this.valid = e),
-      takeUntil(this.onDestroy)
-    ).subscribe();
 
     this.route.params.pipe(
       tap(params => this.loadGroupDetails(params['menuItemGroupRef'])),
       takeUntil(this.onDestroy)
     ).subscribe();
-
-    this.editItemService.onUpdate.pipe(
-      tap(() => this.dirty = true),
-      takeUntil(this.onDestroy)
-    ).subscribe()
   }
 
   onSave() {
-    const activeGroup = this.editItemService.activeGroup.getValue();
-    const activeItem = this.editItemService.activeItem.getValue();
+    const activeGroup = this.editItemGroupService.groupData.getValue();
+    const activeItem = this.editItemService.itemData.getValue();
     if (activeGroup === undefined) { throw 'Undefined group value'; }
     if (activeItem === undefined) { throw 'Undefined item value'; }
 
@@ -121,13 +111,13 @@ export class EditItemGroupAggregateComponent {
         menuItemGroupRef: groupRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.editItemService.activeGroup.next(e)),
+        tap(e => this.editItemGroupService.groupData.next(e)),
         tap(e => this.loadItemDetails(e.menuItems[0].ref, e)),
         tap(e => this.name = e.name),
         tap(e => this.fullGroup = e)
       ).subscribe()
     } else {
-      this.editItemService.activeGroup.next(this.emptyGroup)
+      this.editItemGroupService.groupData.next(this.emptyGroup)
       this.loadItemDetails(undefined, undefined)
     }
   }
@@ -150,10 +140,10 @@ export class EditItemGroupAggregateComponent {
         menuItemRef: itemRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.editItemService.activeItem.next(e)),
+        tap(e => this.editItemService.itemData.next(e)),
       ).subscribe()
     } else {
-      this.editItemService.activeItem.next(emptyItem)
+      this.editItemService.itemData.next(emptyItem)
     }
   }
 

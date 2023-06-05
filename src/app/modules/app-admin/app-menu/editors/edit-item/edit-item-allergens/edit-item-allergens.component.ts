@@ -26,7 +26,7 @@ export class EditItemAllergensComponent implements OnDestroy {
     private accountService: AccountService,
     private editItemService: EditItemService
   ) {
-    this.fullItem = editItemService.activeItem;
+    this.fullItem = editItemService.itemData;
 
 
     combineLatest([
@@ -72,6 +72,6 @@ export class EditItemAllergensComponent implements OnDestroy {
       itemMail.allergens.push(allergen)
     }
 
-    this.editItemService.onUpdate.next()
+    this.editItemService.isUpdated.next(true)
   }
 }

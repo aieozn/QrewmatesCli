@@ -25,7 +25,7 @@ export class EditItemToppingsComponent implements OnDestroy {
     accountService: AccountService,
     private editItemService: EditItemService
   ) {
-    this.fullItem = editItemService.activeItem;
+    this.fullItem = editItemService.itemData;
 
     combineLatest([
       this.fullItem.pipe(
@@ -83,7 +83,7 @@ export class EditItemToppingsComponent implements OnDestroy {
 
     this.checkToppings(itemMail, this.allCollections)
 
-    this.editItemService.onUpdate.next()
+    this.editItemService.isUpdated.next(true)
   }
 
   moveUp(element: MenuItemToppingCollectionGet) {
@@ -95,7 +95,7 @@ export class EditItemToppingsComponent implements OnDestroy {
     this.checked[index + 1] = element
 
     itemMail.toppingCollections = this.checked.slice()
-    this.editItemService.onUpdate.next()
+    this.editItemService.isUpdated.next(true)
   }
 
   moveDown(element: MenuItemToppingCollectionGet) {
@@ -107,6 +107,6 @@ export class EditItemToppingsComponent implements OnDestroy {
     this.checked[index - 1] = element
 
     itemMail.toppingCollections = this.checked.slice()
-    this.editItemService.onUpdate.next()
+    this.editItemService.isUpdated.next(true)
   }
 }
