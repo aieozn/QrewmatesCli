@@ -28,6 +28,7 @@ import { EditorItemNameComponent } from './editors/field-editors/editor-item-nam
 import { EditorItemPriceComponent } from './editors/field-editors/editor-item-price/editor-item-price.component';
 import { EditItemGroupAggregateComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate.component';
 import { EditItemGroupAggregateSettingsComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate-settings/edit-item-group-aggregate-settings.component';
+import { EditorItemGroupImageComponent } from './editors/field-editors/editor-item-group-image/editor-item-group-image.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { EditItemGroupAggregateSettingsComponent } from './editors/edit-item-gro
     EditorItemPriceComponent,
     EditItemGroupAggregateComponent,
     EditItemGroupAggregateSettingsComponent,
+    EditorItemGroupImageComponent,
   ],
   imports: [
     CommonModule,

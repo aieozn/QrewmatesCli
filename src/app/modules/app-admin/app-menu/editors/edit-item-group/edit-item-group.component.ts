@@ -6,6 +6,7 @@ import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { EditItemService } from '../edit-item/edit-item-service/edit-item.service';
 
 @Component({
   selector: 'app-edit-item-group',
@@ -18,17 +19,13 @@ export class EditItemGroupComponent {
   activeItemGroup: MenuItemGroupData;
   private categoryRef: string;
 
-  groupFields = {
-    groupName: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-    groupDescription: new FormControl('', [Validators.maxLength(512)])
-  };
-
   constructor(
     private menuItemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private editDialogService: EditorDialogService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private editItemService: EditItemService,
   ) {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
 
@@ -52,7 +49,8 @@ export class EditItemGroupComponent {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: menuItemGroupRef
       }).pipe(
-        tap(group => this.loadItemGroupFieldsValues(group))
+        tap(group => this.loadItemGroupFieldsValues(group)),
+        tap(e => this.editItemService.activeGroup.next(e)),
       ).subscribe()
     }
   }
@@ -74,30 +72,21 @@ export class EditItemGroupComponent {
   }
 
   onSave() {
-    // if (this.group !== undefined) {
-    //   this.activeItemGroup.name = this.groupFields.groupName.value!;
-    //   this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
+    if (this.group !== undefined) {
+      this.activeItemGroup.name = this.groupFields.groupName.value!;
+      this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
   
-    //   this.menuItemGroupService.putItemGroup({
-    //     restaurantRef: this.accountService.getRestaurantRef(),
-    //     menuItemGroupRef: this.group.ref,
-    //     body: this.activeItemGroup
-    //   }).subscribe(saved => {
-    //     this.editDialogService.onItemGroupUpdated.next(saved);
-    //     this.close()
-    //   })
-    // } else {
-    //   this.activeItemGroup.name = this.groupFields.groupName.value!;
-    //   this.activeItemGroup.description = this.groupFields.groupDescription.value ?? undefined;
-  
-    //   this.menuItemGroupService.postItemGroup({
-    //     restaurantRef: this.accountService.getRestaurantRef(),
-    //     body: this.activeItemGroup
-    //   }).subscribe(saved => {
-    //     this.editDialogService.onItemGroupCreated.next(saved);
-    //     this.close()
-    //   })
-    // }
+      this.menuItemGroupService.putItemGroup({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        menuItemGroupRef: this.group.ref,
+        body: this.activeItemGroup
+      }).subscribe(saved => {
+        this.editDialogService.onItemGroupUpdated.next(saved);
+        this.close()
+      })
+    } else {
+      throw 'Operation not allowed';
+    }
     
   }
 

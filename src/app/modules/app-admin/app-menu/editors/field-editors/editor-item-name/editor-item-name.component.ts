@@ -13,7 +13,6 @@ export class EditorItemNameComponent {
   _groupName: string | undefined;
 
   @Input() set groupName(value: string | undefined) {
-    console.log(value)
     this._groupName = value;
   }
 }

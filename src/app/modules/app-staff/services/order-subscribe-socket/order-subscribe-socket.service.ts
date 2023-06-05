@@ -30,7 +30,6 @@ export class OrderSocketService implements OnDestroy {
       throw 'Login first';
     }
 
-    console.log(activeUser);
     const headers = {
       'Authorization': `Bearer ${activeUser.token}`
     }

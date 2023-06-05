@@ -11,12 +11,6 @@ import { MenuItemExtendedData } from '../../edit-item/edit-item-service/menu-ite
   styleUrls: ['../../edit-element.scss', './edit-item-group-aggregate-settings.component.scss']
 })
 export class EditItemGroupAggregateSettingsComponent {
-  itemFields = {
-    groupName: new FormControl<string>('', [Validators.required, Validators.maxLength(255)]),
-    groupDescription: new FormControl<string>('', [Validators.required, Validators.maxLength(255)]),
-    itemPrice: new FormControl<string>('', [Validators.required, Validators.pattern('^[0-9]{0,5}(.[0-9]{1,2}){0,1}')])
-  };
-
   _item: MenuItemDetailedGet | undefined;
 
   private static readonly invalidNameError = 'ITEM_GROUP_NAME';
@@ -43,16 +37,19 @@ export class EditItemGroupAggregateSettingsComponent {
 
     this.itemFields.groupName.valueChanges.pipe(
       tap(value => this.updateName(value)),
+      tap(() => this.editItemService.onUpdate.next()),
       takeUntil(this.onDestroy)
     ).subscribe();
 
     this.itemFields.itemPrice.valueChanges.pipe(
       tap(value => this.updatePrice(value)),
+      tap(() => this.editItemService.onUpdate.next()),
       takeUntil(this.onDestroy)
     ).subscribe();
 
     this.itemFields.groupDescription.valueChanges.pipe(
       tap(value => this.updateDescription(value)),
+      tap(() => this.editItemService.onUpdate.next()),
       takeUntil(this.onDestroy)
     ).subscribe();
 
@@ -99,7 +96,6 @@ export class EditItemGroupAggregateSettingsComponent {
     }
 
     group.name = value === null ? '' : value;
-    this.editItemService.onUpdate.next()
   }
 
   private updateDescription(value: string | null) {
@@ -113,7 +109,6 @@ export class EditItemGroupAggregateSettingsComponent {
     }
 
     group.description = value === null ? '' : value;
-    this.editItemService.onUpdate.next()
   }
 
   private updatePrice(value: string | null) {
@@ -127,7 +122,5 @@ export class EditItemGroupAggregateSettingsComponent {
       this.editItemService.addError(EditItemGroupAggregateSettingsComponent.invalidPriceError);
       itemMail.price = 0;
     }
-
-    this.editItemService.onUpdate.next()
   }
 }

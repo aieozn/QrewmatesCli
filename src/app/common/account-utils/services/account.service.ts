@@ -58,9 +58,6 @@ export class AccountService {
   }
 
   getTableRef() : string {
-
-    console.log("GET TABLE REF")
-
     const pathParts = window.location.pathname.substring(1).split("/");
 
     if (pathParts[0] === "menu") {

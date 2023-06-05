@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MenuItemData } from '@common/api-client/models';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
@@ -11,12 +10,6 @@ import { MenuItemExtendedData } from '../edit-item-service/menu-item-extended-da
   styleUrls: ['../../edit-element.scss', './edit-item-settings.component.scss']
 })
 export class EditItemSettingsComponent implements OnDestroy {
-
-  itemFields = {
-    itemName: new FormControl<string>('', [Validators.required, Validators.maxLength(255)]),
-    itemPrice: new FormControl<string>('', [Validators.required, Validators.pattern('^[0-9]{0,5}(.[0-9]{1,2}){0,1}')])
-  };
-
   private static readonly invalidNameError = 'ITEM_MAIL_NAME';
   private static readonly invalidPriceError = 'ITEM_MAIL_PRICE';
   private readonly onDestroy = new Subject<void>();
@@ -34,11 +27,13 @@ export class EditItemSettingsComponent implements OnDestroy {
 
     this.itemFields.itemName.valueChanges.pipe(
       tap(value => this.updateName(value)),
+      tap(() => this.editItemService.onUpdate.next()),
       takeUntil(this.onDestroy)
     ).subscribe();
 
     this.itemFields.itemPrice.valueChanges.pipe(
       tap(value => this.updatePrice(value)),
+      tap(() => this.editItemService.onUpdate.next()),
       takeUntil(this.onDestroy)
     ).subscribe();
 
@@ -55,6 +50,9 @@ export class EditItemSettingsComponent implements OnDestroy {
   }
 
   loadFieldValues(value: MenuItemData | undefined) {
+    const itemMail = this.fullItem.getValue()
+    if (!itemMail) { throw 'Item not defined'; }
+
     if (value) {
       const priceString = value.price === 0 ? '' : value.price.toString();
       
@@ -80,7 +78,6 @@ export class EditItemSettingsComponent implements OnDestroy {
     }
 
     itemMail.name = value === null ? '' : value;
-    this.editItemService.onUpdate.next()
   }
 
   private updatePrice(value: string | null) {
@@ -94,7 +91,5 @@ export class EditItemSettingsComponent implements OnDestroy {
       this.editItemService.addError(EditItemSettingsComponent.invalidPriceError);
       itemMail.price = 0;
     }
-
-    this.editItemService.onUpdate.next()
   }
 }
