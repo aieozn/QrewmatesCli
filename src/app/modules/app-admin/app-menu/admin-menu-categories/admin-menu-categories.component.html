@@ -1,7 +1,15 @@
 <div id="menu">
-    <h1 i18n>Restaurant categories</h1>
+    <h1 i18n>Restaurant menu - categories</h1>
 
-    <div class="create-new clickable box-shadow box-radius" routerLink="category/create"><p>+ Create new category</p></div>
+    <div *ngIf="categories.length === 0">
+        <p class="help">
+            In this window, add new categories and products to your menu. The product must be assigned to a category, so start by adding them.
+            Editing a category or variants attached to it triggering changes for all products inside it, duplication will copy it with all content.
+        </p>
+    </div>
+
+    <div *ngIf="categories.length === 0" class="create-new clickable box-shadow box-radius" routerLink="category/create"><p>+ Create first category</p></div>
+    <div *ngIf="categories.length > 0" class="create-new clickable box-shadow box-radius" routerLink="category/create"><p>+ Create new category</p></div>
     
     <div id="menu-elements-list">
 
