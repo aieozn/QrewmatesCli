@@ -15,6 +15,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
 
   groups: {
     group: MenuItemGroupGet,
+    isAggregate: boolean,
     open: boolean
   }[] = []
 
@@ -56,9 +57,14 @@ export class AdminMenuCategoryComponent implements OnDestroy {
     if (group.categoryRef === this.categoryRef) {
       this.groups.push({
         group: group,
+        isAggregate: this.isAggregate(group),
         open: false
       });
     }
+  }
+
+  private isAggregate(group: MenuItemGroupGet) : boolean {
+    return group.menuItems.length === 1;
   }
 
   loadCategory(ref: string) {
@@ -73,7 +79,8 @@ export class AdminMenuCategoryComponent implements OnDestroy {
         for (const group of category.menuItemGroups) {
           this.groups.push({
             group: group,
-            open: this.getActiveGroupRef() === group.ref
+            isAggregate: this.isAggregate(group),
+            open: this.getActiveGroupRef() === group.ref && !this.isAggregate(group)
           })
         }
       })
@@ -149,6 +156,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
         this.groups[activeIndex] = this.groups[activeIndex + 1];
         this.groups[activeIndex + 1] = {
           group: e,
+          isAggregate: this.isAggregate(e),
           open: false
         }
       })
@@ -167,6 +175,7 @@ export class AdminMenuCategoryComponent implements OnDestroy {
         this.groups[activeIndex] = this.groups[activeIndex - 1];
         this.groups[activeIndex - 1] = {
           group: e,
+          isAggregate: this.isAggregate(e),
           open: isOpen
         }
       })

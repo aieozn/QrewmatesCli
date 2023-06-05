@@ -50,6 +50,11 @@ export class EditItemGroupAggregateSettingsComponent {
       takeUntil(this.onDestroy)
     ).subscribe();
 
+    this.itemFields.groupDescription.valueChanges.pipe(
+      tap(value => this.updateDescription(value)),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
     editItemService.onSaveTry.pipe(
       tap(() => this.itemFields.groupName.markAllAsTouched()),
       tap(() => this.itemFields.itemPrice.markAllAsTouched()),

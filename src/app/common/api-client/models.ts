@@ -29,11 +29,11 @@ export { MenuItemSelectDetailedGet } from './models/menu-item-select-detailed-ge
 export { MenuItemSelectCollectionData } from './models/menu-item-select-collection-data';
 export { MenuItemGroupData } from './models/menu-item-group-data';
 export { MenuItemGroupGet } from './models/menu-item-group-get';
+export { LinkedMenuItemData } from './models/linked-menu-item-data';
+export { MenuItemGroupAggregateData } from './models/menu-item-group-aggregate-data';
 export { MenuCategoryData } from './models/menu-category-data';
 export { MenuCategoryGet } from './models/menu-category-get';
 export { AllergenData } from './models/allergen-data';
-export { CreateGroupRequest } from './models/create-group-request';
-export { LinkedMenuItemData } from './models/linked-menu-item-data';
 export { SocialAccountLoginRequest } from './models/social-account-login-request';
 export { LoginResponse } from './models/login-response';
 export { UserRestaurant } from './models/user-restaurant';

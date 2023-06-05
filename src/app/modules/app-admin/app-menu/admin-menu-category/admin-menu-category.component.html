@@ -5,7 +5,7 @@
         {{ category.name }}
     </h1>
 
-    <div class="create-new clickable" routerLink="group-aggregate/create"><p>+ Add new dish</p></div>
+    <div class="create-new clickable box-shadow box-radius" routerLink="group-aggregate/create"><p>+ Add new dish</p></div>
 
     <div id="menu-elements-list" *ngIf="groups">
         <div *ngFor="let group of groups; let i = index">
@@ -26,7 +26,7 @@
                             <p class="menu-element-description">{{ group.group.description }}</p>
                         </div>
 
-                        <p class="extend clickable" (click)="extend(group.group)" *ngIf="!group.open">
+                        <p class="extend clickable" (click)="extend(group.group)" *ngIf="!group.open && !group.isAggregate">
                             <span i18n>Expand variants</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
                         </p>
                         <p class="extend clickable" (click)="closeAll()" *ngIf="group.open">
@@ -34,7 +34,10 @@
                         </p>
                     </div>
                     <div class="right">
-                        <div class="settings-icon clickable" [routerLink]="['group', group.group.ref, 'edit']">
+                        <div *ngIf="!group.isAggregate" class="settings-icon clickable" [routerLink]="['group', group.group.ref, 'edit']">
+                            <mat-icon>settings</mat-icon>
+                        </div>
+                        <div *ngIf="group.isAggregate" class="settings-icon clickable" [routerLink]="['group-aggregate', group.group.ref, 'edit']">
                             <mat-icon>settings</mat-icon>
                         </div>
                     </div>

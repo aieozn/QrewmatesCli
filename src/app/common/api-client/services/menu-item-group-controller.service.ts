@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { CreateGroupRequest } from '../models/create-group-request';
+import { MenuItemGroupAggregateData } from '../models/menu-item-group-aggregate-data';
 import { MenuItemGroupData } from '../models/menu-item-group-data';
 import { MenuItemGroupGet } from '../models/menu-item-group-get';
 import { StatusResponse } from '../models/status-response';
@@ -225,9 +225,61 @@ export class MenuItemGroupControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation putItemGroupAggregate
+   */
+  static readonly PutItemGroupAggregatePath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-group-aggregates/{menuItemGroupRef}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `putItemGroupAggregate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  putItemGroupAggregate$Response(params: {
+    restaurantRef: string;
+    menuItemGroupRef: string;
+    body: MenuItemGroupAggregateData
+  }): Observable<StrictHttpResponse<MenuItemGroupGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MenuItemGroupControllerService.PutItemGroupAggregatePath, 'put');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('menuItemGroupRef', params.menuItemGroupRef, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<MenuItemGroupGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `putItemGroupAggregate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  putItemGroupAggregate(params: {
+    restaurantRef: string;
+    menuItemGroupRef: string;
+    body: MenuItemGroupAggregateData
+  }): Observable<MenuItemGroupGet> {
+
+    return this.putItemGroupAggregate$Response(params).pipe(
+      map((r: StrictHttpResponse<MenuItemGroupGet>) => r.body as MenuItemGroupGet)
+    );
+  }
+
+  /**
    * Path part for operation postItemGroup
    */
-  static readonly PostItemGroupPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-groups';
+  static readonly PostItemGroupPath = '/api/staff/v1/restaurant/{restaurantRef}/menu-item-group-aggregates';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -237,7 +289,7 @@ export class MenuItemGroupControllerService extends BaseService {
    */
   postItemGroup$Response(params: {
     restaurantRef: string;
-    body: CreateGroupRequest
+    body: MenuItemGroupAggregateData
   }): Observable<StrictHttpResponse<MenuItemGroupGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, MenuItemGroupControllerService.PostItemGroupPath, 'post');
@@ -265,7 +317,7 @@ export class MenuItemGroupControllerService extends BaseService {
    */
   postItemGroup(params: {
     restaurantRef: string;
-    body: CreateGroupRequest
+    body: MenuItemGroupAggregateData
   }): Observable<MenuItemGroupGet> {
 
     return this.postItemGroup$Response(params).pipe(

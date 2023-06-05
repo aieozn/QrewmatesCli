@@ -89,6 +89,11 @@ const routes: Routes = [
         children: editGroupAggregateRoutes
       },
       {
+        path: 'group-aggregate/:menuItemGroupRef/edit',
+        component: EditItemGroupAggregateComponent,
+        children: editGroupAggregateRoutes
+      },
+      {
         path: 'group/:menuItemGroupRef/item/:menuItemRef/edit',
         component: EditItemComponent,
         children: editItemRoutes

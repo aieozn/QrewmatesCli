@@ -1,8 +1,8 @@
 <div id="menu">
     <h1 i18n>Restaurant categories</h1>
 
-    <div class="create-new clickable" routerLink="category/create"><p>+ Add new category</p></div>
-
+    <div class="create-new clickable box-shadow box-radius" routerLink="category/create"><p>+ Create new category</p></div>
+    
     <div id="menu-elements-list">
 
         <div *ngFor="let category of categories; let i = index" class="category-pane box-shadow box-radius">

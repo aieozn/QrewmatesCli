@@ -94,12 +94,26 @@ h1 {
 }
 
 .create-new {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    text-align: right;
+    background-color: #38A583;
+    padding: 12px;
+    margin-bottom: 40px;
 }
 
 .create-new p {
     font-family: PoppinsBold;
-    color: #c21d8e;
+    color: white;
+}
+
+.menu-element-name {
+    margin: 0px;
+    font-family: PoppinsBold;
+    font-size: 18px;
+    color: #272727;
+}
+
+.menu-element-description {
+    margin: 0px;
+    color: #777777;
+    font-size: 14px;
+    margin-top: 10px;
 }

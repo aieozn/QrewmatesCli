@@ -59,16 +59,21 @@ export class EditItemGroupAggregateComponent {
     if (activeItem === undefined) { throw 'Undefined item value'; }
 
     if (this.fullGroup !== undefined) {
-      // this.gorupService.pu({
-      //   restaurantRef: this.accountService.getRestaurantRef(),
-      //   menuItemRef: this.item.ref,
-      //   body: itemValue
-      // }).pipe(
-      //   tap(e => {
-      //     this.editorDialogService.onItemUpdated.next(e);
-      //     this.close()
-      //   })
-      // ).subscribe()
+      if (this.fullGroup?.menuItems.length !== 1) {
+        throw 'Updating colleciton as agregate not allowed'
+      }
+
+      this.gorupService.putItemGroupAggregate({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        menuItemGroupRef: this.fullGroup.ref,
+        body: {
+          item: activeItem,
+          group: activeGroup
+        }
+      }).pipe(
+        tap(e => this.editorDialogService.onItemGroupUpdated.next(e)),
+        tap(() => this.close())
+      ).subscribe();
     } else {
       this.gorupService.postItemGroup({
         restaurantRef: this.accountService.getRestaurantRef(),
