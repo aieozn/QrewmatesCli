@@ -1,0 +1,1 @@
+import './categories/edit-categories.cy'
