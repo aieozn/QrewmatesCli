@@ -42,8 +42,7 @@ export class EditItemComponent implements OnDestroy {
   }
 
   onSave() {
-    const itemValue = this.editItemService.itemData.getValue();
-    if (itemValue === undefined) { throw 'Undefined item value'; }
+    const itemValue = this.editItemService.getItemData();
 
     if (this.fullItem !== undefined) {
       this.itemService.putItem({
@@ -99,7 +98,7 @@ export class EditItemComponent implements OnDestroy {
         menuItemRef: itemRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.editItemService.itemData.next(e)),
+        tap(e => this.editItemService.updateItem(e)),
         tap(e => this.name = e.name),
         tap(e => this.fullItem = e)
       ).subscribe()
@@ -108,7 +107,7 @@ export class EditItemComponent implements OnDestroy {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: groupRef
       }).pipe(
-        tap(e => this.editItemService.itemData.next({
+        tap(e => this.editItemService.updateItem({
           allergens: [],
           name: '',
           price: 0,

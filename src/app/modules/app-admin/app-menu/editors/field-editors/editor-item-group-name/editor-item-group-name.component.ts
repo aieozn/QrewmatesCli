@@ -11,29 +11,40 @@ import { EditItemGroupService } from '../../edit-item-group/edit-item-group-serv
 export class EditorItemGroupNameComponent implements OnDestroy {
   private static readonly invalidItemGroupNameError = 'ITEM_MAIL_GROUP_INVALID_NAME';
 
-  itemGroupName : FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.maxLength(255)]);
+  nameField : FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.maxLength(255)]);
 
   private readonly onDestroy = new Subject<void>();
 
   constructor(private editItemGroupService: EditItemGroupService) {
-    this.itemGroupName.valueChanges.pipe(
-      tap(value => this.updateName(value)),
+    this.editItemGroupService.observeGroupData().pipe(
+      tap(e => this.loadName(e?.name)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+
+    this.nameField.valueChanges.pipe(
+      tap(() => this.onUpdateName()),
       takeUntil(this.onDestroy)
     ).subscribe();
   }
 
-  private updateName(value: string | null) {
-    const itemMailGroup = this.editItemGroupService.groupData.getValue()
-    if (!itemMailGroup) { throw 'Item not defined'; }
+  private loadName(name: string | undefined) {
+    this.nameField.setValue(name ? name : '');
+  }
 
-    if (this.itemGroupName.valid) {
+  private onUpdateName() {
+    const itemMailGroup = this.editItemGroupService.getGroupData()
+
+    if (this.nameField.valid) {
       this.editItemGroupService.removeError(EditorItemGroupNameComponent.invalidItemGroupNameError)
     } else {
       this.editItemGroupService.addError(EditorItemGroupNameComponent.invalidItemGroupNameError);
     }
 
-    itemMailGroup.name = value === null ? '' : value;
-    this.editItemGroupService.isUpdated.next(true);
+    
+    if (itemMailGroup.name != this.nameField.value) {
+      itemMailGroup.name = this.nameField.value === null ? '' : this.nameField.value;
+      this.editItemGroupService.updateGroup(itemMailGroup);
+    }
   }
 
   ngOnDestroy(): void {

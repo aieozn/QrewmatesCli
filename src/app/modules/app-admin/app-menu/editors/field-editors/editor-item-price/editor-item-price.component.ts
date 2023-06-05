@@ -42,8 +42,7 @@ export class EditorItemPriceComponent implements OnDestroy {
   }
 
   private updatePrice(value: string | null) {
-    const itemMail = this.editItemService.itemData.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData();
 
     if (this.itemPrice.valid) {
       this.editItemService.removeError(EditorItemPriceComponent.invalidItemPriceError)
@@ -53,6 +52,6 @@ export class EditorItemPriceComponent implements OnDestroy {
       itemMail.price = 0;
     }
 
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail);
   }
 }

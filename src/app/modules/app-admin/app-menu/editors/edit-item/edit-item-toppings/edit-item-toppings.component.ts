@@ -2,9 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemData, MenuItemDetailedGet, MenuItemToppingCollectionGet } from '@common/api-client/models';
 import { MenuItemToppingCollectionControllerService } from '@common/api-client/services';
-import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
+import { Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
-import { MenuItemExtendedData } from '../edit-item-service/menu-item-extended-data';
 
 @Component({
   selector: 'app-edit-item-toppings',
@@ -15,8 +14,6 @@ export class EditItemToppingsComponent implements OnDestroy {
   allCollections: MenuItemToppingCollectionGet[] = []
   checked: MenuItemToppingCollectionGet[] = [];
   notChecked: MenuItemToppingCollectionGet[] = [];
-
-  fullItem: BehaviorSubject<MenuItemExtendedData | undefined> = new BehaviorSubject<MenuItemExtendedData | undefined>(undefined);
   
   private readonly onDestroy = new Subject<void>();
 
@@ -25,10 +22,8 @@ export class EditItemToppingsComponent implements OnDestroy {
     accountService: AccountService,
     private editItemService: EditItemService
   ) {
-    this.fullItem = editItemService.itemData;
-
     combineLatest([
-      this.fullItem.pipe(
+      this.editItemService.observeItemData().pipe(
         filter(e => e !== undefined),
         map(e => e as MenuItemDetailedGet)
       ),
@@ -72,8 +67,7 @@ export class EditItemToppingsComponent implements OnDestroy {
   }
 
   select(collection: MenuItemToppingCollectionGet, selected: boolean) {
-    const itemMail = this.fullItem.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData()
 
     itemMail.toppingCollections = itemMail.toppingCollections.filter(e => e.ref !== collection.ref)
 
@@ -83,30 +77,28 @@ export class EditItemToppingsComponent implements OnDestroy {
 
     this.checkToppings(itemMail, this.allCollections)
 
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail)
   }
 
   moveUp(element: MenuItemToppingCollectionGet) {
-    const itemMail = this.fullItem.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData()
 
     const index = this.checked.indexOf(element)
     this.checked[index] = this.checked[index + 1]
     this.checked[index + 1] = element
 
     itemMail.toppingCollections = this.checked.slice()
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail)
   }
 
   moveDown(element: MenuItemToppingCollectionGet) {
-    const itemMail = this.fullItem.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData()
 
     const index = this.checked.indexOf(element)
     this.checked[index] = this.checked[index - 1]
     this.checked[index - 1] = element
 
     itemMail.toppingCollections = this.checked.slice()
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail)
   }
 }

@@ -42,10 +42,8 @@ export class EditItemGroupAggregateComponent {
   }
 
   onSave() {
-    const activeGroup = this.editItemGroupService.groupData.getValue();
-    const activeItem = this.editItemService.itemData.getValue();
-    if (activeGroup === undefined) { throw 'Undefined group value'; }
-    if (activeItem === undefined) { throw 'Undefined item value'; }
+    const activeGroup = this.editItemGroupService.getGroupData()
+    const activeItem = this.editItemService.getItemData()
 
     if (this.fullGroup !== undefined) {
       if (this.fullGroup?.menuItems.length !== 1) {
@@ -111,13 +109,13 @@ export class EditItemGroupAggregateComponent {
         menuItemGroupRef: groupRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.editItemGroupService.groupData.next(e)),
+        tap(e => this.editItemGroupService.updateGroup(e)),
         tap(e => this.loadItemDetails(e.menuItems[0].ref, e)),
         tap(e => this.name = e.name),
         tap(e => this.fullGroup = e)
       ).subscribe()
     } else {
-      this.editItemGroupService.groupData.next(this.emptyGroup)
+      this.editItemGroupService.updateGroup(this.emptyGroup)
       this.loadItemDetails(undefined, undefined)
     }
   }
@@ -140,10 +138,10 @@ export class EditItemGroupAggregateComponent {
         menuItemRef: itemRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.editItemService.itemData.next(e)),
+        tap(e => this.editItemService.updateItem(e)),
       ).subscribe()
     } else {
-      this.editItemService.itemData.next(emptyItem)
+      this.editItemService.updateItem(emptyItem)
     }
   }
 

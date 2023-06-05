@@ -1,8 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MultimediaControllerService } from '@common/api-client/services';
-import { BehaviorSubject, Subject, map, takeUntil, tap } from 'rxjs';
-import { MenuItemGroupData } from '@common/api-client/models';
+import { Subject, map, takeUntil, tap } from 'rxjs';
 import { EditItemGroupService } from '../../edit-item-group/edit-item-group-service/edit-item-group-service';
 
 @Component({
@@ -12,7 +11,6 @@ import { EditItemGroupService } from '../../edit-item-group/edit-item-group-serv
 })
 export class EditorItemGroupImageComponent implements OnDestroy {
   imageUrl : string | undefined;
-  groupData: BehaviorSubject<MenuItemGroupData | undefined> = new BehaviorSubject<MenuItemGroupData | undefined>(undefined);
   private readonly onDestroy = new Subject<void>();
 
   constructor(
@@ -20,9 +18,7 @@ export class EditorItemGroupImageComponent implements OnDestroy {
     private accountService: AccountService,
     private editGroupService: EditItemGroupService
   ) {
-    this.groupData = editGroupService.groupData;
-
-    this.groupData.pipe(
+    this.editGroupService.observeGroupData().pipe(
       map(e => e?.image?.ref as string | undefined),
       tap(e => this.imageUrl = e ? this.accountService.getMultimediaUrl(e) : undefined),
       takeUntil(this.onDestroy)
@@ -49,27 +45,23 @@ export class EditorItemGroupImageComponent implements OnDestroy {
             file: file
           }
         }).subscribe(uploadedImage => {
-          const itemGroup = this.groupData.getValue()
-          if (!itemGroup) { throw 'Item group not defined'; }
+          const itemGroup = this.editGroupService.getGroupData()
 
           itemGroup.image = {
             ref: uploadedImage.ref
           }
-          this.editGroupService.groupData.next(itemGroup);
-          this.editGroupService.isUpdated.next(true);
+          this.editGroupService.updateGroup(itemGroup);
         });
       }
     }
   }
 
   remove() {
-    const itemGroup = this.groupData.getValue()
-    if (!itemGroup) { throw 'Item group not defined'; }
+    const itemGroup = this.editGroupService.getGroupData();
 
     itemGroup.image = undefined;
     this.imageUrl = undefined;
-    this.editGroupService.groupData.next(itemGroup);
-    this.editGroupService.isUpdated.next(true);
+    this.editGroupService.updateGroup(itemGroup);
   }
 
   ngOnDestroy(): void {

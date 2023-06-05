@@ -23,7 +23,7 @@ export class EditorItemNameComponent implements OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe();
 
-    this.editItemService.itemData.pipe(
+    this.editItemService.observeItemData().pipe(
       tap(value => this.groupName = value?.menuItemGroupName),
       takeUntil(this.onDestroy)
     ).subscribe();
@@ -35,8 +35,7 @@ export class EditorItemNameComponent implements OnDestroy {
   }
 
   private updateName(value: string | null) {
-    const itemMail = this.editItemService.itemData.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData()
 
     if (this.itemName.valid) {
       this.editItemService.removeError(EditorItemNameComponent.invalidItemNameError)
@@ -45,7 +44,7 @@ export class EditorItemNameComponent implements OnDestroy {
     }
 
     itemMail.name = value === null ? '' : value;
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail)
   }
 
   ngOnDestroy(): void {

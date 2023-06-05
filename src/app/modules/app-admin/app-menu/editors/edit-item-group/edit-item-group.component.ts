@@ -45,23 +45,15 @@ export class EditItemGroupComponent implements OnDestroy {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: menuItemGroupRef
       }).pipe(
-        tap(e => this.editItemGroupService.groupData.next(e)),
+        tap(e => this.editItemGroupService.updateGroup(e)),
+        tap(e => this.group = JSON.parse(JSON.stringify(e))),
       ).subscribe()
     }
   }
 
-  isValid(): boolean {
-    return this.editItemGroupService.isValid.getValue();
-  }
-
-  isUpdated(): boolean {
-    return this.editItemGroupService.isUpdated.getValue();
-  }
-
   onSave() {
     if (this.group !== undefined) {
-      const data = this.editItemGroupService.groupData.getValue();
-      if (data === undefined) { throw 'Group data is not defined'; }
+      const data = this.editItemGroupService.getGroupData()
   
       this.menuItemGroupService.putItemGroup({
         restaurantRef: this.accountService.getRestaurantRef(),

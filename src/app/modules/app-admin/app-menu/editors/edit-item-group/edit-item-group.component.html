@@ -9,4 +9,4 @@
     </div>
 </div>
 
-<app-submit-bar [saveEnabled]="isValid() && isUpdated()" [deleteEnabled]="group !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+<app-submit-bar [saveEnabled]="(editItemGroupService.valid() && editItemGroupService.updated() | async) === true" [deleteEnabled]="group !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>

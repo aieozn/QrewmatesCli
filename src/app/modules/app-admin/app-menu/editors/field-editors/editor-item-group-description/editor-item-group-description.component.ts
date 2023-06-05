@@ -24,8 +24,7 @@ export class EditorItemGroupDescriptionComponent implements OnDestroy {
   }
 
   private updateDescription(value: string | null) {
-    const itemMailGroup = this.editItemGroupService.groupData.getValue()
-    if (!itemMailGroup) { throw 'Item not defined'; }
+    const itemMailGroup = this.editItemGroupService.getGroupData()
 
     if (this.itemGroupDescription.valid) {
       this.editItemGroupService.removeError(EditorItemGroupDescriptionComponent.invalidItemGroupDescriptionError)
@@ -34,7 +33,7 @@ export class EditorItemGroupDescriptionComponent implements OnDestroy {
     }
 
     itemMailGroup.description = value === null ? '' : value;
-    this.editItemGroupService.isUpdated.next(true)
+    this.editItemGroupService.updateGroup(itemMailGroup)
   }
 
   ngOnDestroy(): void {

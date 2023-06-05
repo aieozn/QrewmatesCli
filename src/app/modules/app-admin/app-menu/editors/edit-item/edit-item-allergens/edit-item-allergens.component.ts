@@ -2,9 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { AllergenGet, MenuItemDetailedGet } from '@common/api-client/models';
 import { AllergenControllerService } from '@common/api-client/services';
-import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap, } from 'rxjs';
+import { Subject, combineLatest, filter, map, takeUntil, tap, } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
-import { MenuItemExtendedData } from '../edit-item-service/menu-item-extended-data';
 
 @Component({
   selector: 'app-edit-item-allergens',
@@ -17,8 +16,6 @@ export class EditItemAllergensComponent implements OnDestroy {
     value: AllergenGet,
     checked: boolean
   }[] | undefined;
-
-  fullItem: BehaviorSubject<MenuItemExtendedData | undefined> = new BehaviorSubject<MenuItemExtendedData | undefined>(undefined);
   private readonly onDestroy = new Subject<void>();
 
   constructor(
@@ -26,11 +23,8 @@ export class EditItemAllergensComponent implements OnDestroy {
     private accountService: AccountService,
     private editItemService: EditItemService
   ) {
-    this.fullItem = editItemService.itemData;
-
-
     combineLatest([
-      this.fullItem.pipe(
+      this.editItemService.observeItemData().pipe(
         filter(e => e !== undefined),
         map(e => e as MenuItemDetailedGet)
       ),
@@ -64,14 +58,13 @@ export class EditItemAllergensComponent implements OnDestroy {
   }
 
   select(allergen: AllergenGet, selected: boolean) {
-    const itemMail = this.fullItem.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData()
 
     itemMail.allergens = itemMail.allergens.filter(e => e.ref !== allergen.ref)
     if (selected) {
       itemMail.allergens.push(allergen)
     }
 
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail)
   }
 }

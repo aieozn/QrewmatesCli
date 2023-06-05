@@ -2,9 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemData, MenuItemDetailedGet, MenuItemSelectCollectionGet } from '@common/api-client/models';
 import { MenuItemSelectCollectionControllerService } from '@common/api-client/services';
-import { BehaviorSubject, Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
+import { Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
-import { MenuItemExtendedData } from '../edit-item-service/menu-item-extended-data';
 
 @Component({
   selector: 'app-edit-item-selects',
@@ -15,8 +14,6 @@ export class EditItemSelectsComponent implements OnDestroy {
   allCollections: MenuItemSelectCollectionGet[] = []
   checked: MenuItemSelectCollectionGet[] = [];
   notChecked: MenuItemSelectCollectionGet[] = [];
-
-  fullItem: BehaviorSubject<MenuItemExtendedData | undefined> = new BehaviorSubject<MenuItemExtendedData | undefined>(undefined);
   
   private readonly onDestroy = new Subject<void>();
 
@@ -25,10 +22,9 @@ export class EditItemSelectsComponent implements OnDestroy {
     accountService: AccountService,
     private editItemService: EditItemService
   ) {
-    this.fullItem = editItemService.itemData;
 
     combineLatest([
-      this.fullItem.pipe(
+      this.editItemService.observeItemData().pipe(
         filter(e => e !== undefined),
         map(e => e as MenuItemDetailedGet)
       ),
@@ -72,8 +68,7 @@ export class EditItemSelectsComponent implements OnDestroy {
   }
 
   select(collection: MenuItemSelectCollectionGet, selected: boolean) {
-    const itemMail = this.fullItem.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData()
 
     itemMail.selectCollections = itemMail.selectCollections.filter(e => e.ref !== collection.ref)
 
@@ -82,31 +77,29 @@ export class EditItemSelectsComponent implements OnDestroy {
     }
 
     this.checkSelects(itemMail, this.allCollections)
-
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail)
   }
 
   moveUp(element: MenuItemSelectCollectionGet) {
-    const itemMail = this.fullItem.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData()
 
     const index = this.checked.indexOf(element)
     this.checked[index] = this.checked[index + 1]
     this.checked[index + 1] = element
 
     itemMail.selectCollections = this.checked.slice()
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail)
   }
 
   moveDown(element: MenuItemSelectCollectionGet) {
-    const itemMail = this.fullItem.getValue()
-    if (!itemMail) { throw 'Item not defined'; }
+    const itemMail = this.editItemService.getItemData()
+
 
     const index = this.checked.indexOf(element)
     this.checked[index] = this.checked[index - 1]
     this.checked[index - 1] = element
 
     itemMail.selectCollections = this.checked.slice()
-    this.editItemService.isUpdated.next(true)
+    this.editItemService.updateItem(itemMail)
   }
 }
