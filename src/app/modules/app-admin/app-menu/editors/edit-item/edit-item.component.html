@@ -30,4 +30,9 @@
 
 <app-submit-bar
     [saveEnabled]="((editItemService.valid() | async) && (editItemService.updated() | async)) === true"
-    [deleteEnabled]="fullItem !== undefined" (onClose)="close()" (onSave)="onSave()" (onDelete)="onDelete()"></app-submit-bar>
+    [deleteEnabled]="fullItem !== undefined"
+    (onClose)="close()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()"
+    (onTrySave)="editItemService.onSaveTry.next()">
+</app-submit-bar>

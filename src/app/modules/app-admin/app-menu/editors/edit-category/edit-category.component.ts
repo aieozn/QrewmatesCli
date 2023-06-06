@@ -5,7 +5,8 @@ import { MenuCategoryData, MenuCategoryGet } from '@common/api-client/models';
 import { MenuCategoryControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
+import { Trimers } from '../../trimmer/trimmers';
 
 @Component({
   selector: 'app-edit-category',
@@ -18,7 +19,6 @@ export class EditCategoryComponent {
 
   emptyCategory = {
     description: '',
-    elementOrder: 99999,
     name: ''
   };
   activeCategory: MenuCategoryData = this.emptyCategory;
@@ -50,7 +50,11 @@ export class EditCategoryComponent {
         categoryRef: categoryRef
       }).pipe(
         tap(category => this.loadCategoryFieldsValues(category)),
-        tap(category => this.detailsLink = ['/admin/menu/category/', category.ref])
+        tap(category => this.detailsLink = ['/admin/menu/category/', category.ref]),
+        catchError(() => {
+          this.close()
+          throw 'Failed to load category detials'
+        })
       ).subscribe()
     }
   }
@@ -83,7 +87,7 @@ export class EditCategoryComponent {
       this.categoryService.putCategory({
         restaurantRef: this.accountService.getRestaurantRef(),
         categoryRef: this.category.ref,
-        body: this.activeCategory
+        body: Trimers.trimCategoryData(this.activeCategory)
       }).subscribe(saved => {
         this.editDialogService.onCategoryUpdated.next(saved);
         this.close();
@@ -91,12 +95,17 @@ export class EditCategoryComponent {
     } else {
       this.categoryService.postCategory({
         restaurantRef: this.accountService.getRestaurantRef(),
-        body: this.activeCategory
+        body: Trimers.trimCategoryData(this.activeCategory)
       }).subscribe(saved => {
         this.editDialogService.onCategoryCreated.next(saved);
         this.close();
       })
     }
+  }
+
+  onTrySave() {
+    this.categoryFields.categoryName.markAllAsTouched();
+    this.categoryFields.categoryDescription.markAllAsTouched();
   }
 
   onDelete() {

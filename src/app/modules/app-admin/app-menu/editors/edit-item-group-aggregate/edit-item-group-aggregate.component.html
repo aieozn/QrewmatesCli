@@ -33,5 +33,6 @@
     [deleteEnabled]="fullGroup !== undefined"
     (onClose)="close()"
     (onSave)="onSave()"
-    (onDelete)="onDelete()">
+    (onDelete)="onDelete()"
+    (onTrySave)="editItemGroupService.onSaveTry.next(); editItemService.onSaveTry.next()">
 </app-submit-bar>

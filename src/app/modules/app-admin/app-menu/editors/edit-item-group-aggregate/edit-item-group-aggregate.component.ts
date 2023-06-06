@@ -29,7 +29,7 @@ export class EditItemGroupAggregateComponent {
     private router: Router,
     private route: ActivatedRoute,
     protected editItemGroupService: EditItemGroupService,
-    private editItemService: EditItemService,
+    protected editItemService: EditItemService,
     private editorDialogService: EditorDialogService
   ) {
     this.editItemGroupService.clearErrors();

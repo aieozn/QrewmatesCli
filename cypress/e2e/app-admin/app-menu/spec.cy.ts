@@ -1,1 +1,2 @@
-import './categories/edit-categories.cy'
+import './categories.cy'
+import './groups.cy'
