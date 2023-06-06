@@ -33,6 +33,7 @@ export class EditItemAllergensComponent implements OnDestroy {
       })
     ]).pipe(
       tap(([item, allergens]) => {
+        console.log([item, allergens])
         this.checkAllergens(item, allergens)
       }),
       takeUntil(this.onDestroy)

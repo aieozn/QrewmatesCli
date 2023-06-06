@@ -51,11 +51,13 @@ export class EditorItemPriceComponent implements OnDestroy {
   }
   
   private loadPrice(value: number) {
-    this.priceField.setValue(value.toString())
+    this.priceField.setValue(value ? value.toString() : '')
   }
 
   private updatePrice(value: string | null) {
     const itemMail = this.editItemService.getItemData();
+
+    console.log(value)
 
     if (this.priceField.valid) {
       this.editItemService.removeError(EditorItemPriceComponent.invalidItemPriceError)

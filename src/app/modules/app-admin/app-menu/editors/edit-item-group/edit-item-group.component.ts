@@ -4,8 +4,9 @@ import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, tap } from 'rxjs';
+import { Subject, catchError, tap } from 'rxjs';
 import { EditItemGroupService } from './edit-item-group-service/edit-item-group-service';
+import { Trimers } from '../../trimmer/trimmers';
 
 @Component({
   selector: 'app-edit-item-group',
@@ -47,6 +48,10 @@ export class EditItemGroupComponent implements OnDestroy {
       }).pipe(
         tap(e => this.editItemGroupService.updateGroup(e)),
         tap(e => this.group = JSON.parse(JSON.stringify(e))),
+        catchError(() => {
+          this.close();
+          throw 'Failed to load group details'
+        })
       ).subscribe()
     }
   }
@@ -58,7 +63,7 @@ export class EditItemGroupComponent implements OnDestroy {
       this.menuItemGroupService.putItemGroup({
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: this.group.ref,
-        body: data
+        body: Trimers.trimGroupData(data)
       }).subscribe(saved => {
         this.editDialogService.onItemGroupUpdated.next(saved);
         this.close()

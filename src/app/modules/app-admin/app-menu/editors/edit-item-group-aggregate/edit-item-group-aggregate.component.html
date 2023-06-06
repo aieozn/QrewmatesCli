@@ -7,19 +7,19 @@
     <div id="item-tabs">
         <div class="tab clickable" routerLink="toppings" routerLinkActive="active">
             <mat-icon>add_circle</mat-icon>
-            <span i18n>Dodatki</span>
+            <span i18n>Toppings</span>
         </div>
         <div class="tab clickable" routerLink="selects" routerLinkActive="active">
             <mat-icon>check_circle</mat-icon>
-            <span i18n>Obieralne</span>
+            <span i18n>Selects</span>
         </div>
         <div class="tab clickable" routerLink="allergens" routerLinkActive="active">
             <mat-icon>info</mat-icon>
-            <span i18n>Alergeny</span>
+            <span i18n>Allergens</span>
         </div>
         <div class="tab clickable" routerLink="settings" routerLinkActive="active">
             <mat-icon>settings</mat-icon>
-            <span i18n>Edytuj</span>
+            <span i18n>Edit</span>
         </div>
     </div>
 </div>
@@ -29,7 +29,7 @@
 </div>
 
 <app-submit-bar 
-    [saveEnabled]="((editItemGroupService.valid() | async) && (editItemGroupService.updated() | async)) === true"
+    [saveEnabled]="((editItemGroupService.valid() | async) && (editItemService.updated() | async)) === true"
     [deleteEnabled]="fullGroup !== undefined"
     (onClose)="close()"
     (onSave)="onSave()"

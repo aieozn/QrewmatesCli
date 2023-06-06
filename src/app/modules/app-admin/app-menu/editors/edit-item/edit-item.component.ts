@@ -6,6 +6,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemService } from './edit-item-service/edit-item.service';
 import { EditorDialogService } from '../editor-dialog.service';
+import { Trimers } from '../../trimmer/trimmers';
 
 @Component({
   selector: 'app-edit-item',
@@ -46,7 +47,7 @@ export class EditItemComponent implements OnDestroy {
       this.itemService.putItem({
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemRef: this.fullItem.ref,
-        body: itemValue
+        body: Trimers.trimMenuItemData(itemValue)
       }).pipe(
         tap(e => {
           this.editorDialogService.onItemUpdated.next(e);
@@ -56,7 +57,7 @@ export class EditItemComponent implements OnDestroy {
     } else {
       this.itemService.postItem({
         restaurantRef: this.accountService.getRestaurantRef(),
-        body: itemValue
+        body: Trimers.trimMenuItemData(itemValue)
       }).pipe(
         tap(e => {
           this.editorDialogService.onItemCreated.next(e);

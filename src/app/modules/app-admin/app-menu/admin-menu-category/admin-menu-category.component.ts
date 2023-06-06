@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Subject, catchError, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuCategoryGet, MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuCategoryControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editors/editor-dialog.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu-category',
@@ -27,7 +27,8 @@ export class AdminMenuCategoryComponent implements OnDestroy {
     private itemGroupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private categoryService: MenuCategoryControllerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.editorDialogService.onItemGroupUpdated.pipe(
       takeUntil(this.onDestroy)
@@ -112,6 +113,10 @@ export class AdminMenuCategoryComponent implements OnDestroy {
             open: this.isGroupOpen(group)
           })
         }
+      }),
+      catchError(() => {
+        this.router.navigate(['/admin/menu/categories'])
+        throw 'Failed to load category detials'
       })
     ).subscribe();
   }

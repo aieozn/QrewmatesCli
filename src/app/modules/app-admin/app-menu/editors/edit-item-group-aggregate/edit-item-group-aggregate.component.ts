@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Subject, catchError, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editor-dialog.service';
 import { EditItemGroupService } from '../edit-item-group/edit-item-group-service/edit-item-group-service';
 import { EditItemService } from '../edit-item/edit-item-service/edit-item.service';
+import { Trimers } from '../../trimmer/trimmers';
 
 @Component({
   selector: 'app-edit-item-group-aggregate',
@@ -54,8 +55,8 @@ export class EditItemGroupAggregateComponent {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: this.fullGroup.ref,
         body: {
-          item: activeItem,
-          group: activeGroup
+          item: Trimers.trimLinkedItem(activeItem),
+          group: Trimers.trimGroupData(activeGroup)
         }
       }).pipe(
         tap(e => this.editorDialogService.onItemGroupUpdated.next(e)),
@@ -65,8 +66,8 @@ export class EditItemGroupAggregateComponent {
       this.gorupService.postItemGroup({
         restaurantRef: this.accountService.getRestaurantRef(),
         body: {
-          group: activeGroup,
-          item: activeItem
+          group: Trimers.trimGroupData(activeGroup),
+          item: Trimers.trimLinkedItem(activeItem)
         }
       }).pipe(
         tap(e => {
@@ -108,11 +109,15 @@ export class EditItemGroupAggregateComponent {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: groupRef
       }).pipe(
-        takeUntil(this.onDestroy),
         tap(e => this.editItemGroupService.updateGroup(e)),
         tap(e => this.loadItemDetails(e.menuItems[0].ref, e)),
         tap(e => this.name = e.name),
-        tap(e => this.fullGroup = e)
+        tap(e => this.fullGroup = e),
+        catchError(() => {
+          this.close();
+          throw 'Failed to load group details'
+        }),
+        takeUntil(this.onDestroy)
       ).subscribe()
     } else {
       this.editItemGroupService.updateGroup(this.emptyGroup)

@@ -21,3 +21,9 @@
     margin-top: 20px;
     column-count: 5;
 }
+
+@media screen and (max-width: 1200px) {
+    #allergens-list {
+        column-count: 3;
+    }
+}

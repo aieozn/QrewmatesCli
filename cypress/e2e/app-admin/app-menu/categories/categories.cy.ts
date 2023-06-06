@@ -1,4 +1,4 @@
-import { clearMenuForEmpty, createCategory, loginAsAdmin } from "../utils/utils";
+import { clearMenuForEmpty, createCategory, loginAsAdmin } from "../../utils/utils";
 
 describe('Edit categories', () => {
     beforeEach(() => {

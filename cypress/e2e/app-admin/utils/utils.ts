@@ -8,13 +8,13 @@ export function loginAsAdmin() {
 
     cy.location('pathname').should('eq', '/login/select-organization')
 
-    cy.get('h2').contains('Empty').click()
+    cy.get('h2').contains('Kebab King').click()
 }
 
 export function clearMenuForEmpty() {
     return getUserToken('root@email.com', 'root').then(token => cy.request({
             method: 'DELETE',
-            url: '/api/staff/v1/restaurant/R0EMPTY00000/menu',
+            url: '/api/staff/v1/restaurant/R0KING000000/menu',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                 "Authorization": "Bearer " + token

@@ -14,7 +14,7 @@
                         <mat-checkbox checked="true" (change)="select(collection, $event.checked)"></mat-checkbox>
                     </div>
                     <div class="name-field">
-                        {{ collection.name }}
+                        {{ collection.description ? collection.description : collection.name }}
                     </div>
                 </div>
                 
@@ -30,7 +30,7 @@
                         <mat-checkbox checked="false" (change)="select(collection, $event.checked)"></mat-checkbox>
                     </div>
                     <div class="name-field">
-                        {{ collection.name }}
+                        {{ collection.description ? collection.description : collection.name }}
                     </div>
                 </div>
                 
