@@ -1,11 +1,16 @@
-<div id="edit-element">
+<div id="edit-element" class="box-shadow-bottom">
     <p id="element-name" *ngIf="category !== undefined"><span i18n>Category</span>: <b>{{ category.name }}</b></p>
     <p id="element-name" *ngIf="category === undefined"><span i18n>Create new category</span></p>
 
     <p id="help-text" i18n>Edit fields below and save changes</p>
-    <div id="editors">
-        <app-editor-category-name class="editor" [name]="categoryFields.categoryName"></app-editor-category-name>
-        <app-editor-category-description class="editor" [desciprion]="categoryFields.categoryDescription"></app-editor-category-description>
+</div>
+
+<div id="controls">
+    <div id="edit-element">
+        <div id="field-editors">
+            <app-editor-category-name class="field-editor" [name]="categoryFields.categoryName"></app-editor-category-name>
+            <app-editor-category-description class="field-editor" [desciprion]="categoryFields.categoryDescription"></app-editor-category-description>
+        </div>
     </div>
 </div>
 

@@ -1,4 +1,4 @@
-<div id="edit-element">
+<div id="edit-element" class="box-shadow-bottom">
     <p id="element-name" *ngIf="fullGroup !== undefined"><span i18n>Option</span>: <b>{{ name }}</b></p>
     <p id="element-name" *ngIf="fullGroup === undefined"><span i18n>Create new dish</span></p>
 
@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div id="editor">
+<div id="controls">
     <router-outlet></router-outlet>
 </div>
 

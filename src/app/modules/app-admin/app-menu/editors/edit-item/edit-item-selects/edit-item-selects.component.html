@@ -8,7 +8,7 @@
                 <mat-icon (click)="moveDown(collection)" *ngIf="i != 0" class="top">keyboard_arrow_up</mat-icon>
                 <mat-icon (click)="moveUp(collection)" *ngIf="i + 1 != checked.length" class="bottom">keyboard_arrow_down</mat-icon>
             </div>
-            <div class="collection">
+            <div class="collection checked">
                 <div class="collection-description">
                     <div class="checkbox-field">
                         <mat-checkbox checked="true" (change)="select(collection, $event.checked)"></mat-checkbox>

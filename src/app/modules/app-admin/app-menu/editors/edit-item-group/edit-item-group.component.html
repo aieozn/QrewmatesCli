@@ -1,12 +1,17 @@
-<div id="edit-element">
+<div id="edit-element" class="box-shadow-bottom">
     <p id="element-name" *ngIf="group !== undefined"><span i18n>Dish</span>: <b>{{ group.name }}</b></p>
     <p id="element-name" *ngIf="group === undefined"><span i18n>Create new dish</span></p>
 
     <p id="help-text" i18n>Edit fields below and save changes</p>
-    <div id="editors">
-        <app-editor-item-group-name class="editor"></app-editor-item-group-name>
-        <app-editor-item-group-description class="editor"></app-editor-item-group-description>
-        <app-editor-item-group-image class="editor"></app-editor-item-group-image>
+</div>
+
+<div id="controls">
+    <div id="edit-element">
+        <div id="field-editors">
+            <app-editor-item-group-name class="field-editor"></app-editor-item-group-name>
+            <app-editor-item-group-description class="field-editor"></app-editor-item-group-description>
+            <app-editor-item-group-image class="field-editor"></app-editor-item-group-image>
+        </div>
     </div>
 </div>
 

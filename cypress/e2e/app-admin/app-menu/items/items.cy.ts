@@ -1,4 +1,4 @@
-import { assertItemOrder, clearMenuForEmpty, createCategory, createGroupAggregate, createGroupOption, editGroupItem, extendAggregate, goToSelects, goToToppings, groupContainsVariant, loginAsAdmin, moveItemCollectionDown, moveItemCollectionUp, moveItemDown, moveItemUp, openGroupItem, openItemSettings, verifyItem } from "../../utils/utils"
+import { assertItemOrder, clearMenuForEmpty, createCategory, createGroupAggregate, createGroupOption, editGroupItem, extendAggregate, getGroupByName, goToSelects, goToToppings, groupContainsVariant, loginAsAdmin, moveItemCollectionDown, moveItemCollectionUp, moveItemDown, moveItemUp, openGroupItem, openItemSettings, verifyItem } from "../../utils/utils"
 
 describe('Edit categories', () => {
     beforeEach(() => {
@@ -10,12 +10,46 @@ describe('Edit categories', () => {
         cy.get('.extend').click()
     })
 
-    it('Creates variant', () => {
+    it('Create variant', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New option', 14.99, [], [], [])
 
         groupContainsVariant('New dish', 'New dish: New option', '14.99')
+    })
+
+    it('Delete variant', () => {
+        createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
+
+        extendAggregate('New dish', 'New option', 14.99, [], [], [])
+
+        getGroupByName('New dish').find('.extend').contains('Expand variants')
+
+        openGroupItem('New dish', 'New option')
+
+        cy.get('.remove-button').click()
+
+        cy.on('window:confirm', () => true)
+        cy.reload();
+
+        getGroupByName('New dish').find('.extend').contains('Create a variant')
+    })
+
+    it.only('Delete variant when more than two', () => {
+        createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
+
+        extendAggregate('New dish', 'New option 1', 14.99, [], [], [])
+        createGroupOption('New dish', 'New item 2', 15.99, [], [], [])
+
+        openGroupItem('New dish', 'New item 2')
+        cy.get('.menu-element.item').should('have.length', 3)
+
+        cy.get('.remove-button').click()
+        cy.on('window:confirm', () => true)
+        cy.reload();
+
+        getGroupByName('New dish').find('.extend').click()
+        cy.get('.menu-element.item').should('have.length', 2)
     })
 
     it('Variant is copy of group', () => {
