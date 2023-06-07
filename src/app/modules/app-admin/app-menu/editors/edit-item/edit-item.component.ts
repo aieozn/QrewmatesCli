@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { MenuItemData, MenuItemDetailedGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Subject, catchError, switchMap, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemService } from './edit-item-service/edit-item.service';
 import { EditorDialogService } from '../editor-dialog.service';
@@ -20,6 +20,7 @@ export class EditItemComponent implements OnDestroy {
 
   private readonly onDestroy = new Subject<void>();
   private categoryRef: string
+  private groupRef: string
   // Data fetched from server, available only in edit mode
   fullItem: MenuItemDetailedGet | undefined;
 
@@ -33,6 +34,7 @@ export class EditItemComponent implements OnDestroy {
     private editorDialogService: EditorDialogService
   ) {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
+    this.groupRef = this.route.parent!.snapshot.paramMap.get('menuItemGroupRef')!;
 
     this.route.params.pipe(
       tap(params => this.loadItemDetails(params['menuItemRef'], params['menuItemGroupRef'])),
@@ -106,15 +108,23 @@ export class EditItemComponent implements OnDestroy {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: groupRef
       }).pipe(
-        tap(e => this.editItemService.updateItem({
-          allergens: [],
-          name: '',
-          price: 0,
-          selectCollections: [],
-          toppingCollections: [],
-          available: true,
+        switchMap(group => this.itemService.getItemDetails({
+          restaurantRef: this.accountService.getRestaurantRef(),
+          menuItemRef: group.menuItems[0].ref
+        })),
+        catchError(() => {
+          this.close()
+          throw 'Failed to load category details'
+        }),
+        tap(firstGroupElement => this.editItemService.updateItem({
+          allergens: firstGroupElement.allergens,
+          name: firstGroupElement.name,
+          price: firstGroupElement.price,
+          selectCollections: firstGroupElement.selectCollections,
+          toppingCollections: firstGroupElement.toppingCollections,
+          available: firstGroupElement.available,
           menuItemGroupRef: groupRef,
-          menuItemGroupName: e.name
+          menuItemGroupName: firstGroupElement.menuItemGroupName
         }))
       ).subscribe();
     }

@@ -104,7 +104,7 @@ describe('Edit categories', () => {
         cy.get('.menu-element-description').contains('Updated description')
     })
 
-    it('Moves category up', () => {
+    it('Move category up', () => {
         createCategory('New category 1', 'Category description')
         createCategory('New category 2', 'Category description')
         createCategory('New category 3', 'Category description')
@@ -124,7 +124,7 @@ describe('Edit categories', () => {
         cy.get('.menu-element-name').eq(3).contains('New category 4')
     })
 
-    it('Moves category down', () => {
+    it('Move category down', () => {
         createCategory('New category 1', 'Category description')
         createCategory('New category 2', 'Category description')
         createCategory('New category 3', 'Category description')
@@ -144,7 +144,7 @@ describe('Edit categories', () => {
         cy.get('.menu-element-name').eq(3).contains('New category 4')
     })
 
-    it('Reloads editor', () => {
+    it('Reload editor', () => {
         createCategory('New category 1', 'Category description 1')
         createCategory('New category 2', undefined)
         
@@ -159,7 +159,7 @@ describe('Edit categories', () => {
         cy.get('.cancel-button').click()
     })
 
-    it('Goes to details', () => {
+    it('Go to details', () => {
         createCategory('New category 1', 'Category description 1')
         cy.get('.extend').click()
         cy.get('h1').contains('Category: New category 1')

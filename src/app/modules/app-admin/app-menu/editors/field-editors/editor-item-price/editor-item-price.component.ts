@@ -35,7 +35,7 @@ export class EditorItemPriceComponent implements OnDestroy {
     ).subscribe();
 
     this.priceField.valueChanges.pipe(
-      tap(value => this.updatePrice(value)),
+      tap(() => this.updatePrice()),
       takeUntil(this.onDestroy)
     ).subscribe();
 
@@ -52,20 +52,24 @@ export class EditorItemPriceComponent implements OnDestroy {
   
   private loadPrice(value: number) {
     this.priceField.setValue(value ? value.toString() : '')
+    this.submitErrors()
   }
 
-  private updatePrice(value: string | null) {
+  private updatePrice() {
     const itemMail = this.editItemService.getItemData();
-
-    console.log(value)
+    this.submitErrors()
 
     if (this.priceField.valid) {
-      this.editItemService.removeError(EditorItemPriceComponent.invalidItemPriceError)
-
       if (itemMail.price.toString() != this.priceField.value) {
-        itemMail.price = value == null ? 0 : Number(value);
+        itemMail.price = this.priceField.value == null ? 0 : Number(this.priceField.value);
         this.editItemService.updateItem(itemMail);
       }
+    }
+  }
+
+  private submitErrors() {
+    if (this.priceField.valid) {
+      this.editItemService.removeError(EditorItemPriceComponent.invalidItemPriceError)
     } else {
       this.editItemService.addError(EditorItemPriceComponent.invalidItemPriceError);
     }

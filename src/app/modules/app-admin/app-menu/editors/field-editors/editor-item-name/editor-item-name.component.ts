@@ -37,17 +37,21 @@ export class EditorItemNameComponent implements OnDestroy {
 
   private loadName(name: string | undefined) {
     this.nameField.setValue(name ? name : '');
+    this.submitErrors();
   }
 
-  private onUpdateName() {
-    const itemMailData = this.editItemService.getItemData()
-
+  submitErrors() {
     if (this.nameField.valid) {
       this.editItemService.removeError(EditorItemNameComponent.invalidItemNameError)
     } else {
       this.editItemService.addError(EditorItemNameComponent.invalidItemNameError);
     }
+  }
 
+  private onUpdateName() {
+    const itemMailData = this.editItemService.getItemData()
+
+    this.submitErrors();
     
     if (itemMailData.name != this.nameField.value) {
       itemMailData.name = this.nameField.value === null ? '' : this.nameField.value;

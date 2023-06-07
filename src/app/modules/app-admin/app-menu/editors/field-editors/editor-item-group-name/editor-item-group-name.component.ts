@@ -34,21 +34,24 @@ export class EditorItemGroupNameComponent implements OnDestroy {
 
   private loadName(name: string | undefined) {
     this.nameField.setValue(name ? name : '');
+    this.submitErrors();
   }
 
   private onUpdateName() {
     const itemMailGroup = this.editItemGroupService.getGroupData()
+    this.submitErrors();
 
+    if (itemMailGroup.name != this.nameField.value) {
+      itemMailGroup.name = this.nameField.value === null ? '' : this.nameField.value;
+      this.editItemGroupService.updateGroup(itemMailGroup);
+    }
+  }
+
+  private submitErrors() {
     if (this.nameField.valid) {
       this.editItemGroupService.removeError(EditorItemGroupNameComponent.invalidItemGroupNameError)
     } else {
       this.editItemGroupService.addError(EditorItemGroupNameComponent.invalidItemGroupNameError);
-    }
-
-    
-    if (itemMailGroup.name != this.nameField.value) {
-      itemMailGroup.name = this.nameField.value === null ? '' : this.nameField.value;
-      this.editItemGroupService.updateGroup(itemMailGroup);
     }
   }
 

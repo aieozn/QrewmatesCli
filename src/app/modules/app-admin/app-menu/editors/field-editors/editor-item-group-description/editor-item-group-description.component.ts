@@ -37,20 +37,25 @@ export class EditorItemGroupDescriptionComponent implements OnDestroy {
 
   private loadDescription(data: MenuItemGroupData | undefined) {
     this.itemGroupDescription.setValue(data?.description ? data.description : '')
+    this.submitErrors();
   }
 
   private updateDescription() {
     const itemMailGroup = this.editItemGroupService.getGroupData()
 
-    if (this.itemGroupDescription.valid) {
-      this.editItemGroupService.removeError(EditorItemGroupDescriptionComponent.invalidItemGroupDescriptionError)
-    } else {
-      this.editItemGroupService.addError(EditorItemGroupDescriptionComponent.invalidItemGroupDescriptionError);
-    }
+    this.submitErrors();
 
     if (itemMailGroup.description != this.itemGroupDescription.value) {
       itemMailGroup.description = this.itemGroupDescription.value === null ? '' : this.itemGroupDescription.value;
       this.editItemGroupService.updateGroup(itemMailGroup);
+    }
+  }
+
+  private submitErrors() {
+    if (this.itemGroupDescription.valid) {
+      this.editItemGroupService.removeError(EditorItemGroupDescriptionComponent.invalidItemGroupDescriptionError)
+    } else {
+      this.editItemGroupService.addError(EditorItemGroupDescriptionComponent.invalidItemGroupDescriptionError);
     }
   }
 
