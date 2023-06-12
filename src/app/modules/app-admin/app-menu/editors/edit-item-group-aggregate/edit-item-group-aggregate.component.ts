@@ -25,6 +25,7 @@ export class EditItemGroupAggregateComponent {
   fullGroup: MenuItemGroupGet | undefined;
 
   isUpdated: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isValid: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private gorupService: MenuItemGroupControllerService,
@@ -52,6 +53,16 @@ export class EditItemGroupAggregateComponent {
     ]).pipe(
       tap(([a, b, c]) => {
         this.isUpdated.next(a || b || c)
+      }), 
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
+    combineLatest([
+      this.editItemService.valid(),
+      this.editItemGroupService.valid()
+    ]).pipe(
+      tap(([a, b]) => {
+        this.isValid.next(a && b)
       }), 
       takeUntil(this.onDestroy)
     ).subscribe();
@@ -148,6 +159,7 @@ export class EditItemGroupAggregateComponent {
       }).pipe(
         takeUntil(this.onDestroy),
         tap(e => this.editItemService.clearWithValue(e)),
+        tap(e => this.editAllergensService.clearWithValue(e.allergens)),
       ).subscribe()
     } else {
       this.editItemService.clear(group)

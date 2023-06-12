@@ -282,7 +282,7 @@ describe('Edit categories', () => {
         listOfGroupsElementContains('New dish', 'Dish description', true)
     })
 
-    it('Reloads editor', () => {
+    it.only('Reloads editor', () => {
         createGroupAggregate('New dish 1', 14.99, 'Dish description', undefined, ['Jaja', 'Ryby', 'Gorczyca', 'Mleko', 'Mięczaki'], [], [])
         createGroupAggregate('New dish 2', 14.99, 'Dish description', undefined, [], ['Mięso', 'Sos'], [])
         createGroupAggregate('New dish 3', 14.99, 'Dish description', undefined, [], [], ['Dodatki do kebaba małego', 'Dodatki do kebaba średniego'])

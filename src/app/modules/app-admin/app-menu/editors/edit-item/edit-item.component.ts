@@ -148,9 +148,7 @@ export class EditItemComponent implements OnDestroy {
           menuItemGroupRef: groupRef,
           menuItemGroupName: firstGroupElement.menuItemGroupName
         })),
-        tap(() => {
-          this.editAllergensService.clear();
-        })
+        tap(firstGroupElement => this.editAllergensService.clearWithValue(firstGroupElement.allergens))
       ).subscribe();
     }
   }

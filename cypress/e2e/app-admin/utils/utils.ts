@@ -335,7 +335,7 @@ export function createGroupOption(
     toppings: string[]
 ) {
     getGroupByName(groupName).find('.extend').contains('Expand variants').click()
-    cy.get('.create-new').contains('Add new option').click()
+    cy.get('.create-new').contains('Create new option').click()
     createVariant(name, price, allergens, selects, toppings)
 }
 
