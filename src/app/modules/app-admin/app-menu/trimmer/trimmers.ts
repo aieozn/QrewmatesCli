@@ -41,6 +41,10 @@ export class Trimers {
         }
     }
 
+    static trimRefList(data: IdentifiedByRefData[]) : IdentifiedByRefData[] {
+        return data.map(e => this.trimRef(e));
+    }
+
     static trimRef(data: IdentifiedByRefData) : IdentifiedByRefData {
         return {
             ref: data.ref

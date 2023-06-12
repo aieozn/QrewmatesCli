@@ -43,7 +43,7 @@ export class EditorItemGroupNameComponent implements OnDestroy {
 
     if (itemMailGroup.name != this.nameField.value) {
       itemMailGroup.name = this.nameField.value === null ? '' : this.nameField.value;
-      this.editItemGroupService.updateGroup(itemMailGroup);
+      this.editItemGroupService.update(itemMailGroup);
     }
   }
 

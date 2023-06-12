@@ -15,7 +15,6 @@ import { ElementEditorDirective } from './elementEditorDirective';
 import { EditItemComponent } from './editors/edit-item/edit-item.component';
 import { EditItemToppingsComponent } from './editors/edit-item/edit-item-toppings/edit-item-toppings.component';
 import { EditItemSelectsComponent } from './editors/edit-item/edit-item-selects/edit-item-selects.component';
-import { EditItemAllergensComponent } from './editors/edit-item/edit-item-allergens/edit-item-allergens.component';
 import { EditItemSettingsComponent } from './editors/edit-item/edit-item-settings/edit-item-settings.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdminMenuCategoriesComponent } from './admin-menu-categories/admin-menu-categories.component';
@@ -32,6 +31,8 @@ import { EditorFormTextComponent } from './editors/field-editors/editor-form-tex
 import { AdminMenuSelectCollectionsComponent } from './admin-menu-select-collections/admin-menu-select-collections.component';
 import { AdminMenuSelectCollectionComponent } from './admin-menu-select-collection/admin-menu-select-collection.component';
 import { EditSelectCollectionComponent } from './editors/edit-select-collection/edit-select-collection.component';
+import { EditSelectComponent } from './editors/edit-select/edit-select.component';
+import { EditAllergensComponent } from './editors/edit-allergens/edit-allergens.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { EditSelectCollectionComponent } from './editors/edit-select-collection/
     EditItemComponent,
     EditItemToppingsComponent,
     EditItemSelectsComponent,
-    EditItemAllergensComponent,
+    EditAllergenComponent,
     EditItemSettingsComponent,
     AdminMenuCategoriesComponent,
     AdminMenuCategoryComponent,
@@ -55,11 +56,12 @@ import { EditSelectCollectionComponent } from './editors/edit-select-collection/
     EditItemGroupAggregateSettingsComponent,
     EditorItemGroupImageComponent,
     AdminMenuAllergensComponent,
-    EditAllergenComponent,
     EditorFormTextComponent,
     AdminMenuSelectCollectionsComponent,
     AdminMenuSelectCollectionComponent,
-    EditSelectCollectionComponent
+    EditSelectCollectionComponent,
+    EditSelectComponent,
+    EditAllergensComponent
   ],
   imports: [
     CommonModule,

@@ -62,7 +62,7 @@ export class EditorItemPriceComponent implements OnDestroy {
     if (this.priceField.valid) {
       if (itemMail.price.toString() != this.priceField.value) {
         itemMail.price = this.priceField.value == null ? 0 : Number(this.priceField.value);
-        this.editItemService.updateItem(itemMail);
+        this.editItemService.update(itemMail);
       }
     }
   }

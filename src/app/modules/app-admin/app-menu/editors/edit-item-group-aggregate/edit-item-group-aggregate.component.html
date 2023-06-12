@@ -29,7 +29,7 @@
 </div>
 
 <app-submit-bar 
-    [saveEnabled]="((editItemGroupService.valid() | async) && (editItemService.updated() | async)) === true"
+    [saveEnabled]="((editItemGroupService.valid() | async) && (isUpdated | async)) === true"
     [deleteEnabled]="fullGroup !== undefined"
     (onClose)="close()"
     (onSave)="onSave()"

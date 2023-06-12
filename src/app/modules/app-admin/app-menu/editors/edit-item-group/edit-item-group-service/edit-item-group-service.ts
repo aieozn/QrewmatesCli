@@ -30,12 +30,23 @@ export class EditItemGroupService {
         this.isValid.next(true);
     }
 
-    public updateGroup(group: MenuItemGroupData) {
-        if (this.groupData.getValue() !== undefined) {
-            this.isUpdated.next(true);
-        }
-        
+    public clearWithValue(group: MenuItemGroupData) {
+        this.isUpdated.next(false);
         this.groupData.next(group);
+    }
+
+    public update(group: MenuItemGroupData) {
+        this.isUpdated.next(true);
+        this.groupData.next(group);
+    }
+
+    public clear(categoryRef: string) {
+        this.isUpdated.next(false);
+        this.groupData.next({
+            available: true,
+            name: '',
+            categoryRef: categoryRef
+        });
     }
 
     public observeGroupData(): Observable<MenuItemGroupData | undefined> {

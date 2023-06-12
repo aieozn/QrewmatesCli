@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuItemData, MenuItemDetailedGet, MenuItemToppingCollectionGet } from '@common/api-client/models';
+import { IdentifiedByRefData, MenuItemDetailedGet, MenuItemToppingCollectionGet } from '@common/api-client/models';
 import { MenuItemToppingCollectionControllerService } from '@common/api-client/services';
 import { Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
@@ -44,7 +44,9 @@ export class EditItemToppingsComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  checkToppings(item: MenuItemData, collections: MenuItemToppingCollectionGet[]) {
+  checkToppings(item: {
+    toppingCollections: IdentifiedByRefData[]
+  }, collections: MenuItemToppingCollectionGet[]) {
     this.checked = [];
     this.notChecked = [];
 
@@ -77,7 +79,7 @@ export class EditItemToppingsComponent implements OnDestroy {
 
     this.checkToppings(itemMail, this.allCollections)
 
-    this.editItemService.updateItem(itemMail)
+    this.editItemService.update(itemMail)
   }
 
   moveUp(element: MenuItemToppingCollectionGet) {
@@ -88,7 +90,7 @@ export class EditItemToppingsComponent implements OnDestroy {
     this.checked[index + 1] = element
 
     itemMail.toppingCollections = this.checked.slice()
-    this.editItemService.updateItem(itemMail)
+    this.editItemService.update(itemMail)
   }
 
   moveDown(element: MenuItemToppingCollectionGet) {
@@ -99,6 +101,6 @@ export class EditItemToppingsComponent implements OnDestroy {
     this.checked[index - 1] = element
 
     itemMail.toppingCollections = this.checked.slice()
-    this.editItemService.updateItem(itemMail)
+    this.editItemService.update(itemMail)
   }
 }

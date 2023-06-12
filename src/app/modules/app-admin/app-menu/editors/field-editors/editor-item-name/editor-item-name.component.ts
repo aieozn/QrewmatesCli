@@ -55,7 +55,7 @@ export class EditorItemNameComponent implements OnDestroy {
     
     if (itemMailData.name != this.nameField.value) {
       itemMailData.name = this.nameField.value === null ? '' : this.nameField.value;
-      this.editItemService.updateItem(itemMailData);
+      this.editItemService.update(itemMailData);
     }
   }
 

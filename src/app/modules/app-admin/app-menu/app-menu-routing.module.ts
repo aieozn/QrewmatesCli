@@ -5,7 +5,6 @@ import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-cat
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
 import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
 import { EditItemComponent } from './editors/edit-item/edit-item.component';
-import { EditItemAllergensComponent } from './editors/edit-item/edit-item-allergens/edit-item-allergens.component';
 import { EditItemSelectsComponent } from './editors/edit-item/edit-item-selects/edit-item-selects.component';
 import { EditItemToppingsComponent } from './editors/edit-item/edit-item-toppings/edit-item-toppings.component';
 import { EditItemSettingsComponent } from './editors/edit-item/edit-item-settings/edit-item-settings.component';
@@ -15,6 +14,7 @@ import { AdminMenuAllergensComponent } from './admin-menu-allergens/admin-menu-a
 import { EditAllergenComponent } from './editors/edit-allergen/edit-allergen.component';
 import { AdminMenuSelectCollectionsComponent } from './admin-menu-select-collections/admin-menu-select-collections.component';
 import { EditSelectCollectionComponent } from './editors/edit-select-collection/edit-select-collection.component';
+import { EditAllergensComponent } from './editors/edit-allergens/edit-allergens.component';
 
 const editItemRoutes: Routes = [
   {
@@ -24,7 +24,7 @@ const editItemRoutes: Routes = [
   },
   {
     path: 'allergens',
-    component: EditItemAllergensComponent
+    component: EditAllergensComponent
   },
   {
     path: 'selects',
@@ -48,7 +48,7 @@ const editGroupAggregateRoutes: Routes = [
   },
   {
     path: 'allergens',
-    component: EditItemAllergensComponent
+    component: EditAllergensComponent
   },
   {
     path: 'selects',

@@ -2,11 +2,12 @@ import { Component, OnDestroy } from '@angular/core';
 import { MenuItemData, MenuItemDetailedGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { Subject, catchError, switchMap, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, catchError, switchMap, takeUntil, tap, combineLatest} from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemService } from './edit-item-service/edit-item.service';
 import { EditorDialogService } from '../editor-dialog.service';
 import { Trimers } from '../../trimmer/trimmers';
+import { EditAllergensService } from '../edit-allergens/edit-allergens-service/edit-allergens.service';
 
 @Component({
   selector: 'app-edit-item',
@@ -24,12 +25,15 @@ export class EditItemComponent implements OnDestroy {
   // Data fetched from server, available only in edit mode
   fullItem: MenuItemDetailedGet | undefined;
 
+  isUpdated: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(
     private itemService: MenuItemControllerService,
     private accountService: AccountService,
     private router: Router,
     private route: ActivatedRoute,
     protected editItemService: EditItemService,
+    protected editAllergensService: EditAllergensService,
     private editGroupService: MenuItemGroupControllerService,
     private editorDialogService: EditorDialogService
   ) {
@@ -40,16 +44,31 @@ export class EditItemComponent implements OnDestroy {
       tap(params => this.loadItemDetails(params['menuItemRef'], params['menuItemGroupRef'])),
       takeUntil(this.onDestroy)
     ).subscribe();
+
+
+    combineLatest([
+      this.editItemService.updated(),
+      this.editAllergensService.updated()
+    ]).pipe(
+      tap(([a, b]) => {
+        this.isUpdated.next(a || b)
+      }), 
+      takeUntil(this.onDestroy)
+    ).subscribe();
   }
 
   onSave() {
     const itemValue = this.editItemService.getItemData();
+    const allergens = this.editAllergensService.getAllergensData()
 
     if (this.fullItem !== undefined) {
       this.itemService.putItem({
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemRef: this.fullItem.ref,
-        body: Trimers.trimMenuItemData(itemValue)
+        body: Trimers.trimMenuItemData({
+          ...itemValue,
+          allergens: allergens
+        })
       }).pipe(
         tap(e => {
           this.editorDialogService.onItemUpdated.next(e);
@@ -59,7 +78,10 @@ export class EditItemComponent implements OnDestroy {
     } else {
       this.itemService.postItem({
         restaurantRef: this.accountService.getRestaurantRef(),
-        body: Trimers.trimMenuItemData(itemValue)
+        body: Trimers.trimMenuItemData({
+          ...itemValue,
+          allergens: allergens
+        })
       }).pipe(
         tap(e => {
           this.editorDialogService.onItemCreated.next(e);
@@ -99,7 +121,8 @@ export class EditItemComponent implements OnDestroy {
         menuItemRef: itemRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.editItemService.updateItem(e)),
+        tap(e => this.editItemService.clearWithValue(e)),
+        tap(e => this.editAllergensService.clearWithValue(e.allergens)),
         tap(e => this.name = e.name),
         tap(e => this.fullItem = e)
       ).subscribe()
@@ -116,16 +139,18 @@ export class EditItemComponent implements OnDestroy {
           this.close()
           throw 'Failed to load category details'
         }),
-        tap(firstGroupElement => this.editItemService.updateItem({
-          allergens: firstGroupElement.allergens,
+        tap(firstGroupElement => this.editItemService.clearWithValue({
           name: firstGroupElement.name,
           price: firstGroupElement.price,
-          selectCollections: firstGroupElement.selectCollections,
-          toppingCollections: firstGroupElement.toppingCollections,
+          selectCollections: Trimers.trimRefList(firstGroupElement.selectCollections),
+          toppingCollections: Trimers.trimRefList(firstGroupElement.toppingCollections),
           available: firstGroupElement.available,
           menuItemGroupRef: groupRef,
           menuItemGroupName: firstGroupElement.menuItemGroupName
-        }))
+        })),
+        tap(() => {
+          this.editAllergensService.clear();
+        })
       ).subscribe();
     }
   }

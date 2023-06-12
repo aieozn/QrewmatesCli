@@ -50,7 +50,7 @@ export class EditorItemGroupImageComponent implements OnDestroy {
           itemGroup.image = {
             ref: uploadedImage.ref
           }
-          this.editGroupService.updateGroup(itemGroup);
+          this.editGroupService.update(itemGroup);
         });
       }
     }
@@ -61,7 +61,7 @@ export class EditorItemGroupImageComponent implements OnDestroy {
 
     itemGroup.image = undefined;
     this.imageUrl = undefined;
-    this.editGroupService.updateGroup(itemGroup);
+    this.editGroupService.update(itemGroup);
   }
 
   ngOnDestroy(): void {

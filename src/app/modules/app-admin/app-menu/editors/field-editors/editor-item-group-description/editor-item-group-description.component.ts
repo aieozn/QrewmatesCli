@@ -47,7 +47,7 @@ export class EditorItemGroupDescriptionComponent implements OnDestroy {
 
     if (itemMailGroup.description != this.itemGroupDescription.value) {
       itemMailGroup.description = this.itemGroupDescription.value === null ? '' : this.itemGroupDescription.value;
-      this.editItemGroupService.updateGroup(itemMailGroup);
+      this.editItemGroupService.update(itemMailGroup);
     }
   }
 

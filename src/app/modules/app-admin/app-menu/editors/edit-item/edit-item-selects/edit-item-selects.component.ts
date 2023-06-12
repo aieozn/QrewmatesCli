@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuItemData, MenuItemDetailedGet, MenuItemSelectCollectionGet } from '@common/api-client/models';
+import { IdentifiedByRefData, MenuItemDetailedGet, MenuItemSelectCollectionGet } from '@common/api-client/models';
 import { MenuItemSelectCollectionControllerService } from '@common/api-client/services';
 import { Subject, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
 import { EditItemService } from '../edit-item-service/edit-item.service';
@@ -45,7 +45,9 @@ export class EditItemSelectsComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  checkSelects(item: MenuItemData, collections: MenuItemSelectCollectionGet[]) {
+  checkSelects(item: {
+    selectCollections: IdentifiedByRefData[]
+  }, collections: MenuItemSelectCollectionGet[]) {
     this.checked = [];
     this.notChecked = [];
 
@@ -77,7 +79,7 @@ export class EditItemSelectsComponent implements OnDestroy {
     }
 
     this.checkSelects(itemMail, this.allCollections)
-    this.editItemService.updateItem(itemMail)
+    this.editItemService.update(itemMail)
   }
 
   moveUp(element: MenuItemSelectCollectionGet) {
@@ -88,7 +90,7 @@ export class EditItemSelectsComponent implements OnDestroy {
     this.checked[index + 1] = element
 
     itemMail.selectCollections = this.checked.slice()
-    this.editItemService.updateItem(itemMail)
+    this.editItemService.update(itemMail)
   }
 
   moveDown(element: MenuItemSelectCollectionGet) {
@@ -100,6 +102,6 @@ export class EditItemSelectsComponent implements OnDestroy {
     this.checked[index - 1] = element
 
     itemMail.selectCollections = this.checked.slice()
-    this.editItemService.updateItem(itemMail)
+    this.editItemService.update(itemMail)
   }
 }

@@ -47,13 +47,15 @@ export class EditItemGroupComponent implements OnDestroy {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: menuItemGroupRef
       }).pipe(
-        tap(e => this.editItemGroupService.updateGroup(e)),
+        tap(e => this.editItemGroupService.clearWithValue(e)),
         tap(e => this.group = JSON.parse(JSON.stringify(e))),
         catchError(() => {
           this.close();
           throw 'Failed to load group details'
         })
       ).subscribe()
+    } else {
+      this.editItemGroupService.clear(this.categoryRef)
     }
   }
 

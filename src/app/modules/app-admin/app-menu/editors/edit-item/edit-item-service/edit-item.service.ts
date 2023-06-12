@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MenuItemExtendedData } from './menu-item-extended-data';
+import { MenuItemGroupGet } from '@common/api-client/models';
 
 @Injectable({
   providedIn: 'root'
@@ -42,13 +43,26 @@ export class EditItemService {
     }
   }
 
-  public updateItem(data: MenuItemExtendedData) {
-    if (this.itemData.getValue() !== undefined) {
-      this.isUpdated.next(true);
-    }
-
-    console.log(data)
+  public update(data: MenuItemExtendedData) {
+    this.isUpdated.next(true);
     this.itemData.next(data);
+  }
+
+  public clearWithValue(data: MenuItemExtendedData) {
+    this.isUpdated.next(false);
+    this.itemData.next(data);
+  }
+
+  public clear(group: MenuItemGroupGet | undefined) {
+    this.itemData.next({
+      name: '',
+      price: 0,
+      selectCollections: [],
+      toppingCollections: [],
+      available: true,
+      menuItemGroupRef: group ? group.ref : '',
+      menuItemGroupName: group ? group.name : ''
+    });
   }
 
   public valid(): Observable<boolean> {

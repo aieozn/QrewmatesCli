@@ -29,7 +29,7 @@
 </div>
 
 <app-submit-bar
-    [saveEnabled]="((editItemService.valid() | async) && (editItemService.updated() | async)) === true"
+    [saveEnabled]="((editItemService.valid() | async) && (isUpdated | async)) === true"
     [deleteEnabled]="fullItem !== undefined"
     (onClose)="close()"
     (onSave)="onSave()"

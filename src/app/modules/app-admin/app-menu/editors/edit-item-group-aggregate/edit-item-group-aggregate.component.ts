@@ -3,11 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
-import { Subject, catchError, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, catchError, combineLatest, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editor-dialog.service';
 import { EditItemGroupService } from '../edit-item-group/edit-item-group-service/edit-item-group-service';
 import { EditItemService } from '../edit-item/edit-item-service/edit-item.service';
 import { Trimers } from '../../trimmer/trimmers';
+import { EditAllergensService } from '../edit-allergens/edit-allergens-service/edit-allergens.service';
 
 @Component({
   selector: 'app-edit-item-group-aggregate',
@@ -23,6 +24,8 @@ export class EditItemGroupAggregateComponent {
   // Data fetched from server, available only in edit mode
   fullGroup: MenuItemGroupGet | undefined;
 
+  isUpdated: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(
     private gorupService: MenuItemGroupControllerService,
     private itemService: MenuItemControllerService,
@@ -31,13 +34,25 @@ export class EditItemGroupAggregateComponent {
     private route: ActivatedRoute,
     protected editItemGroupService: EditItemGroupService,
     protected editItemService: EditItemService,
-    private editorDialogService: EditorDialogService
+    private editorDialogService: EditorDialogService,
+    private editAllergensService: EditAllergensService
   ) {
     this.editItemGroupService.clearErrors();
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
 
     this.route.params.pipe(
       tap(params => this.loadGroupDetails(params['menuItemGroupRef'])),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
+    combineLatest([
+      this.editItemService.updated(),
+      this.editItemGroupService.updated(),
+      this.editAllergensService.updated()
+    ]).pipe(
+      tap(([a, b, c]) => {
+        this.isUpdated.next(a || b || c)
+      }), 
       takeUntil(this.onDestroy)
     ).subscribe();
   }
@@ -55,7 +70,10 @@ export class EditItemGroupAggregateComponent {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: this.fullGroup.ref,
         body: {
-          item: Trimers.trimLinkedItem(activeItem),
+          item: Trimers.trimLinkedItem({
+            ...activeItem,
+            allergens: this.editAllergensService.getAllergensData()
+          }),
           group: Trimers.trimGroupData(activeGroup)
         }
       }).pipe(
@@ -67,7 +85,10 @@ export class EditItemGroupAggregateComponent {
         restaurantRef: this.accountService.getRestaurantRef(),
         body: {
           group: Trimers.trimGroupData(activeGroup),
-          item: Trimers.trimLinkedItem(activeItem)
+          item: Trimers.trimLinkedItem({
+            ...activeItem,
+            allergens: this.editAllergensService.getAllergensData()
+          })
         }
       }).pipe(
         tap(e => {
@@ -98,18 +119,12 @@ export class EditItemGroupAggregateComponent {
   }
 
   loadGroupDetails(groupRef: string | undefined) {
-    this.emptyGroup = {
-      available: true,
-      name: '',
-      categoryRef: this.categoryRef
-    };
-
     if (groupRef !== undefined) {
       this.gorupService.getItemGroupDetails({
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemGroupRef: groupRef
       }).pipe(
-        tap(e => this.editItemGroupService.updateGroup(e)),
+        tap(e => this.editItemGroupService.clearWithValue(e)),
         tap(e => this.loadItemDetails(e.menuItems[0].ref, e)),
         tap(e => this.name = e.name),
         tap(e => this.fullGroup = e),
@@ -120,33 +135,23 @@ export class EditItemGroupAggregateComponent {
         takeUntil(this.onDestroy)
       ).subscribe()
     } else {
-      this.editItemGroupService.updateGroup(this.emptyGroup)
+      this.editItemGroupService.clear(this.categoryRef)
       this.loadItemDetails(undefined, undefined)
     }
   }
 
   loadItemDetails(itemRef: string | undefined, group: MenuItemGroupGet | undefined) {
-    const emptyItem = {
-      allergens: [],
-      name: '',
-      price: 0,
-      selectCollections: [],
-      toppingCollections: [],
-      available: true,
-      menuItemGroupRef: group ? group.ref : '',
-      menuItemGroupName: group ? group.name : ''
-    };
-
     if (itemRef !== undefined) {
       this.itemService.getItemDetails({
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemRef: itemRef
       }).pipe(
         takeUntil(this.onDestroy),
-        tap(e => this.editItemService.updateItem(e)),
+        tap(e => this.editItemService.clearWithValue(e)),
       ).subscribe()
     } else {
-      this.editItemService.updateItem(emptyItem)
+      this.editItemService.clear(group)
+      this.editAllergensService.clear()
     }
   }
 
