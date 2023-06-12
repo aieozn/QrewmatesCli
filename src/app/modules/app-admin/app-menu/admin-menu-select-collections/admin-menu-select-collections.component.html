@@ -3,7 +3,7 @@
         <span i18n>Selects</span>
     </h1>
 
-    <div class="create-new clickable box-shadow box-radius" routerLink="create"><p>+ Create new collection</p></div>
+    <div class="create-new clickable box-shadow box-radius" [routerLink]="['create']" routerLink="create"><p>+ Create new collection</p></div>
 
     <div id="menu-elements-list">
         <div *ngFor="let collection of collections">

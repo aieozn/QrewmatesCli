@@ -2,7 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemSelectCollectionGet } from '@common/api-client/models';
 import { MenuItemSelectCollectionControllerService } from '@common/api-client/services';
-import { Subject, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({
   selector: 'app-admin-menu-selects',
@@ -18,7 +19,8 @@ export class AdminMenuSelectCollectionsComponent implements OnDestroy {
 
   constructor(
     private selectsCollectionService: MenuItemSelectCollectionControllerService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private editorDialogService: EditorDialogService
   ) {
     selectsCollectionService.getSelectCollections({
       restaurantRef: accountService.getRestaurantRef()
@@ -28,6 +30,40 @@ export class AdminMenuSelectCollectionsComponent implements OnDestroy {
         collection: e
       })))
     ).subscribe()
+
+    this.editorDialogService.onSelectCollectionCreated.pipe(
+      tap(e => {
+        this.collections.push({
+          open: false,
+          collection: e
+        })
+
+        this.sortCollections();
+      }),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
+    this.editorDialogService.onSelectCollectionUpdated.pipe(
+      tap(e => this.onCollecitonUpdate(e)),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
+    this.editorDialogService.onSelectCollectionDeleted.pipe(
+      tap(deleted => this.collections = this.collections.filter(collection => collection.collection.ref !== deleted)),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+  }
+
+  onCollecitonUpdate(updated: MenuItemSelectCollectionGet) {
+    for (let i = 0; i < this.collections.length; i++) {
+      const existingCollection = this.collections[i].collection;
+      if (existingCollection.ref === updated.ref) {
+        this.collections[i].collection = updated;
+        break;
+      }
+    }
+
+    this.sortCollections()
   }
 
   ngOnDestroy(): void {
@@ -44,5 +80,9 @@ export class AdminMenuSelectCollectionsComponent implements OnDestroy {
     for (const collection of this.collections) {
       collection.open = false;
     }
+  }
+
+  private sortCollections() {
+    this.collections.sort((a, b) => a.collection.name.localeCompare(b.collection.name))
   }
 }

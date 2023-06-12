@@ -14,6 +14,7 @@ import { EditItemGroupAggregateComponent } from './editors/edit-item-group-aggre
 import { AdminMenuAllergensComponent } from './admin-menu-allergens/admin-menu-allergens.component';
 import { EditAllergenComponent } from './editors/edit-allergen/edit-allergen.component';
 import { AdminMenuSelectCollectionsComponent } from './admin-menu-select-collections/admin-menu-select-collections.component';
+import { EditSelectCollectionComponent } from './editors/edit-select-collection/edit-select-collection.component';
 
 const editItemRoutes: Routes = [
   {
@@ -94,7 +95,17 @@ const routes: Routes = [
   },
   {
     path: 'select-collections',
-    component: AdminMenuSelectCollectionsComponent
+    component: AdminMenuSelectCollectionsComponent,
+    children: [
+      {
+        path: ':selectCollectionRef/edit',
+        component: EditSelectCollectionComponent
+      },
+      {
+        path: 'create',
+        component: EditSelectCollectionComponent
+      }
+    ]
   },
   {
     path: 'category/:categoryRef',
