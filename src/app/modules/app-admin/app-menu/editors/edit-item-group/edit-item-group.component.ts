@@ -4,7 +4,7 @@ import { MenuItemGroupData, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, catchError, tap } from 'rxjs';
+import { Subject, catchError, takeUntil, tap } from 'rxjs';
 import { EditItemGroupService } from './edit-item-group-service/edit-item-group-service';
 import { Trimers } from '../../trimmer/trimmers';
 
@@ -35,9 +35,10 @@ export class EditItemGroupComponent implements OnDestroy {
       name: ''
     }
 
-    this.route.params.subscribe(params => {
-      this.initComponent(params['menuItemGroupRef'])
-    })
+    this.route.params.pipe(
+      tap(params => this.initComponent(params['menuItemGroupRef'])),
+      takeUntil(this.onDestroy)
+    ).subscribe()
   }
 
   private initComponent(menuItemGroupRef: string | undefined) {

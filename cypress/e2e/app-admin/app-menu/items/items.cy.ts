@@ -1,8 +1,8 @@
-import { assertItemOrder, clearMenuForEmpty, createCategory, createGroupAggregate, createGroupOption, editGroupItem, extendAggregate, getGroupByName, goToSelects, goToToppings, groupContainsVariant, loginAsAdmin, moveItemCollectionDown, moveItemCollectionUp, moveItemDown, moveItemUp, openGroupItem, openItemSettings, verifyItem } from "../../utils/utils"
+import { assertItemOrder, flushKebebKing, createCategory, createGroupAggregate, createGroupOption, editGroupItem, extendAggregate, getGroupByName, goToSelects, goToToppings, groupContainsVariant, loginAsAdmin, moveItemCollectionDown, moveItemCollectionUp, moveItemDown, moveItemUp, openGroupItem, openItemSettings, verifyItem } from "../../utils/utils"
 
 describe('Edit categories', () => {
     beforeEach(() => {
-        clearMenuForEmpty()
+        flushKebebKing()
         cy.session('login as admin: items', () => loginAsAdmin())
         cy.visit('/admin/menu/categories')
 
@@ -14,7 +14,6 @@ describe('Edit categories', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New option', 14.99, [], [], [])
-
         groupContainsVariant('New dish', 'New dish: New option', '14.99')
     })
 
@@ -35,7 +34,7 @@ describe('Edit categories', () => {
         getGroupByName('New dish').find('.extend').contains('Create a variant')
     })
 
-    it.only('Delete variant when more than two', () => {
+    it('Delete variant when more than two', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New option 1', 14.99, [], [], [])

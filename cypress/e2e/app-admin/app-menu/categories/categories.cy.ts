@@ -1,8 +1,8 @@
-import { clearMenuForEmpty, createCategory, loginAsAdmin } from "../../utils/utils";
+import { flushKebebKing, createCategory, loginAsAdmin } from "../../utils/utils";
 
 describe('Edit categories', () => {
     beforeEach(() => {
-        clearMenuForEmpty()
+        flushKebebKing()
         cy.session('login as admin: categories', () => loginAsAdmin())
         cy.visit('/admin/menu/categories')
     })
@@ -19,7 +19,11 @@ describe('Edit categories', () => {
     it('Creates category', () => {
         createCategory('New category', 'Category description')
 
-        cy.visit('/admin/menu/categories')
+        cy.get('.category-pane').should('have.length', 1)
+        cy.get('.menu-element-name').contains('New category')
+        cy.get('.menu-element-description').contains('Category description')
+
+        cy.reload()
 
         cy.get('.category-pane').should('have.length', 1)
         cy.get('.menu-element-name').contains('New category')
@@ -29,7 +33,11 @@ describe('Edit categories', () => {
     it('Creates category without description', () => {
         createCategory('New category', undefined)
 
-        cy.visit('/admin/menu/categories')
+        cy.get('.category-pane').should('have.length', 1)
+        cy.get('.menu-element-name').contains('New category')
+        cy.get('.menu-element-description').should('be.empty')
+
+        cy.reload()
 
         cy.get('.category-pane').should('have.length', 1)
         cy.get('.menu-element-name').contains('New category')
@@ -43,13 +51,13 @@ describe('Edit categories', () => {
         cy.get('.save-button').should('have.class', 'disabled')
         cy.get('.editor-box-title').contains('Category name').parent().find('mat-error').should('not.exist')
         cy.get('.save-button').click()
-        cy.get('.editor-box-title').contains('Category name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Category name').parent().find('mat-error').contains('Invalid value')
     
         // Empty after edit
         cy.get('.editor-box-title').contains('Category name').parent().find('input').click().type('abc')
         cy.get('.editor-box-title').contains('Category name').parent().find('mat-error').should('not.exist')
         cy.get('.editor-box-title').contains('Category name').parent().find('input').click().clear()
-        cy.get('.editor-box-title').contains('Category name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Category name').parent().find('mat-error').contains('Invalid value')
         cy.get('.save-button').should('have.class', 'disabled')
     })
 
@@ -62,6 +70,8 @@ describe('Edit categories', () => {
         cy.get('.remove-button').click();
 
         cy.on('window:confirm', () => true)
+
+        cy.get('.category-pane').should('have.length', 0)
         cy.visit('/admin/menu/categories')
         cy.get('.category-pane').should('have.length', 0)
     })
@@ -75,7 +85,8 @@ describe('Edit categories', () => {
         cy.get('.editor-box-title').contains('Category name').parent().find('input').click().clear().type('Updated category');
         cy.get('.save-button').click();
 
-        cy.visit('/admin/menu/categories')
+        cy.get('.menu-element-name').contains('Updated category')
+        cy.reload()
         cy.get('.menu-element-name').contains('Updated category')
     })
 

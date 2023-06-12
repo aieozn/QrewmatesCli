@@ -11,10 +11,22 @@ export function loginAsAdmin() {
     cy.get('h2').contains('Kebab King').click()
 }
 
-export function clearMenuForEmpty() {
+export function flushKebebKing() {
     return getUserToken('root@email.com', 'root').then(token => cy.request({
             method: 'DELETE',
             url: '/api/staff/v1/restaurant/R0KING000000/menu',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Authorization": "Bearer " + token
+            }
+        })
+    )
+}
+
+export function clearAllergensForEmpty() {
+    return getUserToken('root@email.com', 'root').then(token => cy.request({
+            method: 'DELETE',
+            url: '/api/staff/v1/restaurant/R0KING000000/allergens',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                 "Authorization": "Bearer " + token
@@ -32,6 +44,14 @@ export function createCategory(name: string, description: string | undefined) {
         cy.get('.editor-box-title').contains('Category description').parent().find('input').click({force: true}).type(description);
     }
     
+    cy.get('.save-button').click();
+}
+
+export function createAllergen(name: string, description: string) {
+    cy.visit('/admin/menu/allergens')
+    cy.get('.create').click()
+    cy.get('.editor-box-title').contains('Allergen name').parent().find('input').click().type(name);
+    cy.get('.editor-box-title').contains('Allergen description').parent().find('input').click({force: true}).type(description);
     cy.get('.save-button').click();
 }
 
@@ -104,7 +124,6 @@ export function updateGroupAggregate(
     cy.get('.save-button').click()
 
     cy.url().should('match', new RegExp('.*/category/.{12}$'))
-    cy.reload();
 }
 
 export function createVariant(

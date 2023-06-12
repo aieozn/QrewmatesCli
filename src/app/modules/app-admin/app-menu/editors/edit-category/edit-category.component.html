@@ -8,8 +8,8 @@
 <div id="controls">
     <div id="edit-element">
         <div id="field-editors">
-            <app-editor-category-name class="field-editor" [name]="categoryFields.categoryName"></app-editor-category-name>
-            <app-editor-category-description class="field-editor" [desciprion]="categoryFields.categoryDescription"></app-editor-category-description>
+            <app-editor-form-text class="field-editor" [control]="categoryFields.categoryName" i18-name name="Category name"></app-editor-form-text>
+            <app-editor-form-text class="field-editor" [control]="categoryFields.categoryDescription" i18-name name="Category description"></app-editor-form-text>
         </div>
     </div>
 </div>

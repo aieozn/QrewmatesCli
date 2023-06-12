@@ -11,6 +11,8 @@ import { EditItemToppingsComponent } from './editors/edit-item/edit-item-topping
 import { EditItemSettingsComponent } from './editors/edit-item/edit-item-settings/edit-item-settings.component';
 import { EditItemGroupAggregateSettingsComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate-settings/edit-item-group-aggregate-settings.component';
 import { EditItemGroupAggregateComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate.component';
+import { AdminMenuAllergensComponent } from './admin-menu-allergens/admin-menu-allergens.component';
+import { EditAllergenComponent } from './editors/edit-allergen/edit-allergen.component';
 
 const editItemRoutes: Routes = [
   {
@@ -72,6 +74,20 @@ const routes: Routes = [
       {
         path: 'category/create',
         component: EditCategoryComponent
+      }
+    ]
+  },
+  {
+    path: 'allergens',
+    component: AdminMenuAllergensComponent,
+    children: [
+      {
+        path: 'create',
+        component: EditAllergenComponent
+      },
+      {
+        path: ':ellergenRef/edit',
+        component: EditAllergenComponent
       }
     ]
   },

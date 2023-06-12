@@ -1,0 +1,23 @@
+<div id="menu">
+    <h1 i18n>Allergens</h1>
+
+
+    <div id="allergens">
+        <div class="allergen box-shadow box-radius" *ngFor="let allergen of allergens">
+            <p class="name">{{ allergen.name }}</p>
+            <p class="description">{{ allergen.description }}</p>
+
+            <p class="icon clickable" [routerLink]="[allergen.ref, 'edit']">
+                <mat-icon>settings</mat-icon>
+            </p>
+        </div>
+
+        <div class="allergen box-shadow box-radius create clickable" [routerLink]="['create']">
+            <mat-icon>add</mat-icon><p i18n>Create new</p>
+        </div>
+    </div>
+</div>
+
+<div id="floating-editor" class="box-shadow-top">
+    <router-outlet></router-outlet>
+</div>

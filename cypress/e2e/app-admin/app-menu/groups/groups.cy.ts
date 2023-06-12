@@ -1,8 +1,8 @@
-import { assertGroupOrder, clearMenuForEmpty, createCategory, createGroupAggregate, extendAggregate, goToSelects, goToToppings, listOfGroupsElementContains, loginAsAdmin, moveGroupDown, moveGroupUp, moveItemCollectionDown, moveItemCollectionUp, openGroupSettings, saveAndReloadGroupAggregate, updateGroupAggregate, verifyAggregate } from "../../utils/utils"
+import { assertGroupOrder, flushKebebKing, createCategory, createGroupAggregate, extendAggregate, goToSelects, goToToppings, listOfGroupsElementContains, loginAsAdmin, moveGroupDown, moveGroupUp, moveItemCollectionDown, moveItemCollectionUp, openGroupSettings, saveAndReloadGroupAggregate, updateGroupAggregate, verifyAggregate } from "../../utils/utils"
 
 describe('Edit categories', () => {
     beforeEach(() => {
-        clearMenuForEmpty()
+        flushKebebKing()
         cy.session('login as admin: groups', () => loginAsAdmin())
         cy.visit('/admin/menu/categories')
 
@@ -16,6 +16,8 @@ describe('Edit categories', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         listOfGroupsElementContains('New dish', 'Dish description', false)
+        cy.reload()
+        listOfGroupsElementContains('New dish', 'Dish description', false)
 
         openGroupSettings('New dish')
         verifyAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
@@ -24,11 +26,15 @@ describe('Edit categories', () => {
     it('Create group aggregate with image', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', 'cypress/fixtures/fries.jpeg', [], [], [])
         listOfGroupsElementContains('New dish', 'Dish description', true)
+        cy.reload()
+        listOfGroupsElementContains('New dish', 'Dish description', true)
     })
 
     it('Create group aggregate without description', () => {
         createGroupAggregate('New dish', 14.99, undefined, undefined, [], [], [])
 
+        listOfGroupsElementContains('New dish', undefined, false)
+        cy.reload()
         listOfGroupsElementContains('New dish', undefined, false)
 
         openGroupSettings('New dish')
@@ -127,7 +133,7 @@ describe('Edit categories', () => {
         assertGroupOrder('New dish 4', 3);
     })
 
-    it.only('delete group', () => {
+    it('delete group', () => {
         createGroupAggregate('New dish 1', 14.99, 'Dish description 1', undefined, [], [], [])
         createGroupAggregate('New dish 2', 24.99, 'Dish description 2', undefined, [], [], [])
         createGroupAggregate('New dish 3', 34.99, 'Dish description 3', undefined, [], [], [])
@@ -135,6 +141,10 @@ describe('Edit categories', () => {
         openGroupSettings('New dish 1')
         cy.get('.remove-button').click()
         cy.on('window:confirm', () => true)
+
+        assertGroupOrder('New dish 2', 0);
+        assertGroupOrder('New dish 3', 1);
+
         cy.reload();
 
         assertGroupOrder('New dish 2', 0);

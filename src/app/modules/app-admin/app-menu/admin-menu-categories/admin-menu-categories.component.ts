@@ -4,7 +4,6 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuCategoryGet } from '@common/api-client/models';
 import { MenuCategoryControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editors/editor-dialog.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu-categories',
@@ -19,8 +18,7 @@ export class AdminMenuCategoriesComponent implements OnDestroy {
   constructor(
     private menuCategoryService: MenuCategoryControllerService,
     private accountService: AccountService,
-    private editorDialogService: EditorDialogService,
-    private router: Router
+    private editorDialogService: EditorDialogService
   ) {
     this.loadCategories();
 

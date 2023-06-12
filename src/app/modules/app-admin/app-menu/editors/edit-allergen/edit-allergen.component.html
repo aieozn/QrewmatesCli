@@ -1,0 +1,24 @@
+<div id="edit-element" class="box-shadow-bottom">
+    <p id="element-name" *ngIf="allergen !== undefined"><span i18n>Allergen</span>: <b>{{ allergen.name }}</b></p>
+    <p id="element-name" *ngIf="allergen === undefined"><span i18n>Create new allergen</span></p>
+
+    <p id="help-text" i18n>Edit fields below and save changes</p>
+</div>
+
+<div id="controls">
+    <div id="edit-element">
+        <div id="field-editors">
+            <app-editor-form-text class="field-editor" [control]="allergenFields.allergenName" i18-name name="Allergen name"></app-editor-form-text>
+            <app-editor-form-text class="field-editor" [control]="allergenFields.allergenDescription" i18-name name="Allergen description"></app-editor-form-text>
+        </div>
+    </div>
+</div>
+
+<app-submit-bar
+    [saveEnabled]="isValid(allergenFields) && isUpdated(allergenFields)"
+    [deleteEnabled]="allergen !== undefined"
+    (onClose)="close()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()"
+    (onTrySave)="onTrySave()">
+</app-submit-bar>

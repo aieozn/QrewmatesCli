@@ -1,0 +1,10 @@
+<div class="editor-box box-shadow" *ngIf="control">
+    <p class="editor-box-title" i18n>{{ name }}</p>
+    <p class="editor-box-subtitle" i18n>Complete the field below</p>
+
+    <mat-form-field appearance="fill" id="element-description-input">
+        <mat-label i18n>{{ name }}</mat-label>
+        <input autocomplete="off" [formControl]="control" matInput>
+        <mat-error *ngIf="control.errors" i18n>Invalid value</mat-error>
+    </mat-form-field>
+</div>

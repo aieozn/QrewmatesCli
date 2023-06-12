@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AppMenuRoutingModule } from './app-menu-routing.module';
 import { EditCategoryComponent } from './editors/edit-category/edit-category.component';
 import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
-import { EditorCategoryDescriptionComponent } from './editors/field-editors/editor-category-description/editor-category-description.component';
-import { EditorCategoryNameComponent } from './editors/field-editors/editor-category-name/editor-category-name.component';
 import { EditorItemGroupDescriptionComponent } from './editors/field-editors/editor-item-group-description/editor-item-group-description.component';
 import { EditorItemGroupNameComponent } from './editors/field-editors/editor-item-group-name/editor-item-group-name.component';
 import { SubmitBarComponent } from './editors/submit-bar/submit-bar.component';
@@ -29,14 +27,15 @@ import { EditorItemPriceComponent } from './editors/field-editors/editor-item-pr
 import { EditItemGroupAggregateComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate.component';
 import { EditItemGroupAggregateSettingsComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate-settings/edit-item-group-aggregate-settings.component';
 import { EditorItemGroupImageComponent } from './editors/field-editors/editor-item-group-image/editor-item-group-image.component';
+import { AdminMenuAllergensComponent } from './admin-menu-allergens/admin-menu-allergens.component';
+import { EditAllergenComponent } from './editors/edit-allergen/edit-allergen.component';
+import { EditorFormTextComponent } from './editors/field-editors/editor-form-text/editor-form-text.component';
 
 
 @NgModule({
   declarations: [
     EditCategoryComponent,
     EditItemGroupComponent,
-    EditorCategoryDescriptionComponent,
-    EditorCategoryNameComponent,
     EditorItemGroupDescriptionComponent,
     EditorItemGroupNameComponent,
     SubmitBarComponent,
@@ -55,6 +54,9 @@ import { EditorItemGroupImageComponent } from './editors/field-editors/editor-it
     EditItemGroupAggregateComponent,
     EditItemGroupAggregateSettingsComponent,
     EditorItemGroupImageComponent,
+    AdminMenuAllergensComponent,
+    EditAllergenComponent,
+    EditorFormTextComponent,
   ],
   imports: [
     CommonModule,

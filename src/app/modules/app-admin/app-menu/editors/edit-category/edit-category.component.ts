@@ -1,27 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuCategoryData, MenuCategoryGet } from '@common/api-client/models';
+import { MenuCategoryGet } from '@common/api-client/models';
 import { MenuCategoryControllerService } from '@common/api-client/services';
 import { EditorDialogService } from '../editor-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, tap } from 'rxjs';
-import { Trimers } from '../../trimmer/trimmers';
+import { Subject, catchError, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
   styleUrls: ['../edit-element.scss']
 })
-export class EditCategoryComponent {
+export class EditCategoryComponent implements OnDestroy {
 
   category: MenuCategoryGet | undefined;
+  private readonly onDestroy = new Subject<void>();
 
   emptyCategory = {
     description: '',
     name: ''
   };
-  activeCategory: MenuCategoryData = this.emptyCategory;
   detailsLink: string[] | undefined
   
   categoryFields = {
@@ -36,14 +35,13 @@ export class EditCategoryComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.route.params.subscribe(params => {
-      this.reloadComponent(params['categoryRef']);
-    })
+    this.route.params.pipe(
+      tap(params => this.reloadComponent(params['categoryRef'])),
+      takeUntil(this.onDestroy)
+    ).subscribe();
   }
 
   private reloadComponent(categoryRef: string) {
-    this.activeCategory = this.emptyCategory;
-
     if (categoryRef) {
       this.categoryService.getCategory({
         restaurantRef: this.accountService.getRestaurantRef(),
@@ -63,8 +61,6 @@ export class EditCategoryComponent {
     this.category = value
     this.categoryFields.categoryName.setValue(value.name);
     this.categoryFields.categoryDescription.setValue(value.description ?? null);
-
-    this.activeCategory = JSON.parse(JSON.stringify(value))
   }
 
   isValid(validation: {[key: string] : FormControl}) : boolean {
@@ -80,14 +76,14 @@ export class EditCategoryComponent {
   }
 
   onSave() {
-    this.activeCategory.name = this.categoryFields.categoryName.value!;
-    this.activeCategory.description = this.categoryFields.categoryDescription.value ?? undefined;
-
     if (this.category !== undefined) {
       this.categoryService.putCategory({
         restaurantRef: this.accountService.getRestaurantRef(),
         categoryRef: this.category.ref,
-        body: Trimers.trimCategoryData(this.activeCategory)
+        body: {
+          name: this.categoryFields.categoryName.value!,
+          description: this.categoryFields.categoryDescription.value ?? undefined
+        }
       }).subscribe(saved => {
         this.editDialogService.onCategoryUpdated.next(saved);
         this.close();
@@ -95,7 +91,10 @@ export class EditCategoryComponent {
     } else {
       this.categoryService.postCategory({
         restaurantRef: this.accountService.getRestaurantRef(),
-        body: Trimers.trimCategoryData(this.activeCategory)
+        body: {
+          name: this.categoryFields.categoryName.value!,
+          description: this.categoryFields.categoryDescription.value ?? undefined
+        }
       }).subscribe(saved => {
         this.editDialogService.onCategoryCreated.next(saved);
         this.close();
@@ -125,5 +124,10 @@ export class EditCategoryComponent {
     } else {
       console.error('Category not defined');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 }
