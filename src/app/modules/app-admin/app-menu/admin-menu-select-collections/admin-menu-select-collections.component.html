@@ -1,0 +1,43 @@
+<div id="menu" *ngIf="collections">
+    <h1>
+        <span i18n>Selects</span>
+    </h1>
+
+    <div class="create-new clickable box-shadow box-radius" routerLink="create"><p>+ Create new collection</p></div>
+
+    <div id="menu-elements-list">
+        <div *ngFor="let collection of collections">
+
+            <div class="menu-element group box-shadow box-radius">
+                <div class="menu-element-details">
+                    <div class="left">
+                        <div class="menu-element-details-content">
+                            <p class="menu-element-name">{{ collection.collection.name }}</p>
+                            <p class="menu-element-description">{{ collection.collection.description }}</p>
+                        </div>
+
+                        <p class="extend clickable" (click)="extend(collection.collection)" *ngIf="!collection.open">
+                            <span i18n>Expand selects</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
+                        </p>
+                        <p class="extend clickable" (click)="closeAll()" *ngIf="collection.open">
+                            <span i18n>Collapse selects</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
+                        </p>
+                    </div>
+                    <div class="right">
+                        <div class="settings-icon clickable" [routerLink]="[collection.collection.ref, 'edit']">
+                            <mat-icon>settings</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="collection.open">
+                <app-admin-menu-select-collection [select]="collection.collection"></app-admin-menu-select-collection>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="floating-editor" class="box-shadow-top">
+    <router-outlet></router-outlet>
+</div>

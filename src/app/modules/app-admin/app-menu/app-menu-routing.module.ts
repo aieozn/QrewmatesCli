@@ -13,6 +13,7 @@ import { EditItemGroupAggregateSettingsComponent } from './editors/edit-item-gro
 import { EditItemGroupAggregateComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate.component';
 import { AdminMenuAllergensComponent } from './admin-menu-allergens/admin-menu-allergens.component';
 import { EditAllergenComponent } from './editors/edit-allergen/edit-allergen.component';
+import { AdminMenuSelectCollectionsComponent } from './admin-menu-select-collections/admin-menu-select-collections.component';
 
 const editItemRoutes: Routes = [
   {
@@ -90,6 +91,10 @@ const routes: Routes = [
         component: EditAllergenComponent
       }
     ]
+  },
+  {
+    path: 'select-collections',
+    component: AdminMenuSelectCollectionsComponent
   },
   {
     path: 'category/:categoryRef',

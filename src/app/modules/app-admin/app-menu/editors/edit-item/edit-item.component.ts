@@ -135,6 +135,7 @@ export class EditItemComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
+  // TODO 
   // openAllergens() {
   //   this.router.navigate(['allergens'], { relativeTo: this.route })
   // }

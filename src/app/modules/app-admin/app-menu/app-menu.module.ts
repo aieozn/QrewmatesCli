@@ -21,7 +21,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdminMenuCategoriesComponent } from './admin-menu-categories/admin-menu-categories.component';
 import { AdminMenuCategoryComponent } from './admin-menu-category/admin-menu-category.component';
 import { AdminMenuItemGroupComponent } from './admin-menu-item-group/admin-menu-item-group.component';
-import { AdminMenuItemSelectCollectionComponent } from './admin-menu-item-select-collection/admin-menu-item-select-collection.component';
 import { EditorItemNameComponent } from './editors/field-editors/editor-item-name/editor-item-name.component';
 import { EditorItemPriceComponent } from './editors/field-editors/editor-item-price/editor-item-price.component';
 import { EditItemGroupAggregateComponent } from './editors/edit-item-group-aggregate/edit-item-group-aggregate.component';
@@ -30,7 +29,8 @@ import { EditorItemGroupImageComponent } from './editors/field-editors/editor-it
 import { AdminMenuAllergensComponent } from './admin-menu-allergens/admin-menu-allergens.component';
 import { EditAllergenComponent } from './editors/edit-allergen/edit-allergen.component';
 import { EditorFormTextComponent } from './editors/field-editors/editor-form-text/editor-form-text.component';
-
+import { AdminMenuSelectCollectionsComponent } from './admin-menu-select-collections/admin-menu-select-collections.component';
+import { AdminMenuSelectCollectionComponent } from './admin-menu-select-collection/admin-menu-select-collection.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,6 @@ import { EditorFormTextComponent } from './editors/field-editors/editor-form-tex
     AdminMenuCategoriesComponent,
     AdminMenuCategoryComponent,
     AdminMenuItemGroupComponent,
-    AdminMenuItemSelectCollectionComponent,
     EditorItemNameComponent,
     EditorItemPriceComponent,
     EditItemGroupAggregateComponent,
@@ -57,6 +56,8 @@ import { EditorFormTextComponent } from './editors/field-editors/editor-form-tex
     AdminMenuAllergensComponent,
     EditAllergenComponent,
     EditorFormTextComponent,
+    AdminMenuSelectCollectionsComponent,
+    AdminMenuSelectCollectionComponent
   ],
   imports: [
     CommonModule,

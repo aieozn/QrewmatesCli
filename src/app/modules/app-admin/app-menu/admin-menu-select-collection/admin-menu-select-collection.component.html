@@ -1,0 +1,24 @@
+<div id="menu-elements-list" *ngIf="_selectCollection as selectCollection">
+    <div class="create-new clickable box-shadow box-radius" [routerLink]="['select-colleciton', selectCollection.ref, 'select', 'create']"><p i18n>+ Create new option</p></div>
+    
+    <div *ngFor="let select of selectCollection.menuItemSelects; let i = index">
+        <div class="menu-element item box-shadow box-radius">
+            <div class="drag-box clickable">
+                <mat-icon (click)="moveDown(select)" *ngIf="i != 0" class="top">keyboard_arrow_up</mat-icon>
+                <mat-icon (click)="moveUp(select)" *ngIf="i + 1 != selectCollection.menuItemSelects.length" class="bottom">keyboard_arrow_down</mat-icon>
+            </div>
+        
+            <div class="menu-element-details">
+                <div class="left">
+                    <p class="menu-element-name">{{ select.name }}</p>
+                    <p class="menu-element-price">{{ select.price }} zł</p>
+                </div>
+                <div class="right">
+                    <div class="settings-icon clickable" [routerLink]="['select-collection', selectCollection.ref, 'select', select.ref, 'edit']">
+                        <mat-icon>settings</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
