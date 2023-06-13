@@ -1,4 +1,4 @@
-import { createSelectCollection, createToppingCollection, flushKebebKing, loginAsAdmin } from "../../utils/utils"
+import { createToppingCollection, flushKebebKing, loginAsAdmin } from "../../utils/utils"
 
 describe('Edit topping collections', () => {
     beforeEach(() => {
@@ -59,7 +59,7 @@ describe('Edit topping collections', () => {
     })
 
     it('Edit collection name', () => {
-        createSelectCollection('New collection name', 'Collection description')
+        createToppingCollection('New collection name', 'Collection description')
         cy.get('#menu-elements-list .menu-element').eq(3).find('.menu-element-name').should('have.text', 'New collection name')
 
         cy.get('#menu-elements-list .menu-element').eq(3).find('.settings-icon').click();
@@ -72,7 +72,7 @@ describe('Edit topping collections', () => {
     })
 
     it('Edit collection empty name not allowed', () => {
-        createSelectCollection('New collection name', 'Collection description')
+        createToppingCollection('New collection name', 'Collection description')
         cy.get('#menu-elements-list .menu-element').eq(3).find('.menu-element-name').should('have.text', 'New collection name')
 
         cy.get('#menu-elements-list .menu-element').eq(3).find('.settings-icon').click();
@@ -83,7 +83,7 @@ describe('Edit topping collections', () => {
     })
 
     it('Edit collection description', () => {
-        createSelectCollection('New collection name', 'Collection description')
+        createToppingCollection('New collection name', 'Collection description')
         cy.get('#menu-elements-list .menu-element').eq(3).find('.menu-element-name').should('have.text', 'New collection name')
 
         cy.get('#menu-elements-list .menu-element').eq(3).find('.settings-icon').click();
@@ -96,9 +96,9 @@ describe('Edit topping collections', () => {
     })
 
     it('Reload editor', () => {
-        createSelectCollection('Absolutly new collection 1', 'Collection description 1')
-        createSelectCollection('Absolutly new collection 2', 'Collection description 2')
-        createSelectCollection('Absolutly new collection 3', 'Collection description 3')
+        createToppingCollection('Absolutly new collection 1', 'Collection description 1')
+        createToppingCollection('Absolutly new collection 2', 'Collection description 2')
+        createToppingCollection('Absolutly new collection 3', 'Collection description 3')
 
         cy.get('#menu-elements-list .menu-element').eq(0).find('.settings-icon').click();
         cy.get('.editor-box-title').contains('Collection name').parent().find('input').should('have.value', 'Absolutly new collection 1')

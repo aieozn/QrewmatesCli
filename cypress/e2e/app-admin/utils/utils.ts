@@ -435,6 +435,23 @@ export function createSelect(name: string, description: string | undefined, pric
     cy.get('.save-button').click()
 }
 
+export function createTopping(name: string, description: string | undefined, price: string, allergens: string[]) {
+    cy.get('.editor-box-title').contains('Topping name').parent().find('input').click().clear().type(name);
+
+    if (description) {
+        cy.get('.editor-box-title').contains('Topping description').parent().find('input').click().clear().type(description);
+    }
+    
+    cy.get('.editor-box-title').contains('Topping price').parent().find('input').click().clear().type(price);
+
+    cy.get('#item-tabs span').contains('Allergens').parent().click()
+    for (const allergen of allergens) {
+        cy.get('.allergen').contains(allergen).click()
+    }
+
+    cy.get('.save-button').click()
+}
+
 export function verifySelect(name: string, description: string | undefined, price: string, allergens: string[]) {
     cy.get('.editor-box-title').contains('Select name').parent().find('input').click().should('have.value', name);
 
@@ -443,6 +460,25 @@ export function verifySelect(name: string, description: string | undefined, pric
     }
     
     cy.get('.editor-box-title').contains('Select price').parent().find('input').click().should('have.value', price);
+
+    if (allergens) {
+        cy.get('#item-tabs span').contains('Allergens').parent().click()
+
+        for (const allergen of allergens) {
+            cy.get('.allergen').contains(allergen).parents('.allergen').find('input').should('be.checked')
+        }
+    }
+    cy.get('.allergen .mdc-checkbox--selected').should('have.length', allergens.length)
+}
+
+export function verifyTopping(name: string, description: string | undefined, price: string, allergens: string[]) {
+    cy.get('.editor-box-title').contains('Topping name').parent().find('input').click().should('have.value', name);
+
+    if (description) {
+        cy.get('.editor-box-title').contains('Topping description').parent().find('input').click().should('have.value', description);
+    }
+    
+    cy.get('.editor-box-title').contains('Topping price').parent().find('input').click().should('have.value', price);
 
     if (allergens) {
         cy.get('#item-tabs span').contains('Allergens').parent().click()

@@ -38,8 +38,8 @@ export class AdminMenuToppingCollectionComponent implements OnDestroy {
       takeUntil(this.onDestroy)
     ).subscribe()
 
-    this.editorService.onSelectCreated.pipe(
-      tap(select => this.onCreateSelect(select)),
+    this.editorService.onToppingCreated.pipe(
+      tap(topping => this.onCreateTopping(topping)),
       takeUntil(this.onDestroy)
     ).subscribe()
   }
@@ -47,15 +47,15 @@ export class AdminMenuToppingCollectionComponent implements OnDestroy {
   onUpdateToppings(newValue: MenuItemToppingGet) {
     if (!this._toppingCollection) { throw 'Topping collection not defined'; }
 
-    for (const select of this._toppingCollection.menuItemToppings) {
-      if (select.ref === newValue.ref) {
-        Object.assign(select, newValue);
+    for (const topping of this._toppingCollection.menuItemToppings) {
+      if (topping.ref === newValue.ref) {
+        Object.assign(topping, newValue);
       }
     }
   }
 
-  onCreateSelect(newValue: MenuItemToppingGet) {
-    if (!this._toppingCollection) { throw 'Select collection not defined'; }
+  onCreateTopping(newValue: MenuItemToppingGet) {
+    if (!this._toppingCollection) { throw 'Topping collection not defined'; }
 
     if (this._toppingCollection.ref === newValue.collectionRef) {
       this._toppingCollection.menuItemToppings.push(newValue);
@@ -69,7 +69,7 @@ export class AdminMenuToppingCollectionComponent implements OnDestroy {
   }
 
   moveUp(topping: MenuItemToppingGet) {
-    if (!this._toppingCollection) { throw 'Select collection not defined'; }
+    if (!this._toppingCollection) { throw 'Topping collection not defined'; }
     
     const toppingCollection = this._toppingCollection;
     const activeIndex = toppingCollection.menuItemToppings.indexOf(topping)

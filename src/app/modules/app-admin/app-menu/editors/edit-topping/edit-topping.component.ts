@@ -87,9 +87,9 @@ export class EditToppingComponent implements OnDestroy {
     const collectionRef = this.route.parent?.snapshot.paramMap.get('toppingCollectionRef')
 
     if (collectionRef) {
-      this.router.navigate(['/admin/menu/select-collections', collectionRef])
+      this.router.navigate(['/admin/menu/topping-collections', collectionRef])
     } else {
-      this.router.navigate(['/admin/menu/select-collections'])
+      this.router.navigate(['/admin/menu/topping-collections'])
     }
   }
 
