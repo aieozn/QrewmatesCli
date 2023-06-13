@@ -1,1 +1,24 @@
-<p>edit-select works!</p>
+<div id="edit-element" class="box-shadow-bottom">
+    <p id="element-name" *ngIf="select !== undefined"><span i18n>Select</span>: <b>{{ select.name }}</b></p>
+    <p id="element-name" *ngIf="select === undefined"><span i18n>Create new select</span></p>
+
+    <p id="help-text" i18n>Edit fields below and save changes</p>
+</div>
+
+<div id="controls">
+    <div id="edit-element">
+        <div id="field-editors">
+            <app-editor-form-text class="field-editor" [control]="fields.name" i18-name name="Collection name"></app-editor-form-text>
+            <app-editor-form-text class="field-editor" [control]="fields.description" i18-name name="Collection description"></app-editor-form-text>
+        </div>
+    </div>
+</div>
+
+<app-submit-bar
+    [saveEnabled]="isValid(fields) && isUpdated(fields)"
+    [deleteEnabled]="fields !== undefined"
+    (onClose)="close()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()"
+    (onTrySave)="onTrySave()">
+</app-submit-bar>

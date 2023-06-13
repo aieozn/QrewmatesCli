@@ -3,36 +3,36 @@
         <span i18n>Selects</span>
     </h1>
 
-    <div class="create-new clickable box-shadow box-radius" [routerLink]="['create']" routerLink="create"><p>+ Create new collection</p></div>
+    <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/select-collections/create']" routerLink="create"><p>+ Create new collection</p></div>
 
     <div id="menu-elements-list">
         <div *ngFor="let collection of collections">
 
-            <div class="menu-element group box-shadow box-radius">
+            <div class="menu-element group box-shadow box-radius" [class.open]="collection.ref === openCollectionRef">
                 <div class="menu-element-details">
                     <div class="left">
                         <div class="menu-element-details-content">
-                            <p class="menu-element-name">{{ collection.collection.name }}</p>
-                            <p class="menu-element-description">{{ collection.collection.description }}</p>
+                            <p class="menu-element-name">{{ collection.name }}</p>
+                            <p class="menu-element-description">{{ collection.description }}</p>
                         </div>
 
-                        <p class="extend clickable" (click)="extend(collection.collection)" *ngIf="!collection.open">
+                        <p class="extend clickable" [routerLink]="['/admin/menu/select-collections/', collection.ref]" *ngIf="collection.ref !== openCollectionRef">
                             <span i18n>Expand selects</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
                         </p>
-                        <p class="extend clickable" (click)="closeAll()" *ngIf="collection.open">
+                        <p class="extend clickable" [routerLink]="['/admin/menu/select-collections/']" *ngIf="collection.ref === openCollectionRef">
                             <span i18n>Collapse selects</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
                         </p>
                     </div>
                     <div class="right">
-                        <div class="settings-icon clickable" [routerLink]="[collection.collection.ref, 'edit']">
+                        <div class="settings-icon clickable" [routerLink]="['/admin/menu/select-collections/', collection.ref, 'edit']">
                             <mat-icon>settings</mat-icon>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="collection.open">
-                <app-admin-menu-select-collection [select]="collection.collection"></app-admin-menu-select-collection>
+            <div *ngIf="collection.ref === openCollectionRef">
+                <app-admin-menu-select-collection [select]="collection"></app-admin-menu-select-collection>
             </div>
         </div>
     </div>

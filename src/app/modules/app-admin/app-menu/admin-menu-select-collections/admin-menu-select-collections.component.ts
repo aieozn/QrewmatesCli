@@ -4,6 +4,7 @@ import { MenuItemSelectCollectionGet } from '@common/api-client/models';
 import { MenuItemSelectCollectionControllerService } from '@common/api-client/services';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editors/editor-dialog.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu-selects',
@@ -12,12 +13,14 @@ import { EditorDialogService } from '../editors/editor-dialog.service';
 })
 export class AdminMenuSelectCollectionsComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
-  collections: {
-    open: boolean
-    collection: MenuItemSelectCollectionGet
-  }[] = []
+
+
+  collections: MenuItemSelectCollectionGet[] = []
+
+  openCollectionRef: string | undefined;
 
   constructor(
+    route: ActivatedRoute,
     private selectsCollectionService: MenuItemSelectCollectionControllerService,
     private accountService: AccountService,
     private editorDialogService: EditorDialogService
@@ -25,19 +28,12 @@ export class AdminMenuSelectCollectionsComponent implements OnDestroy {
     selectsCollectionService.getSelectCollections({
       restaurantRef: accountService.getRestaurantRef()
     }).pipe(
-      tap(all => this.collections = all.map(e => ({
-        open: false,
-        collection: e
-      })))
+      tap(all => this.collections = all)
     ).subscribe()
 
     this.editorDialogService.onSelectCollectionCreated.pipe(
       tap(e => {
-        this.collections.push({
-          open: false,
-          collection: e
-        })
-
+        this.collections.push(e)
         this.sortCollections();
       }),
       takeUntil(this.onDestroy)
@@ -49,16 +45,21 @@ export class AdminMenuSelectCollectionsComponent implements OnDestroy {
     ).subscribe();
 
     this.editorDialogService.onSelectCollectionDeleted.pipe(
-      tap(deleted => this.collections = this.collections.filter(collection => collection.collection.ref !== deleted)),
+      tap(deleted => this.collections = this.collections.filter(collection => collection.ref !== deleted)),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+
+    route.params.pipe(
+      tap(params => this.openCollectionRef = params['selectCollectionRef'] ? params['selectCollectionRef'] : undefined),
       takeUntil(this.onDestroy)
     ).subscribe();
   }
 
   onCollecitonUpdate(updated: MenuItemSelectCollectionGet) {
     for (let i = 0; i < this.collections.length; i++) {
-      const existingCollection = this.collections[i].collection;
+      const existingCollection = this.collections[i];
       if (existingCollection.ref === updated.ref) {
-        this.collections[i].collection = updated;
+        this.collections[i] = updated;
         break;
       }
     }
@@ -71,18 +72,7 @@ export class AdminMenuSelectCollectionsComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  extend(collection: MenuItemSelectCollectionGet) {
-    this.closeAll();
-    this.collections.filter(e => e.collection.ref === collection.ref)[0].open = true;
-  }
-
-  closeAll() {
-    for (const collection of this.collections) {
-      collection.open = false;
-    }
-  }
-
   private sortCollections() {
-    this.collections.sort((a, b) => a.collection.name.localeCompare(b.collection.name))
+    this.collections.sort((a, b) => a.name.localeCompare(b.name))
   }
 }

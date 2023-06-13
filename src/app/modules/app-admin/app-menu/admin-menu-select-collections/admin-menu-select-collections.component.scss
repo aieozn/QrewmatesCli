@@ -10,3 +10,8 @@
 .menu-element-details .left {
     width: calc(100% - 70px);
 }
+
+.menu-element.open {
+    border-bottom-right-radius: 0px;
+    border: 1px solid #38A583;
+}

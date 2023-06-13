@@ -15,6 +15,7 @@ import { EditAllergenComponent } from './editors/edit-allergen/edit-allergen.com
 import { AdminMenuSelectCollectionsComponent } from './admin-menu-select-collections/admin-menu-select-collections.component';
 import { EditSelectCollectionComponent } from './editors/edit-select-collection/edit-select-collection.component';
 import { EditAllergensComponent } from './editors/edit-allergens/edit-allergens.component';
+import { EditSelectComponent } from './editors/edit-select/edit-select.component';
 
 const editItemRoutes: Routes = [
   {
@@ -98,13 +99,23 @@ const routes: Routes = [
     component: AdminMenuSelectCollectionsComponent,
     children: [
       {
-        path: ':selectCollectionRef/edit',
-        component: EditSelectCollectionComponent
-      },
-      {
         path: 'create',
         component: EditSelectCollectionComponent
       }
+    ]
+  },
+  {
+    path: 'select-collections/:selectCollectionRef',
+    component: AdminMenuSelectCollectionsComponent,
+    children: [
+      {
+        path: 'edit',
+        component: EditSelectCollectionComponent
+      },
+      {
+        path: 'select/:selectRef/edit',
+        component: EditSelectComponent
+      },
     ]
   },
   {

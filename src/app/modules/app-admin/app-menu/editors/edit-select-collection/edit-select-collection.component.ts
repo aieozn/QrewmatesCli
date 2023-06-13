@@ -23,13 +23,13 @@ export class EditSelectCollectionComponent implements OnDestroy {
   };
 
   constructor(
-    route: ActivatedRoute,
+    private route: ActivatedRoute,
     private selectCollectionService: MenuItemSelectCollectionControllerService,
     private accountService: AccountService,
     private router: Router,
     private editorDialogService: EditorDialogService
   ) {
-    route.params.pipe(
+    route.parent?.params.pipe(
       tap(params => this.reloadComponent(params['selectCollectionRef'])),
       takeUntil(this.onDestroy)
     ).subscribe();
@@ -64,7 +64,13 @@ export class EditSelectCollectionComponent implements OnDestroy {
   }
 
   close() {
-    this.router.navigate(['/admin/menu/select-collections'])
+    const collectionRef = this.route.parent?.snapshot.paramMap.get('selectCollectionRef')
+
+    if (collectionRef) {
+      this.router.navigate(['/admin/menu/select-collections', collectionRef])
+    } else {
+      this.router.navigate(['/admin/menu/select-collections'])
+    }
   }
 
   onSave() {
