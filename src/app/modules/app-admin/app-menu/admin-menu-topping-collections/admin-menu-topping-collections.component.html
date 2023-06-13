@@ -1,0 +1,43 @@
+<div id="menu" *ngIf="collections">
+    <h1>
+        <span i18n>Toppings</span>
+    </h1>
+
+    <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/topping-collections/create']" routerLink="create"><p>+ Create new collection</p></div>
+
+    <div id="menu-elements-list">
+        <div *ngFor="let collection of collections">
+
+            <div class="menu-element group box-shadow box-radius" [class.open]="collection.ref === openCollectionRef">
+                <div class="menu-element-details">
+                    <div class="left">
+                        <div class="menu-element-details-content">
+                            <p class="menu-element-name">{{ collection.name }}</p>
+                            <p class="menu-element-description">{{ collection.description }}</p>
+                        </div>
+
+                        <p class="extend clickable" [routerLink]="['/admin/menu/topping-collections/', collection.ref]" *ngIf="collection.ref !== openCollectionRef">
+                            <span i18n>Expand toppings</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
+                        </p>
+                        <p class="extend clickable" [routerLink]="['/admin/menu/topping-collections/']" *ngIf="collection.ref === openCollectionRef">
+                            <span i18n>Collapse toppings</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
+                        </p>
+                    </div>
+                    <div class="right">
+                        <div class="settings-icon clickable" [routerLink]="['/admin/menu/topping-collections/', collection.ref, 'edit']">
+                            <mat-icon>settings</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="collection.ref === openCollectionRef">
+                <app-admin-menu-topping-collection [toppingCollection]="collection"></app-admin-menu-topping-collection>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="floating-editor" class="box-shadow-top">
+    <router-outlet></router-outlet>
+</div>

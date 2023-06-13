@@ -1,0 +1,25 @@
+<div id="menu-elements-list" class="toppings" *ngIf="_toppingCollection as toppingCollection">
+    <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/topping-collections/', toppingCollection.ref, 'topping', 'create']"><p i18n>+ Create new topping</p></div>
+    
+    <div *ngFor="let topping of toppingCollection.menuItemToppings; let i = index">
+        <div class="menu-element item box-shadow box-radius">
+            <div class="drag-box clickable">
+                <mat-icon (click)="moveDown(topping)" *ngIf="i != 0" class="top">keyboard_arrow_up</mat-icon>
+                <mat-icon (click)="moveUp(topping)" *ngIf="i + 1 != toppingCollection.menuItemToppings.length" class="bottom">keyboard_arrow_down</mat-icon>
+            </div>
+        
+            <div class="menu-element-details">
+                <div class="left">
+                    <p class="menu-element-name">{{ topping.name }}</p>
+                    <p class="menu-element-description">{{ topping.description }}</p>
+                    <p class="menu-element-price">{{ topping.price }} zł</p>
+                </div>
+                <div class="right">
+                    <div class="settings-icon clickable" [routerLink]="['/admin/menu/topping-collections/', toppingCollection.ref, 'topping', topping.ref, 'edit']">
+                        <mat-icon>settings</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

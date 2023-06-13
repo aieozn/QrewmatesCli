@@ -1,0 +1,24 @@
+<div id="edit-element" class="box-shadow-bottom">
+    <p id="element-name" *ngIf="collection !== undefined"><span i18n>collection</span>: <b>{{ collection.name }}</b></p>
+    <p id="element-name" *ngIf="collection === undefined"><span i18n>Create new collection</span></p>
+
+    <p id="help-text" i18n>Edit fields below and save changes</p>
+</div>
+
+<div id="controls">
+    <div id="edit-element">
+        <div id="field-editors">
+            <app-editor-form-text class="field-editor" [control]="collectionFields.collectionName" i18-name name="Collection name"></app-editor-form-text>
+            <app-editor-form-text class="field-editor" [control]="collectionFields.collectionDescription" i18-name name="Collection description"></app-editor-form-text>
+        </div>
+    </div>
+</div>
+
+<app-submit-bar
+    [saveEnabled]="isValid(collectionFields) && isUpdated(collectionFields)"
+    [deleteEnabled]="collection !== undefined"
+    (onClose)="close()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()"
+    (onTrySave)="onTrySave()">
+</app-submit-bar>

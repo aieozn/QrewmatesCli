@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { AllergenGet, MenuCategoryGet, MenuItemDetailedGet, MenuItemGroupGet, MenuItemSelectCollectionGet, MenuItemSelectGet } from '@common/api-client/models';
+import { AllergenGet, MenuCategoryGet, MenuItemDetailedGet, MenuItemGroupGet, MenuItemSelectCollectionGet, MenuItemSelectGet, MenuItemToppingCollectionGet, MenuItemToppingGet } from '@common/api-client/models';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +28,12 @@ export class EditorDialogService {
   onSelectCreated = new EventEmitter<MenuItemSelectGet>();
   onSelectUpdated = new EventEmitter<MenuItemSelectGet>();
   onSelectDeleted = new EventEmitter<string>();
+
+  onToppingCollectionCreated = new EventEmitter<MenuItemToppingCollectionGet>();
+  onToppingCollectionUpdated = new EventEmitter<MenuItemToppingCollectionGet>();
+  onToppingCollectionDeleted = new EventEmitter<string>();
+
+  onToppingCreated = new EventEmitter<MenuItemToppingGet>();
+  onToppingUpdated = new EventEmitter<MenuItemToppingGet>();
+  onToppingDeleted = new EventEmitter<string>();
 }

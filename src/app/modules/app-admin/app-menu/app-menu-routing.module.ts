@@ -17,6 +17,8 @@ import { EditSelectCollectionComponent } from './editors/edit-select-collection/
 import { EditAllergensComponent } from './editors/edit-allergens/edit-allergens.component';
 import { EditSelectComponent } from './editors/edit-select/edit-select.component';
 import { EditSelectSettingsComponent } from './editors/edit-select/edit-select-settings/edit-select-settings.component';
+import { AdminMenuToppingCollectionsComponent } from './admin-menu-topping-collections/admin-menu-topping-collections.component';
+import { EditToppingCollectionComponent } from './editors/edit-topping-collection/edit-topping-collection.component';
 
 const editItemRoutes: Routes = [
   {
@@ -151,6 +153,64 @@ const routes: Routes = [
           }
         ]
       },
+    ]
+  },
+  {
+    path: 'topping-collections',
+    component: AdminMenuToppingCollectionsComponent,
+    children: [
+      {
+        path: 'create',
+        component: EditToppingCollectionComponent
+      }
+    ]
+  },
+  {
+    path: 'topping-collections/:toppingCollectionRef',
+    component: AdminMenuToppingCollectionsComponent,
+    children: [
+      {
+        path: 'edit',
+        component: EditToppingCollectionComponent
+      },
+      // {
+      //   path: 'select/create',
+      //   component: EditSelectToppingComponent,
+      //   children: [
+      //     {
+      //       path: '',
+      //       pathMatch: 'full',
+      //       redirectTo: 'settings'
+      //     },
+      //     {
+      //       path: 'settings',
+      //       component: EditSelectSettingsComponent
+      //     },
+      //     {
+      //       path: 'allergens',
+      //       component: EditAllergensComponent
+      //     }
+      //   ]
+      // },
+      // {
+      //   path: 'topping/:toppingRef/edit',
+      //   component: EditSelectComponent,
+      //   children: [
+      //     {
+      //       path: '',
+      //       pathMatch: 'full',
+      //       redirectTo: 'settings'
+      //     },
+      //     {
+      //       path: 'settings',
+      //       component: EditSelectSettingsComponent
+      //     },
+      //     {
+      //       path: 'allergens',
+      //       component: EditAllergensComponent
+      //     }
+      //   ]
+      // },
     ]
   },
   {

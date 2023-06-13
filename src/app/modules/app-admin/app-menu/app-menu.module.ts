@@ -37,6 +37,9 @@ import { EditSelectSettingsComponent } from './editors/edit-select/edit-select-s
 import { EditorSelectNameComponent } from './editors/field-editors/editor-select-name/editor-select-name.component';
 import { EditorSelectDescriptionComponent } from './editors/field-editors/editor-select-description/editor-select-description.component';
 import { EditorSelectPriceComponent } from './editors/field-editors/editor-select-price/editor-select-price.component';
+import { AdminMenuToppingCollectionsComponent } from './admin-menu-topping-collections/admin-menu-topping-collections.component';
+import { AdminMenuToppingCollectionComponent } from './admin-menu-topping-collection/admin-menu-topping-collection.component';
+import { EditToppingCollectionComponent } from './editors/edit-topping-collection/edit-topping-collection.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,10 @@ import { EditorSelectPriceComponent } from './editors/field-editors/editor-selec
     EditSelectSettingsComponent,
     EditorSelectNameComponent,
     EditorSelectDescriptionComponent,
-    EditorSelectPriceComponent
+    EditorSelectPriceComponent,
+    AdminMenuToppingCollectionsComponent,
+    AdminMenuToppingCollectionComponent,
+    EditToppingCollectionComponent
   ],
   imports: [
     CommonModule,
