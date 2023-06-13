@@ -176,7 +176,7 @@ const routes: Routes = [
         component: EditToppingCollectionComponent
       },
       {
-        path: 'select/create',
+        path: 'topping/create',
         component: EditToppingComponent,
         children: [
           {

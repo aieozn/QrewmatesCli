@@ -43,6 +43,8 @@ import { EditToppingCollectionComponent } from './editors/edit-topping-collectio
 import { EditToppingComponent } from './editors/edit-topping/edit-topping.component';
 import { EditToppingSettingsComponent } from './editors/edit-topping/edit-topping-settings/edit-topping-settings.component';
 import { EditorToppingNameComponent } from './editors/field-editors/editor-topping-name/editor-topping-name.component';
+import { EditorToppingDescriptionComponent } from './editors/field-editors/editor-topping-description/editor-topping-description.component';
+import { EditorToppingPriceComponent } from './editors/field-editors/editor-topping-price/editor-topping-price.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,9 @@ import { EditorToppingNameComponent } from './editors/field-editors/editor-toppi
     EditToppingCollectionComponent,
     EditToppingComponent,
     EditToppingSettingsComponent,
-    EditorToppingNameComponent
+    EditorToppingNameComponent,
+    EditorToppingDescriptionComponent,
+    EditorToppingPriceComponent
   ],
   imports: [
     CommonModule,
