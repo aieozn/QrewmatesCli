@@ -1,38 +1,50 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuItemSelectGet } from '@common/api-client/models';
 import { MenuItemSelectControllerService } from '@common/api-client/services';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest, takeUntil, tap } from 'rxjs';
+import { EditSelectService } from './edit-select-service/edit-select.service';
+import { EditAllergensService } from '../edit-allergens/edit-allergens-service/edit-allergens.service';
+import { MenuItemSelectDetailedGet } from '@common/api-client/models';
+import { Trimers } from '../../trimmer/trimmers';
+import { EditorDialogService } from '../editor-dialog.service';
 
 @Component({
   selector: 'app-edit-select',
   templateUrl: './edit-select.component.html',
-  styleUrls: ['../edit-element.scss']
+  styleUrls: ['../edit-element.scss', 'edit-select.component.scss']
 })
 export class EditSelectComponent implements OnDestroy {
 
-  select: MenuItemSelectGet | undefined;
+  name: string | undefined;
+  select: MenuItemSelectDetailedGet | undefined;
   private readonly onDestroy = new Subject<void>();
-
-  fields = {
-    name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-    description: new FormControl('', [Validators.maxLength(512)])
-  };
+  isUpdated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private selectService: MenuItemSelectControllerService,
     private route: ActivatedRoute,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    protected editSelectService: EditSelectService,
+    private editAllergensService: EditAllergensService,
+    private editorDialogService: EditorDialogService
   ) {
     route.params.pipe(
       tap(params => this.reloadComponent(params['selectRef'])),
       takeUntil(this.onDestroy)
     ).subscribe();
 
-    this.selectService
+    combineLatest([
+      this.editSelectService.updated(),
+      this.editAllergensService.updated()
+    ]).pipe(
+      tap(([a, b]) => {
+        this.isUpdated.next(a || b)
+      }), 
+      takeUntil(this.onDestroy)
+    ).subscribe();
   }
 
   reloadComponent(ref: string | null) {
@@ -42,11 +54,23 @@ export class EditSelectComponent implements OnDestroy {
         menuItemSelectRef: ref
       }).pipe(
         tap(e => {
-          this.fields.name.setValue(e.name)
-          this.fields.description.setValue(e.description ? e.description : '')
-          this.select = e
+          this.editAllergensService.clearWithValue(e.allergens);
+          this.editSelectService.clearWithValue(e);
+          this.select = e;
+          this.name = e.name;
         })
       ).subscribe();
+    } else {
+      const collectionRef = this.route.parent?.snapshot.paramMap.get('selectCollectionRef');
+
+      if (collectionRef) {
+        this.editAllergensService.clear();
+        this.editSelectService.clear(collectionRef);
+        this.select = undefined;
+        this.name = undefined;
+      } else {
+        throw 'Collection ref not found'
+      }
     }
   }
 
@@ -57,10 +81,6 @@ export class EditSelectComponent implements OnDestroy {
 
   isValid(validation: {[key: string] : FormControl}) : boolean {
     return !Object.values(validation).map(e => e.invalid).includes(true);
-  }
-
-  isUpdated(validation: {[key: string] : FormControl}) : boolean {
-    return Object.values(validation).map(e => e.dirty).includes(true);
   }
 
   close() {
@@ -74,13 +94,51 @@ export class EditSelectComponent implements OnDestroy {
   }
 
   onSave() {
+    const allergens = this.editAllergensService.getAllergensData()
+    const selectValue = this.editSelectService.getSelectData()
     
-  }
-
-  onTrySave() {
+    if (this.select !== undefined) {
+      this.selectService.putSelect({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        menuItemSelectRef: this.select.ref,
+        body: Trimers.trimSelectData({
+          ...selectValue,
+          allergens: allergens
+        })
+      }).pipe(
+        tap(e => {
+          this.editorDialogService.onSelectUpdated.next(e);
+          this.close()
+        })
+      ).subscribe()
+    } else {
+      this.selectService.postSelect({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        body: Trimers.trimSelectData({
+          ...selectValue,
+          allergens: allergens
+        })
+      }).pipe(
+        tap(e => {
+          this.editorDialogService.onSelectCreated.next(e);
+          this.close()
+        })
+      ).subscribe()
+    }
   }
 
   onDelete() {
+    const selectValue = this.select;
+    if (selectValue === undefined) { throw 'Undefined select'; }
 
+    if (confirm($localize`Are you sure you want to delete this select?`)) {
+      this.selectService.deleteSelect({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        menuItemSelectRef: selectValue.ref
+      }).pipe(
+        tap(() => this.editorDialogService.onSelectDeleted.next(selectValue.ref)),
+        tap(() => this.close())
+      ).subscribe()
+    } 
   }
 }

@@ -1,0 +1,23 @@
+#item-tabs {
+    position: absolute;
+    right: 20px;
+    top: 0px;
+    display: flex;
+}
+
+#item-tabs .tab {
+    padding: 10px;
+    color: #C3C3C3;
+    font-size: 14px;
+    font-family: Poppins;
+}
+
+#item-tabs .tab.active {
+    color: #c21d8e;
+}
+
+#item-tabs .tab mat-icon {
+    font-size: 20px;
+    position: relative;
+    top: 8px;
+}

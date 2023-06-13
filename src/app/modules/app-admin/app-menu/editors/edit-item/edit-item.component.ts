@@ -88,7 +88,7 @@ export class EditItemComponent implements OnDestroy {
           this.close()
         })
       ).subscribe()
-    } 
+    }
   }
 
   close() {

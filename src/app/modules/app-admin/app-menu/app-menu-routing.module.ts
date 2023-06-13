@@ -16,6 +16,7 @@ import { AdminMenuSelectCollectionsComponent } from './admin-menu-select-collect
 import { EditSelectCollectionComponent } from './editors/edit-select-collection/edit-select-collection.component';
 import { EditAllergensComponent } from './editors/edit-allergens/edit-allergens.component';
 import { EditSelectComponent } from './editors/edit-select/edit-select.component';
+import { EditSelectSettingsComponent } from './editors/edit-select/edit-select-settings/edit-select-settings.component';
 
 const editItemRoutes: Routes = [
   {
@@ -113,8 +114,42 @@ const routes: Routes = [
         component: EditSelectCollectionComponent
       },
       {
+        path: 'select/create',
+        component: EditSelectComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'settings'
+          },
+          {
+            path: 'settings',
+            component: EditSelectSettingsComponent
+          },
+          {
+            path: 'allergens',
+            component: EditAllergensComponent
+          }
+        ]
+      },
+      {
         path: 'select/:selectRef/edit',
-        component: EditSelectComponent
+        component: EditSelectComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'settings'
+          },
+          {
+            path: 'settings',
+            component: EditSelectSettingsComponent
+          },
+          {
+            path: 'allergens',
+            component: EditAllergensComponent
+          }
+        ]
       },
     ]
   },

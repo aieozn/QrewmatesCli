@@ -33,6 +33,9 @@ import { AdminMenuSelectCollectionComponent } from './admin-menu-select-collecti
 import { EditSelectCollectionComponent } from './editors/edit-select-collection/edit-select-collection.component';
 import { EditSelectComponent } from './editors/edit-select/edit-select.component';
 import { EditAllergensComponent } from './editors/edit-allergens/edit-allergens.component';
+import { EditSelectSettingsComponent } from './editors/edit-select/edit-select-settings/edit-select-settings.component';
+import { EditorSelectNameComponent } from './editors/field-editors/editor-select-name/editor-select-name.component';
+import { EditorSelectDescriptionComponent } from './editors/field-editors/editor-select-description/editor-select-description.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { EditAllergensComponent } from './editors/edit-allergens/edit-allergens.
     AdminMenuSelectCollectionComponent,
     EditSelectCollectionComponent,
     EditSelectComponent,
-    EditAllergensComponent
+    EditAllergensComponent,
+    EditSelectSettingsComponent,
+    EditorSelectNameComponent,
+    EditorSelectDescriptionComponent
   ],
   imports: [
     CommonModule,

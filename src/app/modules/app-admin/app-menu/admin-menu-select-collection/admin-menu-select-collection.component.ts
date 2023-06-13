@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { MenuItemSelectCollectionGet, MenuItemSelectGet } from '@common/api-client/models';
 import { MenuItemSelectControllerService } from '@common/api-client/services';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { EditorDialogService } from '../editors/editor-dialog.service';
 
 @Component({
   selector: 'app-admin-menu-select-collection',
@@ -18,9 +19,47 @@ export class AdminMenuSelectCollectionComponent implements OnDestroy {
   }
 
   constructor(
-    private selectsService: MenuItemSelectControllerService
+    private selectsService: MenuItemSelectControllerService,
+    private editorService: EditorDialogService
   ) {
+    this.editorService.onSelectDeleted.pipe(
+      tap(deletedRef => {
+        if (this._selectCollection) {
+          this._selectCollection.menuItemSelects = this._selectCollection.menuItemSelects.filter(e => e.ref !== deletedRef)
+        }
+      }),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+
+    this.editorService.onSelectUpdated.pipe(
+      tap(select => this.onUpdateSelect(select)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+
+    this.editorService.onSelectCreated.pipe(
+      tap(select => this.onCreateSelect(select)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
   }
+
+  onUpdateSelect(newValue: MenuItemSelectGet) {
+    if (!this._selectCollection) { throw 'Select collection not defined'; }
+
+    for (const select of this._selectCollection.menuItemSelects) {
+      if (select.ref === newValue.ref) {
+        Object.assign(select, newValue);
+      }
+    }
+  }
+
+  onCreateSelect(newValue: MenuItemSelectGet) {
+    if (!this._selectCollection) { throw 'Select collection not defined'; }
+
+    if (this._selectCollection.ref === newValue.collectionRef) {
+      this._selectCollection.menuItemSelects.push(newValue);
+    }
+  }
+
 
   ngOnDestroy(): void {
     this.onDestroy.next();

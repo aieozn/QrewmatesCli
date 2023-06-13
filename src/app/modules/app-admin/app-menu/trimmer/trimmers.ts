@@ -1,4 +1,4 @@
-import { IdentifiedByRefData, LinkedMenuItemData, MenuCategoryData, MenuItemData, MenuItemGroupData } from "@common/api-client/models";
+import { IdentifiedByRefData, LinkedMenuItemData, MenuCategoryData, MenuItemData, MenuItemGroupData, MenuItemSelectData } from "@common/api-client/models";
 
 export class Trimers { 
     static trimCategoryData(data: MenuCategoryData) : MenuCategoryData {
@@ -28,6 +28,17 @@ export class Trimers {
             price: data.price,
             selectCollections: data.selectCollections.map(e => this.trimRef(e)),
             toppingCollections: data.toppingCollections.map(e => this.trimRef(e))
+        }
+    }
+
+    static trimSelectData(data: MenuItemSelectData) : MenuItemSelectData {
+        return {
+            allergens: this.trimRefList(data.allergens),
+            available: data.available,
+            collectionRef: data.collectionRef,
+            description: data.description,
+            name: data.name,
+            price: data.price
         }
     }
 
