@@ -50,7 +50,7 @@ export class EditorSelectPriceComponent implements OnDestroy {
   }
   
   private loadPrice(value: number) {
-    this.priceField.setValue(value ? value.toString() : '')
+    this.priceField.setValue(value.toString())
     this.submitErrors()
   }
 

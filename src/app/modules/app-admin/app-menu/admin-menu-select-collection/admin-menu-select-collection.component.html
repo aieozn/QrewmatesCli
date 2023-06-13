@@ -1,4 +1,4 @@
-<div id="menu-elements-list" *ngIf="_selectCollection as selectCollection">
+<div id="menu-elements-list" class="selects" *ngIf="_selectCollection as selectCollection">
     <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/select-collections/', selectCollection.ref, 'select', 'create']"><p i18n>+ Create new option</p></div>
     
     <div *ngFor="let select of selectCollection.menuItemSelects; let i = index">
@@ -11,6 +11,7 @@
             <div class="menu-element-details">
                 <div class="left">
                     <p class="menu-element-name">{{ select.name }}</p>
+                    <p class="menu-element-description">{{ select.description }}</p>
                     <p class="menu-element-price">{{ select.price }} zł</p>
                 </div>
                 <div class="right">

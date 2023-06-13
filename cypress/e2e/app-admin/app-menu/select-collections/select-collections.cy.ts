@@ -9,10 +9,10 @@ describe('Edit select collections', () => {
 
     it('List select collections', () => {
         cy.get('#menu-elements-list .menu-element').should('have.length', 2)
-        cy.get('#menu-elements-list .menu-element-name').contains("Mięso")
-        cy.get('#menu-elements-list .menu-element-description').contains("Mięso do kebaba")
-        cy.get('#menu-elements-list .menu-element-name').contains("Sos")
-        cy.get('#menu-elements-list .menu-element-description').contains("Sos do kebaba")
+        cy.get('#menu-elements-list .menu-element').eq(0).find('.menu-element-name').should('have.text', 'Mięso')
+        cy.get('#menu-elements-list .menu-element').eq(0).find('.menu-element-description').should('have.text', 'Mięso do kebaba')
+        cy.get('#menu-elements-list .menu-element').eq(1).find('.menu-element-name').should('have.text', 'Sos')
+        cy.get('#menu-elements-list .menu-element').eq(1).find('.menu-element-description').should('have.text', 'Sos do kebaba')
     })
 
     it('Create select collection', () => {

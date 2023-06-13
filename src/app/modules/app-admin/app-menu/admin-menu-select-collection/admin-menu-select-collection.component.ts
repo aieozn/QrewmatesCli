@@ -96,7 +96,7 @@ export class AdminMenuSelectCollectionComponent implements OnDestroy {
       menuItemSelectRef: select.ref
     }).pipe(
       tap(e => {
-        selectCollection.menuItemSelects[activeIndex] = selectCollection.menuItemSelects[activeIndex + 1];
+        selectCollection.menuItemSelects[activeIndex] = selectCollection.menuItemSelects[activeIndex - 1];
         selectCollection.menuItemSelects[activeIndex - 1] = e
       })
     ).subscribe();

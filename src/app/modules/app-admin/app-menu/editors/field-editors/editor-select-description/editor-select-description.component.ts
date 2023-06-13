@@ -16,7 +16,7 @@ export class EditorSelectDescriptionComponent implements OnDestroy {
 
   private readonly onDestroy = new Subject<void>();
 
-  descriptionField : FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.maxLength(255)]);
+  descriptionField : FormControl<string | null> = new FormControl<string>('', [Validators.maxLength(255)]);
 
   constructor(
     accountService: AccountService,
