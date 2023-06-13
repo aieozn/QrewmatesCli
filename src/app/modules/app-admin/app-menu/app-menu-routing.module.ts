@@ -19,6 +19,8 @@ import { EditSelectComponent } from './editors/edit-select/edit-select.component
 import { EditSelectSettingsComponent } from './editors/edit-select/edit-select-settings/edit-select-settings.component';
 import { AdminMenuToppingCollectionsComponent } from './admin-menu-topping-collections/admin-menu-topping-collections.component';
 import { EditToppingCollectionComponent } from './editors/edit-topping-collection/edit-topping-collection.component';
+import { EditToppingComponent } from './editors/edit-topping/edit-topping.component';
+import { EditToppingSettingsComponent } from './editors/edit-topping/edit-topping-settings/edit-topping-settings.component';
 
 const editItemRoutes: Routes = [
   {
@@ -173,44 +175,44 @@ const routes: Routes = [
         path: 'edit',
         component: EditToppingCollectionComponent
       },
-      // {
-      //   path: 'select/create',
-      //   component: EditSelectToppingComponent,
-      //   children: [
-      //     {
-      //       path: '',
-      //       pathMatch: 'full',
-      //       redirectTo: 'settings'
-      //     },
-      //     {
-      //       path: 'settings',
-      //       component: EditSelectSettingsComponent
-      //     },
-      //     {
-      //       path: 'allergens',
-      //       component: EditAllergensComponent
-      //     }
-      //   ]
-      // },
-      // {
-      //   path: 'topping/:toppingRef/edit',
-      //   component: EditSelectComponent,
-      //   children: [
-      //     {
-      //       path: '',
-      //       pathMatch: 'full',
-      //       redirectTo: 'settings'
-      //     },
-      //     {
-      //       path: 'settings',
-      //       component: EditSelectSettingsComponent
-      //     },
-      //     {
-      //       path: 'allergens',
-      //       component: EditAllergensComponent
-      //     }
-      //   ]
-      // },
+      {
+        path: 'select/create',
+        component: EditToppingComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'settings'
+          },
+          {
+            path: 'settings',
+            component: EditToppingSettingsComponent
+          },
+          {
+            path: 'allergens',
+            component: EditAllergensComponent
+          }
+        ]
+      },
+      {
+        path: 'topping/:toppingRef/edit',
+        component: EditToppingComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'settings'
+          },
+          {
+            path: 'settings',
+            component: EditToppingSettingsComponent
+          },
+          {
+            path: 'allergens',
+            component: EditAllergensComponent
+          }
+        ]
+      },
     ]
   },
   {

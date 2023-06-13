@@ -1,0 +1,10 @@
+<div class="editor-box box-shadow">
+    <p class="editor-box-title" i18n>Topping name</p>
+    <p class="editor-box-subtitle" i18n>Complete the field below</p>
+
+    <mat-form-field appearance="fill" id="element-input">
+        <mat-label i18n>Topping name</mat-label>
+        <input autocomplete="off" [formControl]="nameField" matInput>
+        <mat-error *ngIf="nameField.errors" i18n>Invalid name</mat-error>
+    </mat-form-field>
+</div>
