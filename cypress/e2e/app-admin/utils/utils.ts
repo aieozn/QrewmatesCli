@@ -409,6 +409,15 @@ export function createSelectCollection(name: string, description: string | undef
     cy.get('.save-button').click()
 }
 
+export function createToppingCollection(name: string, description: string | undefined) {
+    cy.get('.create-new').click()
+    cy.get('.editor-box-title').contains('Collection name').parent().find('input').click().clear().type(name);
+    if (description) {
+        cy.get('.editor-box-title').contains('Collection description').parent().find('input').click().clear().type(description);
+    }
+    cy.get('.save-button').click()
+}
+
 export function createSelect(name: string, description: string | undefined, price: string, allergens: string[]) {
     cy.get('.editor-box-title').contains('Select name').parent().find('input').click().clear().type(name);
 
