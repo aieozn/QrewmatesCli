@@ -36,6 +36,7 @@ import { EditAllergensComponent } from './editors/edit-allergens/edit-allergens.
 import { EditSelectSettingsComponent } from './editors/edit-select/edit-select-settings/edit-select-settings.component';
 import { EditorSelectNameComponent } from './editors/field-editors/editor-select-name/editor-select-name.component';
 import { EditorSelectDescriptionComponent } from './editors/field-editors/editor-select-description/editor-select-description.component';
+import { EditorSelectPriceComponent } from './editors/field-editors/editor-select-price/editor-select-price.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { EditorSelectDescriptionComponent } from './editors/field-editors/editor
     EditAllergensComponent,
     EditSelectSettingsComponent,
     EditorSelectNameComponent,
-    EditorSelectDescriptionComponent
+    EditorSelectDescriptionComponent,
+    EditorSelectPriceComponent
   ],
   imports: [
     CommonModule,

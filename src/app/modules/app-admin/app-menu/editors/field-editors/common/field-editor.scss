@@ -20,3 +20,17 @@
     width: 100%;
     font-size: 12px;
 }
+
+#element-price-input {
+    width: 100%;
+    font-size: 12px;
+}
+
+.currency-box {
+    position: absolute;
+    right: 0px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    top: calc(50% - 10px)
+}

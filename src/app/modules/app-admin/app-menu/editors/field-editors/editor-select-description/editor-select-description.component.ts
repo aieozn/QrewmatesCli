@@ -31,6 +31,11 @@ export class EditorSelectDescriptionComponent implements OnDestroy {
       tap(() => this.updateDescription()),
       takeUntil(this.onDestroy)
     ).subscribe();
+
+    this.editSelectService.onSaveTry.pipe(
+      tap(() => this.descriptionField.markAllAsTouched()),
+      takeUntil(this.onDestroy)
+    ).subscribe();
   }
 
   ngOnDestroy(): void {

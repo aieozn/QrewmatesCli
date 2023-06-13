@@ -35,6 +35,11 @@ export class EditorSelectNameComponent implements OnDestroy {
       tap(() => this.updateName()),
       takeUntil(this.onDestroy)
     ).subscribe();
+
+    this.editSelectService.onSaveTry.pipe(
+      tap(() => this.nameField.markAllAsTouched()),
+      takeUntil(this.onDestroy)
+    ).subscribe();
   }
 
   private loadName(data: MenuItemSelectExtendedData | undefined) {

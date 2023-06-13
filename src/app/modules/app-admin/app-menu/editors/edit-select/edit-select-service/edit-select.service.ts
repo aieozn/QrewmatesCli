@@ -55,7 +55,8 @@ export class EditSelectService {
         this.selectData.next({
             available: true,
             collectionRef: collectionRef,
-            name: ''
+            name: '',
+            price: 0
         });
     }
 
