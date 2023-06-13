@@ -398,3 +398,13 @@ export function editGroupItem(
     openGroupItem(groupName, name);
     createVariant(updatedName, price, allergens, selects, toppings);
 }
+
+
+export function createSelectCollection(name: string, description: string | undefined) {
+    cy.get('.create-new').click()
+    cy.get('.editor-box-title').contains('Collection name').parent().find('input').click().clear().type(name);
+    if (description) {
+        cy.get('.editor-box-title').contains('Collection description').parent().find('input').click().clear().type(description);
+    }
+    cy.get('.save-button').click()
+}
