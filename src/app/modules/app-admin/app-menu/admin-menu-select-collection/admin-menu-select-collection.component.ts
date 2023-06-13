@@ -3,6 +3,7 @@ import { MenuItemSelectCollectionGet, MenuItemSelectGet } from '@common/api-clie
 import { MenuItemSelectControllerService } from '@common/api-client/services';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editors/editor-dialog.service';
+import { AccountService } from '@common/account-utils/services/account.service';
 
 @Component({
   selector: 'app-admin-menu-select-collection',
@@ -14,13 +15,14 @@ export class AdminMenuSelectCollectionComponent implements OnDestroy {
 
   _selectCollection: MenuItemSelectCollectionGet | undefined;
 
-  @Input() set select(value: MenuItemSelectCollectionGet) {
+  @Input() set selectCollection(value: MenuItemSelectCollectionGet) {
     this._selectCollection = JSON.parse(JSON.stringify(value));
   }
 
   constructor(
     private selectsService: MenuItemSelectControllerService,
-    private editorService: EditorDialogService
+    private editorService: EditorDialogService,
+    private accountService: AccountService
   ) {
     this.editorService.onSelectDeleted.pipe(
       tap(deletedRef => {
@@ -66,11 +68,37 @@ export class AdminMenuSelectCollectionComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  moveUp(item: MenuItemSelectGet) {
-  
+  moveUp(select: MenuItemSelectGet) {
+    if (!this._selectCollection) { throw 'Select collection not defined'; }
+    
+    const selectCollection = this._selectCollection;
+    const activeIndex = selectCollection.menuItemSelects.indexOf(select)
+
+    this.selectsService.moveUp2({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemSelectRef: select.ref
+    }).pipe(
+      tap(e => {
+        selectCollection.menuItemSelects[activeIndex] = selectCollection.menuItemSelects[activeIndex + 1];
+        selectCollection.menuItemSelects[activeIndex + 1] = e
+      })
+    ).subscribe();
   }
 
-  moveDown(item: MenuItemSelectGet) {
+  moveDown(select: MenuItemSelectGet) {
+    if (!this._selectCollection) { throw 'Select collection not defined'; }
     
+    const selectCollection = this._selectCollection;
+    const activeIndex = selectCollection.menuItemSelects.indexOf(select)
+
+    this.selectsService.moveDown2({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      menuItemSelectRef: select.ref
+    }).pipe(
+      tap(e => {
+        selectCollection.menuItemSelects[activeIndex] = selectCollection.menuItemSelects[activeIndex + 1];
+        selectCollection.menuItemSelects[activeIndex - 1] = e
+      })
+    ).subscribe();
   }
 }
