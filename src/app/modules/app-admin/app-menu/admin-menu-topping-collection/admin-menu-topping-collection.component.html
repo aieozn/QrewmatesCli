@@ -1,5 +1,5 @@
 <div id="menu-elements-list" class="toppings" *ngIf="_toppingCollection as toppingCollection">
-    <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/topping-collections/', toppingCollection.ref, 'topping', 'create']"><p i18n>+ Create new topping</p></div>
+    <div class="create-new clickable box-shadow box-radius sticked" [routerLink]="['/admin/menu/topping-collections/', toppingCollection.ref, 'topping', 'create']"><p i18n>+ Create new topping</p></div>
     
     <div *ngFor="let topping of toppingCollection.menuItemToppings; let i = index">
         <div class="menu-element item box-shadow box-radius">

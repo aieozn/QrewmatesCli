@@ -1,5 +1,5 @@
 <div id="menu-elements-list" *ngIf="_group as group">
-    <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/category/', categoryRef, 'group', group.ref, 'item', 'create']"><p i18n>+ Create new option</p></div>
+    <div class="create-new clickable box-shadow box-radius sticked" [routerLink]="['/admin/menu/category/', categoryRef, 'group', group.ref, 'item', 'create']"><p i18n>+ Create new option</p></div>
     
     <div *ngFor="let item of group.menuItems; let i = index">
         <div class="menu-element item box-shadow box-radius">

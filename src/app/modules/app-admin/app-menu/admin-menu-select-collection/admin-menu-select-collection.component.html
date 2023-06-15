@@ -1,5 +1,5 @@
 <div id="menu-elements-list" class="selects" *ngIf="_selectCollection as selectCollection">
-    <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/select-collections/', selectCollection.ref, 'select', 'create']"><p i18n>+ Create new option</p></div>
+    <div class="create-new clickable box-shadow box-radius sticked" [routerLink]="['/admin/menu/select-collections/', selectCollection.ref, 'select', 'create']"><p i18n>+ Create new option</p></div>
     
     <div *ngFor="let select of selectCollection.menuItemSelects; let i = index">
         <div class="menu-element item box-shadow box-radius">

@@ -10,7 +10,7 @@
     <div id="menu-elements-list" *ngIf="groups">
         <div *ngFor="let group of groups; let i = index">
 
-            <div class="menu-element group box-shadow box-radius">
+            <div class="menu-element group box-shadow box-radius" [class.open]="group.group.ref === openGroupRef">
                 <div class="drag-box clickable">
                     <mat-icon (click)="moveDown(group.group)" *ngIf="i != 0" class="top">keyboard_arrow_up</mat-icon>
                     <mat-icon (click)="moveUp(group.group)" *ngIf="i + 1 != groups.length" class="bottom">keyboard_arrow_down</mat-icon>
