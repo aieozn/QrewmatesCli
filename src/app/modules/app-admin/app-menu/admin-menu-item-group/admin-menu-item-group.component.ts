@@ -4,6 +4,7 @@ import { MenuItemGet, MenuItemGroupGet } from '@common/api-client/models';
 import { MenuItemControllerService } from '@common/api-client/services';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { EditorDialogService } from '../editors/editor-dialog.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu-item-group',
@@ -14,6 +15,7 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
   _group: MenuItemGroupGet | undefined;
   private readonly onDestroy = new Subject<void>();
 
+  categoryRef: string;
   @Input() set group(group: MenuItemGroupGet) {
     this._group = JSON.parse(JSON.stringify(group));
   }
@@ -21,7 +23,8 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
   constructor(
     private menuItemService: MenuItemControllerService,
     private accountService: AccountService,
-    private editorDialogService: EditorDialogService
+    private editorDialogService: EditorDialogService,
+    route: ActivatedRoute
   ) {
     this.editorDialogService.onItemDeleted.pipe(
       tap(e => this.onDeleteItem(e.ref)),
@@ -37,6 +40,8 @@ export class AdminMenuItemGroupComponent implements OnDestroy {
       tap(e => this.onCreateItem(e)),
       takeUntil(this.onDestroy)
     ).subscribe()
+
+    this.categoryRef = route.snapshot.paramMap.get('categoryRef')!;
   }
 
   ngOnDestroy(): void {

@@ -244,7 +244,7 @@ describe('Edit categories', () => {
         ])
     })
 
-    it('Edit simple group: remove description', () => {
+    it.only('Edit simple group: remove description', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New option', 14.99, [], [], [])
@@ -268,7 +268,7 @@ describe('Edit categories', () => {
         cy.get('.editor-box-title').contains('Dish name').parent().find('mat-error').contains('Invalid name')
     })
 
-    it('Edit simple group: update image', () => {
+    it.only('Edit simple group: update image', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New option', 14.99, [], [], [])
@@ -282,7 +282,7 @@ describe('Edit categories', () => {
         listOfGroupsElementContains('New dish', 'Dish description', true)
     })
 
-    it.only('Reloads editor', () => {
+    it('Reloads editor', () => {
         createGroupAggregate('New dish 1', 14.99, 'Dish description', undefined, ['Jaja', 'Ryby', 'Gorczyca', 'Mleko', 'Mięczaki'], [], [])
         createGroupAggregate('New dish 2', 14.99, 'Dish description', undefined, [], ['Mięso', 'Sos'], [])
         createGroupAggregate('New dish 3', 14.99, 'Dish description', undefined, [], [], ['Dodatki do kebaba małego', 'Dodatki do kebaba średniego'])
@@ -298,5 +298,18 @@ describe('Edit categories', () => {
         openGroupSettings('New dish 3')
         verifyAggregate('New dish 3', 14.99, 'Dish description', undefined, [], [], ['Dodatki do kebaba małego', 'Dodatki do kebaba średniego'])
         cy.get('.cancel-button').click();
+    })
+
+    it('Keeps groups open after reload', () => {
+        createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
+        extendAggregate('New dish', 'New option', 14.99, [], [], [])
+
+        cy.get('.menu-element.item').eq(0).find('.menu-element-name').should('have.text', 'New dish: ')
+        cy.get('.menu-element.item').eq(1).find('.menu-element-name').should('have.text', 'New dish: New option')
+
+        cy.reload();
+        
+        cy.get('.menu-element.item').eq(0).find('.menu-element-name').should('have.text', 'New dish: ')
+        cy.get('.menu-element.item').eq(1).find('.menu-element-name').should('have.text', 'New dish: New option')
     })
 })

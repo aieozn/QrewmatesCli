@@ -5,7 +5,7 @@
         {{ category.name }}
     </h1>
 
-    <div class="create-new clickable box-shadow box-radius" routerLink="group-aggregate/create"><p i18n>+ Create new dish</p></div>
+    <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/category/', category.ref, 'group-aggregate', 'create']"><p i18n>+ Create new dish</p></div>
 
     <div id="menu-elements-list" *ngIf="groups">
         <div *ngFor="let group of groups; let i = index">
@@ -26,29 +26,31 @@
                             <p class="menu-element-description">{{ group.group.description }}</p>
                         </div>
 
-                        <p class="extend clickable" *ngIf="group.isAggregate" [routerLink]="['group', group.group.ref, 'item', 'create']">
+                        <p class="extend clickable" *ngIf="group.isAggregate" [routerLink]="['/admin/menu/category', category.ref, 'group', group.group.ref, 'item', 'create']">
                             <span i18n>Create a variant</span> <mat-icon class="extend-arrow">add</mat-icon>
                         </p>
 
-                        <p class="extend clickable" (click)="extend(group.group)" *ngIf="!group.open && !group.isAggregate">
-                            <span i18n>Expand variants</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
-                        </p>
-                        <p class="extend clickable" (click)="closeAll()" *ngIf="group.open">
-                            <span i18n>Collapse variants</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
-                        </p>
+                        <span *ngIf="!group.isAggregate">
+                            <p class="extend clickable" [routerLink]="['/admin/menu/category/', category.ref, 'group', group.group.ref]" *ngIf="openGroupRef !== group.group.ref">
+                                <span i18n>Expand variants</span> <mat-icon class="extend-arrow">keyboard_arrow_down</mat-icon>
+                            </p>
+                            <p class="extend clickable" [routerLink]="['/admin/menu/category', category.ref]" *ngIf="group.group.ref === openGroupRef">
+                                <span i18n>Collapse variants</span> <mat-icon class="extend-arrow">keyboard_arrow_up</mat-icon>
+                            </p>
+                        </span>
                     </div>
                     <div class="right">
-                        <div *ngIf="!group.isAggregate" class="settings-icon clickable" [routerLink]="['group', group.group.ref, 'edit']">
+                        <div *ngIf="!group.isAggregate" class="settings-icon clickable" [routerLink]="['/admin/menu/category/', category.ref, 'group', group.group.ref, 'edit']">
                             <mat-icon>settings</mat-icon>
                         </div>
-                        <div *ngIf="group.isAggregate" class="settings-icon clickable" [routerLink]="['group-aggregate', group.group.ref, 'edit']">
+                        <div *ngIf="group.isAggregate" class="settings-icon clickable" [routerLink]="['/admin/menu/category/', category.ref, 'group-aggregate', group.group.ref, 'edit']">
                             <mat-icon>settings</mat-icon>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="group.open">
+            <div *ngIf="openGroupRef === group.group.ref && !group.isAggregate">
                 <app-admin-menu-item-group [group]="group.group"></app-admin-menu-item-group>
             </div>
         </div>

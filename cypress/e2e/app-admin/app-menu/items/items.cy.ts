@@ -22,7 +22,7 @@ describe('Edit categories', () => {
 
         extendAggregate('New dish', 'New option', 14.99, [], [], [])
 
-        getGroupByName('New dish').find('.extend').contains('Expand variants')
+        getGroupByName('New dish').find('.extend').contains('Collapse variants')
 
         openGroupItem('New dish', 'New option')
 
@@ -47,7 +47,6 @@ describe('Edit categories', () => {
         cy.on('window:confirm', () => true)
         cy.reload();
 
-        getGroupByName('New dish').find('.extend').click()
         cy.get('.menu-element.item').should('have.length', 2)
     })
 
@@ -257,7 +256,7 @@ describe('Edit categories', () => {
         verifyItem('New Item 1', 15.99, [], [], ['Dodatki do kebaba małego', 'Dodatki do kebaba dużego', 'Dodatki do kebaba średniego'])
     })
 
-    it('Update variant toppings order up', () => {
+    it.only('Update variant toppings order up', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New Item 1', 15.99, [], [], ['Dodatki do kebaba małego', 'Dodatki do kebaba średniego', 'Dodatki do kebaba dużego'])

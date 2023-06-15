@@ -220,10 +220,6 @@ const routes: Routes = [
     component: AdminMenuCategoryComponent,
     children: [
       {
-        path: 'group/:menuItemGroupRef/edit',
-        component: EditItemGroupComponent
-      },
-      {
         path: 'group-aggregate/create',
         component: EditItemGroupAggregateComponent,
         children: editGroupAggregateRoutes
@@ -233,13 +229,23 @@ const routes: Routes = [
         component: EditItemGroupAggregateComponent,
         children: editGroupAggregateRoutes
       },
+    ]
+  },
+  {
+    path: 'category/:categoryRef/group/:menuItemGroupRef',
+    component: AdminMenuCategoryComponent,
+    children: [
       {
-        path: 'group/:menuItemGroupRef/item/:menuItemRef/edit',
+        path: 'edit',
+        component: EditItemGroupComponent
+      },
+      {
+        path: 'item/:menuItemRef/edit',
         component: EditItemComponent,
         children: editItemRoutes
       },
       {
-        path: 'group/:menuItemGroupRef/item/create',
+        path: 'item/create',
         component: EditItemComponent,
         children: editItemRoutes
       }

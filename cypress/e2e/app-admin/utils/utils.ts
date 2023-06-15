@@ -163,7 +163,7 @@ export function createVariant(
     
     cy.get('.save-button').click();
 
-    cy.url().should('match', new RegExp('.*/category/.{12}$'))
+    cy.url().should('match', new RegExp('.*/category/.{12}/group/.{12}$'))
     cy.reload();
 }
 
@@ -310,7 +310,7 @@ export function moveItemCollectionUp(name: string) {
 
 export function saveAndReloadGroupAggregate() {
     cy.get('.save-button').click();
-    cy.url().should('match', new RegExp('.*/category/.{12}$'))
+    cy.url().should('match', new RegExp('.*/category/.{12}/group/.{12}$'))
     cy.reload();
 }
 
@@ -334,13 +334,12 @@ export function createGroupOption(
     selects: string[],
     toppings: string[]
 ) {
-    getGroupByName(groupName).find('.extend').contains('Expand variants').click()
     cy.get('.create-new').contains('Create new option').click()
     createVariant(name, price, allergens, selects, toppings)
 }
 
 export function groupContainsVariant(groupName: string, variantName: string, variantPrice: string) {
-    getGroupByName(groupName).find('.extend').contains('Expand variants').click()
+    // getGroupByName(groupName).find('.extend').contains('Expand variants').click()
     cy.get('.menu-element-name').contains(variantName);
     cy.get('.menu-element.item .menu-element-name').contains(variantName).parent().children('.menu-element-price').contains(variantPrice)
 }
@@ -353,7 +352,6 @@ export function openGroupItem(
     groupName: string,
     name: string
 ) {
-    getGroupByName(groupName).find('.extend').click()
     getGroupItem(name).find('.settings-icon').click();
 }
 
@@ -367,7 +365,6 @@ export function moveItemUp(
     groupName: string,
     name: string
 ) {
-    getGroupByName(groupName).find('.extend').click()
     getGroupItem(name).find('.drag-box .top').click();
 }
 
@@ -375,7 +372,6 @@ export function moveItemDown(
     groupName: string,
     name: string
 ) {
-    getGroupByName(groupName).find('.extend').click()
     getGroupItem(name).find('.drag-box .bottom').click();
 }
 

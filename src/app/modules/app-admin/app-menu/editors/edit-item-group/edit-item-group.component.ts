@@ -35,7 +35,7 @@ export class EditItemGroupComponent implements OnDestroy {
       name: ''
     }
 
-    this.route.params.pipe(
+    this.route.parent!.params.pipe(
       tap(params => this.initComponent(params['menuItemGroupRef'])),
       takeUntil(this.onDestroy)
     ).subscribe()
@@ -77,7 +77,7 @@ export class EditItemGroupComponent implements OnDestroy {
   }
 
   close() {
-    this.router.navigate(['/admin/menu/category', this.categoryRef])
+    this.router.navigate(['.'], { relativeTo: this.route.parent })
   }
 
   onDelete() {

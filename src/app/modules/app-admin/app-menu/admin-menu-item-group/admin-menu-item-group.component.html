@@ -1,5 +1,5 @@
 <div id="menu-elements-list" *ngIf="_group as group">
-    <div class="create-new clickable box-shadow box-radius" [routerLink]="['group', group.ref, 'item', 'create']"><p i18n>+ Create new option</p></div>
+    <div class="create-new clickable box-shadow box-radius" [routerLink]="['/admin/menu/category/', categoryRef, 'group', group.ref, 'item', 'create']"><p i18n>+ Create new option</p></div>
     
     <div *ngFor="let item of group.menuItems; let i = index">
         <div class="menu-element item box-shadow box-radius">
@@ -14,7 +14,7 @@
                     <p class="menu-element-price">{{ item.price }} zł</p>
                 </div>
                 <div class="right">
-                    <div class="settings-icon clickable" [routerLink]="['group', group.ref, 'item', item.ref, 'edit']">
+                    <div class="settings-icon clickable" [routerLink]="['/admin/menu/category/', categoryRef, 'group', group.ref, 'item', item.ref, 'edit']">
                         <mat-icon>settings</mat-icon>
                     </div>
                 </div>

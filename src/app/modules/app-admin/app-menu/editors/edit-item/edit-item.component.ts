@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { MenuItemData, MenuItemDetailedGet } from '@common/api-client/models';
 import { MenuItemControllerService, MenuItemGroupControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { BehaviorSubject, Subject, catchError, switchMap, takeUntil, tap, combineLatest} from 'rxjs';
+import { BehaviorSubject, Subject, catchError, switchMap, takeUntil, tap, combineLatest, zip} from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemService } from './edit-item-service/edit-item.service';
 import { EditorDialogService } from '../editor-dialog.service';
@@ -21,7 +21,6 @@ export class EditItemComponent implements OnDestroy {
 
   private readonly onDestroy = new Subject<void>();
   private categoryRef: string
-  private groupRef: string
   // Data fetched from server, available only in edit mode
   fullItem: MenuItemDetailedGet | undefined;
 
@@ -38,10 +37,12 @@ export class EditItemComponent implements OnDestroy {
     private editorDialogService: EditorDialogService
   ) {
     this.categoryRef = this.route.parent!.snapshot.paramMap.get('categoryRef')!;
-    this.groupRef = this.route.parent!.snapshot.paramMap.get('menuItemGroupRef')!;
 
-    this.route.params.pipe(
-      tap(params => this.loadItemDetails(params['menuItemRef'], params['menuItemGroupRef'])),
+    zip([
+      this.route.parent!.params,
+      this.route.params
+    ]).pipe(
+      tap(([parentParams, componentParams]) => this.loadItemDetails(componentParams['menuItemRef'], parentParams['menuItemGroupRef'])),
       takeUntil(this.onDestroy)
     ).subscribe();
 
@@ -92,7 +93,7 @@ export class EditItemComponent implements OnDestroy {
   }
 
   close() {
-    this.router.navigate(['/admin/menu/category', this.categoryRef])
+    this.router.navigate(['.'], { relativeTo: this.route.parent })
   }
 
   onDelete() {
@@ -115,6 +116,7 @@ export class EditItemComponent implements OnDestroy {
   }
 
   loadItemDetails(itemRef: string | undefined, groupRef: string) {
+    console.log(itemRef, groupRef)
     if (itemRef !== undefined) {
       this.itemService.getItemDetails({
         restaurantRef: this.accountService.getRestaurantRef(),
