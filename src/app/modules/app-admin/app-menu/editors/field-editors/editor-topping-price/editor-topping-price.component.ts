@@ -25,11 +25,7 @@ export class EditorToppingPriceComponent implements OnDestroy {
     ).subscribe();
 
     this.editToppingService.observeToppingData().pipe(
-      tap(e => {
-        if (e) {
-          this.loadPrice(e.price)
-        }
-      }),
+      tap(e => this.loadPrice(e?.price)),
       takeUntil(this.onDestroy)
     ).subscribe();
 
@@ -49,8 +45,12 @@ export class EditorToppingPriceComponent implements OnDestroy {
     this.onDestroy.complete();
   }
   
-  private loadPrice(value: number) {
-    this.priceField.setValue(value.toString())
+  private loadPrice(value: number | undefined) {
+    const fieldValue = this.priceField.value ? this.priceField.value : '';
+    if (Number(fieldValue) !== value) {
+      this.priceField.setValue(value !== undefined ? value.toString() : '')
+    }
+
     this.submitErrors()
   }
 
@@ -59,7 +59,7 @@ export class EditorToppingPriceComponent implements OnDestroy {
     this.submitErrors()
 
     if (this.priceField.valid) {
-      if (topping.price.toString() != this.priceField.value) {
+      if (topping.price?.toString() != this.priceField.value) {
         topping.price = this.priceField.value == null ? 0 : Number(this.priceField.value);
         this.editToppingService.update(topping);
       }

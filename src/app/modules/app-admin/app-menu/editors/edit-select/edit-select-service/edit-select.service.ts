@@ -56,7 +56,7 @@ export class EditSelectService {
             available: true,
             collectionRef: collectionRef,
             name: '',
-            price: 0
+            price: undefined
         });
     }
 

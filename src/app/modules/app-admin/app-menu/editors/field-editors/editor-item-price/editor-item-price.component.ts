@@ -51,7 +51,11 @@ export class EditorItemPriceComponent implements OnDestroy {
   }
   
   private loadPrice(value: number) {
-    this.priceField.setValue(value ? value.toString() : '')
+    const fieldValue = this.priceField.value ? this.priceField.value : '';
+    if (Number(fieldValue) !== value) {
+      this.priceField.setValue(value !== undefined ? value.toString() : '')
+    }
+
     this.submitErrors()
   }
 

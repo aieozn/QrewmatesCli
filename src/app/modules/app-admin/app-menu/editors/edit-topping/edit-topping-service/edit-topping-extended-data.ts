@@ -4,5 +4,5 @@ export interface MenuItemToppingExtendedData {
     collectionRef: string;
     description?: string;
     name: string;
-    price: number;
+    price: number | undefined;
   }
