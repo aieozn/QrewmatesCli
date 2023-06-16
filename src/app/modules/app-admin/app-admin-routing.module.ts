@@ -35,6 +35,10 @@ const routes: Routes = [
       {
         path: 'customization',
         loadChildren: () => import('./app-customization/app-customization.module').then(m => m.AppCustomizationModule)
+      },
+      {
+        path: 'tables',
+        loadChildren: () => import('./app-tables/app-tables.module').then(m => m.AppTablesModule)
       }
     ]
   }
