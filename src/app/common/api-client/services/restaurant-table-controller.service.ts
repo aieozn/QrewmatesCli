@@ -175,6 +175,52 @@ export class RestaurantTableControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation getTables
+   */
+  static readonly GetTablesPath = '/api/public/v1/restaurant/{restaurantRef}/tables';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getTables()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTables$Response(params: {
+    restaurantRef: string;
+  }): Observable<StrictHttpResponse<Array<RestaurantTableGet>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RestaurantTableControllerService.GetTablesPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<RestaurantTableGet>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getTables$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTables(params: {
+    restaurantRef: string;
+  }): Observable<Array<RestaurantTableGet>> {
+
+    return this.getTables$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<RestaurantTableGet>>) => r.body as Array<RestaurantTableGet>)
+    );
+  }
+
+  /**
    * Path part for operation getTable
    */
   static readonly GetTablePath = '/api/public/v1/restaurant/{restaurantRef}/tables/{tableRef}';

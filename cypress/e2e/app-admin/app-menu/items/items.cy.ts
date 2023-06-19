@@ -256,7 +256,7 @@ describe('Edit categories', () => {
         verifyItem('New Item 1', 15.99, [], [], ['Dodatki do kebaba małego', 'Dodatki do kebaba dużego', 'Dodatki do kebaba średniego'])
     })
 
-    it.only('Update variant toppings order up', () => {
+    it('Update variant toppings order up', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New Item 1', 15.99, [], [], ['Dodatki do kebaba małego', 'Dodatki do kebaba średniego', 'Dodatki do kebaba dużego'])

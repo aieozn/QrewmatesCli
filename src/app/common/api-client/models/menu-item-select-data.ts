@@ -7,5 +7,5 @@ export interface MenuItemSelectData {
   collectionRef: string;
   description?: string;
   name: string;
-  price?: number;
+  price: number;
 }

@@ -244,7 +244,7 @@ describe('Edit categories', () => {
         ])
     })
 
-    it.only('Edit simple group: remove description', () => {
+    it('Edit simple group: remove description', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New option', 14.99, [], [], [])
@@ -268,7 +268,7 @@ describe('Edit categories', () => {
         cy.get('.editor-box-title').contains('Dish name').parent().find('mat-error').contains('Invalid name')
     })
 
-    it.only('Edit simple group: update image', () => {
+    it('Edit simple group: update image', () => {
         createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
 
         extendAggregate('New dish', 'New option', 14.99, [], [], [])

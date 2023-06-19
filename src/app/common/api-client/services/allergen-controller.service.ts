@@ -268,4 +268,50 @@ export class AllergenControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation deleteAllergens
+   */
+  static readonly DeleteAllergensPath = '/api/staff/v1/restaurant/{restaurantRef}/allergens';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteAllergens()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteAllergens$Response(params: {
+    restaurantRef: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AllergenControllerService.DeleteAllergensPath, 'delete');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteAllergens$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteAllergens(params: {
+    restaurantRef: string;
+  }): Observable<void> {
+
+    return this.deleteAllergens$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
 }

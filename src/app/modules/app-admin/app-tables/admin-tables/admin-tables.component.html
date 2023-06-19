@@ -1,7 +1,7 @@
 <div id="tables">
     <h1 i18n>Managing tables</h1>
 
-    <div id="tables-app">
-
+    <div id="tables-app" *ngIf="tables">
+        <app-hall [tables]="tables"></app-hall>
     </div>
 </div>

@@ -102,7 +102,11 @@ export class EditSelectComponent implements OnDestroy {
         restaurantRef: this.accountService.getRestaurantRef(),
         menuItemSelectRef: this.select.ref,
         body: Trimers.trimSelectData({
-          ...selectValue,
+          available: selectValue.available,
+          collectionRef: selectValue.collectionRef,
+          description: selectValue.description,
+          name: selectValue.name,
+          price: selectValue.price ? selectValue.price : 0,
           allergens: allergens
         })
       }).pipe(
@@ -115,7 +119,11 @@ export class EditSelectComponent implements OnDestroy {
       this.selectService.postSelect({
         restaurantRef: this.accountService.getRestaurantRef(),
         body: Trimers.trimSelectData({
-          ...selectValue,
+          available: selectValue.available,
+          collectionRef: selectValue.collectionRef,
+          description: selectValue.description,
+          name: selectValue.name,
+          price: selectValue.price ? selectValue.price : 0,
           allergens: allergens
         })
       }).pipe(
