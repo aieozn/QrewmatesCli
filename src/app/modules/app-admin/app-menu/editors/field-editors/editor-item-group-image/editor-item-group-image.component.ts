@@ -3,6 +3,7 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { MultimediaControllerService } from '@common/api-client/services';
 import { Subject, map, takeUntil, tap } from 'rxjs';
 import { EditItemGroupService } from '../../edit-item-group/edit-item-group-service/edit-item-group-service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-editor-item-group-image',
@@ -10,58 +11,41 @@ import { EditItemGroupService } from '../../edit-item-group/edit-item-group-serv
   styleUrls: ['./editor-item-group-image.component.scss', '../common/field-editor.scss']
 })
 export class EditorItemGroupImageComponent implements OnDestroy {
-  imageUrl : string | undefined;
   private readonly onDestroy = new Subject<void>();
+
+  imageRef : FormControl<string | null> = new FormControl<string>('');
 
   constructor(
     private multimediaService: MultimediaControllerService,
     private accountService: AccountService,
     private editGroupService: EditItemGroupService
   ) {
+
     this.editGroupService.observeGroupData().pipe(
       map(e => e?.image?.ref as string | undefined),
-      tap(e => this.imageUrl = e ? this.accountService.getMultimediaUrl(e) : undefined),
+      tap(e => {
+        console.log(e)
+        this.imageRef.setValue(e ? e : null)
+      }),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+
+    this.imageRef.valueChanges.pipe(
+      tap(e => this.update(e)),
       takeUntil(this.onDestroy)
     ).subscribe()
   }
 
-  upload(fileList: FileList | null) {
-    if (fileList) {
-      const file = fileList.item(0);
+  update(imageRef: string | null) {
+    const itemGroup = this.editGroupService.getGroupData()
 
-      let type : 'IMAGE_PNG' | 'IMAGE_JPEG';
-
-      if (file?.type.includes('png')) {
-        type = 'IMAGE_PNG';
-      } else {
-        type = 'IMAGE_JPEG';
-      }
-
-      if (file) {
-        this.multimediaService.postMultimedia({
-          type: type,
-          restaurantRef: this.accountService.getRestaurantRef(),
-          body: {
-            file: file
-          }
-        }).subscribe(uploadedImage => {
-          const itemGroup = this.editGroupService.getGroupData()
-
-          itemGroup.image = {
-            ref: uploadedImage.ref
-          }
-          this.editGroupService.update(itemGroup);
-        });
-      }
-    }
-  }
-
-  remove() {
-    const itemGroup = this.editGroupService.getGroupData();
-
-    itemGroup.image = undefined;
-    this.imageUrl = undefined;
-    this.editGroupService.update(itemGroup);
+    if (itemGroup.image?.ref != imageRef) {
+      itemGroup.image = imageRef ? {
+        ref: imageRef
+      } : undefined;
+  
+      this.editGroupService.update(itemGroup);
+    } 
   }
 
   ngOnDestroy(): void {

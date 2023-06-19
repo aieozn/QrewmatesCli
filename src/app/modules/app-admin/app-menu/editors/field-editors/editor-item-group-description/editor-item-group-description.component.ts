@@ -6,8 +6,7 @@ import { MenuItemGroupData } from '@common/api-client/models';
 
 @Component({
   selector: 'app-editor-item-group-description',
-  templateUrl: './editor-item-group-description.component.html',
-  styleUrls: ['./editor-item-group-description.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-item-group-description.component.html'
 })
 export class EditorItemGroupDescriptionComponent implements OnDestroy {
   

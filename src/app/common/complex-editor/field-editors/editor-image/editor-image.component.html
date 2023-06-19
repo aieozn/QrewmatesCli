@@ -1,12 +1,6 @@
-<app-editor-image
-    [imageRef]="imageRef"
->
-    
-</app-editor-image>
-
-<!-- <div class="editor-box box-shadow box-shadow box-radius">
-    <p class="editor-box-title" i18n>Dish image</p>
-    <p class="editor-box-subtitle" i18n>Choose image</p>
+<div class="editor-box box-shadow box-shadow box-radius">
+    <p class="editor-box-title" i18n>Choose image</p>
+    <p class="editor-box-subtitle" i18n>Complete the field below</p>
 
     <div class="customization-envelope">
         <div id="active-logo" class="clickable" (click)="file.click()">
@@ -16,7 +10,7 @@
             </div>
         </div>
         <div id="logo-description">
-            <h3 i18n>Choose dish image</h3>
+            <h3 i18n>Choose image</h3>
     
             <p id="sendFile" class="clickable" (click)="file.click()" i18n>Send file</p>
             <div *ngIf="imageUrl" id="removeFile" class="clickable" (click)="remove()">
@@ -26,4 +20,4 @@
     </div>
 </div>
 
-<input #file type="file" id="file-upload" accept="image/*" (change)="upload(file.files)"> -->
+<input #file type="file" id="file-upload" accept="image/*" (change)="upload(file.files)">

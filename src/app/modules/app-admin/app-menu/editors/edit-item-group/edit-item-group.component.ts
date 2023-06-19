@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, catchError, takeUntil, tap } from 'rxjs';
 import { EditItemGroupService } from './edit-item-group-service/edit-item-group-service';
 import { Trimers } from '../../trimmer/trimmers';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-item-group',
@@ -18,6 +19,11 @@ export class EditItemGroupComponent implements OnDestroy {
   emptyItemGroup: MenuItemGroupData;
   private categoryRef: string;
   private readonly onDestroy = new Subject<void>();
+
+  groupFields = {
+    groupName: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+    groupDescription: new FormControl('', [Validators.maxLength(512)]),
+  };
 
   constructor(
     private menuItemGroupService: MenuItemGroupControllerService,

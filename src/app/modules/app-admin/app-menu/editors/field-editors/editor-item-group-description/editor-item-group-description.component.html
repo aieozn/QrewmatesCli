@@ -1,10 +1,6 @@
-<div class="editor-box box-shadow">
-    <p class="editor-box-title" i18n>Dish description</p>
-    <p class="editor-box-subtitle" i18n>Complete the field below</p>
 
-    <mat-form-field appearance="fill" id="element-input">
-        <mat-label i18n>Dish description</mat-label>
-        <input autocomplete="off" [formControl]="itemGroupDescription" matInput>
-        <mat-error *ngIf="itemGroupDescription.errors" i18n>Invalid description</mat-error>
-    </mat-form-field>
-</div>
+<app-editor-form-text
+    class="field-editor"
+    [control]="itemGroupDescription"
+    i18-name name="Dish description"
+></app-editor-form-text>
