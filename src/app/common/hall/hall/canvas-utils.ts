@@ -16,33 +16,38 @@ export class CanvasUtils {
     private viewLogicLeftX = 0;
 
     private readonly defaultViewLength = 10;
-    private readonly activeViewLength = this.defaultViewLength;
 
     constructor(private canvas: ElementRef<HTMLCanvasElement>) {
         this.realHeight = this.canvas!.nativeElement.offsetHeight;
         this.realWidth = this.canvas!.nativeElement.offsetWidth;
     }
 
+    update(tables: CanvasTable[]) {
+        this.clear();
+        this.adjustLogicRange(tables);
+        this.drawBackgroundLines();
+    }
+
     zoom(zoomDiff: number) {
         const minZoom = 4
         const widthDiff = (zoomDiff * 2) * (this.realWidth / this.realHeight);
 
-        if (this.viewLogicHeight < this.viewLogicWidth) {
-            if (
-            this.viewLogicHeight + zoomDiff * 2 > this.rangeLogicHeight
-            ||
-            this.viewLogicHeight + zoomDiff * 2 < minZoom
-            ) {
+
+        if (
+            (
+                this.viewLogicHeight + zoomDiff * 2 > this.rangeLogicHeight
+                    ||
+                this.viewLogicHeight + zoomDiff * 2 < minZoom
+            )
+            &&
+            (
+                this.viewLogicWidth + widthDiff > this.rangeLogicWidth
+                ||
+                this.viewLogicWidth + widthDiff < minZoom
+            )
+        )
+        {
             return;
-            }
-        } else {
-            if (
-            this.viewLogicWidth + widthDiff > this.rangeLogicWidth
-            ||
-            this.viewLogicWidth + widthDiff < minZoom
-            ) {
-            return;
-            }
         }
 
         this.viewLogicTopY -= zoomDiff
@@ -83,19 +88,19 @@ export class CanvasUtils {
             this.logicPosXToRealPosX(this.rangeLogicLeftX), 
             this.logicPosYToRealPosY(this.rangeLogicTopY),
             this.logicPosXToRealPosX(this.rangeLogicLeftX), 
-            this.logicPosYToRealPosY(this.rangeLogicTopY + this.rangeLogicWidth), 2);
+            this.logicPosYToRealPosY(this.rangeLogicTopY + this.rangeLogicHeight), 2);
 
         this.drawLine(
             this.logicPosXToRealPosX(this.rangeLogicLeftX), 
-            this.logicPosYToRealPosY(this.rangeLogicTopY + this.rangeLogicWidth),
+            this.logicPosYToRealPosY(this.rangeLogicTopY + this.rangeLogicHeight),
             this.logicPosXToRealPosX(this.rangeLogicLeftX + this.rangeLogicWidth), 
-            this.logicPosYToRealPosY(this.rangeLogicTopY + this.rangeLogicWidth), 2);
+            this.logicPosYToRealPosY(this.rangeLogicTopY + this.rangeLogicHeight), 2);
 
         this.drawLine(
             this.logicPosXToRealPosX(this.rangeLogicLeftX + this.rangeLogicWidth), 
             this.logicPosYToRealPosY(this.rangeLogicTopY),
             this.logicPosXToRealPosX(this.rangeLogicLeftX + this.rangeLogicWidth), 
-            this.logicPosYToRealPosY(this.rangeLogicTopY + this.rangeLogicWidth), 2);
+            this.logicPosYToRealPosY(this.rangeLogicTopY + this.rangeLogicHeight), 2);
     }
 
     private calcDimensions(tables: CanvasTable[]) {
@@ -105,17 +110,16 @@ export class CanvasUtils {
         this.adjustLogicRange(tables);
 
         const logicRangeCenterX = this.rangeLogicLeftX + (this.rangeLogicWidth / 2);
-        const logicRangeCenterY = this.rangeLogicTopY + (this.rangeLogicHeight / 2);
 
-        this.viewLogicTopY = logicRangeCenterY - (this.activeViewLength / 2)
-        this.viewLogicHeight = this.activeViewLength
+        this.viewLogicTopY = this.rangeLogicTopY
+        this.viewLogicHeight = this.rangeLogicHeight
 
         this.viewLogicWidth = (this.viewLogicHeight) * (this.realWidth / this.realHeight);
         this.viewLogicLeftX = logicRangeCenterX - (this.viewLogicWidth / 2)
     }
 
     public adjustLogicRange(tables: CanvasTable[]) {
-        const defaultRangeMargin = 10;
+        const defaultRangeMargin = 4;
 
         if (tables.length > 0) {
             this.rangeLogicTopY = tables[0].y - defaultRangeMargin;
@@ -124,27 +128,28 @@ export class CanvasUtils {
             this.rangeLogicWidth = 2 * defaultRangeMargin + tables[0].width;
 
             for (const table of tables) {
-            const diffTopY = this.rangeLogicTopY - (table.y - defaultRangeMargin)
-            if (diffTopY > 0) {
-                this.rangeLogicTopY -= diffTopY;
-                this.rangeLogicHeight += diffTopY;
-            }
+                const diffTopY = this.rangeLogicTopY - (table.y - defaultRangeMargin)
 
-            const diffLeftX = this.rangeLogicLeftX - (table.x - defaultRangeMargin);
-            if (diffLeftX > 0) {
-                this.rangeLogicLeftX -=  diffLeftX;
-                this.rangeLogicWidth += diffLeftX;
-            }
+                if (diffTopY > 0) {
+                    this.rangeLogicTopY -= diffTopY;
+                    this.rangeLogicHeight += diffTopY;
+                }
 
-            const diffBottomY = (table.y + defaultRangeMargin + table.height) - (this.rangeLogicTopY + this.rangeLogicHeight)
-            if (diffBottomY > 0) {
-                this.rangeLogicHeight += diffBottomY;
-            }
+                const diffLeftX = this.rangeLogicLeftX - (table.x - defaultRangeMargin);
+                if (diffLeftX > 0) {
+                    this.rangeLogicLeftX -=  diffLeftX;
+                    this.rangeLogicWidth += diffLeftX;
+                }
 
-            const diffRightX = (table.x + defaultRangeMargin + table.width) - (this.rangeLogicLeftX + this.rangeLogicWidth);
-            if (diffRightX > 0) {
-                this.rangeLogicWidth += diffRightX;
-            }
+                const diffBottomY = (table.y + defaultRangeMargin + table.height) - (this.rangeLogicTopY + this.rangeLogicHeight)
+                if (diffBottomY > 0) {
+                    this.rangeLogicHeight += diffBottomY;
+                }
+
+                const diffRightX = (table.x + defaultRangeMargin + table.width) - (this.rangeLogicLeftX + this.rangeLogicWidth);
+                if (diffRightX > 0) {
+                    this.rangeLogicWidth += diffRightX;
+                }
             }
         } else {
             this.rangeLogicTopY = -10;

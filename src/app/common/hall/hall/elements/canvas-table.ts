@@ -12,8 +12,8 @@ export class CanvasTable {
     public text: string;
 
     constructor(private table: RestaurantTableGet) {
-        this.x = 0;
-        this.y = 0;
+        this.x = table.posX;
+        this.y = table.posY;
         this.width = this.tableSize;
         this.height = this.tableSize;
 
@@ -45,9 +45,13 @@ export class CanvasTable {
             this.width * 0.6,
             this.height * 0.6
         )
+    }
 
-        // ctx.fillStyle = '#000000'
-        // ctx.font = "40px Poppins";
-        // ctx.fillText("Hello World", this.logicPosXToRealPosX(table.x), this.logicPosYToRealPosY(table.y));
+    public getTable() : RestaurantTableGet {
+        return {
+            ...this.table,
+            posX: this.x,
+            posY: this.y
+        }
     }
 }

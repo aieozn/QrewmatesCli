@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { RestaurantTableGet } from '@common/api-client/models';
 import { CanvasTable } from './elements/canvas-table';
 import { CanvasUtils } from './canvas-utils';
@@ -19,6 +19,9 @@ export class HallComponent implements OnInit {
     this._tables = value.map(e => new CanvasTable(e));
     this.draw(this._tables)
   }
+
+  @Output('onTableUpdate') onTableUpdate = new EventEmitter<RestaurantTableGet>();
+  @Output('onTableClick') onTableClick = new EventEmitter<RestaurantTableGet>();
 
   canvasUtils: CanvasUtils | undefined;
   _tables: CanvasTable[] = [];
@@ -53,10 +56,7 @@ export class HallComponent implements OnInit {
 
   private draw(tables: CanvasTable[]) {
     if (this.canvasUtils) {
-      this.canvasUtils.clear()
-
-      this.canvasUtils.adjustLogicRange(tables)
-      this.canvasUtils.drawBackgroundLines();
+      this.canvasUtils.update(tables)
   
       for (const table of tables) {
         table.draw(this.canvasUtils);
@@ -132,8 +132,14 @@ export class HallComponent implements OnInit {
     this.mouseDown = false;
 
     if (this.selectedTable && this.selectedTable.realMoveX === 0 && this.selectedTable.realMoveY === 0) {
-      console.log("CLICK")
+      this.onTableClick.emit(this.selectedTable.table.getTable())
     }
+
+    if (this.selectedTable && (this.selectedTable.realMoveX !== 0 || this.selectedTable.realMoveY !== 0)) {
+      this.onTableUpdate.emit(this.selectedTable.table.getTable())
+    }
+
+    this.selectedTable = undefined;
   }
 
   private findTable(x: number, y: number) : CanvasTable | undefined {
