@@ -1,25 +1,17 @@
-<div id="edit-element" class="box-shadow-bottom">
-    <p id="element-name" *ngIf="category !== undefined"><span i18n>Category</span>: <b>{{ category.name }}</b></p>
-    <p id="element-name" *ngIf="category === undefined"><span i18n>Create new category</span></p>
-
-    <p id="help-text" i18n>Edit fields below and save changes</p>
-</div>
-
-<div id="controls">
-    <div id="edit-element">
-        <div id="field-editors">
-            <app-editor-form-text class="field-editor" [control]="categoryFields.categoryName" i18-name name="Category name"></app-editor-form-text>
-            <app-editor-form-text class="field-editor" [control]="categoryFields.categoryDescription" i18-name name="Category description"></app-editor-form-text>
-        </div>
-    </div>
-</div>
-
-<app-submit-bar
+<app-complex-editor-wrapper
+    [headerEntry]="category !== undefined ? 'Category' : 'Create new category'"
+    [headerValue]="category !== undefined ? category.name : ''"
     [saveEnabled]="isValid(categoryFields) && isUpdated(categoryFields)"
     [deleteEnabled]="category !== undefined"
     [detailsLink]="detailsLink"
     (onClose)="close()"
     (onSave)="onSave()"
     (onDelete)="onDelete()"
-    (onTrySave)="onTrySave()">
-</app-submit-bar>
+    (onTrySave)="onTrySave()"
+>
+
+    <div id="field-editors">
+        <app-editor-form-text class="field-editor" [control]="categoryFields.categoryName" i18-name name="Category name"></app-editor-form-text>
+        <app-editor-form-text class="field-editor" [control]="categoryFields.categoryDescription" i18-name name="Category description"></app-editor-form-text>
+    </div>
+</app-complex-editor-wrapper>

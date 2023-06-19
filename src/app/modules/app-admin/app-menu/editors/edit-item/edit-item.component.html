@@ -1,3 +1,19 @@
+<app-complex-editor-wrapper
+    [headerEntry]="fullItem !== undefined ? 'Option' : 'Create new category'"
+    [headerValue]="fullItem !== undefined ? name : ''"
+    [saveEnabled]="((editItemService.valid() | async) && (isUpdated | async)) === true"
+    [deleteEnabled]="fullItem !== undefined"
+    (onClose)="close()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()"
+    [tabs]="tabs"
+>
+
+    <router-outlet></router-outlet>
+</app-complex-editor-wrapper>
+<!-- 
+
+
 <div id="edit-element" class="box-shadow-bottom">
     <p id="element-name" *ngIf="fullItem !== undefined"><span i18n>Option</span>: <b>{{ name }}</b></p>
     <p id="element-name" *ngIf="fullItem === undefined"><span i18n>Create new option</span></p>
@@ -26,13 +42,13 @@
 
 <div id="controls">
     <router-outlet></router-outlet>
-</div>
+</div> -->
 
-<app-submit-bar
+<!-- <app-submit-bar
     [saveEnabled]="((editItemService.valid() | async) && (isUpdated | async)) === true"
     [deleteEnabled]="fullItem !== undefined"
     (onClose)="close()"
     (onSave)="onSave()"
     (onDelete)="onDelete()"
     (onTrySave)="editItemService.onSaveTry.next()">
-</app-submit-bar>
+</app-submit-bar> -->

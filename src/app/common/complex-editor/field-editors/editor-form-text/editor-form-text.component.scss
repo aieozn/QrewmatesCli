@@ -1,0 +1,22 @@
+.editor-box {
+    border-radius: 20px;
+    padding: 20px;
+    height: calc(100% - 40px);
+}
+
+.editor-box-title {
+    margin: 0px;
+    padding: 0px;
+    font-family: PoppinsSemiBold;
+    font-size: 16px;
+}
+
+.editor-box-subtitle {
+    color: #C3C3C3;
+    font-size: 12px;
+}
+
+#element-input {
+    width: 100%;
+    font-size: 12px;
+}

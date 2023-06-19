@@ -1,0 +1,52 @@
+#edit-element {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+#element-name {
+    margin-top: 20px;
+    color: #C3C3C3;
+}
+
+#element-name b {
+    font-family: PoppinsBold;
+    color: black;
+}
+
+#help-text {
+    font-size: 14px;
+    margin: 0px;
+    color: #777;
+}
+
+#controls {
+    max-height: 50vh;
+    overflow: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#tabs {
+    position: absolute;
+    right: 20px;
+    top: 0px;
+    display: flex;
+}
+
+#tabs .tab {
+    padding: 10px;
+    color: #C3C3C3;
+    font-size: 14px;
+    font-family: Poppins;
+}
+
+#tabs .tab.active {
+    color: #c21d8e;
+}
+
+#tabs .tab mat-icon {
+    font-size: 20px;
+    position: relative;
+    top: 8px;
+}

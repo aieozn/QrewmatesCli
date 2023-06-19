@@ -6,7 +6,6 @@ import { EditCategoryComponent } from './editors/edit-category/edit-category.com
 import { EditItemGroupComponent } from './editors/edit-item-group/edit-item-group.component';
 import { EditorItemGroupDescriptionComponent } from './editors/field-editors/editor-item-group-description/editor-item-group-description.component';
 import { EditorItemGroupNameComponent } from './editors/field-editors/editor-item-group-name/editor-item-group-name.component';
-import { SubmitBarComponent } from './editors/submit-bar/submit-bar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +26,6 @@ import { EditItemGroupAggregateSettingsComponent } from './editors/edit-item-gro
 import { EditorItemGroupImageComponent } from './editors/field-editors/editor-item-group-image/editor-item-group-image.component';
 import { AdminMenuAllergensComponent } from './admin-menu-allergens/admin-menu-allergens.component';
 import { EditAllergenComponent } from './editors/edit-allergen/edit-allergen.component';
-import { EditorFormTextComponent } from './editors/field-editors/editor-form-text/editor-form-text.component';
 import { AdminMenuSelectCollectionsComponent } from './admin-menu-select-collections/admin-menu-select-collections.component';
 import { AdminMenuSelectCollectionComponent } from './admin-menu-select-collection/admin-menu-select-collection.component';
 import { EditSelectCollectionComponent } from './editors/edit-select-collection/edit-select-collection.component';
@@ -45,6 +43,7 @@ import { EditToppingSettingsComponent } from './editors/edit-topping/edit-toppin
 import { EditorToppingNameComponent } from './editors/field-editors/editor-topping-name/editor-topping-name.component';
 import { EditorToppingDescriptionComponent } from './editors/field-editors/editor-topping-description/editor-topping-description.component';
 import { EditorToppingPriceComponent } from './editors/field-editors/editor-topping-price/editor-topping-price.component';
+import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 
 @NgModule({
   declarations: [
@@ -52,7 +51,6 @@ import { EditorToppingPriceComponent } from './editors/field-editors/editor-topp
     EditItemGroupComponent,
     EditorItemGroupDescriptionComponent,
     EditorItemGroupNameComponent,
-    SubmitBarComponent,
     ElementEditorDirective,
     EditItemComponent,
     EditItemToppingsComponent,
@@ -68,7 +66,6 @@ import { EditorToppingPriceComponent } from './editors/field-editors/editor-topp
     EditItemGroupAggregateSettingsComponent,
     EditorItemGroupImageComponent,
     AdminMenuAllergensComponent,
-    EditorFormTextComponent,
     AdminMenuSelectCollectionsComponent,
     AdminMenuSelectCollectionComponent,
     EditSelectCollectionComponent,
@@ -95,7 +92,8 @@ import { EditorToppingPriceComponent } from './editors/field-editors/editor-topp
     FormsModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ComplexEditorModule
   ]
 })
 export class AppMenuModule { }

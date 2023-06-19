@@ -10,7 +10,7 @@ import { Subject, catchError, takeUntil, tap } from 'rxjs';
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
-  styleUrls: ['../edit-element.scss']
+  styleUrls: ['./edit-category.component.scss']
 })
 export class EditCategoryComponent implements OnDestroy {
 

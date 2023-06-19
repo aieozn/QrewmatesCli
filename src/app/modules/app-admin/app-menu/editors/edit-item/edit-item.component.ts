@@ -26,6 +26,33 @@ export class EditItemComponent implements OnDestroy {
 
   isUpdated: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  tabs : {
+    name: string,
+    icon: string,
+    routerLink: string
+  }[] = [
+    {
+      name: 'Toppings',
+      icon: 'add_circle',
+      routerLink: 'toppings'
+    },
+    {
+      name: 'Selects',
+      icon: 'check_circle',
+      routerLink: 'selects'
+    },
+    {
+      name: 'Allergens',
+      icon: 'info',
+      routerLink: 'allergens'
+    },
+    {
+      name: 'Edit',
+      icon: 'settings',
+      routerLink: 'settings'
+    }
+  ]
+
   constructor(
     private itemService: MenuItemControllerService,
     private accountService: AccountService,

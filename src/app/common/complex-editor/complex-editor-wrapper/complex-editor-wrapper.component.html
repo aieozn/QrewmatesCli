@@ -1,0 +1,28 @@
+<div id="edit-element" class="box-shadow-bottom">
+    <p id="element-name"><span i18n>{{ headerEntry }}</span><span *ngIf="headerValue">: </span><b> {{ headerValue }}</b></p>
+
+    <p id="help-text" i18n>Edit fields below and save changes</p>
+
+    <div id="tabs">
+        <div *ngFor="let tab of tabs" class="tab clickable" routerLink="{{ tab.routerLink }}" routerLinkActive="active">
+            <mat-icon>{{tab.icon}}</mat-icon>
+            <span i18n>{{tab.name}}</span>
+        </div>
+    </div>
+</div>
+
+<div id="controls">
+    <div id="edit-element">
+        <ng-content></ng-content>
+    </div>
+</div>
+
+<app-submit-bar
+    [saveEnabled]="saveEnabled"
+    [deleteEnabled]="deleteEnabled"
+    [detailsLink]="detailsLink"
+    (onClose)="onClose.emit()"
+    (onSave)="onSave.emit()"
+    (onDelete)="onDelete.emit()"
+    (onTrySave)="onTrySave.emit()">
+</app-submit-bar>

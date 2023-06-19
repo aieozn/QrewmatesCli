@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-editor-form-text',
   templateUrl: './editor-form-text.component.html',
-  styleUrls: ['../common/field-editor.scss', './editor-form-text.component.scss']
+  styleUrls: ['./editor-form-text.component.scss']
 })
 export class EditorFormTextComponent {
   @Input('control')
