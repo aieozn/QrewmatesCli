@@ -52,12 +52,14 @@ export class EditTableComponent implements OnDestroy {
   }
 
   private updateTable(value: RestaurantTableGet) {
+    this.editTableService.onTableActivated.emit(value)
     this.editTableService.update(value);
     this.table = value;
     this.tableFields.tableName.setValue(value.name);
   }
 
   close() {
+    this.editTableService.onTableDeactivated.emit();
     this.router.navigate(['.'], { relativeTo: this.route.parent })
   }
 
@@ -98,7 +100,8 @@ export class EditTableComponent implements OnDestroy {
         }
       }).subscribe(saved => {
         this.editTableService.onTableCreated.next(saved);
-        this.close();
+
+        this.router.navigate(['./table/', saved.ref], { relativeTo: this.route.parent })
       })
     }
   }

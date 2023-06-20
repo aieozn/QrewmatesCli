@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Outpu
 import { RestaurantTableGet } from '@common/api-client/models';
 import { CanvasTable } from './elements/canvas-table';
 import { CanvasUtils } from './canvas-utils';
+import { ExtendedTableData } from './extended-table-data';
 
 @Component({
   selector: 'app-hall',
@@ -15,7 +16,7 @@ export class HallComponent implements OnInit {
   @ViewChild('canvasWrapper', { static: true }) 
   canvasWrapper!: ElementRef;
 
-  @Input() set tables(value: RestaurantTableGet[]) {
+  @Input() set tables(value: ExtendedTableData[]) {
     this._tables = value.map(e => new CanvasTable(e));
     this.draw(this._tables)
   }

@@ -12,7 +12,7 @@ import { HallComponent } from './hall/hall.component';
     CommonModule
   ],
   exports: [
-    HallComponent
+    HallComponent,
   ]
 })
 export class HallModule { }

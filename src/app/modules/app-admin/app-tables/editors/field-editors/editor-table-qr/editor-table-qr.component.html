@@ -1,34 +1,15 @@
 <span *ngIf="editTableService.observeTableData() | async as activeTable">
     <app-generic-editor name="Table Qr code" *ngIf="activeTable.qrCode">
-        <div class="qr-content" *ngIf="activeTable.qrCode.status === 'PROCESSING'">
-            <div id="qr-image">
-                <mat-spinner diameter="80"></mat-spinner>
+        <div class="qr-content">
+            <div id="qr-image" class="clickable" (click)="openQrImage()">
+                <mat-icon>qr_code</mat-icon>
             </div>
-            
-            <p i18n>Generating QR code in progress</p>
-    
-            <div class="spacer"></div>
-        </div>
-
-        <div class="qr-content" *ngIf="activeTable.qrCode.status === 'READY'">
-            <div id="qr-image">
-                <a class="download-link" href="{{ accountService.getMultimediaUrl(activeTable.qrCode.image!.ref) }}" target="_blank">
-                    <img src="{{ accountService.getMultimediaUrl(activeTable.qrCode.image!.ref) }}">
-                </a>
-            </div>
-
-            <p i18n>Succesfully generated QR code</p>
-            <a class="download-link" href="{{ accountService.getMultimediaUrl(activeTable.qrCode.image!.ref) }}" download="{{ accountService.getMultimediaUrl(activeTable.qrCode.image!.ref) }}">
-                <p class="download">Download</p>
-            </a>
-    
-            <div class="spacer"></div>
-        </div>
-
-        <div class="qr-content" *ngIf="activeTable.qrCode.status === 'FAILURE'">
-            <p>Failed to generate QR code</p>
+        
+            <p class="download clickable" (click)="downloadQrImage()">Download</p>
     
             <div class="spacer"></div>
         </div>
     </app-generic-editor>
 </span>
+
+<a id="blob-ref" #blobRef></a>

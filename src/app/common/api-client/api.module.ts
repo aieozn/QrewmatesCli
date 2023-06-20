@@ -20,6 +20,7 @@ import { AllergenControllerService } from './services/allergen-controller.servic
 import { MultimediaControllerService } from './services/multimedia-controller.service';
 import { LoginControllerService } from './services/login-controller.service';
 import { StatisticsControllerService } from './services/statistics-controller.service';
+import { QrCodeControllerService } from './services/qr-code-controller.service';
 import { RestaurantStylesControllerService } from './services/restaurant-styles-controller.service';
 
 /**
@@ -46,6 +47,7 @@ import { RestaurantStylesControllerService } from './services/restaurant-styles-
     MultimediaControllerService,
     LoginControllerService,
     StatisticsControllerService,
+    QrCodeControllerService,
     RestaurantStylesControllerService,
     ApiConfiguration
   ],

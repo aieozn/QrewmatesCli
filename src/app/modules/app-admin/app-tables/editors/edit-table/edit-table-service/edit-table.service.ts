@@ -10,6 +10,8 @@ export class EditTableService {
   onTableDeleted = new EventEmitter<string>();
   onTableUpdated = new EventEmitter<RestaurantTableGet>();
   onTableCreated = new EventEmitter<RestaurantTableGet>();
+  onTableActivated = new EventEmitter<RestaurantTableGet>();
+  onTableDeactivated = new EventEmitter<void>();
 
   private tableData: BehaviorSubject<ExtendedRestaurantTableData | undefined> = new BehaviorSubject<ExtendedRestaurantTableData | undefined>(undefined);
 

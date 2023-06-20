@@ -1,5 +1,6 @@
 import { RestaurantTableGet } from "@common/api-client/models";
 import { CanvasUtils } from "../canvas-utils";
+import { ExtendedTableData } from "../extended-table-data";
 
 export class CanvasTable {
 
@@ -10,12 +11,14 @@ export class CanvasTable {
     public width: number;
     public height: number;
     public text: string;
+    public color?: string;
 
-    constructor(private table: RestaurantTableGet) {
+    constructor(private table: ExtendedTableData) {
         this.x = table.posX;
         this.y = table.posY;
         this.width = this.tableSize;
         this.height = this.tableSize;
+        this.color = table.color;
 
         this.text = table.name;
     }
@@ -26,7 +29,7 @@ export class CanvasTable {
             this.y,
             this.width,
             this.height,
-            '#522c23'
+            this.color ? this.color : '#522c23'
         );
 
         canvasUtils.fillRect(
