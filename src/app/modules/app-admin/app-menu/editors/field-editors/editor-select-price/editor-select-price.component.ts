@@ -58,8 +58,6 @@ export class EditorSelectPriceComponent implements OnDestroy {
     const select = this.editSelectService.getSelectData();
     this.submitErrors()
 
-    console.log("Update")
-
     if (this.priceField.valid) {
       if (select.price?.toString() != this.priceField.value) {
         select.price = this.priceField.value == null ? 0 : Number(this.priceField.value);

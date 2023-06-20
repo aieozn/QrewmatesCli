@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { EditorImageComponent } from './field-editors/editor-image/editor-image.component';
 import { EditorPriceComponent } from './field-editors/editor-price/editor-price.component';
 import { TwoColumnsFieldEditorComponent } from './field-editors/two-columns-field-editor/two-columns-field-editor.component';
+import { FloatingEditorWrapperComponent } from './floating-editor-wrapper/floating-editor-wrapper.component';
 
 
 
@@ -21,7 +22,8 @@ import { TwoColumnsFieldEditorComponent } from './field-editors/two-columns-fiel
     EditorFormTextComponent,
     EditorImageComponent,
     EditorPriceComponent,
-    TwoColumnsFieldEditorComponent
+    TwoColumnsFieldEditorComponent,
+    FloatingEditorWrapperComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { TwoColumnsFieldEditorComponent } from './field-editors/two-columns-fiel
     EditorFormTextComponent,
     EditorImageComponent,
     EditorPriceComponent,
-    TwoColumnsFieldEditorComponent
+    TwoColumnsFieldEditorComponent,
+    FloatingEditorWrapperComponent
   ]
 })
 export class ComplexEditorModule { }

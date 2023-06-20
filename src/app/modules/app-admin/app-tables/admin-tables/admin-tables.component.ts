@@ -34,8 +34,6 @@ export class AdminTablesComponent implements OnDestroy {
   openTableDetails(table: RestaurantTableGet) {
     this.activeTable = table;
     this.tableNameControl.setValue(table.name)
-
-    console.log(table.qrCode)
   }
 
   ngOnDestroy(): void {

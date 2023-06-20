@@ -92,8 +92,6 @@ export class EditAllergenComponent implements OnDestroy {
         this.close()
       })
     }
-
-    console.log("Save")
   }
 
   onTrySave() {

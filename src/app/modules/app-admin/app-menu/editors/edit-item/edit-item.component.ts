@@ -144,7 +144,6 @@ export class EditItemComponent implements OnDestroy {
   }
 
   loadItemDetails(itemRef: string | undefined, groupRef: string) {
-    console.log(itemRef, groupRef)
     if (itemRef !== undefined) {
       this.itemService.getItemDetails({
         restaurantRef: this.accountService.getRestaurantRef(),

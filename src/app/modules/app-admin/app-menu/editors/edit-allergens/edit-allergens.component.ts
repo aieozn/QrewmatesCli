@@ -58,7 +58,6 @@ export class EditAllergensComponent implements OnDestroy {
   select(allergen: AllergenGet, selected: boolean) {
     if (selected) {
       this.aditAllergensService.addAllergen(allergen)
-      console.log("ADD")
     } else {
       this.aditAllergensService.removeAllergen(allergen)
     }

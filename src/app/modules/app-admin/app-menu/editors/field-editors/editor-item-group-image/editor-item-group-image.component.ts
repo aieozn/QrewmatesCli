@@ -23,7 +23,6 @@ export class EditorItemGroupImageComponent implements OnDestroy {
     this.editGroupService.observeGroupData().pipe(
       map(e => e?.image?.ref as string | undefined),
       tap(e => {
-        console.log(e)
         this.imageRef.setValue(e ? e : null)
       }),
       takeUntil(this.onDestroy)
