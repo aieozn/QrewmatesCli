@@ -1,14 +1,5 @@
-<div class="editor-box box-shadow">
-    <p class="editor-box-title" i18n>Item price</p>
-    <p class="editor-box-subtitle" i18n>Enter a valid price</p>
-
-    <mat-form-field appearance="fill" id="element-price-input">
-        <mat-label i18n>Item price</mat-label>
-        <input autocomplete="off" [formControl]="priceField" matInput>
-        <mat-error *ngIf="priceField.errors" i18n>Invalid price</mat-error>
-
-        <div class="currency-box">
-            {{ currency }}
-        </div>
-    </mat-form-field>
-</div>
+<app-editor-price
+    [control]="priceField"
+    [currency]="currency"
+>
+</app-editor-price>

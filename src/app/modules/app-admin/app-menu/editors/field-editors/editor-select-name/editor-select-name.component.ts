@@ -7,8 +7,7 @@ import { MenuItemSelectExtendedData } from '../../edit-select/edit-select-servic
 
 @Component({
   selector: 'app-editor-select-name',
-  templateUrl: './editor-select-name.component.html',
-  styleUrls: ['./editor-select-name.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-select-name.component.html'
 })
 export class EditorSelectNameComponent implements OnDestroy {
 

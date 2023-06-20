@@ -12,8 +12,7 @@ import { Trimers } from '../../trimmer/trimmers';
 
 @Component({
   selector: 'app-edit-topping',
-  templateUrl: './edit-topping.component.html',
-  styleUrls: ['../edit-element.scss', './edit-topping.component.scss']
+  templateUrl: './edit-topping.component.html'
 })
 export class EditToppingComponent implements OnDestroy {
 
@@ -21,6 +20,23 @@ export class EditToppingComponent implements OnDestroy {
   topping: MenuItemToppingDetailedGet | undefined;
   private readonly onDestroy = new Subject<void>();
   isUpdated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  tabs : {
+    name: string,
+    icon: string,
+    routerLink: string
+  }[] = [
+    {
+      name: 'Allergens',
+      icon: 'info',
+      routerLink: 'allergens'
+    },
+    {
+      name: 'Edit',
+      icon: 'settings',
+      routerLink: 'settings'
+    }
+  ]
 
   constructor(
     private toppingService: MenuItemToppingControllerService,

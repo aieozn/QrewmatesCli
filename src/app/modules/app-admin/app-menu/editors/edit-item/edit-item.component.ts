@@ -11,8 +11,7 @@ import { EditAllergensService } from '../edit-allergens/edit-allergens-service/e
 
 @Component({
   selector: 'app-edit-item',
-  templateUrl: './edit-item.component.html',
-  styleUrls: ['./edit-item.component.scss', '../edit-element.scss']
+  templateUrl: './edit-item.component.html'
 })
 export class EditItemComponent implements OnDestroy {
   

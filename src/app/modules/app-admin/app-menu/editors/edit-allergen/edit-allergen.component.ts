@@ -10,7 +10,7 @@ import { EditorDialogService } from '../editor-dialog.service';
 @Component({
   selector: 'app-edit-allergen',
   templateUrl: './edit-allergen.component.html',
-  styleUrls: ['../edit-element.scss']
+  styleUrls: ['./edit-allergen.component.scss']
 })
 export class EditAllergenComponent implements OnDestroy {
 

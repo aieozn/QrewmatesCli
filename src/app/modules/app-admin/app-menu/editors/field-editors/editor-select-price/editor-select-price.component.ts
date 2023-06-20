@@ -6,8 +6,7 @@ import { EditSelectService } from '../../edit-select/edit-select-service/edit-se
 
 @Component({
   selector: 'app-editor-select-price',
-  templateUrl: './editor-select-price.component.html',
-  styleUrls: ['./editor-select-price.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-select-price.component.html'
 })
 export class EditorSelectPriceComponent implements OnDestroy {
   private static readonly invalidSelectPriceError = 'ITEM_MAIL_SELECT_INVALID_PRICE';

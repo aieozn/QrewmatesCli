@@ -5,8 +5,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-editor-item-name',
-  templateUrl: './editor-item-name.component.html',
-  styleUrls: ['./editor-item-name.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-item-name.component.html'
 })
 export class EditorItemNameComponent implements OnDestroy {
 

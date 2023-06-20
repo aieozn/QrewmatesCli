@@ -6,8 +6,7 @@ import { EditToppingService } from '../../edit-topping/edit-topping-service/edit
 
 @Component({
   selector: 'app-editor-topping-price',
-  templateUrl: './editor-topping-price.component.html',
-  styleUrls: ['./editor-topping-price.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-topping-price.component.html'
 })
 export class EditorToppingPriceComponent implements OnDestroy {
   private static readonly invalidToppingPriceError = 'ITEM_MAIL_TOPPING_INVALID_PRICE';

@@ -22,6 +22,23 @@ export class EditSelectComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
   isUpdated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  tabs : {
+    name: string,
+    icon: string,
+    routerLink: string
+  }[] = [
+    {
+      name: 'Allergens',
+      icon: 'info',
+      routerLink: 'allergens'
+    },
+    {
+      name: 'Edit',
+      icon: 'settings',
+      routerLink: 'settings'
+    }
+  ]
+
   constructor(
     private selectService: MenuItemSelectControllerService,
     private route: ActivatedRoute,

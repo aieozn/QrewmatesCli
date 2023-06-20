@@ -12,8 +12,7 @@ import { EditAllergensService } from '../edit-allergens/edit-allergens-service/e
 
 @Component({
   selector: 'app-edit-item-group-aggregate',
-  templateUrl: './edit-item-group-aggregate.component.html',
-  styleUrls: ['edit-item-group-aggregate.scss', '../edit-element.scss']
+  templateUrl: './edit-item-group-aggregate.component.html'
 })
 export class EditItemGroupAggregateComponent {
   emptyGroup: MenuItemGroupData | undefined;
@@ -26,6 +25,33 @@ export class EditItemGroupAggregateComponent {
 
   isUpdated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isValid: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  tabs : {
+    name: string,
+    icon: string,
+    routerLink: string
+  }[] = [
+    {
+      name: 'Toppings',
+      icon: 'add_circle',
+      routerLink: 'toppings'
+    },
+    {
+      name: 'Selects',
+      icon: 'check_circle',
+      routerLink: 'selects'
+    },
+    {
+      name: 'Allergens',
+      icon: 'info',
+      routerLink: 'allergens'
+    },
+    {
+      name: 'Edit',
+      icon: 'settings',
+      routerLink: 'settings'
+    }
+  ]
 
   constructor(
     private gorupService: MenuItemGroupControllerService,

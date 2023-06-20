@@ -1,12 +1,6 @@
-<div class="editor-box box-shadow">
-    <p class="editor-box-title" i18n>Item name</p>
-    <p class="editor-box-subtitle" i18n>Enter a valid name</p>
-
-    <mat-form-field appearance="fill" id="element-input">
-        <span class="prefix" matPrefix>{{ groupName }}: </span>
-        
-        <mat-label i18n>Item name</mat-label>
-        <input autocomplete="off" [formControl]="nameField" matInput>
-        <mat-error *ngIf="nameField.errors" i18n>Invalid name</mat-error>
-    </mat-form-field>
-</div>
+<app-editor-form-text
+    class="field-editor"
+    [control]="nameField"
+    i18-name name="Item name"
+    [prefix]="groupName"
+></app-editor-form-text>

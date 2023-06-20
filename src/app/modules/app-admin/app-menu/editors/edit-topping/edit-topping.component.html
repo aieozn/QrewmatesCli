@@ -1,30 +1,14 @@
-<div id="edit-element" class="box-shadow-bottom">
-    <p id="element-name" *ngIf="topping !== undefined"><span i18n>Topping</span>: <b>{{ name }}</b></p>
-    <p id="element-name" *ngIf="topping === undefined"><span i18n>Create new topping</span></p>
-
-    <p id="help-text" i18n>Edit fields below and save changes</p>
-
-    <div id="item-tabs">
-        <div class="tab clickable" routerLink="allergens" routerLinkActive="active">
-            <mat-icon>info</mat-icon>
-            <span i18n>Allergens</span>
-        </div>
-        <div class="tab clickable" routerLink="settings" routerLinkActive="active">
-            <mat-icon>settings</mat-icon>
-            <span i18n>Edit</span>
-        </div>
-    </div>
-</div>
-
-<div id="controls">
-    <router-outlet></router-outlet>
-</div>
-
-<!-- <app-submit-bar
+<app-complex-editor-wrapper
+    [headerEntry]="topping !== undefined ? 'Topping' : 'Create new topping'"
+    [headerValue]="topping !== undefined ? name : ''"
     [saveEnabled]="((editToppingService.valid() | async) && (isUpdated | async)) === true"
     [deleteEnabled]="topping !== undefined"
     (onClose)="close()"
     (onSave)="onSave()"
     (onDelete)="onDelete()"
-    (onTrySave)="editToppingService.onSaveTry.next()">
-</app-submit-bar> -->
+    (onTrySave)="editToppingService.onSaveTry.next()"
+    [tabs]="tabs"
+>
+
+    <router-outlet></router-outlet>
+</app-complex-editor-wrapper>

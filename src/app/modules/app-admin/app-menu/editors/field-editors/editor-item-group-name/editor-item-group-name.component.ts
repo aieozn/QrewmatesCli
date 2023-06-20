@@ -5,8 +5,7 @@ import { EditItemGroupService } from '../../edit-item-group/edit-item-group-serv
 
 @Component({
   selector: 'app-editor-item-group-name',
-  templateUrl: './editor-item-group-name.component.html',
-  styleUrls: []
+  templateUrl: './editor-item-group-name.component.html'
 })
 export class EditorItemGroupNameComponent implements OnDestroy {
   private static readonly invalidItemGroupNameError = 'ITEM_MAIL_GROUP_INVALID_NAME';

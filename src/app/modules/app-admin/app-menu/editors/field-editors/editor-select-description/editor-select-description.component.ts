@@ -7,8 +7,7 @@ import { MenuItemSelectExtendedData } from '../../edit-select/edit-select-servic
 
 @Component({
   selector: 'app-editor-select-description',
-  templateUrl: './editor-select-description.component.html',
-  styleUrls: ['./editor-select-description.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-select-description.component.html'
 })
 export class EditorSelectDescriptionComponent implements OnDestroy {
 

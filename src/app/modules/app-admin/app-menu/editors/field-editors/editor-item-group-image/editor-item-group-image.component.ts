@@ -7,8 +7,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-editor-item-group-image',
-  templateUrl: './editor-item-group-image.component.html',
-  styleUrls: ['./editor-item-group-image.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-item-group-image.component.html'
 })
 export class EditorItemGroupImageComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();

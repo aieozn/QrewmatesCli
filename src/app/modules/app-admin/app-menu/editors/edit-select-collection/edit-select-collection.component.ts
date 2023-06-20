@@ -10,7 +10,7 @@ import { EditorDialogService } from '../editor-dialog.service';
 @Component({
   selector: 'app-edit-select-collection',
   templateUrl: './edit-select-collection.component.html',
-  styleUrls: ['../edit-element.scss']
+  styleUrls: ['./edit-select-collection.component.scss']
 })
 export class EditSelectCollectionComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();

@@ -7,8 +7,7 @@ import { MenuItemToppingExtendedData } from '../../edit-topping/edit-topping-ser
 
 @Component({
   selector: 'app-editor-topping-name',
-  templateUrl: './editor-topping-name.component.html',
-  styleUrls: ['./editor-topping-name.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-topping-name.component.html'
 })
 export class EditorToppingNameComponent implements OnDestroy {
 

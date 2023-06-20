@@ -6,8 +6,7 @@ import { EditItemService } from '../../edit-item/edit-item-service/edit-item.ser
 
 @Component({
   selector: 'app-editor-item-price',
-  templateUrl: './editor-item-price.component.html',
-  styleUrls: ['./editor-item-price.component.scss', '../common/field-editor.scss']
+  templateUrl: './editor-item-price.component.html'
 })
 export class EditorItemPriceComponent implements OnDestroy {
 

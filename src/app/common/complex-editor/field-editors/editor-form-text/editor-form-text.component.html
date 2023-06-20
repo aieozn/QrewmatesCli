@@ -3,6 +3,8 @@
     <p class="editor-box-subtitle" i18n>Complete the field below</p>
 
     <mat-form-field appearance="fill" id="element-input">
+        <span *ngIf="prefix" class="prefix" matPrefix>{{ prefix }}: </span>
+
         <mat-label i18n>{{ name }}</mat-label>
         <input autocomplete="off" [formControl]="control" matInput>
         <mat-error *ngIf="control.errors" i18n>Invalid value</mat-error>

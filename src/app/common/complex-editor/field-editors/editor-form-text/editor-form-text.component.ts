@@ -12,4 +12,7 @@ export class EditorFormTextComponent {
 
   @Input('name')
   name : string | undefined;
+
+  @Input('prefix')
+  prefix : string | undefined;
 }
