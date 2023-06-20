@@ -60,7 +60,7 @@ describe('Edit select', () => {
 
         cy.get('.save-button').should('have.class', 'disabled');
         cy.get('.save-button').click()
-        cy.get('.editor-box-title').contains('Select name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Select name').parent().find('mat-error').contains('Invalid value')
     })
 
     it('Creates new select - invalid price not allowed', () => {
@@ -111,7 +111,7 @@ describe('Edit select', () => {
 
         cy.get('.save-button').should('have.class', 'disabled');
         cy.get('.save-button').click()
-        cy.get('.editor-box-title').contains('Select name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Select name').parent().find('mat-error').contains('Invalid value')
     })
 
     it('Edit select - empty price not allowed', () => {
@@ -227,5 +227,19 @@ describe('Edit select', () => {
 
         cy.get('.selects').find('.menu-element').eq(3).find('.settings-icon').click({force: true})
         verifySelect('ZZ new select name', 'New select description', '77', ['Jaja', 'Ryby', 'Mięczaki'])
+    })
+
+    it('Zero price is zero', () => {
+        cy.visit('/admin/menu/select-collections/SC0KK0000000/select/create/settings')
+
+        createSelect('ZZ new select name', 'New select description', '0', ['Jaja', 'Ryby', 'Mięczaki'])
+
+        cy.get('.selects').find('.menu-element').eq(0).find('.settings-icon').click();
+        cy.get('.editor-box-title').contains('Select price').parent().find('input').should('have.value', '0')
+    })
+
+    it('Empty price is empty', () => {
+        cy.visit('/admin/menu/select-collections/SC0KK0000000/select/create/settings')
+        cy.get('.editor-box-title').contains('Select price').parent().find('input').should('have.value', '')
     })
 })

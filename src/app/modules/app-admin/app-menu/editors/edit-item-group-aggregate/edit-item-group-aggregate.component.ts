@@ -109,7 +109,8 @@ export class EditItemGroupAggregateComponent {
         body: {
           item: Trimers.trimLinkedItem({
             ...activeItem,
-            allergens: this.editAllergensService.getAllergensData()
+            allergens: this.editAllergensService.getAllergensData(),
+            price: activeItem.price!
           }),
           group: Trimers.trimGroupData(activeGroup)
         }
@@ -124,7 +125,8 @@ export class EditItemGroupAggregateComponent {
           group: Trimers.trimGroupData(activeGroup),
           item: Trimers.trimLinkedItem({
             ...activeItem,
-            allergens: this.editAllergensService.getAllergensData()
+            allergens: this.editAllergensService.getAllergensData(),
+            price: activeItem.price!
           })
         }
       }).pipe(

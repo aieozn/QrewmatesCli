@@ -13,7 +13,7 @@
     
     <div id="menu-elements-list">
 
-        <div *ngFor="let category of categories; let i = index" class="menu-element group box-shadow box-radius">
+        <div *ngFor="let category of categories; let i = index" class="menu-element group box-shadow box-radius category-pane">
             <div class="drag-box clickable">
                 <mat-icon (click)="moveDown(category)" *ngIf="i != 0" class="top">keyboard_arrow_up</mat-icon>
                 <mat-icon (click)="moveUp(category)" *ngIf="i + 1 != categories.length" class="bottom">keyboard_arrow_down</mat-icon>

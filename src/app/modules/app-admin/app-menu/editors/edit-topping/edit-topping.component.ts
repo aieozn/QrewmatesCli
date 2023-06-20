@@ -80,10 +80,12 @@ export class EditToppingComponent implements OnDestroy {
       const collectionRef = this.route.parent?.snapshot.paramMap.get('toppingCollectionRef');
 
       if (collectionRef) {
-        this.editAllergensService.clear();
-        this.editToppingService.clear(collectionRef);
-        this.topping = undefined;
-        this.name = undefined;
+        setTimeout(() => {
+          this.editAllergensService.clear();
+          this.editToppingService.clear(collectionRef);
+          this.topping = undefined;
+          this.name = undefined;
+        })
       } else {
         throw 'Collection ref not found'
       }

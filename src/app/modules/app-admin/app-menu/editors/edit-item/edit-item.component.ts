@@ -94,7 +94,8 @@ export class EditItemComponent implements OnDestroy {
         menuItemRef: this.fullItem.ref,
         body: Trimers.trimMenuItemData({
           ...itemValue,
-          allergens: allergens
+          allergens: allergens,
+          price: itemValue.price!
         })
       }).pipe(
         tap(e => {
@@ -107,7 +108,8 @@ export class EditItemComponent implements OnDestroy {
         restaurantRef: this.accountService.getRestaurantRef(),
         body: Trimers.trimMenuItemData({
           ...itemValue,
-          allergens: allergens
+          allergens: allergens,
+          price: itemValue.price!
         })
       }).pipe(
         tap(e => {
@@ -185,13 +187,4 @@ export class EditItemComponent implements OnDestroy {
     this.onDestroy.next();
     this.onDestroy.complete();
   }
-
-  // TODO 
-  // openAllergens() {
-  //   this.router.navigate(['allergens'], { relativeTo: this.route })
-  // }
-
-  // openSelects() {
-  //   this.router.navigate(['selects'], { relativeTo: this.route })
-  // }
 }

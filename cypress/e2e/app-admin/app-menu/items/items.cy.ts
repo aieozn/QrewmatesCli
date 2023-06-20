@@ -83,7 +83,7 @@ describe('Edit categories', () => {
         cy.get('.extend').click()
         cy.get('.save-button').should('have.class', 'disabled').click()
 
-        cy.get('.editor-box-title').contains('Item name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Item name').parent().find('mat-error').contains('Invalid value')
         cy.get('.editor-box-title').contains('Item name').parent().find('input').click().type('New option');
         cy.get('.save-button').should('not.have.class', 'disabled')
     })
@@ -269,5 +269,18 @@ describe('Edit categories', () => {
 
         openItemSettings('New Item 1')
         verifyItem('New Item 1', 15.99, [], [], ['Dodatki do kebaba średniego', 'Dodatki do kebaba małego', 'Dodatki do kebaba dużego'])
+    })
+
+    it('Zero price is zero', () => {
+        createGroupAggregate('New dish', 14.99, 'Dish description', undefined, [], [], [])
+
+        extendAggregate('New dish', 'New Item 1', 0, [], [], ['Dodatki do kebaba małego', 'Dodatki do kebaba średniego', 'Dodatki do kebaba dużego'])
+        openGroupItem('New dish', 'New Item 1')
+        cy.get('.editor-box-title').contains('Item price').parent().find('input').should('have.value', '0')
+    })
+
+    it('Empty price is empty', () => {
+        cy.get('.create-new').click()
+        cy.get('.editor-box-title').contains('Item price').parent().find('input').should('have.value', '')
     })
 })

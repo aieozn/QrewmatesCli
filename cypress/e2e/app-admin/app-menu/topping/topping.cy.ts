@@ -1,4 +1,4 @@
-import { createSelect, createTopping, flushKebebKing, loginAsAdmin, verifySelect, verifyTopping } from "../../utils/utils"
+import { createTopping, flushKebebKing, loginAsAdmin, verifyTopping } from "../../utils/utils"
 
 describe('Edit topping', () => {
     beforeEach(() => {
@@ -57,7 +57,7 @@ describe('Edit topping', () => {
 
         cy.get('.save-button').should('have.class', 'disabled');
         cy.get('.save-button').click()
-        cy.get('.editor-box-title').contains('Topping name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Topping name').parent().find('mat-error').contains('Invalid value')
     })
 
     it('Creates new topping - invalid price not allowed', () => {
@@ -108,7 +108,7 @@ describe('Edit topping', () => {
 
         cy.get('.save-button').should('have.class', 'disabled');
         cy.get('.save-button').click()
-        cy.get('.editor-box-title').contains('Topping name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Topping name').parent().find('mat-error').contains('Invalid value')
     })
 
     it('Edit topping - empty price not allowed', () => {
@@ -216,5 +216,19 @@ describe('Edit topping', () => {
 
         cy.get('.toppings').find('.menu-element').eq(2).find('.settings-icon').click({force: true})
         verifyTopping('ZZ new topping name', 'New topping description', '77', ['Jaja', 'Ryby', 'Mięczaki'])
+    })
+
+    it.only('Zero price is zero', () => {
+        cy.visit('/admin/menu/topping-collections/TC0KK0000000/topping/create/settings')
+
+        createTopping('ZZ new topping name', 'New topping description', '0', ['Jaja', 'Ryby', 'Mięczaki'])
+
+        cy.get('.toppings').find('.menu-element').eq(2).find('.settings-icon').click();
+        cy.get('.editor-box-title').contains('Topping price').parent().find('input').should('have.value', '0')
+    })
+
+    it('Empty price is empty', () => {
+        cy.visit('/admin/menu/topping-collections/TC0KK0000000/topping/create/settings')
+        cy.get('.editor-box-title').contains('Topping price').parent().find('input').should('have.value', '')
     })
 })

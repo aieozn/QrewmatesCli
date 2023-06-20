@@ -46,7 +46,9 @@ export class EditorToppingPriceComponent implements OnDestroy {
   
   private loadPrice(value: number | undefined) {
     const fieldValue = this.priceField.value ? this.priceField.value : '';
-    if (Number(fieldValue) !== value) {
+
+    if (fieldValue !== value?.toString()) {      
+      console.log("SET: " + value)
       this.priceField.setValue(value !== undefined ? value.toString() : '')
     }
 

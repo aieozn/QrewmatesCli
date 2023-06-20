@@ -1,9 +1,9 @@
 <div class="editor-box box-shadow" *ngIf="control">
-    <p class="editor-box-title" i18n>Item price</p>
+    <p class="editor-box-title" i18n>{{ name }}</p>
     <p class="editor-box-subtitle" i18n>Enter a valid price</p>
 
     <mat-form-field appearance="fill" id="element-price-input">
-        <mat-label i18n>Item price</mat-label>
+        <mat-label i18n>{{ name }}</mat-label>
         <input autocomplete="off" [formControl]="control" matInput>
         <mat-error *ngIf="control.errors" i18n>Invalid price</mat-error>
 

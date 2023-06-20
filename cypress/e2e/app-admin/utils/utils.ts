@@ -94,10 +94,11 @@ export function updateGroupAggregate(
 
     if (image) {
         cy.get('input[type=file]').selectFile(image, {force: true})
+        cy.get('#active-logo img').should('have.length', 1)
     }
 
     if (allergens) {
-        cy.get('#item-tabs span').contains('Allergens').parent().click()
+        cy.get('#tabs span').contains('Allergens').parent().click()
 
         for (const allergen of allergens) {
             cy.get('.allergen').contains(allergen).click()
@@ -105,7 +106,7 @@ export function updateGroupAggregate(
     }
 
     if (selects) {
-        cy.get('#item-tabs span').contains('Selects').parent().click()
+        cy.get('#tabs span').contains('Selects').parent().click()
 
         for (const select of selects) {
             cy.get('.collection').contains(select).parent().find('mat-checkbox').click()
@@ -113,7 +114,7 @@ export function updateGroupAggregate(
     }
 
     if (toppings) {
-        cy.get('#item-tabs span').contains('Toppings').parent().click()
+        cy.get('#tabs span').contains('Toppings').parent().click()
 
         for (const topping of toppings) {
             cy.get('.collection').contains(topping).parent().find('mat-checkbox').click()
@@ -137,7 +138,7 @@ export function createVariant(
     cy.get('.editor-box-title').contains('Item price').parent().find('input').click().clear().type(price.toString());
 
     if (allergens) {
-        cy.get('#item-tabs span').contains('Allergens').parent().click()
+        cy.get('#tabs span').contains('Allergens').parent().click()
 
         for (const allergen of allergens) {
             cy.get('.allergen').contains(allergen).click()
@@ -145,7 +146,7 @@ export function createVariant(
     }
 
     if (selects) {
-        cy.get('#item-tabs span').contains('Selects').parent().click()
+        cy.get('#tabs span').contains('Selects').parent().click()
 
         for (const select of selects) {
             cy.get('.collection').contains(select).parent().find('mat-checkbox').click()
@@ -153,7 +154,7 @@ export function createVariant(
     }
 
     if (toppings) {
-        cy.get('#item-tabs span').contains('Toppings').parent().click()
+        cy.get('#tabs span').contains('Toppings').parent().click()
 
         for (const topping of toppings) {
             cy.get('.collection').contains(topping).parent().find('mat-checkbox').click()
@@ -185,7 +186,7 @@ export function verifyAggregate(
     }
 
     if (allergens) {
-        cy.get('#item-tabs span').contains('Allergens').parent().click()
+        cy.get('#tabs span').contains('Allergens').parent().click()
 
         for (const allergen of allergens) {
             cy.get('.allergen').contains(allergen).parents('.allergen').find('input').should('be.checked')
@@ -194,7 +195,7 @@ export function verifyAggregate(
     cy.get('.allergen .mdc-checkbox--selected').should('have.length', allergens.length)
 
     if (selects) {
-        cy.get('#item-tabs span').contains('Selects').parent().click()
+        cy.get('#tabs span').contains('Selects').parent().click()
 
         for (const [index, select] of selects.entries()) {
             cy.get('.collection').eq(index).contains(select).parent().find('mat-checkbox input').should('be.checked')
@@ -203,7 +204,7 @@ export function verifyAggregate(
     cy.get('.collection .mdc-checkbox--selected').should('have.length', selects.length)
 
     if (toppings) {
-        cy.get('#item-tabs span').contains('Toppings').parent().click()
+        cy.get('#tabs span').contains('Toppings').parent().click()
 
         for (const [index, topping] of toppings.entries()) {
             cy.get('.collection').eq(index).contains(topping).parent().find('mat-checkbox input').should('be.checked')
@@ -223,7 +224,7 @@ export function verifyItem(
     cy.get('.editor-box-title').contains('Item price').parent().find('input').should('have.value', price.toString());
 
     if (allergens) {
-        cy.get('#item-tabs span').contains('Allergens').parent().click()
+        cy.get('#tabs span').contains('Allergens').parent().click()
 
         for (const allergen of allergens) {
             cy.get('.allergen').contains(allergen).parents('.allergen').find('input').should('be.checked')
@@ -232,7 +233,7 @@ export function verifyItem(
     cy.get('.allergen .mdc-checkbox--selected').should('have.length', allergens.length)
 
     if (selects) {
-        cy.get('#item-tabs span').contains('Selects').parent().click()
+        cy.get('#tabs span').contains('Selects').parent().click()
 
         for (const [index, select] of selects.entries()) {
             cy.get('.collection').eq(index).contains(select).parent().find('mat-checkbox input').should('be.checked')
@@ -241,7 +242,7 @@ export function verifyItem(
     cy.get('.collection .mdc-checkbox--selected').should('have.length', selects.length)
 
     if (toppings) {
-        cy.get('#item-tabs span').contains('Toppings').parent().click()
+        cy.get('#tabs span').contains('Toppings').parent().click()
 
         for (const [index, topping] of toppings.entries()) {
             cy.get('.collection').eq(index).contains(topping).parent().find('mat-checkbox input').should('be.checked')
@@ -293,11 +294,11 @@ export function moveGroupUp(name: string) {
 }
 
 export function goToSelects() {
-    cy.get('#item-tabs span').contains('Selects').parent().click()
+    cy.get('#tabs span').contains('Selects').parent().click()
 }
 
 export function goToToppings() {
-    cy.get('#item-tabs span').contains('Toppings').parent().click()
+    cy.get('#tabs span').contains('Toppings').parent().click()
 }
 
 export function moveItemCollectionDown(name: string) {
@@ -310,7 +311,7 @@ export function moveItemCollectionUp(name: string) {
 
 export function saveAndReloadGroupAggregate() {
     cy.get('.save-button').click();
-    cy.url().should('match', new RegExp('.*/category/.{12}/group/.{12}$'))
+    cy.url().should('match', new RegExp('.*/category/.{12}'))
     cy.reload();
 }
 
@@ -423,7 +424,7 @@ export function createSelect(name: string, description: string | undefined, pric
     
     cy.get('.editor-box-title').contains('Select price').parent().find('input').click().clear().type(price);
 
-    cy.get('#item-tabs span').contains('Allergens').parent().click()
+    cy.get('#tabs span').contains('Allergens').parent().click()
     for (const allergen of allergens) {
         cy.get('.allergen').contains(allergen).click()
     }
@@ -440,7 +441,7 @@ export function createTopping(name: string, description: string | undefined, pri
     
     cy.get('.editor-box-title').contains('Topping price').parent().find('input').click().clear().type(price);
 
-    cy.get('#item-tabs span').contains('Allergens').parent().click()
+    cy.get('#tabs span').contains('Allergens').parent().click()
     for (const allergen of allergens) {
         cy.get('.allergen').contains(allergen).click()
     }
@@ -458,7 +459,7 @@ export function verifySelect(name: string, description: string | undefined, pric
     cy.get('.editor-box-title').contains('Select price').parent().find('input').click().should('have.value', price);
 
     if (allergens) {
-        cy.get('#item-tabs span').contains('Allergens').parent().click()
+        cy.get('#tabs span').contains('Allergens').parent().click()
 
         for (const allergen of allergens) {
             cy.get('.allergen').contains(allergen).parents('.allergen').find('input').should('be.checked')
@@ -477,7 +478,7 @@ export function verifyTopping(name: string, description: string | undefined, pri
     cy.get('.editor-box-title').contains('Topping price').parent().find('input').click().should('have.value', price);
 
     if (allergens) {
-        cy.get('#item-tabs span').contains('Allergens').parent().click()
+        cy.get('#tabs span').contains('Allergens').parent().click()
 
         for (const allergen of allergens) {
             cy.get('.allergen').contains(allergen).parents('.allergen').find('input').should('be.checked')

@@ -5,7 +5,7 @@ export interface MenuItemExtendedData {
   available: boolean;
   menuItemGroupRef: string;
   name: string;
-  price: number;
+  price: number | undefined;
   selectCollections: IdentifiedByRefData[];
   toppingCollections: IdentifiedByRefData[];
 }

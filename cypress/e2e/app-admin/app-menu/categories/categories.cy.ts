@@ -126,7 +126,7 @@ describe('Edit categories', () => {
         cy.get('.menu-element-name').eq(2).contains('New category 3')
         cy.get('.menu-element-name').eq(3).contains('New category 4')
 
-        cy.get('.menu-element-name').contains('New category 1').parents('.menu-element-details').find('.drag-box .bottom').click()
+        cy.get('.menu-element-name').contains('New category 1').parents('.menu-element-details').parent().find('.drag-box .bottom').click()
         cy.visit('/admin/menu/categories')
 
         cy.get('.menu-element-name').eq(0).contains('New category 2')
@@ -146,7 +146,7 @@ describe('Edit categories', () => {
         cy.get('.menu-element-name').eq(2).contains('New category 3')
         cy.get('.menu-element-name').eq(3).contains('New category 4')
 
-        cy.get('.menu-element-name').contains('New category 3').parents('.menu-element-details').find('.drag-box .top').click()
+        cy.get('.menu-element-name').contains('New category 3').parents('.menu-element-details').parent().find('.drag-box .top').click()
         cy.visit('/admin/menu/categories')
 
         cy.get('.menu-element-name').eq(0).contains('New category 1')

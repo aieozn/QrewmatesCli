@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
@@ -45,7 +45,8 @@ export class EditSelectComponent implements OnDestroy {
     private router: Router,
     protected editSelectService: EditSelectService,
     private editAllergensService: EditAllergensService,
-    private editorDialogService: EditorDialogService
+    private editorDialogService: EditorDialogService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     route.params.pipe(
       tap(params => this.reloadComponent(params['selectRef'])),
@@ -80,10 +81,13 @@ export class EditSelectComponent implements OnDestroy {
       const collectionRef = this.route.parent?.snapshot.paramMap.get('selectCollectionRef');
 
       if (collectionRef) {
-        this.editAllergensService.clear();
-        this.editSelectService.clear(collectionRef);
-        this.select = undefined;
-        this.name = undefined;
+        setTimeout(() => {
+          this.editAllergensService.clear();
+          this.editSelectService.clear(collectionRef);
+          this.select = undefined;
+          this.name = undefined;
+        })
+        
       } else {
         throw 'Collection ref not found'
       }

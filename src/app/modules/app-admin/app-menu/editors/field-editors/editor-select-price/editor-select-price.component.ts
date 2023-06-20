@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { Subject, first, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { EditSelectService } from '../../edit-select/edit-select-service/edit-select.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class EditorSelectPriceComponent implements OnDestroy {
 
     this.editSelectService.observeSelectData().pipe(
       tap(e => this.loadPrice(e?.price)),
-      first()
+      takeUntil(this.onDestroy)
     ).subscribe();
 
     this.priceField.valueChanges.pipe(
@@ -46,7 +46,8 @@ export class EditorSelectPriceComponent implements OnDestroy {
   
   private loadPrice(value: number | undefined) {
     const fieldValue = this.priceField.value ? this.priceField.value : '';
-    if (Number(fieldValue) !== value) {
+
+    if (fieldValue !== value?.toString()) {      
       this.priceField.setValue(value !== undefined ? value.toString() : '')
     }
     
@@ -57,7 +58,7 @@ export class EditorSelectPriceComponent implements OnDestroy {
     const select = this.editSelectService.getSelectData();
     this.submitErrors()
 
-    console.log(select.price?.toString())
+    console.log("Update")
 
     if (this.priceField.valid) {
       if (select.price?.toString() != this.priceField.value) {

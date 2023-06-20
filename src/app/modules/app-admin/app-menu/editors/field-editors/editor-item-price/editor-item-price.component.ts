@@ -25,11 +25,7 @@ export class EditorItemPriceComponent implements OnDestroy {
     ).subscribe();
 
     this.editItemService.observeItemData().pipe(
-      tap(e => {
-        if (e) {
-          this.loadPrice(e?.price)
-        }
-      }),
+      tap(e => this.loadPrice(e?.price)),
       takeUntil(this.onDestroy)
     ).subscribe();
 
@@ -49,9 +45,11 @@ export class EditorItemPriceComponent implements OnDestroy {
     this.onDestroy.complete();
   }
   
-  private loadPrice(value: number) {
+  private loadPrice(value: number | undefined) {
     const fieldValue = this.priceField.value ? this.priceField.value : '';
-    if (Number(fieldValue) !== value) {
+
+    if (fieldValue !== value?.toString()) {      
+      console.log("SET: " + value)
       this.priceField.setValue(value !== undefined ? value.toString() : '')
     }
 
@@ -63,7 +61,7 @@ export class EditorItemPriceComponent implements OnDestroy {
     this.submitErrors()
 
     if (this.priceField.valid) {
-      if (itemMail.price.toString() != this.priceField.value) {
+      if (itemMail.price?.toString() != this.priceField.value) {
         itemMail.price = this.priceField.value == null ? 0 : Number(this.priceField.value);
         this.editItemService.update(itemMail);
       }

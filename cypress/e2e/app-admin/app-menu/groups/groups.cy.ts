@@ -49,7 +49,7 @@ describe('Edit categories', () => {
     it('Empty name not allowed', () => {
         cy.get('.create-new').click()
         cy.get('.save-button').should('have.class', 'disabled').click()
-        cy.get('.editor-box-title').contains('Dish name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Dish name').parent().find('mat-error').contains('Invalid value')
 
         cy.get('.editor-box-title').contains('Item price').parent().find('input').click().type('11.70')
         cy.get('.save-button').should('have.class', 'disabled')
@@ -265,7 +265,7 @@ describe('Edit categories', () => {
         cy.get('.editor-box-title').contains('Dish name').parent().find('input').click().clear();
         cy.get('.save-button').should('have.class', 'disabled')
         cy.get('.save-button').click();
-        cy.get('.editor-box-title').contains('Dish name').parent().find('mat-error').contains('Invalid name')
+        cy.get('.editor-box-title').contains('Dish name').parent().find('mat-error').contains('Invalid value')
     })
 
     it('Edit simple group: update image', () => {

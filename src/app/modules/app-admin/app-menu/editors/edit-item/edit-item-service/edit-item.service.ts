@@ -56,7 +56,7 @@ export class EditItemService {
   public clear(group: MenuItemGroupGet | undefined) {
     this.itemData.next({
       name: '',
-      price: 0,
+      price: undefined,
       selectCollections: [],
       toppingCollections: [],
       available: true,

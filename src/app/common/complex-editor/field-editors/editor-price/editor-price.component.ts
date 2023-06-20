@@ -12,4 +12,7 @@ export class EditorPriceComponent {
 
   @Input('control')
   control : FormControl<string | null> | undefined;
+
+  @Input('name')
+  name : string | undefined;
 }
