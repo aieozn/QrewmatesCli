@@ -3,42 +3,9 @@
 
     <div id="tables-app" *ngIf="tables">
         <app-hall (onTableClick)="openTableDetails($event)" [tables]="tables"></app-hall>
-        <div id="table-editor" *ngIf="activeTable">
-            <h2>Table: {{ activeTable.name }}</h2>
-
-
-            <div class="editor-box box-shadow box-radius" *ngIf="tableNameControl">
-                <p class="editor-box-title" i18n>Table name</p>
-            
-                <mat-form-field appearance="fill" id="element-input">
-                    <mat-label i18n>Table name</mat-label>
-                    <input autocomplete="off" [formControl]="tableNameControl" matInput>
-                    <mat-error *ngIf="tableNameControl.errors" i18n>Invalid value</mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="editor-box box-shadow box-radius">
-                <p class="editor-box-title" i18n>Generate QR core for this table</p>
-
-                <div class="qr-content" *ngIf="activeTable.qrCode.status === 'PROCESSING'">
-                    <div id="qr-image">
-                        <mat-spinner diameter="80"></mat-spinner>
-                    </div>
-                    
-                    <p i18n>Generating QR code in progress</p>
-
-                    <div class="spacer"></div>
-                </div>
-            </div>
-
-
-            <div id="close" class="clickable" (click)="activeTable = undefined">
-                <mat-icon>close</mat-icon>
-            </div>
-
-            <div id="save" class="button box-radius clickable" [class.disabled]="tableNameControl.errors" i18n (click)="save()">Save</div>
-            <div id="delete" class="button box-radius clickable" (click)="deleteTable()">Delete</div>
-            <div id="cancel" class="button box-radius clickable" i18n (click)="cancel()">Cancel</div>
-        </div>
     </div>
 </div>
+
+<app-floating-editor-wrapper>
+    <router-outlet></router-outlet>
+</app-floating-editor-wrapper>

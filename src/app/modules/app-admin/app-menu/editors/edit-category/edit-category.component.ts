@@ -71,7 +71,7 @@ export class EditCategoryComponent implements OnDestroy {
   }
 
   close() {
-    this.router.navigate(['/admin/menu/categories'])
+    this.router.navigate(['.'], { relativeTo: this.route.parent })
   }
 
   onSave() {

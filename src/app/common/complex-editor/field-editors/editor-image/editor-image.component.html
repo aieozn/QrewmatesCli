@@ -1,7 +1,4 @@
-<div class="editor-box box-shadow box-shadow box-radius">
-    <p class="editor-box-title" i18n>Choose image</p>
-    <p class="editor-box-subtitle" i18n>Complete the field below</p>
-
+<app-generic-editor name="Choose image" subtitile="Complete the field below">
     <div class="customization-envelope">
         <div id="active-logo" class="clickable" (click)="file.click()">
             <img src="{{ imageUrl }}" *ngIf="imageUrl">
@@ -18,6 +15,6 @@
             </div>
         </div>
     </div>
-</div>
+</app-generic-editor>
 
 <input #file type="file" id="file-upload" accept="image/*" (change)="upload(file.files)">

@@ -1,0 +1,16 @@
+<app-complex-editor-wrapper
+    [headerEntry]="table !== undefined ? 'Table' : 'Create new table'"
+    [headerValue]="table !== undefined ? table.name : ''"
+    [saveEnabled]="isValid(tableFields) && isUpdated(tableFields)"
+    [deleteEnabled]="table !== undefined"
+    (onClose)="close()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()"
+    (onTrySave)="onTrySave()"
+>
+
+    <app-two-columns-field-editor>
+        <app-editor-form-text class="field-editor" [control]="tableFields.tableName" i18-name name="Category name"></app-editor-form-text>
+        <app-editor-table-qr></app-editor-table-qr>
+    </app-two-columns-field-editor>
+</app-complex-editor-wrapper>

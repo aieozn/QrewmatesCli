@@ -1,0 +1,11 @@
+<app-generic-editor name="Table Qr code" *ngIf="editTableService.observeTableData() | async as activeTable">
+    <div class="qr-content" *ngIf="activeTable.qrCode.status === 'PROCESSING'">
+        <div id="qr-image">
+            <mat-spinner diameter="80"></mat-spinner>
+        </div>
+        
+        <p i18n>Generating QR code in progress</p>
+
+        <div class="spacer"></div>
+    </div>
+</app-generic-editor>

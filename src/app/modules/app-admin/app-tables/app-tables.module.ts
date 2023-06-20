@@ -9,11 +9,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
+import { EditTableComponent } from './editors/edit-table/edit-table.component';
+import { EditorTableQrComponent } from './editors/field-editors/editor-table-qr/editor-table-qr.component';
 
 
 @NgModule({
   declarations: [
-    AdminTablesComponent
+    AdminTablesComponent,
+    EditTableComponent,
+    EditorTableQrComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +28,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ComplexEditorModule
   ]
 })
 export class AppTablesModule { }

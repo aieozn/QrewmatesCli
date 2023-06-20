@@ -12,6 +12,7 @@ import { EditorImageComponent } from './field-editors/editor-image/editor-image.
 import { EditorPriceComponent } from './field-editors/editor-price/editor-price.component';
 import { TwoColumnsFieldEditorComponent } from './field-editors/two-columns-field-editor/two-columns-field-editor.component';
 import { FloatingEditorWrapperComponent } from './floating-editor-wrapper/floating-editor-wrapper.component';
+import { GenericEditorComponent } from './field-editors/generic-editor/generic-editor.component';
 
 
 
@@ -23,7 +24,8 @@ import { FloatingEditorWrapperComponent } from './floating-editor-wrapper/floati
     EditorImageComponent,
     EditorPriceComponent,
     TwoColumnsFieldEditorComponent,
-    FloatingEditorWrapperComponent
+    FloatingEditorWrapperComponent,
+    GenericEditorComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { FloatingEditorWrapperComponent } from './floating-editor-wrapper/floati
     EditorImageComponent,
     EditorPriceComponent,
     TwoColumnsFieldEditorComponent,
-    FloatingEditorWrapperComponent
+    FloatingEditorWrapperComponent,
+    GenericEditorComponent
   ]
 })
 export class ComplexEditorModule { }

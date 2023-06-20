@@ -1,7 +1,4 @@
-<div class="editor-box box-shadow" *ngIf="control">
-    <p class="editor-box-title" i18n>{{ name }}</p>
-    <p class="editor-box-subtitle" i18n>Complete the field below</p>
-
+<app-generic-editor [name]="name" subtitile="Complete the field below"  *ngIf="control">
     <mat-form-field appearance="fill" id="element-input">
         <span *ngIf="prefix" class="prefix" matPrefix>{{ prefix }}: </span>
 
@@ -9,4 +6,4 @@
         <input autocomplete="off" [formControl]="control" matInput>
         <mat-error *ngIf="control.errors" i18n>Invalid value</mat-error>
     </mat-form-field>
-</div>
+</app-generic-editor>

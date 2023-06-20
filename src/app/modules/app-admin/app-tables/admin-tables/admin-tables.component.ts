@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { RestaurantTableGet } from '@common/api-client/models';
 import { RestaurantTableControllerService } from '@common/api-client/services';
@@ -14,17 +14,14 @@ export class AdminTablesComponent implements OnDestroy {
 
   private readonly onDestroy = new Subject<void>();
 
-  activeTable: RestaurantTableGet | undefined;
   tables: RestaurantTableGet[] | undefined
 
-  tableNameControl = new FormControl<string>('', [Validators.required, Validators.maxLength(32)]);
-
   constructor(
-    tableService: RestaurantTableControllerService,
     private accountService: AccountService,
-    private tablesService: RestaurantTableControllerService
+    private tablesService: RestaurantTableControllerService,
+    private router: Router
   ) {
-    tableService.getTables({
+    this.tablesService.getTables({
       restaurantRef: accountService.getRestaurantRef()
     }).pipe(
       tap(r => this.tables = r)
@@ -32,8 +29,7 @@ export class AdminTablesComponent implements OnDestroy {
   }
 
   openTableDetails(table: RestaurantTableGet) {
-    this.activeTable = table;
-    this.tableNameControl.setValue(table.name)
+    this.router.navigate(['admin/tables/', table.ref])
   }
 
   ngOnDestroy(): void {
@@ -41,49 +37,9 @@ export class AdminTablesComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  save() {
-    if (this.activeTable === undefined) throw 'Table not defined';
-    
-    if (this.tableNameControl.errors) {
-      this.tableNameControl.markAllAsTouched();
-    } else {
-      this.tablesService.putTable({
-        restaurantRef: this.accountService.getRestaurantRef(),
-        tableRef: this.activeTable.ref,
-        body: {
-          name: this.tableNameControl.value!,
-          posX: this.activeTable.posX,
-          posY: this.activeTable.posY
-        }
-      }).pipe(
-        tap(updated => this.onUpdateTable(updated))
-      ).subscribe()
-    }
-  }
-
-  cancel() {
-    this.activeTable = undefined;
-  }
-
-  deleteTable() {
-    if (this.activeTable === undefined) throw 'Table not defined';
-    const tableToDelete = this.activeTable;
-
-    if (confirm($localize`Are you sure you want to delete this table?`)) {
-      this.tablesService.deleteTable({
-        restaurantRef: this.accountService.getRestaurantRef(),
-        tableRef: this.activeTable.ref
-      }).pipe(
-        tap(() => this.onDeleteTable(tableToDelete))
-      ).subscribe()
-    }
-  }
-
   private onDeleteTable(deleted: RestaurantTableGet) {
     if (this.tables === undefined) throw 'Tables not defined';
     this.tables = this.tables.filter(e => e.ref !== deleted.ref)
-
-    this.activeTable = undefined;
   }
 
   private onUpdateTable(updated: RestaurantTableGet) {
@@ -98,7 +54,5 @@ export class AdminTablesComponent implements OnDestroy {
     this.tables = [
       ...this.tables
     ]
-
-    this.activeTable = undefined
   }
 }
