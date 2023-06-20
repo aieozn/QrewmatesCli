@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from "@angular/core";
 import { RestaurantTableGet } from "@common/api-client/models";
 import { BehaviorSubject, Observable } from "rxjs";
+import { ExtendedRestaurantTableData } from "./extended-restaurant-table-data";
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,13 @@ export class EditTableService {
   onTableUpdated = new EventEmitter<RestaurantTableGet>();
   onTableCreated = new EventEmitter<RestaurantTableGet>();
 
-  private tableData: BehaviorSubject<RestaurantTableGet | undefined> = new BehaviorSubject<RestaurantTableGet | undefined>(undefined);
+  private tableData: BehaviorSubject<ExtendedRestaurantTableData | undefined> = new BehaviorSubject<ExtendedRestaurantTableData | undefined>(undefined);
 
-    public observeTableData(): Observable<RestaurantTableGet | undefined> {
+    public observeTableData(): Observable<ExtendedRestaurantTableData | undefined> {
         return this.tableData;
     }
 
-    public getTableData(): RestaurantTableGet {
+    public getTableData(): ExtendedRestaurantTableData {
         const value = this.tableData.getValue();
 
         if (value === undefined) {
@@ -26,11 +27,20 @@ export class EditTableService {
         }
     }
 
-    public update(data: RestaurantTableGet) {
+    public update(data: ExtendedRestaurantTableData) {
         this.tableData.next(data);
     }
 
-    public clearWithValue(data: RestaurantTableGet) {
+    public clear() {
+        this.tableData.next({
+            name: '',
+            posX: 0,
+            posY: 0,
+            qrCode: undefined
+        })
+    }
+
+    public clearWithValue(data: ExtendedRestaurantTableData) {
         this.tableData.next(data);
     }
 }

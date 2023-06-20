@@ -9,7 +9,11 @@ const routes: Routes = [
     component: AdminTablesComponent,
     children: [
       {
-        path: ':tableRef',
+        path: 'table/:tableRef',
+        component: EditTableComponent
+      },
+      {
+        path: 'create',
         component: EditTableComponent
       }
     ]

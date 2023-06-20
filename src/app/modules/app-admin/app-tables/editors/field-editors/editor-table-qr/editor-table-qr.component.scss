@@ -12,3 +12,18 @@
 .qr-content p {
     color: #333333;
 }
+
+#qr-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.qr-content .download {
+    font-family: PoppinsBold;
+    color: #38A583;
+}
+
+.download-link {
+    text-decoration: none;
+}

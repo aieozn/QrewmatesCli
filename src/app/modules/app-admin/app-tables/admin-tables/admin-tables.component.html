@@ -4,6 +4,10 @@
     <div id="tables-app" *ngIf="tables">
         <app-hall (onTableClick)="openTableDetails($event)" [tables]="tables"></app-hall>
     </div>
+
+    <div class="create box-shadow box-radius create clickable" [routerLink]="['create']">
+        <mat-icon>add</mat-icon><p i18n>Create table</p>
+    </div>
 </div>
 
 <app-floating-editor-wrapper>

@@ -46,6 +46,8 @@ export class EditTableComponent implements OnDestroy {
           throw 'Failed to load category detials'
         })
       ).subscribe()
+    } else {
+      this.editTableService.clear()
     }
   }
 
