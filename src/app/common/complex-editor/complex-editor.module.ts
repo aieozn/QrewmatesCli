@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { EditorImageComponent } from './field-editors/editor-image/editor-image.component';
 import { EditorPriceComponent } from './field-editors/editor-price/editor-price.component';
+import { TwoColumnsFieldEditorComponent } from './field-editors/two-columns-field-editor/two-columns-field-editor.component';
 
 
 
@@ -19,7 +20,8 @@ import { EditorPriceComponent } from './field-editors/editor-price/editor-price.
     SubmitBarComponent,
     EditorFormTextComponent,
     EditorImageComponent,
-    EditorPriceComponent
+    EditorPriceComponent,
+    TwoColumnsFieldEditorComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { EditorPriceComponent } from './field-editors/editor-price/editor-price.
     ComplexEditorWrapperComponent,
     EditorFormTextComponent,
     EditorImageComponent,
-    EditorPriceComponent
+    EditorPriceComponent,
+    TwoColumnsFieldEditorComponent
   ]
 })
 export class ComplexEditorModule { }

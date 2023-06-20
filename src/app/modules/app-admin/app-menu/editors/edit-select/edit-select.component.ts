@@ -12,8 +12,7 @@ import { EditorDialogService } from '../editor-dialog.service';
 
 @Component({
   selector: 'app-edit-select',
-  templateUrl: './edit-select.component.html',
-  styleUrls: ['../edit-element.scss', 'edit-select.component.scss']
+  templateUrl: './edit-select.component.html'
 })
 export class EditSelectComponent implements OnDestroy {
 

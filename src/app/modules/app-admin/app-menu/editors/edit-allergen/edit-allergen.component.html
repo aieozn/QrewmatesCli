@@ -9,8 +9,8 @@
     (onTrySave)="onTrySave()"
 >
 
-    <div id="field-editors">
+    <app-two-columns-field-editor>
         <app-editor-form-text class="field-editor" [control]="allergenFields.allergenName" i18-name name="Allergen name"></app-editor-form-text>
         <app-editor-form-text class="field-editor" [control]="allergenFields.allergenDescription" i18-name name="Allergen description"></app-editor-form-text>
-    </div>
+    </app-two-columns-field-editor>
 </app-complex-editor-wrapper>

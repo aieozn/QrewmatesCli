@@ -11,8 +11,7 @@ import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-item-group',
-  templateUrl: './edit-item-group.component.html',
-  styleUrls: ['../edit-element.scss']
+  templateUrl: './edit-item-group.component.html'
 })
 export class EditItemGroupComponent implements OnDestroy {
   group: MenuItemGroupGet | undefined;

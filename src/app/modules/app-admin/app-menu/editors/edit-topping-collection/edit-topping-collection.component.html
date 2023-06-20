@@ -9,8 +9,8 @@
     (onTrySave)="onTrySave()"
 >
 
-    <div id="field-editors">
+    <app-two-columns-field-editor>
         <app-editor-form-text class="field-editor" [control]="collectionFields.collectionName" i18-name name="Collection name"></app-editor-form-text>
         <app-editor-form-text class="field-editor" [control]="collectionFields.collectionDescription" i18-name name="Collection description"></app-editor-form-text>
-    </div>
+    </app-two-columns-field-editor>
 </app-complex-editor-wrapper>
