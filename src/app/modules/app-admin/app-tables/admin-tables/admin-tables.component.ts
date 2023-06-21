@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { RestaurantTableGet } from '@common/api-client/models';
@@ -14,10 +14,13 @@ import { ExtendedTableData } from 'app/common/hall/hall/extended-table-data';
 })
 export class AdminTablesComponent implements OnDestroy {
 
+  @ViewChild('blobRef') blobRef!: ElementRef;
+  
   private readonly onDestroy = new Subject<void>();
 
   tables: ExtendedTableData[] | undefined
-  activeTable: RestaurantTableGet | undefined 
+  activeTable: RestaurantTableGet | undefined
+  isGeneratingAll = false;
 
   constructor(
     private accountService: AccountService,
@@ -95,6 +98,20 @@ export class AdminTablesComponent implements OnDestroy {
     this.router.navigate(['admin/tables/table/', table.ref])
   }
 
+  onExternalTableUpdate(table: RestaurantTableGet) {
+    this.tablesService.putTable({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      tableRef: table.ref,
+      body: {
+        name: table.name,
+        posX: table.posX,
+        posY: table.posY
+      }
+    }).pipe(
+      tap(e => this.onUpdateTable(e))
+    ).subscribe()
+  }
+
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();
@@ -129,5 +146,31 @@ export class AdminTablesComponent implements OnDestroy {
     if (this.tables === undefined) throw 'Tables not defined';
     this.tables.push(created)
     this.forceRefresh();
+  }
+
+  generateAll() {
+    if (this.isGeneratingAll) { return; }
+
+    this.isGeneratingAll = true;
+    this.tablesService.getQrsPdf({
+      restaurantRef: this.accountService.getRestaurantRef()
+    }).pipe(
+      tap(e => this.openResourceInNewTab(e)),
+      tap(() => this.isGeneratingAll = false)
+    ).subscribe()
+  }
+
+  saveBlob(blob: Blob, fileName: string) {
+    const url = window.URL.createObjectURL(blob);
+    this.blobRef.nativeElement.href = url;
+    this.blobRef.nativeElement.download = fileName;
+    this.blobRef.nativeElement.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+  openResourceInNewTab(e: Blob) {
+    const fileURL = window.URL.createObjectURL(e);
+    const tab = window.open();
+    tab!.location.href = fileURL;
   }
 }

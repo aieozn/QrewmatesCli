@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 import { EditTableComponent } from './editors/edit-table/edit-table.component';
 import { EditorTableQrComponent } from './editors/field-editors/editor-table-qr/editor-table-qr.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { EditorTableQrComponent } from './editors/field-editors/editor-table-qr/
     ReactiveFormsModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    ComplexEditorModule
+    ComplexEditorModule,
+    MatSelectModule
   ]
 })
 export class AppTablesModule { }

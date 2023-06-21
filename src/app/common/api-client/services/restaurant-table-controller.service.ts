@@ -175,6 +175,245 @@ export class RestaurantTableControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation getQrSvg
+   */
+  static readonly GetQrSvgPath = '/api/staff/v1/restaurant/{restaurantRef}/tables/{tableRef}/raw';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getQrSvg()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrSvg$Response(params: {
+    restaurantRef: string;
+    tableRef: string;
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RestaurantTableControllerService.GetQrSvgPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('tableRef', params.tableRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getQrSvg$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrSvg(params: {
+    restaurantRef: string;
+    tableRef: string;
+  }): Observable<Blob> {
+
+    return this.getQrSvg$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
+  /**
+   * Path part for operation getQrPdf
+   */
+  static readonly GetQrPdfPath = '/api/staff/v1/restaurant/{restaurantRef}/tables/{tableRef}/pdf';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getQrPdf()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrPdf$Response(params: {
+    restaurantRef: string;
+    tableRef: string;
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RestaurantTableControllerService.GetQrPdfPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('tableRef', params.tableRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getQrPdf$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrPdf(params: {
+    restaurantRef: string;
+    tableRef: string;
+  }): Observable<Blob> {
+
+    return this.getQrPdf$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
+  /**
+   * Path part for operation getQrImage
+   */
+  static readonly GetQrImagePath = '/api/staff/v1/restaurant/{restaurantRef}/tables/{tableRef}/image';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getQrImage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrImage$Response(params: {
+    restaurantRef: string;
+    tableRef: string;
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RestaurantTableControllerService.GetQrImagePath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('tableRef', params.tableRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getQrImage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrImage(params: {
+    restaurantRef: string;
+    tableRef: string;
+  }): Observable<Blob> {
+
+    return this.getQrImage$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
+  /**
+   * Path part for operation getQrsPdf
+   */
+  static readonly GetQrsPdfPath = '/api/staff/v1/restaurant/{restaurantRef}/qr-codes/pdf';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getQrsPdf()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrsPdf$Response(params: {
+    restaurantRef: string;
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RestaurantTableControllerService.GetQrsPdfPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getQrsPdf$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrsPdf(params: {
+    restaurantRef: string;
+  }): Observable<Blob> {
+
+    return this.getQrsPdf$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
+  /**
+   * Path part for operation getQrsImages
+   */
+  static readonly GetQrsImagesPath = '/api/staff/v1/restaurant/{restaurantRef}/qr-codes/image';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getQrsImages()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrsImages$Response(params: {
+    restaurantRef: string;
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, RestaurantTableControllerService.GetQrsImagesPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getQrsImages$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getQrsImages(params: {
+    restaurantRef: string;
+  }): Observable<Blob> {
+
+    return this.getQrsImages$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
+  /**
    * Path part for operation getTables
    */
   static readonly GetTablesPath = '/api/public/v1/restaurant/{restaurantRef}/tables';

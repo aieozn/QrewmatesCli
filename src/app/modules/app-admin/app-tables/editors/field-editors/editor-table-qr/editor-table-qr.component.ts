@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { EditTableService } from '../../edit-table/edit-table-service/edit-table.service';
 import { Subject, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { QrCodeControllerService } from '@common/api-client/services';
+import { RestaurantTableControllerService } from '@common/api-client/services';
 
 @Component({
   selector: 'app-editor-table-qr',
@@ -17,7 +17,7 @@ export class EditorTableQrComponent implements OnDestroy {
   constructor(
     protected editTableService: EditTableService,
     protected accountService: AccountService,
-    private qrCodeService: QrCodeControllerService
+    private tablesService: RestaurantTableControllerService
   ) {
   }
 
@@ -26,36 +26,43 @@ export class EditorTableQrComponent implements OnDestroy {
     this.onDestroy.complete();
   }
 
-  openQrImage() {
+  openQrImagePdf() {
     const table = this.editTableService.getTableData();
-    const qrCode = table.qrCode;
 
-    if (!qrCode) throw 'Qr code not defined';
-
-    this.qrCodeService.getQrImage({
+    this.tablesService.getQrPdf({
       restaurantRef: this.accountService.getRestaurantRef(),
-      qrCodeRef: qrCode.ref
+      tableRef: table!.ref!
     }).pipe(
-      tap(e => {
-        const fileURL = window.URL.createObjectURL(e);
-        const tab = window.open();
-        tab!.location.href = fileURL;
-      })
+      tap(e => this.openBlob(e))
     ).subscribe()
   }
 
-  downloadQrImage() {
+  openQrImageJpg() {
     const table = this.editTableService.getTableData();
-    const qrCode = table.qrCode;
 
-    if (!qrCode) throw 'Qr code not defined';
-
-    this.qrCodeService.getQrImage({
+    this.tablesService.getQrImage({
       restaurantRef: this.accountService.getRestaurantRef(),
-      qrCodeRef: qrCode.ref
+      tableRef: table!.ref!
     }).pipe(
-      tap(e => this.saveBlob(e, table.name))
+      tap(e => this.openBlob(e))
     ).subscribe()
+  }
+
+  openQrImageRaw() {
+    const table = this.editTableService.getTableData();
+
+    this.tablesService.getQrSvg({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      tableRef: table!.ref!
+    }).pipe(
+      tap(e => this.openBlob(e))
+    ).subscribe()
+  }
+
+  openBlob(e: Blob) {
+    const fileURL = window.URL.createObjectURL(e);
+    const tab = window.open();
+    tab!.location.href = fileURL;
   }
 
   saveBlob(blob: Blob, fileName: string) {

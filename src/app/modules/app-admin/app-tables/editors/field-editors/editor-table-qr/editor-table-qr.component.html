@@ -1,11 +1,15 @@
 <span *ngIf="editTableService.observeTableData() | async as activeTable">
-    <app-generic-editor name="Table Qr code" *ngIf="activeTable.qrCode">
+    <app-generic-editor name="Table Qr code" *ngIf="activeTable.ref">
         <div class="qr-content">
-            <div id="qr-image" class="clickable" (click)="openQrImage()">
+            <div id="qr-image" class="clickable" (click)="openQrImageRaw()">
                 <mat-icon>qr_code</mat-icon>
             </div>
         
-            <p class="download clickable" (click)="downloadQrImage()">Download</p>
+            <p class="download">
+                <span (click)="openQrImagePdf()" class="clickable">PDF</span> |
+                <span (click)="openQrImageRaw()" class="clickable">SVG</span> |
+                <span (click)="openQrImageJpg()" class="clickable">JPG</span>
+            </p>
     
             <div class="spacer"></div>
         </div>

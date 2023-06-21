@@ -1,15 +1,29 @@
 <div id="tables">
     <h1 i18n>Managing tables</h1>
 
+    <h2 i18n>Restaurant tables</h2>
     <div id="tables-app" *ngIf="tables">
-        <app-hall (onTableClick)="openTableDetails($event)" [tables]="tables"></app-hall>
+        <app-hall (onTableClick)="openTableDetails($event)" (onTableUpdate)="onExternalTableUpdate($event)" [tables]="tables"></app-hall>
     </div>
 
-    <div class="create box-shadow box-radius create clickable" [routerLink]="['create']">
+    <div id="create" class="create box-shadow box-radius create clickable" [routerLink]="['create']">
         <mat-icon>add</mat-icon><p i18n>Create table</p>
+    </div>
+
+    <div class="two-col">
+        <div id="do-generate" (click)="generateAll()" class="box-shadow box-radius clickable create" [class.locked]="isGeneratingAll" i18n>   
+            <p *ngIf="!isGeneratingAll">Generate QR codes for all tables</p>
+            <p *ngIf="isGeneratingAll">Generateing codes. It may take a while</p>
+        </div>
+
+        <div id="configure" class="box-shadow box-radius clickable create" [routerLink]="['/admin/customization']">   
+            <p i18n>Configure QR codes</p>
+        </div>
     </div>
 </div>
 
 <app-floating-editor-wrapper>
     <router-outlet></router-outlet>
 </app-floating-editor-wrapper>
+
+<a id="blob-ref" #blobRef></a>

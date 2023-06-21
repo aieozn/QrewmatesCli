@@ -35,10 +35,10 @@ export class EditTableService {
 
     public clear() {
         this.tableData.next({
+            ref: undefined,
             name: '',
             posX: 0,
-            posY: 0,
-            qrCode: undefined
+            posY: 0
         })
     }
 

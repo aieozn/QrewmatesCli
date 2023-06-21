@@ -11,6 +11,10 @@ h1 {
     border-bottom: 1px solid #C3C3C3;
 }
 
+h2 {
+    margin-top: 40px;
+}
+
 #tables-app {
     border: 1px solid #C3C3C3;
     height: 600px;
@@ -21,6 +25,9 @@ h1 {
     background-color: #38A583;
     color: white;
     padding: 15px;
+}
+
+#create {
     margin-top: 20px;
 }
 
@@ -34,4 +41,43 @@ h1 {
 .create p {
     display: inline;
     font-size: 18px;
+}
+
+.two-col {
+    columns: 2;
+    margin-top: 15px;
+}
+
+#bulk {
+    padding: 20px;
+}
+
+#bulk h3 {
+    margin: 0px;
+}
+
+.template-select {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#do-generate, #configure {
+    text-align: center;
+}
+
+#configure {
+    background-color: #333333;
+}
+
+#do-generate p {
+    font-size: 16px;
+    margin: 0px;
+}
+
+#blob-ref {
+    display: none;
+}
+
+#do-generate.locked {
+    background-color: #38a5826f; // #38A583;
 }

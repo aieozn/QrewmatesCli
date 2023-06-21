@@ -1,11 +1,12 @@
 export { IdentifiedByRefData } from './models/identified-by-ref-data';
 export { OpeningHoursUtcData } from './models/opening-hours-utc-data';
+export { QrCodeConfigData } from './models/qr-code-config-data';
 export { RestaurantData } from './models/restaurant-data';
 export { MultimediaGet } from './models/multimedia-get';
 export { OpeningHoursUtcGet } from './models/opening-hours-utc-get';
+export { QrCodeConfigGet } from './models/qr-code-config-get';
 export { RestaurantDetailsGet } from './models/restaurant-details-get';
 export { RestaurantTableData } from './models/restaurant-table-data';
-export { QrCodeGet } from './models/qr-code-get';
 export { RestaurantTableGet } from './models/restaurant-table-get';
 export { OrderData } from './models/order-data';
 export { OrderElementData } from './models/order-element-data';
