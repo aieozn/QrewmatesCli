@@ -8,13 +8,15 @@ import { BackgroundPhotoCustomizationComponent } from './background-photo-custom
 import { ColorsCustomizationComponent } from './colors-customization/colors-customization.component';
 import { LogoCustomizationComponent } from './logo-customization/logo-customization.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { QrTemplateCustomizationComponent } from './qr-template-customization/qr-template-customization.component';
 
 @NgModule({
   declarations: [
     AdminCustomizationComponent,
     BackgroundPhotoCustomizationComponent,
     ColorsCustomizationComponent,
-    LogoCustomizationComponent
+    LogoCustomizationComponent,
+    QrTemplateCustomizationComponent
   ],
   imports: [
     CommonModule,

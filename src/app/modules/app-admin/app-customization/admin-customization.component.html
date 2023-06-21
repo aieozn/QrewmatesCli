@@ -10,6 +10,12 @@
     </div>
 
     <div class="personalization-element">
+        <app-qr-template-customization></app-qr-template-customization>
+    </div>
+
+    <div class="personalization-element">
         <app-colors-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-colors-customization>
     </div>
+
+    <div class="spacer"></div>
 </div>
