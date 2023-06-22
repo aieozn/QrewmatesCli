@@ -1,6 +1,5 @@
 export { IdentifiedByRefData } from './models/identified-by-ref-data';
 export { OpeningHoursUtcData } from './models/opening-hours-utc-data';
-export { QrCodeConfigData } from './models/qr-code-config-data';
 export { RestaurantData } from './models/restaurant-data';
 export { MultimediaGet } from './models/multimedia-get';
 export { OpeningHoursUtcGet } from './models/opening-hours-utc-get';

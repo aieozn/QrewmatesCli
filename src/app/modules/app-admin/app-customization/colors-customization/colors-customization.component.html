@@ -1,6 +1,6 @@
 <h2 i18n>Color of the restaurant theme</h2>
 
-<div class="customization-envelope box-shadow" *ngIf="restaurantCopy && activeColor">
+<div class="customization-envelope box-shadow" *ngIf="activeColor">
     <div id="active-logo" class="clickable">
         <div id="theme-color-view" [style.background-color]="activeColor" (click)="pickerInput.click()">
             <p>{{activeColor}}</p>

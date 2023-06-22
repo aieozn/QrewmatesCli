@@ -1,44 +1,44 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { RestaurantDetailsGet } from '@common/api-client/models';
 import { MultimediaControllerService, RestaurantControllerService } from '@common/api-client/services';
+import { AdminCustomizationService } from '../admin-customization.service';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-logo-customization',
   templateUrl: './logo-customization.component.html',
   styleUrls: ['../customization-component.scss']
 })
-export class LogoCustomizationComponent {
+export class LogoCustomizationComponent implements OnDestroy {
 
-  restaurantCopy: RestaurantDetailsGet | undefined;
+  private readonly onDestroy = new Subject<void>();
   imageUrl: string | undefined;
   
-  @Input() set restaurant(value: RestaurantDetailsGet) {
-    this.restaurantCopy = JSON.parse(JSON.stringify(value));
-    this.imageUrl = value.logo ? this.accountService.getMultimediaUrl(value.logo.ref) : undefined;
+  updateRestaurant(value: RestaurantDetailsGet | undefined) {
+    this.imageUrl = value?.logo ? this.accountService.getMultimediaUrl(value.logo.ref) : undefined;
   }
-
-  @Output('restaurantUpdate')
-  updateRestaurant = new EventEmitter<RestaurantDetailsGet>();
-
 
   constructor(
     private multimediaService : MultimediaControllerService,
     private accountService: AccountService,
-    private restaurantService: RestaurantControllerService
+    private restaurantService: RestaurantControllerService,
+    private customizationService: AdminCustomizationService
   ) {
+    customizationService.getRestaurant().pipe(
+      tap(e => this.updateRestaurant(e)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
   }
 
   remove() {
-    const newRestaurantConfig = {
-      ... this.restaurantCopy!
-    }
+    const newRestaurantConfig = this.customizationService.getRestaurantValue()
     newRestaurantConfig.logo = undefined;
-    this.updateRestaurant.emit(newRestaurantConfig);
+    this.customizationService.updateRestaurant(newRestaurantConfig);
   }
 
   upload(fileList: FileList | null) {
-    if (fileList && this.restaurantCopy) {
+    if (fileList) {
       const file = fileList.item(0);
 
       let type : 'IMAGE_PNG' | 'IMAGE_JPEG';
@@ -57,17 +57,20 @@ export class LogoCustomizationComponent {
             file: file
           }
         }).subscribe(uploadedImage => {
-          const newRestaurantConfig = {
-            ... this.restaurantCopy!
-          }
+          const newRestaurantConfig = this.customizationService.getRestaurantValue()
 
           newRestaurantConfig.logo = {
             ref: uploadedImage.ref
           }
 
-          this.updateRestaurant.emit(newRestaurantConfig);
+          this.customizationService.updateRestaurant(newRestaurantConfig);
         });
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 }

@@ -1,0 +1,20 @@
+<app-complex-editor-wrapper
+    headerValue="Choose restaurant qr code template"
+    i18n-headerValue
+    (onClose)="close()"
+    [saveEnabled]="updted"
+    (onSave)="onSave()"
+>
+<div id="configs">
+    <div class="config box-shadow clickable" *ngFor="let config of configs" [class.selected]="selected?.ref === config.ref" (click)="select(config)">
+        <img [src]="getConfigPreviewUrl(config.preview.ref)">
+
+        <div class="description">
+            <h3>{{config.name}}</h3>
+            <p>{{config.description}}</p>
+        </div>
+    </div>
+</div>
+    
+</app-complex-editor-wrapper>
+

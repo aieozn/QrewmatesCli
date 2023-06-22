@@ -1,0 +1,44 @@
+.config:hover {
+    outline: 2px solid #38A583;
+}
+
+.config img {
+    width: 100%;
+    display: block;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.config.selected {
+    background-color: #38A583;
+    color: white;
+}
+
+#configs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    grid-auto-rows: max-content;
+}
+
+.description {
+    padding: 10px;
+}
+
+.description h3 {
+    margin: 0px;
+    font-family: PoppinsSemiBold;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 1400px) {
+    #configs {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #configs {
+        grid-template-columns: 1fr 1fr;
+    }
+}

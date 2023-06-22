@@ -1,12 +1,12 @@
 <h2>QR code template</h2>
 
 <div class="customization-envelope box-shadow">
-    <div id="mock-image"><img src="/assets/temp/triangle-mock.jpeg" /></div>
+    <div id="mock-image"><img [src]="templatePreviewUrl" /></div>
 
     <div id="logo-description">
-        <h3 i18n>Main theme:</h3>
-        <p id="logo-description-text" i18n>Simple tiangle tent, easy to put on the table and always outstanding</p>
+        <h3 i18n>QR theme</h3>
+        <p id="logo-description-text" i18n>{{ qrCodeDescription }}</p>
 
-        <p id="sendFile" class="clickable" (click)="chooseTheme()" i18n>Choose theme</p>
+        <p id="sendFile" class="clickable" routerLink="theme" i18n>Choose theme</p>
     </div>
 </div>

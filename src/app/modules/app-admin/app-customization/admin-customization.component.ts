@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { RestaurantDetailsGet } from '@common/api-client/models';
 import { RestaurantControllerService } from '@common/api-client/services';
 import { CollectiveChangesService } from '../services/collective-changes/collective-changes.service';
+import { AdminCustomizationService } from './admin-customization.service';
 
 @Component({
   selector: 'app-admin-customization',
@@ -11,39 +11,41 @@ import { CollectiveChangesService } from '../services/collective-changes/collect
   styleUrls: ['./admin-customization.component.scss']
 })
 export class AdminCustomizationComponent implements OnDestroy {
-
-  restaurant: Observable<RestaurantDetailsGet>;
-
   private readonly onDestroy = new Subject<void>();
 
   constructor(
     accountService: AccountService,
     private collectiveChanges: CollectiveChangesService,
-    private restaurantService: RestaurantControllerService
+    private restaurantService: RestaurantControllerService,
+    private customizationService: AdminCustomizationService
   ) {
-    this.restaurant = accountService.getRestaurantDetails();
+    accountService.getRestaurantDetails().pipe(
+      tap(r => this.customizationService.setRestaurant(r))
+    ).subscribe();
+
+    this.customizationService.getUpdated().pipe(
+      tap(v => this.collectiveChanges.modified.next(v)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
 
     this.collectiveChanges.publish.pipe(
-      takeUntil(this.onDestroy),
-      switchMap(_ => this.restaurant)
-    ).subscribe(activeRestaurant => {
-      this.restaurant = this.restaurantService.putRestaurant({
-        restaurantRef: activeRestaurant.ref,
-        body: activeRestaurant
-      })
-
-      this.collectiveChanges.modified.next(false);
-    });
+      switchMap(() => {
+        const r = this.customizationService.getRestaurantValue();
+        return this.restaurantService.putRestaurant({
+          restaurantRef: r!.ref,
+          body: r!
+        })
+      }),
+      tap(r => {
+        this.customizationService.setRestaurant(r);
+        this.collectiveChanges.modified.next(false);
+      }),
+      takeUntil(this.onDestroy)
+    ).subscribe()
   }
   
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();
   }
-
-  restaurantUpdated(updated: RestaurantDetailsGet) {
-    this.collectiveChanges.modified.next(true);
-    this.restaurant = of(updated);
-  }
-  
 }

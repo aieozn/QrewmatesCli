@@ -14,4 +14,5 @@ export { AllergenControllerService } from './services/allergen-controller.servic
 export { MultimediaControllerService } from './services/multimedia-controller.service';
 export { LoginControllerService } from './services/login-controller.service';
 export { StatisticsControllerService } from './services/statistics-controller.service';
+export { QrCodeConfigControllerService } from './services/qr-code-config-controller.service';
 export { RestaurantStylesControllerService } from './services/restaurant-styles-controller.service';

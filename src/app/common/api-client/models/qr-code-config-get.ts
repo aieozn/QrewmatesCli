@@ -2,6 +2,9 @@
 /* eslint-disable */
 import { MultimediaGet } from './multimedia-get';
 export interface QrCodeConfigGet {
-  background?: MultimediaGet;
+  description: string;
+  name: string;
+  preview: MultimediaGet;
   qrCodeMode: 'SIMPLE';
+  ref: string;
 }

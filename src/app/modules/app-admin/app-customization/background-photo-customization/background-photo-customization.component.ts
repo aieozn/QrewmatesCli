@@ -1,42 +1,43 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { RestaurantDetailsGet } from '@common/api-client/models';
 import { MultimediaControllerService } from '@common/api-client/services';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { AdminCustomizationService } from '../admin-customization.service';
 
 @Component({
   selector: 'app-background-photo-customization',
   templateUrl: './background-photo-customization.component.html',
   styleUrls: ['../customization-component.scss']
 })
-export class BackgroundPhotoCustomizationComponent {
-  restaurantCopy: RestaurantDetailsGet | undefined;
+export class BackgroundPhotoCustomizationComponent implements OnDestroy {
+
+  private readonly onDestroy = new Subject<void>();
   imageUrl: string | undefined;
-  
-  @Input() set restaurant(value: RestaurantDetailsGet) {
-    this.restaurantCopy = JSON.parse(JSON.stringify(value));
-    this.imageUrl = value.backgroundImage ? this.accountService.getMultimediaUrl(value.backgroundImage.ref) : undefined;
-  }
-
-  @Output('restaurantUpdate')
-  updateRestaurant = new EventEmitter<RestaurantDetailsGet>();
-
 
   constructor(
     private multimediaService : MultimediaControllerService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private customizationService: AdminCustomizationService 
   ) {
+    customizationService.getRestaurant().pipe(
+      tap(e => this.updateRestaurant(e)),
+      takeUntil(this.onDestroy)
+    ).subscribe()
+  }
+
+  updateRestaurant(value: RestaurantDetailsGet | undefined) {
+    this.imageUrl = value?.backgroundImage ? this.accountService.getMultimediaUrl(value.backgroundImage.ref) : undefined;
   }
 
   remove() {
-    const newRestaurantConfig = {
-      ... this.restaurantCopy!
-    }
+    const newRestaurantConfig = this.customizationService.getRestaurantValue()
     newRestaurantConfig.backgroundImage = undefined;
-    this.updateRestaurant.emit(newRestaurantConfig);
+    this.customizationService.updateRestaurant(newRestaurantConfig);
   }
 
   upload(fileList: FileList | null) {
-    if (fileList && this.restaurantCopy) {
+    if (fileList) {
       const file = fileList.item(0);
 
       let type : 'IMAGE_PNG' | 'IMAGE_JPEG';
@@ -55,17 +56,18 @@ export class BackgroundPhotoCustomizationComponent {
             file: file
           }
         }).subscribe(uploadedImage => {
-          const newRestaurantConfig = {
-            ... this.restaurantCopy!
-          }
-
+          const newRestaurantConfig = this.customizationService.getRestaurantValue()
           newRestaurantConfig.backgroundImage = {
             ref: uploadedImage.ref
           }
-
-          this.updateRestaurant.emit(newRestaurantConfig);
+          this.customizationService.updateRestaurant(newRestaurantConfig);
         });
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 }

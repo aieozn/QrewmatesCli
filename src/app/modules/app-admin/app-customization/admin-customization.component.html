@@ -1,12 +1,12 @@
-<div id="personalization" *ngIf="restaurant | async as restaurantDetails">
+<div id="personalization">
     <h1 i18n>Personalization</h1>
 
     <div class="personalization-element">
-        <app-logo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-logo-customization>
+        <app-logo-customization></app-logo-customization>
     </div>
 
     <div class="personalization-element">
-        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
+        <app-background-photo-customization></app-background-photo-customization>
     </div>
 
     <div class="personalization-element">
@@ -14,29 +14,7 @@
     </div>
 
     <div class="personalization-element">
-        <app-colors-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-colors-customization>
-    </div>
-
-
-
-    <div class="personalization-element">
-        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
-    </div>
-
-    <div class="personalization-element">
-        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
-    </div>
-
-    <div class="personalization-element">
-        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
-    </div>
-
-    <div class="personalization-element">
-        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
-    </div>
-
-    <div class="personalization-element">
-        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
+        <app-colors-customization></app-colors-customization>
     </div>
 
 
@@ -45,5 +23,5 @@
 
 
 <app-floating-editor-wrapper style="z-index: 1000;">
-    <app-select-theme-dialog></app-select-theme-dialog>
+    <router-outlet></router-outlet>
 </app-floating-editor-wrapper>
