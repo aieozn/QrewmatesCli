@@ -12,6 +12,10 @@ import { EditorDialogService } from '../editor-dialog.service';
   templateUrl: './edit-topping-collection.component.html'
 })
 export class EditToppingCollectionComponent implements OnDestroy {
+
+  readonly collectionValue = $localize`Collection`
+  readonly createNewCollectionValue = $localize`'Create new collection'`
+  
   private readonly onDestroy = new Subject<void>();
   collection: MenuItemToppingCollectionGet | undefined;
   detailsLink: string[] | undefined

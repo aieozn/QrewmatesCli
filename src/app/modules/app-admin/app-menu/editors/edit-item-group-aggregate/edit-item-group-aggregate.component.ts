@@ -15,6 +15,10 @@ import { EditAllergensService } from '../edit-allergens/edit-allergens-service/e
   templateUrl: './edit-item-group-aggregate.component.html'
 })
 export class EditItemGroupAggregateComponent {
+
+  readonly dishValue = $localize`Dish`
+  readonly createNewDishValue = $localize`'Create new dish'`
+
   emptyGroup: MenuItemGroupData | undefined;
   name: string | undefined;
 

@@ -1,5 +1,5 @@
 <app-complex-editor-wrapper
-    [headerEntry]="category !== undefined ? 'Category' : 'Create new category'"
+    [headerEntry]="category !== undefined ? categoryValue : createNewCategoryValue"
     [headerValue]="category !== undefined ? category.name : ''"
     [saveEnabled]="isValid(categoryFields) && isUpdated(categoryFields)"
     [deleteEnabled]="category !== undefined"

@@ -17,5 +17,33 @@
         <app-colors-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-colors-customization>
     </div>
 
-    <div class="spacer"></div>
+
+
+    <div class="personalization-element">
+        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
+    </div>
+
+    <div class="personalization-element">
+        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
+    </div>
+
+    <div class="personalization-element">
+        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
+    </div>
+
+    <div class="personalization-element">
+        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
+    </div>
+
+    <div class="personalization-element">
+        <app-background-photo-customization [restaurant]="restaurantDetails" (restaurantUpdate)="restaurantUpdated($event)"></app-background-photo-customization>
+    </div>
+
+
+    <div class="spacer" style="margin-bottom: 50px;"></div>
 </div>
+
+
+<app-floating-editor-wrapper style="z-index: 1000;">
+    <app-select-theme-dialog></app-select-theme-dialog>
+</app-floating-editor-wrapper>

@@ -1,5 +1,5 @@
 <app-complex-editor-wrapper
-    [headerEntry]="fullItem !== undefined ? 'Option' : 'Create new category'"
+    [headerEntry]="fullItem !== undefined ? optionValue : createNewOptionValue"
     [headerValue]="fullItem !== undefined ? name : ''"
     [saveEnabled]="((editItemService.valid() | async) && (isUpdated | async)) === true"
     [deleteEnabled]="fullItem !== undefined"

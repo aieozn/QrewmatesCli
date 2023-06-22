@@ -1,5 +1,5 @@
 <app-complex-editor-wrapper
-    [headerEntry]="collection !== undefined ? 'Collection' : 'Create new collection'"
+    [headerEntry]="collection !== undefined ? collectionValue : createNewCollectionValue"
     [headerValue]="collection !== undefined ? collection.name : ''"
     [saveEnabled]="isValid(collectionFields) && isUpdated(collectionFields)"
     [deleteEnabled]="collection !== undefined"

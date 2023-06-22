@@ -14,6 +14,9 @@ import { EditAllergensService } from '../edit-allergens/edit-allergens-service/e
   templateUrl: './edit-item.component.html'
 })
 export class EditItemComponent implements OnDestroy {
+
+  readonly optionValue = $localize`Option`
+  readonly createNewOptionValue = $localize`'Create new option'`
   
   emptyItem: MenuItemData | undefined;
   name: string | undefined;

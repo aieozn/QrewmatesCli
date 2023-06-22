@@ -16,6 +16,9 @@ import { EditorDialogService } from '../editor-dialog.service';
 })
 export class EditSelectComponent implements OnDestroy {
 
+  readonly selectValue = $localize`Select`
+  readonly createNewSelectValue = $localize`'Create new select'`
+
   name: string | undefined;
   select: MenuItemSelectDetailedGet | undefined;
   private readonly onDestroy = new Subject<void>();

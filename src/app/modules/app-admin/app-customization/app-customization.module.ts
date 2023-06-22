@@ -9,6 +9,8 @@ import { ColorsCustomizationComponent } from './colors-customization/colors-cust
 import { LogoCustomizationComponent } from './logo-customization/logo-customization.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { QrTemplateCustomizationComponent } from './qr-template-customization/qr-template-customization.component';
+import { SelectThemeDialogComponent } from './dialog/select-theme-dialog/select-theme-dialog.component';
+import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { QrTemplateCustomizationComponent } from './qr-template-customization/qr
     BackgroundPhotoCustomizationComponent,
     ColorsCustomizationComponent,
     LogoCustomizationComponent,
-    QrTemplateCustomizationComponent
+    QrTemplateCustomizationComponent,
+    SelectThemeDialogComponent
   ],
   imports: [
     CommonModule,
     AppCustomizationRoutingModule,
     MatIconModule,
-    ColorPickerModule
+    ColorPickerModule,
+    ComplexEditorModule
   ]
 })
 export class AppCustomizationModule { }

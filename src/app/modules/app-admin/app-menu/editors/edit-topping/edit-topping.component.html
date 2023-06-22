@@ -1,5 +1,5 @@
 <app-complex-editor-wrapper
-    [headerEntry]="topping !== undefined ? 'Topping' : 'Create new topping'"
+    [headerEntry]="topping !== undefined ? toppingValue : createNewToppingValue"
     [headerValue]="topping !== undefined ? name : ''"
     [saveEnabled]="((editToppingService.valid() | async) && (isUpdated | async)) === true"
     [deleteEnabled]="topping !== undefined"

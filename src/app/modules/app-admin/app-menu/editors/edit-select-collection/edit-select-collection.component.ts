@@ -12,6 +12,10 @@ import { EditorDialogService } from '../editor-dialog.service';
   templateUrl: './edit-select-collection.component.html'
 })
 export class EditSelectCollectionComponent implements OnDestroy {
+
+  readonly collectionValue = $localize`Collection`
+  readonly createNewCollectionValue = $localize`'Create new collection'`
+
   private readonly onDestroy = new Subject<void>();
   collection: MenuItemSelectCollectionGet | undefined;
   detailsLink: string[] | undefined

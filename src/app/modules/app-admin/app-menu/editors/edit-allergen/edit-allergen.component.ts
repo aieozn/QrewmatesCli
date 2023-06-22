@@ -13,6 +13,9 @@ import { EditorDialogService } from '../editor-dialog.service';
 })
 export class EditAllergenComponent implements OnDestroy {
 
+  readonly allergenValue = $localize`Allergen`
+  readonly createNewAllergenValue = $localize`'Create new allergen'`
+
   private readonly onDestroy = new Subject<void>();
   allergen: AllergenGet | undefined;
 

@@ -1,5 +1,5 @@
 <app-complex-editor-wrapper
-    [headerEntry]="select !== undefined ? 'Select' : 'Create new select'"
+    [headerEntry]="select !== undefined ? selectValue : createNewSelectValue"
     [headerValue]="select !== undefined ? name : ''"
     [saveEnabled]="((editSelectService.valid() | async) && (isUpdated | async)) === true"
     [deleteEnabled]="select !== undefined"

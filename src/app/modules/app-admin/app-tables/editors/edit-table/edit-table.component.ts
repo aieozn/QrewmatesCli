@@ -14,6 +14,9 @@ import { EditTableService } from './edit-table-service/edit-table.service';
 })
 export class EditTableComponent implements OnDestroy {
 
+  readonly tableValue = $localize`Table`
+  readonly createNewTableValue = $localize`'Create new table'`
+
   private readonly onDestroy = new Subject<void>();
   table: RestaurantTableGet | undefined;
 

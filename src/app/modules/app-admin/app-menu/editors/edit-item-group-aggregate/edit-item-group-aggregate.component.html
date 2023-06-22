@@ -1,5 +1,5 @@
 <app-complex-editor-wrapper
-    [headerEntry]="fullGroup !== undefined ? 'Option' : 'Create new dish'"
+    [headerEntry]="fullGroup !== undefined ? dishValue : createNewDishValue"
     [headerValue]="fullGroup !== undefined ? name : ''"
     [saveEnabled]="((isValid | async) && (isUpdated | async)) === true"
     [deleteEnabled]="fullGroup !== undefined"

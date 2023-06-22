@@ -13,6 +13,9 @@ import { Subject, catchError, takeUntil, tap } from 'rxjs';
 })
 export class EditCategoryComponent implements OnDestroy {
 
+  readonly categoryValue = $localize`Category`
+  readonly createNewCategoryValue = $localize`'Create new category'`
+
   category: MenuCategoryGet | undefined;
   private readonly onDestroy = new Subject<void>();
 

@@ -14,6 +14,10 @@ import { FormControl, Validators } from '@angular/forms';
   templateUrl: './edit-item-group.component.html'
 })
 export class EditItemGroupComponent implements OnDestroy {
+
+  readonly dishValue = $localize`Dish`
+  readonly createNewDishValue = $localize`'Create new dish'`
+  
   group: MenuItemGroupGet | undefined;
   emptyItemGroup: MenuItemGroupData;
   private categoryRef: string;

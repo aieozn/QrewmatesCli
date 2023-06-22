@@ -1,13 +1,12 @@
 <app-complex-editor-wrapper
-    [headerEntry]="group !== undefined ? 'Dish' : 'Create new dish'"
+    [headerEntry]="group !== undefined ? dishValue : createNewDishValue"
     [headerValue]="group !== undefined ? group.name : ''"
     [saveEnabled]="((editItemGroupService.valid() | async) && (editItemGroupService.updated() | async)) === true"
     [deleteEnabled]="group !== undefined"
     (onClose)="close()"
     (onSave)="onSave()"
     (onDelete)="onDelete()"
-    (onTrySave)="editItemGroupService.onSaveTry.next()"
->
+    (onTrySave)="editItemGroupService.onSaveTry.next()">
 
     <app-two-columns-field-editor>
         <app-editor-item-group-name class="field-editor"></app-editor-item-group-name>

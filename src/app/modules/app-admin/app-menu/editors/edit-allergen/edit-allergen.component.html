@@ -1,5 +1,5 @@
 <app-complex-editor-wrapper
-    [headerEntry]="allergen !== undefined ? 'Allergen' : 'Create new allergen'"
+    [headerEntry]="allergen !== undefined ? allergenValue : createNewAllergenValue"
     [headerValue]="allergen !== undefined ? allergen.name : ''"
     [saveEnabled]="isValid(allergenFields) && isUpdated(allergenFields)"
     [deleteEnabled]="allergen !== undefined"

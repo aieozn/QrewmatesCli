@@ -16,6 +16,9 @@ import { Trimers } from '../../trimmer/trimmers';
 })
 export class EditToppingComponent implements OnDestroy {
 
+  readonly toppingValue = $localize`Topping`
+  readonly createNewToppingValue = $localize`'Create new topping'`
+
   name: string | undefined;
   topping: MenuItemToppingDetailedGet | undefined;
   private readonly onDestroy = new Subject<void>();

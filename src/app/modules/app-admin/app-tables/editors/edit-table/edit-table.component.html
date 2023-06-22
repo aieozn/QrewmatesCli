@@ -1,5 +1,5 @@
 <app-complex-editor-wrapper
-    [headerEntry]="table !== undefined ? 'Table' : 'Create new table'"
+    [headerEntry]="table !== undefined ? tableValue : createNewTableValue"
     [headerValue]="table !== undefined ? table.name : ''"
     [saveEnabled]="isValid(tableFields) && isUpdated(tableFields)"
     [deleteEnabled]="table !== undefined"
