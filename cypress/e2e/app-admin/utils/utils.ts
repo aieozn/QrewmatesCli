@@ -1,5 +1,16 @@
 import { getUserToken } from "../../utils/utils"
 
+export function getTableImage() {
+    return getUserToken('root@email.com', 'root').then(token => cy.request({
+        method: 'GET',
+        url: '/api/staff/v1/restaurant/R0KING000000/tables/TABLE0KK0002/image',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            "Authorization": "Bearer " + token
+        }
+    }))
+}
+
 export function loginAsAdmin() {
     cy.visit('/admin')
     cy.get('#login-input').click().type('admin@email.com')
