@@ -61,8 +61,8 @@ export class MenuItemGroupComponent implements OnDestroy {
     return item.menuItems[0].price;
   }
 
-  onOrderUpdate(order: OrderWrapper) {
-    if (this._group) {
+  onOrderUpdate(order: OrderWrapper | undefined) {
+    if (this._group && order) {
       const countElemetns = order.activeElements.filter(i => this._group?.menuItems.map(e => e.ref).includes(i.menuItem.ref)).length;
       this.orderedItemsOfType = countElemetns;
     }

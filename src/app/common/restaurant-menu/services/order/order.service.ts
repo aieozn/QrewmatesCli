@@ -11,56 +11,18 @@ import { OrderWrapperTrimmer } from '@common/api-client/wrapper/order-wrapper-tr
   providedIn: 'root'
 })
 export class OrderService {
-
-  private createdOrderCookieName = 'qr-last-order-created';
-  orderChanged: BehaviorSubject<OrderWrapper>;
+  orderChanged = new BehaviorSubject<OrderWrapper | undefined>(undefined);
 
   constructor(
     private orderInstanceService: OrderInstanceControllerService,
     private accountService: AccountService
   ) {
-    const cookieValueString = localStorage.getItem(this.createdOrderCookieName);
-    if (cookieValueString !== null) {
-      const cookieValue: {
-        order: OrderWrapper,
-        created: string
-      } = JSON.parse(cookieValueString);
-
-      const expires = new Date();
-      expires.setTime(new Date(cookieValue.created).getTime() + 6 * (1000 * 60 * 60))
-
-      if (new Date() < expires) {
-        console.log(cookieValue.order)
-        this.orderChanged = new BehaviorSubject<OrderWrapper>(cookieValue.order);
-      } else {
-        this.orderChanged = new BehaviorSubject<OrderWrapper>(this.getCleanOrder());
-        localStorage.removeItem(this.createdOrderCookieName);
-      }
-    } else {
-      this.orderChanged = new BehaviorSubject<OrderWrapper>(this.getCleanOrder());
-    }
-
-    this.orderChanged
-      .pipe(
-        tap(e => {
-          console.log("New value: ")
-          console.log(e)
-        }),
-        tap(e => this.saveOrderCookie(e))
-      )
-      .subscribe()
-
-  }
-
-  private saveOrderCookie(order: OrderWrapper) {
-    localStorage.setItem(this.createdOrderCookieName, JSON.stringify({
-      order: order,
-      created: new Date()
-    }));
   }
 
   addOrderElement(element: OrderElementDataWrapper) {
     const order = this.orderChanged.getValue();
+
+    if (!order) { throw 'Order not dedined' }
     order.activeElements.push(JSON.parse(JSON.stringify(element)));
     order.price = this.conuntPrice(order);
 
@@ -102,26 +64,8 @@ export class OrderService {
       body: OrderWrapperTrimmer.trimOrder(order)
     }).pipe(
       first(),
-      tap(_ => this.clearOrder())
+      tap(_ => this.orderChanged.next(undefined))
     );
-  }
-
-  clearOrder() {
-    this.orderChanged.next(this.getCleanOrder());
-  }
-
-  private getCleanOrder(): OrderWrapper {
-    return {
-      price: 0,
-      comment: undefined,
-      activeElements: [],
-      elements: [],
-      paymentMethod: 'CASH',
-      table: {
-        ref: this.accountService.getTableRef()
-      },
-      editMode: false,
-    }
   }
 
   loadOrder(info: {

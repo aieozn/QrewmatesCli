@@ -7,11 +7,12 @@ import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-elemen
 import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 import { DoOrderActionDialogComponent } from '../../layout/do-order-action-dialog/do-order-action-dialog.component';
 import { AcceptOrderActionDialogType } from './accept-order-aciton-dialog-type';
+import { OrderSummaryInputData } from '@common/order-composer/layout/order-summary/order-summary-input-data';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GenericDialogStuffManagerService {
+export class StuffDiaglogService {
 
   constructor(
     private dialog: MatDialog,
@@ -37,5 +38,9 @@ export class GenericDialogStuffManagerService {
       restaurantRef: this.accountService.getRestaurantRef(),
       editMode: true
     }).afterClosed().pipe(first());
+  }
+
+  openSummary(data: OrderSummaryInputData) {
+    return this.dialogService.openSummary(data);
   }
 }

@@ -16,7 +16,9 @@ import { GenericDialogCliManager } from '../services/generic-dialog-cli-manager/
 })
 export class AppClientComponent implements OnDestroy {
 
-  private createdOrderCookieName = 'qr-last-order-created-ref';
+  private createdOrderRefCookieName = 'qr-last-order-created-ref';
+  private createdOrderLocalCookieName = 'qr-last-order-created-local';
+
   backgroundImageUrl = new Observable<string>();
 
   categories: Observable<MenuCategoryGet[]>;
@@ -40,7 +42,48 @@ export class AppClientComponent implements OnDestroy {
     private orderService: OrderService,
     private cookiesService: CookieService
   ) {
-    const cookieValue = cookiesService.get(this.createdOrderCookieName);
+    const restaurantRef = this.accountService.getRestaurantRef();
+
+    // Subscribe categories
+    this.categories = this.categoriesService.getCategories({
+      "restaurantRef": restaurantRef
+    });
+
+    // Subscribe order update
+    this.orderService.orderChanged.pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe((order) => {
+      this.saveOrderCookie(order ? order : this.getCleanOrder());
+      this.order = order;
+    });
+
+    // Subscribe restaurant
+    this.backgroundImageUrl = this.accountService.getRestaurant().pipe(
+      map(e => this.getBackgroundCssImageUrl(e))
+    );
+
+    this.loadPendingOrderState();
+    this.loadOrderFromCookies();
+    
+    this.loadCustomCss(restaurantRef);
+  }
+
+  private getCleanOrder(): OrderWrapper {
+    return {
+      price: 0,
+      comment: undefined,
+      activeElements: [],
+      elements: [],
+      paymentMethod: 'CASH',
+      table: {
+        ref: this.accountService.getTableRef()
+      },
+      editMode: false,
+    }
+  }
+
+  private loadPendingOrderState() {
+    const cookieValue = this.cookiesService.get(this.createdOrderRefCookieName);
 
     // TODO edytowanie zamówienia nie powinno być możliwe do czasu pobrania informacji o poprzednim zamowieniu
     if (cookieValue) {
@@ -57,28 +100,35 @@ export class AppClientComponent implements OnDestroy {
           error: this.loadLastOrderHandleError.bind(this)
         });
     }
+  }
 
-    
-    const restaurantRef = this.accountService.getRestaurantRef();
-    this.loadCustomCss(restaurantRef);
+  private loadOrderFromCookies() {
+    const cookieValueString = localStorage.getItem(this.createdOrderLocalCookieName);
+    if (cookieValueString !== null) {
+      const cookieValue: {
+        order: OrderWrapper,
+        created: string
+      } = JSON.parse(cookieValueString);
 
-    // Subscribe categories
-    this.categories = this.categoriesService.getCategories({
-      "restaurantRef": restaurantRef
-    });
+      const expires = new Date();
+      expires.setTime(new Date(cookieValue.created).getTime() + 6 * (1000 * 60 * 60))
 
-    // Subscribe order update
-    this.orderService.orderChanged.pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe((order) => {
-      this.order = order;
-    });
+      if (new Date() < expires) {
+        this.orderService.orderChanged.next(cookieValue.order);
+      } else {
+        this.orderService.orderChanged.next(this.getCleanOrder());
+        localStorage.removeItem(this.createdOrderLocalCookieName);
+      }
+    } else {
+      this.orderService.orderChanged.next(this.getCleanOrder());
+    }
+  }
 
-    // Subscribe restaurant
-    this.backgroundImageUrl = this.accountService.getRestaurant()
-      .pipe(
-        map(e => this.getBackgroundCssImageUrl(e))
-      );
+  public saveOrderCookie(order: OrderWrapper) {
+    localStorage.setItem(this.createdOrderLocalCookieName, JSON.stringify({
+      order: order,
+      created: new Date()
+    }));
   }
 
   private getBackgroundCssImageUrl(restaurant : RestaurantGet) {
@@ -94,7 +144,7 @@ export class AppClientComponent implements OnDestroy {
     this.dialogManager.openWaitForOrderDialog(lastOrder.restaurantRef, lastOrder.ref)
       .pipe(first())
       .subscribe(() => {
-        this.clearCookie();
+        this.clearOrderRefCookie();
       });
   }
 
@@ -105,12 +155,12 @@ export class AppClientComponent implements OnDestroy {
     }).pipe(
       first()
     ).subscribe(_ => {
-      this.clearCookie();
+      this.clearOrderRefCookie();
     });
   }
 
-  private clearCookie() {
-    this.cookiesService.delete(this.createdOrderCookieName)
+  private clearOrderRefCookie() {
+    this.cookiesService.delete(this.createdOrderRefCookieName)
   }
 
   ngOnDestroy(): void {
@@ -134,12 +184,10 @@ export class AppClientComponent implements OnDestroy {
         map(e => e.order),
         switchMap(newItem => this.orderService.submit(newItem)),
         tap(result => {
-          console.debug("Order created");
-          console.debug(result);
           const expires : Date = new Date();
           expires.setTime(new Date().getTime() + 6 * (1000 * 60 * 60))
 
-          this.cookiesService.set(this.createdOrderCookieName, JSON.stringify({
+          this.cookiesService.set(this.createdOrderRefCookieName, JSON.stringify({
             ref: result.ref,
             restaurantRef: result.restaurantRef
           }),

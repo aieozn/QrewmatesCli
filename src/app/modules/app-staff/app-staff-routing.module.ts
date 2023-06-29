@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'active',
+    pathMatch: 'full'
+  },
   { 
     path: 'active',
     loadChildren: () => import('./app-active-orders/app-active-orders.module').then(m => m.AppActiveOrdersModule) 
