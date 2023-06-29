@@ -40,9 +40,15 @@ export class OrderService {
       this.orderChanged = new BehaviorSubject<OrderWrapper>(this.getCleanOrder());
     }
 
-    this.orderChanged.subscribe(newOrder => {
-      this.saveOrderCookie(newOrder);
-    })
+    this.orderChanged
+      .pipe(
+        tap(e => {
+          console.log("New value: ")
+          console.log(e)
+        }),
+        tap(e => this.saveOrderCookie(e))
+      )
+      .subscribe()
 
   }
 
@@ -54,11 +60,10 @@ export class OrderService {
   }
 
   addOrderElement(element: OrderElementDataWrapper) {
-
     const order = this.orderChanged.getValue();
     order.activeElements.push(JSON.parse(JSON.stringify(element)));
     order.price = this.conuntPrice(order);
-  
+
     this.orderChanged.next(order);
   }
 
@@ -73,7 +78,7 @@ export class OrderService {
 
     activeOrder = newOrder;
     activeOrder.price = this.conuntPrice(activeOrder);
-
+  
     this.orderChanged.next(activeOrder);
   }
 

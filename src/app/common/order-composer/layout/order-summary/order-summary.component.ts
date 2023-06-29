@@ -20,7 +20,6 @@ export class OrderSummaryComponent {
   order: OrderWrapper;
   output: OrderSummaryOutputData;
   waiterMode: boolean;
-  mode: 'SUMMARY' | 'ADD_ELEMENT' = 'SUMMARY';
 
   constructor(public dialogRef: MatDialogRef<OrderSummaryComponent>,
     private groupService: MenuItemGroupControllerService,

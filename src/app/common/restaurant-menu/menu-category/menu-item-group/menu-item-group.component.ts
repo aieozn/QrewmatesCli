@@ -1,10 +1,10 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { first, Subscription } from 'rxjs';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupGet } from '@common/api-client/models';
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
-import { GenericDialogCliManager } from "../../../services/generic-dialog-cli-manager/generic-dialog-cli-manager";
-import { OrderService } from '../../../services/order/order.service';
+import { Subscription, first, tap } from 'rxjs';
+import { OrderService } from '../../services/order/order.service';
+import { DialogManager } from '../../services/dialog-manager/dialog-manager';
 
 @Component({
   selector: 'app-menu-item-group',
@@ -32,25 +32,29 @@ export class MenuItemGroupComponent implements OnDestroy {
   }
 
   constructor(
-    private GenericDialogCliManager: GenericDialogCliManager,
+    // private GenericDialogCliManager: GenericDialogCliManager,
     private accountService: AccountService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private dialogManager: DialogManager
   ) {
     this.orderUpdatedSubscription = orderService.orderChanged.subscribe(this.onOrderUpdate.bind(this));
   }
 
   ngOnDestroy(): void {
-    this.orderUpdatedSubscription.unsubscribe();
+    // this.orderUpdatedSubscription.unsubscribe();
   }
 
   addGroup(group: MenuItemGroupGet) {
-    this.GenericDialogCliManager.openAddItem(group)
-    .pipe(first())
-    .subscribe(data => {
-      if (data) {
-        this.orderService.addOrderElements(data);
-      }
-    });
+    this.dialogManager.openAddItem(group)
+    .pipe(
+      first(),
+      tap(data => {
+        if (data) {
+          this.orderService.addOrderElements(data);
+        }
+      })
+    )
+    .subscribe();
   }
 
   getGroupDefaultPrice(item: MenuItemGroupGet) {

@@ -5,8 +5,6 @@ import { AppClientRoutingModule } from './app-client-routing.module';
 import { AppClientComponent } from './layout/app-client.component';
 import { MatIconModule } from '@angular/material/icon';
 import { WaitForOrderDialogComponent } from './layout/wait-for-order-dialog/wait-for-order-dialog.component';
-import { MenuCategoryCliComponent } from './layout/menu-category-cli/menu-category-cli.component';
-import { MenuItemGroupComponent } from './layout/menu-category-cli/menu-item-group/menu-item-group.component';
 import { FooterAboutUsComponent } from './layout/footer/footer-about-us/footer-about-us.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FullWidthDialogModule } from '@common/full-width-dialog/full-width-dialog.module';
@@ -15,13 +13,12 @@ import { FooterPoweredByComponent } from './layout/footer/footer-powered-by/foot
 import { MenuHorizontalModule } from '@common/menu-horizontal/menu-horizontal.module';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiModule } from '@common/api-client/api.module';
+import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
 
 
 @NgModule({
   declarations: [
     FooterAboutUsComponent,
-    MenuItemGroupComponent,
-    MenuCategoryCliComponent,
     WaitForOrderDialogComponent,
     AppClientComponent,
     WaitForOrderDialogComponent,
@@ -35,7 +32,8 @@ import { ApiModule } from '@common/api-client/api.module';
     FullWidthDialogModule,
     OrderComposerModule,
     MenuHorizontalModule,
-    ApiModule
+    ApiModule,
+    RestaurantMenuModule
   ],
   providers: [
     CookieService

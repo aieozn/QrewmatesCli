@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { FooterAboutUsComponent } from '../../layout/footer/footer-about-us/footer-about-us.component';
+import { FooterAboutUsComponent } from '../../../../modules/app-client/layout/footer/footer-about-us/footer-about-us.component';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
-import { OrderService } from '../order/order.service';
 import { first, Observable } from 'rxjs';
 import { MenuItemGroupGet } from '@common/api-client/models';
 import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderSummaryComponent } from '@common/order-composer/layout/order-summary/order-summary.component';
-import { ErrorDialogMessage } from '../../layout/error-dialog/model/error-dialog-message';
-import { ErrorDialogComponent } from '../../layout/error-dialog/layout/error-dialog/error-dialog.component';
+import { ErrorDialogMessage } from '../../../../modules/app-client/layout/error-dialog/model/error-dialog-message';
+import { ErrorDialogComponent } from '../../../../modules/app-client/layout/error-dialog/layout/error-dialog/error-dialog.component';
 import { OrderSummaryOutputData } from '@common/order-composer/layout/order-summary/order-summary-output-data';
+import { OrderService } from 'app/common/restaurant-menu/services/order/order.service';
 
 
 @Injectable({
@@ -48,6 +48,8 @@ export class GenericDialogCliManager {
   }
 
   openSummary() : Observable<OrderSummaryOutputData> {
+    console.log("OPEN")
+    console.log(this.orderService.orderChanged.getValue())
     // TODO fix title
     return this.dialog
       .open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig({
