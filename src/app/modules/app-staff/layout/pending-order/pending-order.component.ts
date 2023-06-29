@@ -49,7 +49,12 @@ export class PendingOrderComponent {
           orderDetails: of(orderDetails),
           orderSummary: this.dialogService.openSummary({
             restaurantRef: this.accountService.getRestaurantRef(),
-            item: Object.assign({ editMode: true }, orderDetails),
+            item: {
+              ...orderDetails,
+              editMode: true,
+              activeElements: []
+            },
+            waiterMode: true
           }).afterClosed()
         })
       )

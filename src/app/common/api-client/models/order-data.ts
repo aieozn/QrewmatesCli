@@ -4,7 +4,8 @@ import { IdentifiedByRefData } from './identified-by-ref-data';
 import { OrderElementData } from './order-element-data';
 export interface OrderData {
   comment?: string;
-  items: Array<OrderElementData>;
+  elements: Array<OrderElementData>;
+  elementsRefs: Array<IdentifiedByRefData>;
   paymentMethod: 'CASH' | 'BLIK';
   table: IdentifiedByRefData;
 }

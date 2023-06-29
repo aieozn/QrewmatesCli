@@ -30,6 +30,7 @@ export class OrderService {
       expires.setTime(new Date(cookieValue.created).getTime() + 6 * (1000 * 60 * 60))
 
       if (new Date() < expires) {
+        console.log(cookieValue.order)
         this.orderChanged = new BehaviorSubject<OrderWrapper>(cookieValue.order);
       } else {
         this.orderChanged = new BehaviorSubject<OrderWrapper>(this.getCleanOrder());
@@ -55,12 +56,8 @@ export class OrderService {
   addOrderElement(element: OrderElementDataWrapper) {
 
     const order = this.orderChanged.getValue();
-    order.items.push(JSON.parse(JSON.stringify(element)));
-    order.price = 0;
-
-    for (const orderItem of order.items) {
-      order.price += orderItem.price;
-    }
+    order.activeElements.push(JSON.parse(JSON.stringify(element)));
+    order.price = this.conuntPrice(order);
   
     this.orderChanged.next(order);
   }
@@ -75,13 +72,23 @@ export class OrderService {
     let activeOrder = this.orderChanged.getValue();
 
     activeOrder = newOrder;
-    activeOrder.price = 0;
-
-    for (const orderItem of newOrder.items) {
-      activeOrder.price += orderItem.price;
-    }
+    activeOrder.price = this.conuntPrice(activeOrder);
 
     this.orderChanged.next(activeOrder);
+  }
+
+  conuntPrice(newOrder: OrderWrapper) {
+    let price = 0;
+
+    for (const orderItem of newOrder.activeElements) {
+      price += orderItem.price;
+    }
+
+    for (const orderItem of newOrder.elements) {
+      price += orderItem.price;
+    }
+
+    return price;
   }
 
   submit(order: OrderWrapper) : Observable<OrderDetailsGet> {
@@ -102,7 +109,8 @@ export class OrderService {
     return {
       price: 0,
       comment: undefined,
-      items: [],
+      activeElements: [],
+      elements: [],
       paymentMethod: 'CASH',
       table: {
         ref: this.accountService.getTableRef()

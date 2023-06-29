@@ -1,13 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
-import { MenuItemGet } from './menu-item-get';
-import { MenuItemSelectGet } from './menu-item-select-get';
-import { MenuItemToppingGet } from './menu-item-topping-get';
+import { MenuItemMetaGet } from './menu-item-meta-get';
+import { SelectMetaGet } from './select-meta-get';
+import { ToppingMetaGet } from './topping-meta-get';
 export interface OrderElementGet {
   comment?: string;
-  menuItem: MenuItemGet;
-  menuItemSelects: Array<MenuItemSelectGet>;
-  menuItemToppings: Array<MenuItemToppingGet>;
+  menuItem: MenuItemMetaGet;
+  menuItemSelects: Array<SelectMetaGet>;
+  menuItemToppings: Array<ToppingMetaGet>;
   price: number;
   ref: string;
 }

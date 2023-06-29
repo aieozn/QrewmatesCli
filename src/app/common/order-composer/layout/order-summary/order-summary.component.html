@@ -1,6 +1,6 @@
 <app-full-width-dialog i18n-title title="Order summary" (close)="close()">
     <div id="order-summary">
-        <div class="summary-element clickable" *ngFor="let orderElement of order.items" (click)="editItem(orderElement)">
+        <div class="summary-element clickable" *ngFor="let orderElement of order.activeElements" (click)="editElement(orderElement)">
             <div class="summary-element-description">
                 <div class="summary-element-name">
                     {{ orderElement.menuItem.menuItemGroupName }}
@@ -23,10 +23,45 @@
             </div>
         </div>
 
+        <div class="summary-element clickable static" *ngFor="let orderElement of order.elements">
+            <div class="summary-element-description">
+                <div class="summary-element-name">
+                    {{ orderElement.menuItem.menuItemGroupName }}
+                    <ng-container *ngIf="!orderElement.menuItem.name">({{ orderElement.menuItem.name }})</ng-container>
+                </div>
+                <div class="summary-element-options">
+                    <div class="summary-element-option" *ngFor="let select of orderElement.menuItemSelects">
+                        {{ select.name }} (+{{ select.price }} zł)
+                    </div>
+                    <div class="summary-element-option" *ngFor="let topping of orderElement.menuItemToppings">
+                        {{ topping.name }} (+{{ topping.price }} zł)
+                    </div>
+                    <div class="summary-element-option" *ngIf="orderElement.comment">
+                        <span i18n>Comment: </span> {{ orderElement.comment }}
+                    </div>
+                </div>
+            </div>
+            <div class="summary-element-price">
+                {{orderElement.price.toFixed(2)}} zł
+            </div>
+        </div>
+
+        <div *ngIf="waiterMode" id="add-new" (click)="openAddNew()">
+            <p i18n>+ Add new order element</p>
+        </div>
+
         <app-payment-method [order]="order"></app-payment-method>
 
         <app-order-menu-chief-note [commentable]="order"></app-order-menu-chief-note>
 
         <app-order-submit id="order-sub-final" (submit)="submit()" [order]="order"></app-order-submit>
     </div>
+
+    <!-- <div id="new-element">
+        <div id="menu-elements">
+            <app-menu-horizontal-element-wrapper *ngFor="let category of categories | async" [name]="category.name" [description]="category.description">
+                <app-menu-category-cli [category]="category"></app-menu-category-cli>
+            </app-menu-horizontal-element-wrapper>
+        </div>
+    </div> -->
 </app-full-width-dialog>

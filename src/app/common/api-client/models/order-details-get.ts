@@ -9,7 +9,8 @@ export interface OrderDetailsGet {
   comment?: string;
   created: string;
   edited: boolean;
-  items: Array<OrderElementGet>;
+  elements: Array<OrderElementGet>;
+  metaVersion: number;
   orderStatus: 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED';
   orderStatusComment?: string;
   paymentMethod: 'CASH' | 'BLIK';

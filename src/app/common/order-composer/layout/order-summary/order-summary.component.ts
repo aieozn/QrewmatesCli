@@ -19,13 +19,17 @@ export class OrderSummaryComponent {
 
   order: OrderWrapper;
   output: OrderSummaryOutputData;
+  waiterMode: boolean;
+  mode: 'SUMMARY' | 'ADD_ELEMENT' = 'SUMMARY';
 
   constructor(public dialogRef: MatDialogRef<OrderSummaryComponent>,
     private groupService: MenuItemGroupControllerService,
     private accountService: AccountService,
     private dialogService: FullWidthDialogService,
-    @Inject(MAT_DIALOG_DATA) data: OrderSummaryInputData) {
-      this.order = JSON.parse(JSON.stringify(data.item));
+    @Inject(MAT_DIALOG_DATA) data: OrderSummaryInputData
+  ) {
+    this.order = JSON.parse(JSON.stringify(data.item));
+    this.waiterMode = data.waiterMode
 
     this.output = {
       order: this.order,
@@ -38,8 +42,8 @@ export class OrderSummaryComponent {
     this.dialogRef.close(this.output);
   }
 
-  editItem(item: OrderElementDataWrapper) {
-    const initialIndex = this.order.items.indexOf(item);
+  editElement(item: OrderElementDataWrapper) {
+    const initialIndex = this.order.activeElements.indexOf(item);
 
     this.groupService.getItemGroupDetails({
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -52,21 +56,25 @@ export class OrderSummaryComponent {
       )
     ).subscribe(next => {
       if (next !== undefined) {
-        const partI = this.order.items.slice(0, initialIndex);
-        const partII = this.order.items.slice(initialIndex + 1, this.order.items.length)
-        this.order.items = partI.concat(next).concat(partII);
+        const partI = this.order.activeElements.slice(0, initialIndex);
+        const partII = this.order.activeElements.slice(initialIndex + 1, this.order.activeElements.length)
+        this.order.activeElements = partI.concat(next).concat(partII);
 
-        if (this.order.items.length === 0) {
+        if (this.order.activeElements.length === 0) {
           this.close();
         }
 
 
         this.order.price = 0;
-        for (const orderItem of this.order.items) {
+        for (const orderItem of this.order.activeElements) {
           this.order.price += orderItem.price;
         }
       }
     })
+  }
+
+  openAddNew() {
+    
   }
 
   submit() {

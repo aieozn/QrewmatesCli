@@ -6,5 +6,4 @@ export interface OrderElementData {
   menuItem: IdentifiedByRefData;
   menuItemSelects: Array<IdentifiedByRefData>;
   menuItemToppings: Array<IdentifiedByRefData>;
-  ref?: string;
 }

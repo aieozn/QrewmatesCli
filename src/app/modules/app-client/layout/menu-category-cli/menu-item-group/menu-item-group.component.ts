@@ -16,7 +16,7 @@ export class MenuItemGroupComponent implements OnDestroy {
   _group: MenuItemGroupGet | undefined;
   menuItemGroupImageUrl: string | undefined;
 
-  orderedItefsOfType = 0;
+  orderedItemsOfType = 0;
   orderUpdatedSubscription: Subscription;
 
   @Input() set group(value: MenuItemGroupGet) {
@@ -59,7 +59,8 @@ export class MenuItemGroupComponent implements OnDestroy {
 
   onOrderUpdate(order: OrderWrapper) {
     if (this._group) {
-      this.orderedItefsOfType = order.items.filter(i => this._group?.menuItems.map(e => e.ref).includes(i.menuItem.ref)).length;
+      const countElemetns = order.activeElements.filter(i => this._group?.menuItems.map(e => e.ref).includes(i.menuItem.ref)).length;
+      this.orderedItemsOfType = countElemetns;
     }
     
   }

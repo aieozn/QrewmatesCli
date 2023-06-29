@@ -5,9 +5,17 @@
 .summary-element {
     border-bottom: 1px solid #c3c3c3;
     display: flex;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    padding-bottom: 5px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 15px;
+}
+
+.summary-element-name {
+    margin-bottom: 5px;
+}
+
+.summary-element.static {
+    opacity: 0.5;
 }
 
 .summary-element-description {
@@ -30,4 +38,12 @@
 
 ::ng-deep #order-sub-final #order-submit {
     margin-left: -20px;
+}
+
+#add-new p{
+    color: #38A583;
+    font-family: PoppinsSemiBold;
+    font-size: 14px;
+    margin: 0px;
+    margin-top: 15px;
 }

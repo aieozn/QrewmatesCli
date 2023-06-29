@@ -122,12 +122,14 @@ export class AppStaffComponent implements OnDestroy {
     const waitingOrders = this.orders.filter(e => e.orderStatus === 'PLACED')
 
     for (const order of waitingOrders) {
-      if (order.table.ref in this.tableCounter) {
-        this.tableCounter[order.table.ref].count += 1;
-      } else {
-        this.tableCounter[order.table.ref] = {
-          name: order.table.name,
-          count: 1
+      if (order.table) {
+        if (order.table.ref in this.tableCounter) {
+          this.tableCounter[order.table.ref].count += 1;
+        } else {
+          this.tableCounter[order.table.ref] = {
+            name: order.table.name,
+            count: 1
+          }
         }
       }
     }

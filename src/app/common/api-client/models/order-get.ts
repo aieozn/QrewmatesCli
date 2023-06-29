@@ -14,6 +14,7 @@ export interface OrderGet {
   paymentStatus: 'UNPAID' | 'PAID' | 'RETURNED' | 'WITHDRAWN';
   ref: string;
   restaurantRef: string;
-  table: RestaurantTableGet;
+  table?: RestaurantTableGet;
+  tableName: string;
   version: number;
 }
