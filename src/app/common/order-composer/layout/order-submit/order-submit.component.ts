@@ -11,9 +11,15 @@ export class OrdeSubmitComponent {
   // otherwise, the summary component will be displayed
   // @Input('final') final: boolean = false;
 
+  @Input('buttonValue') buttonValue: string = $localize`Proceed`;
+  orderValue: OrderWrapper | undefined;
+
   @Output('submit') submit = new EventEmitter<void>();
 
-  @Input('order') order: OrderWrapper | undefined;
+  @Input() set orderIn(value: OrderWrapper | undefined) {
+    console.log(value)
+    this.orderValue = value;
+  }
 
   proceed() {
     this.submit.emit();

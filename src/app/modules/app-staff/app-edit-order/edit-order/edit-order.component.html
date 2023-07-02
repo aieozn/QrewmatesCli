@@ -11,3 +11,7 @@
     </app-menu-horizontal-wrapper>
 </div>
 
+
+<div *ngIf="orderService.orderChanged | async as order">
+    <app-order-submit (submit)="submit()" [orderIn]="order" buttonValue="Details"></app-order-submit>
+</div>

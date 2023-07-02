@@ -7,6 +7,5 @@ export interface OrderWrapper {
     elements: OrderElementGet[];
     price: number;
     paymentMethod: 'CASH' | 'BLIK';
-    table: IdentifiedByRefData,
-    editMode: boolean;
+    table: IdentifiedByRefData;
 }

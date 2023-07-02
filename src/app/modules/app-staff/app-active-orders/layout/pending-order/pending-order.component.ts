@@ -1,14 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { filter, first, forkJoin, map, of, switchMap, tap } from 'rxjs';
-import { OrderDetailsGet } from '@common/api-client/models/order-details-get';
+import { first, map, tap } from 'rxjs';
 import { UpdateOrderStatusMessage } from '../../model/update-order-status-message';
 import { AcceptOrderActionDialogType } from '../../services/generic-dialog-stuff-manager/accept-order-aciton-dialog-type';
 import { AcceptOrderActionResult } from '../../services/generic-dialog-stuff-manager/accept-order-action-result';
 import { OrderInstanceControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderGet } from '@common/api-client/models';
-import { OrderSummaryOutputData } from '@common/order-composer/layout/order-summary/order-summary-output-data';
-import { OrderWrapperTrimmer } from '@common/api-client/wrapper/order-wrapper-trimmer';
 import { StuffDiaglogService } from '../../services/generic-dialog-stuff-manager/staff-dialog.service';
 
 @Component({
@@ -33,7 +30,6 @@ export class PendingOrderComponent {
   ) {
   }
   
-  
   edit() {
     if (!this._order) { throw 'Order not defined'; }
 
@@ -41,39 +37,9 @@ export class PendingOrderComponent {
       restaurantRef: this.accountService.getRestaurantRef(),
       orderInstanceRef: this._order.ref
     })
-    .pipe<OrderDetailsGet, { orderDetails: OrderDetailsGet, orderSummary: OrderSummaryOutputData}>(
-      first(),
-      switchMap(orderDetails => 
-        forkJoin({
-          orderDetails: of(orderDetails),
-          orderSummary: this.dialogManager.openSummary({
-            restaurantRef: this.accountService.getRestaurantRef(),
-            item: {
-              ...orderDetails,
-              editMode: true,
-              activeElements: []
-            },
-            waiterMode: true
-          }).afterClosed()
-        })
-      )
-    )
     .pipe(
-      filter(e => e.orderSummary.submit),
-      switchMap(edited =>
-        this.orderInstanceService.editOrder({
-          restaurantRef: this.accountService.getRestaurantRef(),
-          orderInstanceRef: edited.orderDetails.ref,
-          body: OrderWrapperTrimmer.trimOrder(edited.orderSummary.order)
-        })
-      )
+      tap(orderDetails => this.dialogManager.openDetails(orderDetails))
     )
-    .pipe(
-      tap((o) => {
-        console.debug("Order upated. Waiting for socket notification")
-        console.debug(o)
-      }
-    ))
     .subscribe();
   }
 

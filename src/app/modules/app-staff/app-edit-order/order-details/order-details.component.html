@@ -1,0 +1,76 @@
+<app-full-width-dialog i18n-title title="Order summary">
+    <div id="order-summary">
+        <div class="summary-element clickable" *ngFor="let orderElement of order.elements">
+            <div class="summary-element-description">
+                <div class="summary-element-name">
+                    {{ orderElement.menuItem.menuItemGroupName }}
+                    <ng-container *ngIf="orderElement.menuItem.name">({{ orderElement.menuItem.name }})</ng-container>
+                </div>
+                <div class="summary-element-options">
+                    <div class="summary-element-option" *ngFor="let select of orderElement.menuItemSelects">
+                        {{ select.name }} (+{{ select.price }} zł)
+                    </div>
+                    <div class="summary-element-option" *ngFor="let topping of orderElement.menuItemToppings">
+                        {{ topping.name }} (+{{ topping.price }} zł)
+                    </div>
+                    <div class="summary-element-option" *ngIf="orderElement.comment">
+                        <span i18n>Comment: </span> {{ orderElement.comment }}
+                    </div>
+                </div>
+            </div>
+            <div class="summary-element-price">
+                {{orderElement.price.toFixed(2)}} zł
+            </div>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Total:</p>
+            <p>{{ order.price }} PLN</p>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Table</p>
+            <p>{{ order.table.name }}</p>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Payment method</p>
+            <p>{{ translatePaymentMethod(order.paymentMethod) }}</p>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Payment status</p>
+            <p>{{ translatePaymentStatus(order.paymentStatus) }}</p>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Order status</p>
+            <p>{{ translateOrderStatus(order.orderStatus) }}</p>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Status comment</p>
+            <p i18n *ngIf="!order.orderStatusComment">No comment</p>
+            <p *ngIf="order.orderStatusComment">{{ order.orderStatusComment }}</p>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Assignee</p>
+            <p i18n *ngIf="!order.assignee">Not assigned</p>
+            <p *ngIf="order.assignee">{{ order.assignee.username }}</p>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Comment</p>
+            <p i18n *ngIf="!order.comment">No comment</p>
+            <p *ngIf="order.comment">{{ order.comment }}</p>
+        </div>
+
+        <div class="two-col">
+            <p i18n>Created</p>
+            <p>{{ order.created | date:'dd.MM HH:mm'}}</p>
+        </div>
+
+        <div class="edit-order box-radius box-shadow clickable" (click)="editOrder(order.ref)">Edit</div>
+    </div>
+</app-full-width-dialog>

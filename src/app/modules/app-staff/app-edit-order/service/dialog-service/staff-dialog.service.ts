@@ -40,9 +40,6 @@ export class StaffDialogService {
   }
 
   openSummary() : Observable<OrderSummaryOutputData> {
-    console.log("OPEN")
-    console.log(this.orderService.orderChanged.getValue())
-
     // TODO fix title
     return this.dialog
       .open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig({

@@ -1,5 +1,5 @@
 #order-summary {
-    padding-bottom: 130px;
+    padding-bottom: 20px;
 }
 
 .summary-element {
@@ -8,7 +8,6 @@
     margin: 0px;
     padding: 0px;
     margin-top: 15px;
-    padding-bottom: 5px;
 }
 
 .summary-element-name {
@@ -41,30 +40,18 @@
     margin-left: -20px;
 }
 
-.remove-element {
-    background-color: #e45959;
-    font-size: 14px;
-    color: white;
-    padding: 6px;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.modified-warning {
+.two-col {
     display: flex;
-    align-items: center;
-    font-size: 11px;
-    color: #888888;
-    margin-top: 15px;
-    margin-bottom: 0px;
+    justify-content: space-between;
 }
 
-.modified-warning mat-icon {
-    font-size: 22px;
-    margin-right: 5px;
+.edit-order {
+    background-color: #38A583;
+    color: #f4f4f4;
+    padding: 15px;
+    text-align: center;
 }
 
-.summary-element.modified {
-    margin-top: 0px;
+.two-col p {
+    margin-top: 5px
 }

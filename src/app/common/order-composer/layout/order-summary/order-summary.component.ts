@@ -27,7 +27,13 @@ export class OrderSummaryComponent {
     private dialogService: FullWidthDialogService,
     @Inject(MAT_DIALOG_DATA) data: OrderSummaryInputData
   ) {
-    this.order = JSON.parse(JSON.stringify(data.item));
+    const order = JSON.parse(JSON.stringify(data.item));
+    // const orderElements = order.elements;
+    order.elements = [];
+
+    // for (order)
+
+    this.order = order;
     this.waiterMode = data.waiterMode
 
     this.output = {
@@ -64,16 +70,25 @@ export class OrderSummaryComponent {
         }
 
 
-        this.order.price = 0;
-        for (const orderItem of this.order.activeElements) {
-          this.order.price += orderItem.price;
-        }
+        this.countPrice();
       }
     })
   }
 
-  openAddNew() {
-    
+  removeElement(ref: string) {
+    this.order.elements = this.order.elements.filter(e => e.ref !== ref);
+    this.countPrice();
+  }
+
+  countPrice() {
+    this.order.price = 0;
+    for (const orderItem of this.order.activeElements) {
+      this.order.price += orderItem.price;
+    }
+
+    for (const orderItem of this.order.elements) {
+      this.order.price += orderItem.price;
+    }
   }
 
   submit() {

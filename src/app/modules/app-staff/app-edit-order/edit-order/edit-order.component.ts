@@ -21,7 +21,7 @@ export class EditOrderComponent implements OnDestroy {
   constructor(
     private categoriesService: MenuCategoryControllerService,
     private accountService: AccountService,
-    private orderService: OrderService,
+    protected orderService: OrderService,
     private orderInstanceService: OrderInstanceControllerService,
     private dialogService: StaffDialogService,
     private route: ActivatedRoute
@@ -36,23 +36,27 @@ export class EditOrderComponent implements OnDestroy {
 
     this.route.params.pipe(
       tap(params => {
-        this.reloadComponent(params['categoryRef'])
+        this.reloadComponent(params['orderRef'])
       }),
       takeUntil(this.onDestroy)
     ).subscribe();
   }
 
   reloadComponent(orderRef: string) {
-    this.orderInstanceService.getOrder({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      orderInstanceRef: orderRef
-    }).pipe(
-      tap(e => this.orderService.orderChanged.next({
-        ...e,
-        editMode: true,
-        activeElements: []
-      }))
-    ).subscribe();
+    if (orderRef != undefined) {
+      this.orderInstanceService.getOrder({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        orderInstanceRef: orderRef
+      }).pipe(
+        filter(e => e != undefined),
+        tap(e => this.orderService.orderChanged.next({
+          ...e,
+          activeElements: []
+        }))
+      ).subscribe();
+    } else {
+      this.orderService.orderChanged.next(undefined);
+    }
   }
 
   submit() {
@@ -66,26 +70,6 @@ export class EditOrderComponent implements OnDestroy {
         filter(e => e.submit),
         map(e => e.order),
         tap(e => console.log(e))
-        // switchMap(newItem => this.orderService.submit(newItem)),
-        // tap(result => {
-        //   console.debug("Order created");
-        //   console.debug(result);
-        //   const expires : Date = new Date();
-        //   expires.setTime(new Date().getTime() + 6 * (1000 * 60 * 60))
-
-        //   this.cookiesService.set(this.createdOrderCookieName, JSON.stringify({
-        //     ref: result.ref,
-        //     restaurantRef: result.restaurantRef
-        //   }),
-        //   // Expires after 6 hours
-        //   expires
-        //   )
-        // }),
-        // switchMap(createdOrder => this.dialogManager.openWaitForOrderDialog(createdOrder.restaurantRef, createdOrder.ref)),
-        // tap(result => {
-        //   console.debug("Order responded");
-        //   console.debug(result);
-        // })
       ).subscribe();
   }
 

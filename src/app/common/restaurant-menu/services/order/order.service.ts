@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, first, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
 import { OrderDetailsGet } from '@common/api-client/models/order-details-get';
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
@@ -62,10 +62,7 @@ export class OrderService {
     return this.orderInstanceService.order({
       restaurantRef: this.accountService.getRestaurantRef(),
       body: OrderWrapperTrimmer.trimOrder(order)
-    }).pipe(
-      first(),
-      tap(_ => this.orderChanged.next(undefined))
-    );
+    });
   }
 
   loadOrder(info: {

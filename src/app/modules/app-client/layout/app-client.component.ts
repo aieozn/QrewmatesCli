@@ -23,8 +23,6 @@ export class AppClientComponent implements OnDestroy {
 
   categories: Observable<MenuCategoryGet[]>;
 
-  order: OrderWrapper | undefined;
-
   // Display black cover over items
   shadowItems = false;
 
@@ -39,7 +37,7 @@ export class AppClientComponent implements OnDestroy {
     private menuCliDialogServide: GenericDialogCliManager,
     private dialogManager: DialogManagerService,
     private accountService: AccountService,
-    private orderService: OrderService,
+    protected orderService: OrderService,
     private cookiesService: CookieService
   ) {
     const restaurantRef = this.accountService.getRestaurantRef();
@@ -51,11 +49,11 @@ export class AppClientComponent implements OnDestroy {
 
     // Subscribe order update
     this.orderService.orderChanged.pipe(
+      filter(e => e !== undefined),
+      map(e => e as OrderWrapper),
+      tap(e => this.saveOrderCookie(e)),
       takeUntil(this.onDestroy)
-    ).subscribe((order) => {
-      this.saveOrderCookie(order ? order : this.getCleanOrder());
-      this.order = order;
-    });
+    ).subscribe();
 
     // Subscribe restaurant
     this.backgroundImageUrl = this.accountService.getRestaurant().pipe(
@@ -77,8 +75,7 @@ export class AppClientComponent implements OnDestroy {
       paymentMethod: 'CASH',
       table: {
         ref: this.accountService.getTableRef()
-      },
-      editMode: false,
+      }
     }
   }
 
@@ -187,12 +184,14 @@ export class AppClientComponent implements OnDestroy {
           const expires : Date = new Date();
           expires.setTime(new Date().getTime() + 6 * (1000 * 60 * 60))
 
+          this.orderService.orderChanged.next(this.getCleanOrder());
+
           this.cookiesService.set(this.createdOrderRefCookieName, JSON.stringify({
-            ref: result.ref,
-            restaurantRef: result.restaurantRef
-          }),
-          // Expires after 6 hours
-          expires
+              ref: result.ref,
+              restaurantRef: result.restaurantRef
+            }),
+            // Expires after 6 hours
+            expires
           )
         }),
         switchMap(createdOrder => this.dialogManager.openWaitForOrderDialog(createdOrder.restaurantRef, createdOrder.ref)),
