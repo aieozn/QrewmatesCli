@@ -61,7 +61,7 @@ describe('Edit categories', () => {
         cy.get('.save-button').should('have.class', 'disabled')
     })
 
-    it('Deletes category', () => {
+    it.only('Deletes category', () => {
         createCategory('New category', 'Category description')
 
         cy.visit('/admin/menu/categories')

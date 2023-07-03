@@ -65,6 +65,7 @@
             "menuItemToppings": []
         }
     ],
+    "elementsRefs": [],
     "paymentMethod": "CASH",
     "table": {
         "ref": "TABLE0PT0001"

@@ -13,6 +13,10 @@ describe('Edit order', () => {
         cy.intercept('PUT', '/api/staff/v1/restaurant/R0TAXI000000/order-instances/*').as('updateOrder')
     })
 
+    after(() => {
+        flushPizzaTaxi()
+    })
+
     it('Order element is modifable by default', () => {
         fakeOrder('order/request/simple-order.json', 'R0TAXI000000')
 
