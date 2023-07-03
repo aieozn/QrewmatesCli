@@ -5,6 +5,8 @@ import { SelectMetaGet } from './select-meta-get';
 import { ToppingMetaGet } from './topping-meta-get';
 export interface OrderElementGet {
   comment?: string;
+  hasDeleted: boolean;
+  hasUpdated: boolean;
   menuItem: MenuItemMetaGet;
   menuItemSelects: Array<SelectMetaGet>;
   menuItemToppings: Array<ToppingMetaGet>;

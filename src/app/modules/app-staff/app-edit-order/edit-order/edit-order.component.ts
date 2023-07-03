@@ -1,12 +1,14 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { MenuCategoryGet } from '@common/api-client/models';
+import { MenuCategoryGet, OrderDetailsGet, OrderElementGet } from '@common/api-client/models';
 import { MenuCategoryControllerService, OrderInstanceControllerService } from '@common/api-client/services';
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { OrderService } from 'app/common/restaurant-menu/services/order/order.service';
 import { BehaviorSubject, Subject, filter, first, map, takeUntil, tap } from 'rxjs';
 import { StaffDialogService } from '../service/dialog-service/staff-dialog.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
+import { Trimers } from 'app/modules/app-admin/app-menu/trimmer/trimmers';
 
 @Component({
   selector: 'app-edit-order',
@@ -15,7 +17,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditOrderComponent implements OnDestroy {
   categories: MenuCategoryGet[] = [];
+  orderTableName: string | undefined;
   orderSubject: BehaviorSubject<OrderWrapper | undefined>;
+  activeOrderRef: string | undefined;
   private readonly onDestroy = new Subject<void>();
 
   constructor(
@@ -24,7 +28,8 @@ export class EditOrderComponent implements OnDestroy {
     protected orderService: OrderService,
     private orderInstanceService: OrderInstanceControllerService,
     private dialogService: StaffDialogService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.categoriesService.getCategories({
       restaurantRef: accountService.getRestaurantRef()
@@ -35,9 +40,7 @@ export class EditOrderComponent implements OnDestroy {
     this.orderSubject = orderService.orderChanged;
 
     this.route.params.pipe(
-      tap(params => {
-        this.reloadComponent(params['orderRef'])
-      }),
+      tap(params => this.reloadComponent(params['orderRef'])),
       takeUntil(this.onDestroy)
     ).subscribe();
   }
@@ -49,14 +52,49 @@ export class EditOrderComponent implements OnDestroy {
         orderInstanceRef: orderRef
       }).pipe(
         filter(e => e != undefined),
-        tap(e => this.orderService.orderChanged.next({
-          ...e,
-          activeElements: []
-        }))
+        tap(e => {
+          this.activeOrderRef = orderRef;
+          this.orderTableName = e.table.name;
+          this.orderService.orderChanged.next(this.wrapOrder(e))
+        })
       ).subscribe();
     } else {
+      this.activeOrderRef = undefined;
+      this.orderTableName = undefined;
       this.orderService.orderChanged.next(undefined);
     }
+  }
+
+  wrapOrder(details: OrderDetailsGet) : OrderWrapper {
+    const wrapper : OrderWrapper = {
+      ...details,
+      activeElements: []
+    }
+
+    const newElements: OrderElementGet[] = [];
+    const newActiveElements: OrderElementDataWrapper[] = [];
+
+    const elements = details.elements;
+
+    for (const element of elements) {
+      if (!element.hasUpdated && !element.hasDeleted) {
+        newActiveElements.push({
+          comment: element.comment,
+          menuItem: element.menuItem.menuItem!,
+          menuItemSelects: element.menuItemSelects.map(e => e.select!),
+          menuItemToppings: element.menuItemToppings.map(e => e.topping!),
+          price: element.price
+        })
+      } else {
+        newElements.push(element);
+      }
+    }
+
+    wrapper.elements = newElements;
+    wrapper.activeElements = newActiveElements;
+
+
+    return wrapper;
   }
 
   submit() {
@@ -64,17 +102,37 @@ export class EditOrderComponent implements OnDestroy {
       .openSummary()
       .pipe(
         first(),
+        filter(e => e != undefined),
         tap(e => {
           this.orderService.updateOrder(e.order)
         }),
         filter(e => e.submit),
-        map(e => e.order),
-        tap(e => console.log(e))
+        map(e => e.order)
       ).subscribe();
   }
 
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();
+  }
+
+  save() {
+    const order = this.orderService.orderChanged.getValue();
+    const orderRef = this.activeOrderRef;
+    if (!order || !orderRef) throw 'Order not defined';
+
+    this.orderInstanceService.editOrder({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      orderInstanceRef: orderRef,
+      body: {
+        comment: order.comment,
+        elements: order.activeElements,
+        elementsRefs: Trimers.trimRefList(order.elements),
+        paymentMethod: order.paymentMethod,
+        table: Trimers.trimRef(order.table)
+      }
+    }).pipe(
+      tap(() => this.router.navigate(['/staff/active']))
+    ).subscribe();
   }
 }

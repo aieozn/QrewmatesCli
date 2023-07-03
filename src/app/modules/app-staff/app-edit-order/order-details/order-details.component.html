@@ -1,6 +1,6 @@
-<app-full-width-dialog i18n-title title="Order summary">
+<app-full-width-dialog i18n-title title="Order details">
     <div id="order-summary">
-        <div class="summary-element clickable" *ngFor="let orderElement of order.elements">
+        <div class="summary-element" *ngFor="let orderElement of order.elements">
             <div class="summary-element-description">
                 <div class="summary-element-name">
                     {{ orderElement.menuItem.menuItemGroupName }}

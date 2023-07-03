@@ -66,6 +66,5 @@ export class MenuItemGroupComponent implements OnDestroy {
       const countElemetns = order.activeElements.filter(i => this._group?.menuItems.map(e => e.ref).includes(i.menuItem.ref)).length;
       this.orderedItemsOfType = countElemetns;
     }
-    
   }
 }

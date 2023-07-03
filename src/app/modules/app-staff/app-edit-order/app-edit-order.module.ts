@@ -9,6 +9,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { FullWidthDialogModule } from '@common/full-width-dialog/full-width-dialog.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@common/account-utils/auth-interceptor';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -23,7 +24,8 @@ import { AuthInterceptor } from '@common/account-utils/auth-interceptor';
     MenuHorizontalModule,
     RestaurantMenuModule,
     OrderComposerModule,
-    FullWidthDialogModule
+    FullWidthDialogModule,
+    MatIconModule
   ],
   providers: [
     {

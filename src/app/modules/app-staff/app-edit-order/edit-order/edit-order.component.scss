@@ -4,3 +4,43 @@
     margin-top: 25px;
     padding-bottom: 50px;
 }
+
+#save-changes, #cancel {
+    background-color: #AAAAAA;
+    width: 200px;
+    color: white;
+    margin-right: 20px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 44px;
+}
+
+#cancel {
+    background-color: rgb(196, 55, 55);
+}
+
+#back {
+    background-color: #38A583;
+    color: white;
+    line-height: 50px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+}
+
+#back .left {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#back .right {
+    margin-right: 15px;
+}
+
+::ng-deep #menu{
+    top: 50px!important;
+}

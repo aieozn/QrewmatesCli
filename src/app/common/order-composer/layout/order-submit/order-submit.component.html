@@ -4,7 +4,8 @@
         <p id="summary-value">({{ orderValue.activeElements.length + orderValue.elements.length }}) {{ orderValue.price.toFixed(2) }} zł</p>
     </div>
     <div id="order">
-        <div id="subscribeButton" class="clickable main-theme-background-color" (click)="proceed()">
+        <ng-content></ng-content>
+        <div id="subscribeButton" class="clickable main-theme-background-color box-radius" (click)="proceed()">
             <span>{{buttonValue}}</span>
         </div>
     </div>

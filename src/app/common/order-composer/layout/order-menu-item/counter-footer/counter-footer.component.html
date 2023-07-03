@@ -15,7 +15,7 @@
     </div>
 
     <div id="add" *ngIf="order">
-        <div id="add-button" class="clickable main-theme-background-color" (click)="subscribeItem()">
+        <div id="add-button" class="clickable main-theme-background-color box-radius" (click)="subscribeItem()">
             <span *ngIf="editMode; else createMode" i18n>Edit: </span>
             <ng-template #createMode i18n>Add: </ng-template>
             {{ (order.price * count).toFixed(2) }}zł

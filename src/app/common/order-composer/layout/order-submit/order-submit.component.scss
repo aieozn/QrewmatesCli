@@ -5,11 +5,8 @@
     height: 44px;
     padding: 15px;
     display: flex;
+    justify-content: space-between;
     background-color: #ffffff;
-}
-
-#summary {
-    width: 50%;
 }
 
 #order-submit p {
@@ -26,7 +23,8 @@
 }
 
 #order {
-    width: 50%;
+    display: flex;
+    margin-right: 30px;
 }
 
 #subscribeButton {
@@ -36,6 +34,5 @@
     line-height: 44px;
     text-align: center;
     vertical-align: middle;
-    border-radius: 25px;
-    width: 90%;
+    width: 200px;
 }

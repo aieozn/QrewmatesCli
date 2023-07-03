@@ -17,7 +17,6 @@ export class OrdeSubmitComponent {
   @Output('submit') submit = new EventEmitter<void>();
 
   @Input() set orderIn(value: OrderWrapper | undefined) {
-    console.log(value)
     this.orderValue = value;
   }
 

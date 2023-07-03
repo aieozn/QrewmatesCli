@@ -48,14 +48,13 @@ export class GenericDialogCliManager {
   }
 
   openSummary() : Observable<OrderSummaryOutputData> {
-    console.log("OPEN")
-    console.log(this.orderService.orderChanged.getValue())
     // TODO fix title
     return this.dialog
       .open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig({
         restaurantRef: this.accountService.getRestaurantRef(),
         item: this.orderService.orderChanged.getValue(),
-        waiterMode: false
+        waiterMode: false,
+        submitButtonText: $localize`Submit`
       }))
       .afterClosed();
   }

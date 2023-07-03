@@ -8,10 +8,10 @@
     width: 100%;
     display: flex;
     padding: 15px;
+    justify-content: space-between;
 }
 
 #count {
-    width: 50%;
     display: flex;
 }
 
@@ -40,7 +40,7 @@
 }
 
 #add {
-    width: 50%;
+    margin-right: 30px;
 }
 
 #add-button {
@@ -49,8 +49,7 @@
     vertical-align: middle;
     text-align: center;
     color: #FFFFFF;
-    border-radius: 25px;
-    width: 90%;
+    width: 200px;
 }
 
 #count-value-plus {

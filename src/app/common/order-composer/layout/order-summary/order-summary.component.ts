@@ -20,6 +20,7 @@ export class OrderSummaryComponent {
   order: OrderWrapper;
   output: OrderSummaryOutputData;
   waiterMode: boolean;
+  submitButtonText: string;
 
   constructor(public dialogRef: MatDialogRef<OrderSummaryComponent>,
     private groupService: MenuItemGroupControllerService,
@@ -28,8 +29,9 @@ export class OrderSummaryComponent {
     @Inject(MAT_DIALOG_DATA) data: OrderSummaryInputData
   ) {
     const order = JSON.parse(JSON.stringify(data.item));
-    // const orderElements = order.elements;
-    order.elements = [];
+    const orderElements = order.elements;
+    order.elements = orderElements;
+    this.submitButtonText = data.submitButtonText;
 
     // for (order)
 

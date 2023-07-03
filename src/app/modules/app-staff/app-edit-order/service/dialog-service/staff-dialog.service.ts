@@ -45,7 +45,8 @@ export class StaffDialogService {
       .open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig({
         restaurantRef: this.accountService.getRestaurantRef(),
         item: this.orderService.orderChanged.getValue(),
-        waiterMode: false
+        waiterMode: false,
+        submitButtonText: $localize`Save`
       }))
       .afterClosed();
   }
