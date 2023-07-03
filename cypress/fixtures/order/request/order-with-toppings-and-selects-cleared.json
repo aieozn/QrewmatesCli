@@ -1,5 +1,5 @@
 {
-    "items": [
+    "elements": [
         {
             "menuItem": {
                 "ref": "I0M0PT000013"
@@ -12,6 +12,7 @@
             "menuItemToppings": []
         }
     ],
+    "elementsRefs": [],
     "paymentMethod": "CASH",
     "table": {
         "ref": "TABLE0PT0001"

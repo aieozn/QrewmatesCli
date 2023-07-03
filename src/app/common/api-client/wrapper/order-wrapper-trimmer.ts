@@ -16,18 +16,22 @@ export class OrderWrapperTrimmer {
         }
       }
     
-    private static trimOrderElement(orderElement: OrderElementDataWrapper) : OrderElementData {
+    public static trimOrderElement(orderElement: OrderElementDataWrapper) : OrderElementData {
         return {
         comment: orderElement.comment ? orderElement.comment : undefined,
         menuItem: {
             ref: orderElement.menuItem.ref
         },
-        menuItemSelects: orderElement.menuItemSelects.map(elememnt => {
-            return {
-            ref: elememnt.ref
-            }
-        }),
-        menuItemToppings: orderElement.menuItemToppings.map(element => {
+        menuItemSelects: orderElement.menuItemSelects
+          .sort((a, b) => a.ref.localeCompare(b.ref))
+          .map(elememnt => {
+              return {
+              ref: elememnt.ref
+              }
+          }),
+        menuItemToppings: orderElement.menuItemToppings
+          .sort((a, b) => a.ref.localeCompare(b.ref))
+          .map(element => {
             return {
             ref: element.ref
             }

@@ -9,6 +9,7 @@ import { StaffDialogService } from '../service/dialog-service/staff-dialog.servi
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
 import { Trimers } from 'app/modules/app-admin/app-menu/trimmer/trimmers';
+import { OrderWrapperTrimmer } from '@common/api-client/wrapper/order-wrapper-trimmer';
 
 @Component({
   selector: 'app-edit-order',
@@ -125,8 +126,10 @@ export class EditOrderComponent implements OnDestroy {
       restaurantRef: this.accountService.getRestaurantRef(),
       orderInstanceRef: orderRef,
       body: {
-        comment: order.comment,
-        elements: order.activeElements,
+        comment: order.comment ? order.comment : undefined,
+        elements: order.activeElements
+          .sort((a, b) => a.menuItem.ref.localeCompare(b.menuItem.ref))
+          .map(e => OrderWrapperTrimmer.trimOrderElement(e)),
         elementsRefs: Trimers.trimRefList(order.elements),
         paymentMethod: order.paymentMethod,
         table: Trimers.trimRef(order.table)

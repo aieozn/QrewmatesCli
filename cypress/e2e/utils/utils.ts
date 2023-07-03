@@ -110,6 +110,38 @@ function validateElementStrictly(element: OrderElement, elementPosition: number)
         .should('have.length', summaryElementNumber);
 }
 
+export function validateDetails(order: OrderDefinition, strict = true) {
+    // Elements without count value
+    const elementsFlat: OrderElement[] = [];
+
+    for (const element of order.elements) {
+        const count = element.count ? element.count : 1;
+
+        for (let i = 0; i < count; i++) {
+            elementsFlat.push({
+                ...element,
+                count: 1
+            })
+        }
+    }
+
+    cy.get('#order-summary .summary-element').should('have.length', elementsFlat.length);
+
+    for (let i = 0; i < elementsFlat.length; i++) {
+        if (strict) {
+            validateElementStrictly(elementsFlat[i], i);
+        } else {
+            validateElementLoosely(elementsFlat[i]);
+        }
+    }
+
+    cy.get('.two-col').eq(0).find('p').eq(1).contains(order.expectedPrice)
+
+    if (order.comment) {
+        cy.get('.two-col').eq(7).find('p').eq(1).contains(order.comment)
+    }
+}
+
 export function validateSummary(order: OrderDefinition, strict = true) {
     // Elements without count value
     const elementsFlat: OrderElement[] = [];

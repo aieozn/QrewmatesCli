@@ -1,5 +1,5 @@
 import { complexOrder, orderWithComment, orderWithMultipleElements, orderWithMultipliedComplexElement, orderWithMultipliedElement, orderWithOrderElementComment, orderWithSelect, orderWithToppings, simpleOrder } from "../../utils/fixtures";
-import { validateSummary } from "../../utils/utils";
+import { validateDetails } from "../../utils/utils";
 import { fakeOrder, loginAsStaff, removeAllOrders } from "../utils/utils";
 
 describe('Load order', () => {
@@ -23,10 +23,10 @@ describe('Load order', () => {
 
     testData.forEach(({name, file, definition}) => {
         it(name, () => {
-            fakeOrder(file)
+            fakeOrder(file, 'R0TAXI000000')
     
             cy.get('.pending-order').click();
-            validateSummary(definition, false)
+            validateDetails(definition, false)
         })
     })
 })

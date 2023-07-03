@@ -25,7 +25,7 @@
 
         <div class="two-col">
             <p i18n>Total:</p>
-            <p>{{ order.price }} PLN</p>
+            <p>{{ order.price | number : '1.2-2' }} zł</p>
         </div>
 
         <div class="two-col">

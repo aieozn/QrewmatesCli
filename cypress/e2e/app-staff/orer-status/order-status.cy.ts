@@ -2,11 +2,11 @@ import { acceptOrderAsAdmin } from "../../utils/utils";
 import { fakeOrder, findAssignedToMeOrder, findPendingOrder, loginAsStaff, removeAllOrders } from "../utils/utils"
 
 function initOrders() {
-    fakeOrder('order/request/tab1-order.json');
-    fakeOrder('order/request/tab2-order.json');
-    fakeOrder('order/request/tab3-order.json');
-    fakeOrder('order/request/tab4-order.json');
-    fakeOrder('order/request/tab5-order.json');
+    fakeOrder('order/request/tab1-order.json', 'R0TAXI000000');
+    fakeOrder('order/request/tab2-order.json', 'R0TAXI000000');
+    fakeOrder('order/request/tab3-order.json', 'R0TAXI000000');
+    fakeOrder('order/request/tab4-order.json', 'R0TAXI000000');
+    fakeOrder('order/request/tab5-order.json', 'R0TAXI000000');
 }
 
 
@@ -20,10 +20,10 @@ describe('Order status', () => {
     })
 
     it('Hides when accepted by other user', () => {
-        fakeOrder('order/request/tab1-order.json');
-        fakeOrder('order/request/tab2-order.json');
+        fakeOrder('order/request/tab1-order.json', 'R0TAXI000000');
+        fakeOrder('order/request/tab2-order.json', 'R0TAXI000000');
 
-        fakeOrder('order/request/tab3-order.json').then(e => {
+        fakeOrder('order/request/tab3-order.json', 'R0TAXI000000').then(e => {
             cy.get('.pending-order h3').contains('Table 3');
             acceptOrderAsAdmin(e)
             cy.get('.pending-order h3').contains('Table 3').should('not.exist');

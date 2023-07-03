@@ -6,7 +6,16 @@ export function loginAsStaff() {
     cy.get('#password-input').click().type('taxi.staff')
     cy.get('#login-button').click()
 
-    cy.location('pathname').should('eq', '/staff')
+    cy.location('pathname').should('eq', '/staff/active')
+}
+
+export function loginAsKkStaff() {
+    cy.visit('/login')
+    cy.get('#login-input').click().type('admin@email.com')
+    cy.get('#password-input').click().type('admin')
+    cy.get('#login-button').click()
+
+    cy.location('pathname').should('eq', '/staff/active')
 }
 
 export function removeAllOrders() {
@@ -21,10 +30,10 @@ export function removeAllOrders() {
     )
 }
 
-export function fakeOrder(file: string) : Cypress.Chainable<string> {
+export function fakeOrder(file: string, restaurantId: string) : Cypress.Chainable<string> {
     return cy.fixture(file).then((fixture: string) => cy.request({
             method: 'POST',
-            url: '/api/public/v1/restaurant/R0TAXI000000/order-instances',
+            url: '/api/public/v1/restaurant/' + restaurantId + '/order-instances',
             body: fixture,
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
@@ -33,6 +42,12 @@ export function fakeOrder(file: string) : Cypress.Chainable<string> {
             return e.body.ref as string
         })
     )
+}
+
+export function goToOrderEdit(number: number) {
+    cy.get('.pending-order').eq(number).click();
+    cy.get('.edit-order').click()
+    cy.get('#subscribeButton').click()
 }
 
 export function findPendingOrder(table: string) : Cypress.Chainable<JQuery<HTMLElement>> {
