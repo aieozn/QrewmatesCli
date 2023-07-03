@@ -190,8 +190,4 @@ describe('Edit order', () => {
             cy.fixture('order/request/simple-double-order.json').should('deep.equal', interception.request.body)
         })
     })
-
-    it.only('Has element assigned even if group is deleted', () => {
-        fakeOrder('order/request/simple-order.json', 'R0TAXI000000')
-    })
 })

@@ -27,9 +27,8 @@
             <p class="modified-warning"><mat-icon>info</mat-icon>Dish definition has changed, so you can only remove it</p>
             <div class="summary-element clickable static modified">
                 <div class="summary-element-description">
-                    <div class="summary-element-name">
-                        {{ orderElement.menuItem.menuItemGroupName }}
-                        <ng-container *ngIf="!orderElement.menuItem.name">({{ orderElement.menuItem.name }})</ng-container>
+                    <div class="summary-element-name">{{ orderElement.menuItem.menuItemGroupName }}
+                        <ng-container *ngIf="orderElement.menuItem.name">({{ orderElement.menuItem.name }})</ng-container>
                     </div>
                     <div class="summary-element-options">
                         <div class="summary-element-option" *ngFor="let select of orderElement.menuItemSelects">

@@ -160,6 +160,6 @@ export class EditToppingComponent implements OnDestroy {
         tap(() => this.editorDialogService.onToppingDeleted.next(toppingValue.ref)),
         tap(() => this.close())
       ).subscribe()
-    } 
+    }
   }
 }

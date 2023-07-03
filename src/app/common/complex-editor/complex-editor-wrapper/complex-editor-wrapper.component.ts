@@ -9,7 +9,12 @@ export class ComplexEditorWrapperComponent {
   @Input('headerEntry') headerEntry: string | undefined;
   @Input('headerValue') headerValue: string | undefined;
 
-  @Input('saveEnabled') saveEnabled = false;
+
+  saveEnabled = false;
+  @Input('saveEnabled') set setSaveEnabled(value: boolean) {
+    this.saveEnabled = value;
+  };
+
   @Input('deleteEnabled') deleteEnabled = false;
   @Input('detailsLink') detailsLink: string[] | undefined;
 

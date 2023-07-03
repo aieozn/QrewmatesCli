@@ -242,6 +242,26 @@ export const orderWithMultipleElements : OrderDefinition = {
     expectedPrice: '42.97 zł'
 }
 
+export const orderWithMultipleMargheritaDeleted : OrderDefinition = {
+    elements: [
+        {
+            group: 'Woda Primavera gazowana 0,5l'
+        },
+        {
+            group: 'Sos barbecue'
+        },
+        {
+            group: 'Pizza z Frytkami',
+            item: 'Mała',
+            selects: [{
+                groupName: 'Baza',
+                selectName: 'Pomidorowy'
+            }],
+        }
+    ],
+    expectedPrice: '27.98 zł'
+}
+
 export const orderWithMultipliedElement : OrderDefinition = {
     elements: [
         {

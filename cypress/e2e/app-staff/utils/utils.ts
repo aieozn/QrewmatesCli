@@ -9,19 +9,43 @@ export function loginAsStaff() {
     cy.location('pathname').should('eq', '/staff/active')
 }
 
-export function loginAsKkStaff() {
+export function loginAsAdmin() {
     cy.visit('/login')
-    cy.get('#login-input').click().type('admin@email.com')
-    cy.get('#password-input').click().type('admin')
+    cy.get('#login-input').click().type('taxi.admin@email.com')
+    cy.get('#password-input').click().type('taxi.admin')
     cy.get('#login-button').click()
 
-    cy.location('pathname').should('eq', '/staff/active')
+    cy.location('pathname').should('eq', '/admin/statistics')
+}
+
+export function deleteGroup(ref: string) {
+    return getUserToken('root@email.com', 'root').then(token => cy.request({
+        method: 'DELETE',
+        url: '/api/staff/v1/restaurant/R0TAXI000000/menu-item-groups/' + ref,
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            "Authorization": "Bearer " + token
+        }
+        })
+    )
 }
 
 export function removeAllOrders() {
     return getUserToken('root@email.com', 'root').then(token => cy.request({
             method: 'DELETE',
             url: '/api/staff/v1/restaurant/R0TAXI000000/order-instances',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Authorization": "Bearer " + token
+            }
+        })
+    )
+}
+
+export function flushPizzaTaxi() {
+    return getUserToken('root@email.com', 'root').then(token => cy.request({
+            method: 'DELETE',
+            url: '/api/staff/v1/restaurant/R0TAXI000000/menu',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                 "Authorization": "Bearer " + token
