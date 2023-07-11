@@ -1,5 +1,5 @@
 import { addSelect, addTopping }  from "../../app-user/utils/utils";
-import { margheritaWithSanMarzanoOrder, orderWithToppings, orderWithToppingsAndSelects, orderWithToppingsAndSelectsCleared, orderWithToppingsMinusBacon, simpleDoubleOrder, simpleOrder, simpleOrderPlusBacon } from "../../utils/fixtures";
+import { margheritaWithSanMarzanoOrder, orderWithComment, orderWithToppings, orderWithToppingsAndSelects, orderWithToppingsAndSelectsCleared, orderWithToppingsMinusBacon, simpleDoubleOrder, simpleOrder, simpleOrderPlusBacon } from "../../utils/fixtures";
 import { removeOrderElement, validateSummary } from "../../utils/utils";
 import { fakeOrder, goToOrderEdit, loginAsStaff, removeAllOrders } from "../utils/utils";
 
@@ -188,6 +188,28 @@ describe('Edit order', () => {
         // Check request
         cy.wait('@updateOrder').then((interception) => {
             cy.fixture('order/request/simple-double-order.json').should('deep.equal', interception.request.body)
+        })
+    })
+
+    it.only('Changes order comment', () => {
+        fakeOrder('order/request/simple-order.json', 'R0TAXI000000')
+
+        // Load
+        goToOrderEdit(0)
+
+        // Modify
+        cy.get('#order-menu-chief-note textarea').click().type("I'm sooo hungry!");
+        cy.get('#order-submit #subscribeButton').contains('Save').click();
+        cy.get('#save-changes').click()
+
+        // Validate
+        cy.get('.pending-order').contains('Edited')
+        goToOrderEdit(0)
+        validateSummary(orderWithComment, false);
+
+        // Check request
+        cy.wait('@updateOrder').then((interception) => {
+            cy.fixture('order/request/order-with-comment.json').should('deep.equal', interception.request.body)
         })
     })
 })

@@ -7,8 +7,8 @@ export { QrCodeConfigGet } from './models/qr-code-config-get';
 export { RestaurantDetailsGet } from './models/restaurant-details-get';
 export { RestaurantTableData } from './models/restaurant-table-data';
 export { RestaurantTableGet } from './models/restaurant-table-get';
-export { OrderData } from './models/order-data';
 export { OrderElementData } from './models/order-element-data';
+export { UpdateOrderData } from './models/update-order-data';
 export { MenuItemGet } from './models/menu-item-get';
 export { MenuItemMetaGet } from './models/menu-item-meta-get';
 export { MenuItemSelectGet } from './models/menu-item-select-get';
@@ -37,6 +37,7 @@ export { MenuItemGroupAggregateData } from './models/menu-item-group-aggregate-d
 export { MenuCategoryData } from './models/menu-category-data';
 export { MenuCategoryGet } from './models/menu-category-get';
 export { AllergenData } from './models/allergen-data';
+export { DoOrderData } from './models/do-order-data';
 export { SocialAccountLoginRequest } from './models/social-account-login-request';
 export { LoginResponse } from './models/login-response';
 export { UserRestaurant } from './models/user-restaurant';
@@ -47,6 +48,8 @@ export { StatisticsHourlySalesGetParams } from './models/statistics-hourly-sales
 export { StatisticsHourlySalesGet } from './models/statistics-hourly-sales-get';
 export { StatisticsDailySalesGetParams } from './models/statistics-daily-sales-get-params';
 export { StatisticsDailySalesGet } from './models/statistics-daily-sales-get';
+export { ListOrderParams } from './models/list-order-params';
+export { OrdersListElement } from './models/orders-list-element';
 export { RestaurantGet } from './models/restaurant-get';
 export { StatusResponse } from './models/status-response';
 export { OrderGet } from './models/order-get';

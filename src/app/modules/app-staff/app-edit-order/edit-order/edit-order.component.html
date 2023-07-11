@@ -1,5 +1,8 @@
 
-<div id="root-mobile">
+<div id="root-mobile" class="edit-order-wrapper">
+    <div id="save-changes" (click)="save()" class="clickable">
+        Save changes
+    </div>
     <div id="back" class="clickable" [routerLink]="['/staff/active']">
         <div class="left">
             <mat-icon>keyboard_arrow_left</mat-icon><span i18n>Back to orders</span>
@@ -21,8 +24,5 @@
 
 <div *ngIf="orderService.orderChanged | async as order">
     <app-order-submit (submit)="submit()" [orderIn]="order" i18n-buttonValue buttonValue="Details">
-        <div id="save-changes" (click)="save()" class="box-radius clickable">
-            Save changes
-        </div>
     </app-order-submit>
 </div>
