@@ -1,7 +1,7 @@
 <div id="edit-element" class="box-shadow-bottom">
     <p id="element-name"><span i18n>{{ headerEntry }}</span><span *ngIf="headerValue && headerEntry">: </span><b> {{ headerValue }}</b></p>
 
-    <p id="help-text" i18n>Edit fields below and save changes</p>
+    <p id="help-text" i18n *ngIf="showEditButton">Edit fields below and save changes</p>
 
     <div id="tabs">
         <div *ngFor="let tab of tabs" class="tab clickable" routerLink="{{ tab.routerLink }}" routerLinkActive="active">
@@ -19,8 +19,10 @@
 
 <app-submit-bar
     [saveEnabled]="saveEnabled"
+    [showEditButton]="showEditButton"
     [deleteEnabled]="deleteEnabled"
     [detailsLink]="detailsLink"
+    [cancelButtonText]="cancelButtonText"
     (onClose)="onClose.emit()"
     (onSave)="onSave.emit()"
     (onDelete)="onDelete.emit()"

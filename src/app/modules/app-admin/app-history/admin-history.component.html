@@ -1,1 +1,38 @@
-<p>admin-history works!</p>
+<div id="orders-history">
+  <h1 i18n>Orders history</h1>
+
+    <table mat-table [dataSource]="dataSource" matSort
+    (matSortChange)="changeSort($event)"
+           class="mat-elevation-z8">
+
+      <!-- Id Column -->
+      <ng-container matColumnDef="ref">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>
+          Id
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.ref}} </td>
+      </ng-container>
+    
+      <!-- Status Column -->
+      <ng-container matColumnDef="orderStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>
+          Status
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>
+          Actions
+        </th>
+        <td mat-cell *matCellDef="let element" class="details clickable" [routerLink]="[element.ref]">Details</td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<app-floating-editor-wrapper>
+  <router-outlet></router-outlet>
+</app-floating-editor-wrapper>

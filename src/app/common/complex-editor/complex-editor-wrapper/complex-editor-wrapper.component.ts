@@ -8,6 +8,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ComplexEditorWrapperComponent {
   @Input('headerEntry') headerEntry: string | undefined;
   @Input('headerValue') headerValue: string | undefined;
+  @Input('showEditButton') showEditButton = true;
+  @Input('cancelButtonText') cancelButtonText = $localize`Cancel`;
+
 
 
   saveEnabled = false;

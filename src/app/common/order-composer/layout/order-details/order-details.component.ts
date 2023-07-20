@@ -1,5 +1,4 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderDetailsGet } from '@common/api-client/models';
 
@@ -9,17 +8,19 @@ import { OrderDetailsGet } from '@common/api-client/models';
   styleUrls: ['./order-details.component.scss']
 })
 export class OrderDetailsComponent {
+  
+  @Input()
+  editable = true;
 
-  order: OrderDetailsGet;
+  @Input()
+  order: OrderDetailsGet | undefined;
+
+  @Output()
+  onClose = new EventEmitter<void>();
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: {
-      order: OrderDetailsGet
-    },
-    private router: Router,
-    private dialogRef: MatDialogRef<OrderDetailsComponent>
+    private router: Router
   ) {
-    this.order = data.order;
   }
 
   translatePaymentMethod(method: 'CASH' | 'BLIK') {
@@ -52,6 +53,6 @@ export class OrderDetailsComponent {
 
   editOrder(ref: string) {
     this.router.navigate(['/staff/edit/', ref]);
-    this.dialogRef.close();
+    this.onClose.emit();
   }
 }

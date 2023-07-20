@@ -1,10 +1,10 @@
 import { Trimers } from "app/modules/app-admin/app-menu/trimmer/trimmers"
-import { OrderData, OrderElementData } from "../models"
+import { UpdateOrderData, OrderElementData } from "../models"
 import { OrderElementDataWrapper } from "./order-element-data-wrapper"
 import { OrderWrapper } from "./order-wrapper"
 
 export class OrderWrapperTrimmer {
-    static trimOrder(order: OrderWrapper) : OrderData {
+    static trimOrder(order: OrderWrapper) : UpdateOrderData {
         return {
           comment: order.comment ? order.comment : undefined,
           elements: order.activeElements.map(e => this.trimOrderElement(e)),

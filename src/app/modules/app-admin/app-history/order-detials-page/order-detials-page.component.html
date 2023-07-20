@@ -1,0 +1,16 @@
+<app-complex-editor-wrapper
+    i18n-headerValue
+    headerValue="Order details"
+    [saveEnabled]="false"
+    [showEditButton]="false"
+    [deleteEnabled]="false"
+    i18n-cancelButtonText
+    cancelButtonText="Close"
+    (onClose)="close()"
+>
+
+    <app-order-details *ngIf="order"
+        [order]="order" 
+        [editable]="false">
+    </app-order-details>
+</app-complex-editor-wrapper>

@@ -1,11 +1,13 @@
 <div id="submit-bar" class="box-shadow-top">
     <div id="left-side">
-        <div class="any-button cancel-button clickable" (click)="closeDialog()" i18n>Cancel</div>
+        <div class="any-button cancel-button clickable" (click)="closeDialog()" i18n>{{cancelButtonText}}</div>
     </div>
     
     <div id="right-side">
-        <div class="save-button clickable" *ngIf="saveEnabled" (click)="saveElement()" i18n>Save</div>
-        <div class="save-button disabled clickable" *ngIf="!saveEnabled" (click)="trySaveElement()" i18n>Save</div>
+        <span *ngIf="showEditButton">
+            <div class="save-button clickable" *ngIf="saveEnabled" (click)="saveElement()" i18n>Save</div>
+            <div class="save-button disabled clickable" *ngIf="!saveEnabled" (click)="trySaveElement()" i18n>Save</div>
+        </span>
         <div *ngIf="detailsLink" [routerLink]="detailsLink" class="any-button details-button clickable" i18n>View</div>
         <div class="remove-button clickable" *ngIf="deleteEnabled" (click)="deleteElement()">
             <mat-icon>delete</mat-icon>

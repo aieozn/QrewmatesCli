@@ -8,7 +8,7 @@ import { FullWidthDialogService } from '@common/full-width-dialog/service/full-w
 import { DoOrderActionDialogComponent } from '../../layout/do-order-action-dialog/do-order-action-dialog.component';
 import { AcceptOrderActionDialogType } from './accept-order-aciton-dialog-type';
 import { OrderSummaryInputData } from '@common/order-composer/layout/order-summary/order-summary-input-data';
-import { OrderDetailsComponent } from 'app/modules/app-staff/app-edit-order/order-details/order-details.component';
+import { OrderDetailsComponent } from '@common/order-composer/layout/order-details/order-details.component';
 
 @Injectable({
   providedIn: 'root'

@@ -5,18 +5,18 @@ import { MenuHorizontalModule } from '@common/menu-horizontal/menu-horizontal.mo
 import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
 import { AppEditOrdersRoutingModule } from './app-edit-order-routing.module';
 import { OrderComposerModule } from '@common/order-composer/order-composer.module';
-import { OrderDetailsComponent } from './order-details/order-details.component';
 import { FullWidthDialogModule } from '@common/full-width-dialog/full-width-dialog.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@common/account-utils/auth-interceptor';
 import { MatIconModule } from '@angular/material/icon';
+import { OrderDetailsDialogComponent } from './order-details-dialog/order-details-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     EditOrderComponent,
-    OrderDetailsComponent
+    OrderDetailsDialogComponent
   ],
   imports: [
     CommonModule,

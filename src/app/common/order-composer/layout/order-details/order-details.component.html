@@ -1,5 +1,4 @@
-<app-full-width-dialog i18n-title title="Order details">
-    <div id="order-summary">
+    <div id="order-summary" *ngIf="order">
         <div class="summary-element" *ngFor="let orderElement of order.elements">
             <div class="summary-element-description">
                 <div class="summary-element-name">
@@ -71,6 +70,5 @@
             <p>{{ order.created | date:'dd.MM HH:mm'}}</p>
         </div>
 
-        <div class="edit-order box-radius box-shadow clickable" (click)="editOrder(order.ref)">Edit</div>
+        <div *ngIf="editable" class="edit-order box-radius box-shadow clickable" (click)="editOrder(order.ref)">Edit</div>
     </div>
-</app-full-width-dialog>

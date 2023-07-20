@@ -16,6 +16,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { OrderDetailsComponent } from './layout/order-details/order-details.component';
 
 
 
@@ -28,7 +29,8 @@ import { MatInputModule } from '@angular/material/input';
     OrderSummaryComponent,
     CounterFooterComponent,
     PaymentMethodComponent,
-    OrderMenuChiefNoteComponent
+    OrderMenuChiefNoteComponent,
+    OrderDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule
   ],
   exports: [
-    OrdeSubmitComponent
+    OrdeSubmitComponent,
+    OrderDetailsComponent
   ]
 })
 export class OrderComposerModule { }

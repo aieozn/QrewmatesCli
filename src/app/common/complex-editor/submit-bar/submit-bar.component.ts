@@ -6,7 +6,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class SubmitBarComponent {
   @Input('saveEnabled') saveEnabled = false;
+  @Input('showEditButton') showEditButton = true;
   @Input('deleteEnabled') deleteEnabled = false;
+  @Input('cancelButtonText') cancelButtonText = $localize`Cancel`;
   @Input('detailsLink') detailsLink: string[] | undefined;
 
   @Output('onClose')
