@@ -6,6 +6,7 @@ export interface OrdersListElement {
   edited: boolean;
   orderStatus: 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED';
   paymentMethod: 'CASH' | 'BLIK';
+  paymentStatus: 'UNPAID' | 'PAID' | 'RETURNED' | 'WITHDRAWN';
   ref: string;
   restaurantRef: string;
   version: number;

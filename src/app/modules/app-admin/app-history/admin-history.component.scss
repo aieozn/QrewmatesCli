@@ -10,9 +10,22 @@ h1 {
 #orders-history {
     padding-left: 20px;
     padding-right: 20px;
+    max-height: 100%;
+    overflow: auto;
 }
 
 .details {
     font-family: PoppinsSemiBold;
     color: #38A583;
+}
+
+#paginator {
+    position: sticky;
+    bottom: 0px;
+    background-color: #F4F4F4;
+    border-top: 1px solid #333333;
+}
+
+#date-range-picker {
+    margin-left: -14px;
 }

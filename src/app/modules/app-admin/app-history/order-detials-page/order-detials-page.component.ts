@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderDetailsGet } from '@common/api-client/models';
 import { OrderInstanceControllerService } from '@common/api-client/services';
@@ -18,6 +18,7 @@ export class OrderDetialsPageComponent implements OnDestroy {
   constructor(
     private orderService: OrderInstanceControllerService,
     route: ActivatedRoute,
+    private router: Router,
     private accountService: AccountService
   ) {
     route.params.pipe(
@@ -46,6 +47,6 @@ export class OrderDetialsPageComponent implements OnDestroy {
   }
   
   close() {
-
+    this.router.navigate(['/admin/history'])
   }
 }

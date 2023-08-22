@@ -12,7 +12,7 @@ import { map, filter } from 'rxjs/operators';
 import { DoOrderData } from '../models/do-order-data';
 import { ListOrderParams } from '../models/list-order-params';
 import { OrderDetailsGet } from '../models/order-details-get';
-import { OrdersListElement } from '../models/orders-list-element';
+import { PageGetOrdersListElement } from '../models/page-get-orders-list-element';
 import { StatusResponse } from '../models/status-response';
 import { UpdateOrderData } from '../models/update-order-data';
 
@@ -191,7 +191,7 @@ export class OrderInstanceControllerService extends BaseService {
   getOrders$Response(params: {
     restaurantRef: string;
     listOrderParams: ListOrderParams;
-  }): Observable<StrictHttpResponse<Array<OrdersListElement>>> {
+  }): Observable<StrictHttpResponse<PageGetOrdersListElement>> {
 
     const rb = new RequestBuilder(this.rootUrl, OrderInstanceControllerService.GetOrdersPath, 'get');
     if (params) {
@@ -205,7 +205,7 @@ export class OrderInstanceControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<OrdersListElement>>;
+        return r as StrictHttpResponse<PageGetOrdersListElement>;
       })
     );
   }
@@ -219,10 +219,10 @@ export class OrderInstanceControllerService extends BaseService {
   getOrders(params: {
     restaurantRef: string;
     listOrderParams: ListOrderParams;
-  }): Observable<Array<OrdersListElement>> {
+  }): Observable<PageGetOrdersListElement> {
 
     return this.getOrders$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<OrdersListElement>>) => r.body as Array<OrdersListElement>)
+      map((r: StrictHttpResponse<PageGetOrdersListElement>) => r.body as PageGetOrdersListElement)
     );
   }
 

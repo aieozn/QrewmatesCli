@@ -50,6 +50,7 @@ export { StatisticsDailySalesGetParams } from './models/statistics-daily-sales-g
 export { StatisticsDailySalesGet } from './models/statistics-daily-sales-get';
 export { ListOrderParams } from './models/list-order-params';
 export { OrdersListElement } from './models/orders-list-element';
+export { PageGetOrdersListElement } from './models/page-get-orders-list-element';
 export { RestaurantGet } from './models/restaurant-get';
 export { StatusResponse } from './models/status-response';
 export { OrderGet } from './models/order-get';
