@@ -61,11 +61,18 @@ export class AdminHistoryComponent implements AfterViewInit  {
     return false;
   }
 
+  clearDateRange() {
+    this.dateRange = undefined;
+    this.loadData(this.pageSize, 1, this.activeSort);
+  }
+
   setDateRange(start: Date, end: Date) {
     this.dateRange = {
       start: start,
       end: end
     }
+
+    this.loadData(this.pageSize, 1, this.activeSort);
   }
 
   ngAfterViewInit(): void {
@@ -103,7 +110,9 @@ export class AdminHistoryComponent implements AfterViewInit  {
         orderBy: sort.direction ? this.getColumnTypeName(sort.active) : 'CREATED',
         orderDirection: sort.direction ? this.getSortDirectionTypeName(sort.direction) : 'ASC',
         page: page,
-        pageSize: pageSize
+        pageSize: pageSize,
+        createdDateFrom: this.dateRange ? this.dateRange.start.toISOString().split('T')[0] : undefined,
+        createdDateTo: this.dateRange ? this.dateRange.end.toISOString().split('T')[0] : undefined,
       }
     }).pipe(
       tap(e => {

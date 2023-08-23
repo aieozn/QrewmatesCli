@@ -24,7 +24,7 @@
           </div>
 
           <div class="range-value" *ngIf="dateRange">
-            <mat-icon class="clickable" (click)="dateRange = undefined">remove_circle_outline</mat-icon>
+            <mat-icon class="clickable" (click)="clearDateRange()">remove_circle_outline</mat-icon>
 
             {{ dateRange.start | date:'dd.MM.YYYY' }} - {{ dateRange.end | date:'dd.MM.YYYY' }}
           </div>
