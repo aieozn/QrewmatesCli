@@ -156,3 +156,24 @@ p, h1, h2, h3, h4, div, span {
 .full-width-dialog .mat-dialog-container {
     padding: 0px;
 }
+
+.global-buttons {
+    display: flex;
+    align-items: stretch;
+}
+
+.global-confirm-button {
+    background-color: #38A583;
+}
+
+.global-reject-button {
+    background-color: #9e3523;
+}
+
+.global-confirm-button, .global-reject-button {
+    color: white;
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}

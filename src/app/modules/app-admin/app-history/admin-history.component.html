@@ -34,8 +34,20 @@
     
       <!-- Status Column -->
       <ng-container matColumnDef="orderStatus">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n class="sort-header">
-          Order status
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="flex-sort-header">
+            <mat-icon id="calendar-icon" class="clickable" (click)="selectOrderStatus()">list</mat-icon>
+
+            <div mat-sort-header class="sort-header">
+              <span i18n>Order status</span>
+            </div>
+          </div>
+
+          <div class="range-value" *ngIf="dateRange">
+            <mat-icon class="clickable" (click)="clearStatuses()">remove_circle_outline</mat-icon>
+
+            <span *ngFor="let status of selectedStatuses">{{ status }}</span>
+          </div>
         </th>
         <td mat-cell *matCellDef="let element">{{ translator.translateOrderStatus(element.orderStatus) }} </td>
       </ng-container>
@@ -67,7 +79,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator id="paginator" #paginator [pageSize]="pageSize" [length]="29" (page)="loadData($event.pageSize, $event.pageIndex + 1, this.activeSort)">
+    <mat-paginator id="paginator" #paginator [pageSize]="pageSize" [length]="29" (page)="getPage($event.pageSize, $event.pageIndex + 1, this.activeSort)">
     </mat-paginator>
 </div>
 

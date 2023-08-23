@@ -15,7 +15,7 @@ export class Translators {
         }
     }
 
-    public static translateOrderStatus(method: 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED') {
+    public static translateOrderStatus(method: Statuses) {
         switch(method) {
             case 'PLACED': return $localize`Placed`
             case 'EXPIRED': return $localize`Expired`
@@ -27,3 +27,5 @@ export class Translators {
         }
     }
 }
+
+export type Statuses = 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED';

@@ -1,0 +1,7 @@
+<div id="form">
+    <mat-checkbox *ngFor="let element of data.elements" (change)="update(element.value, $event.checked)">{{ element.translation }}</mat-checkbox>
+
+    <div class="global-buttons">
+        <div class="global-confirm-button" i18n (click)="proceed()">Confirm</div>
+    </div>
+</div>

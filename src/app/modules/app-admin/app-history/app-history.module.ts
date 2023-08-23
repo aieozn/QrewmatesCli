@@ -12,6 +12,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { DateRangePickerModule } from 'app/common/components/date-range-picker/date-range-picker.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { EnumPickerModule } from 'app/common/components/enum-picker/enum-picker.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatPaginatorModule,
     DateRangePickerModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
+    EnumPickerModule
   ],
   providers: [
     MatNativeDateModule

@@ -7,8 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrdersListElement } from '@common/api-client/models';
 import { OrderInstanceControllerService } from '@common/api-client/services';
-import { DateRangePickerComponent } from 'app/common/components/date-range-picker/picker/date-range-picker.component';
-import { Translators } from 'app/common/translators';
+import { DateRangePickerComponent } from 'app/common/components/date-range-picker/date-range-picker/date-range-picker.component';
+import { EnumPickerData } from 'app/common/components/enum-picker/enum-picker/enum-picker-data';
+import { EnumPickerComponent } from 'app/common/components/enum-picker/enum-picker/enum-picker.component';
+import { Statuses, Translators } from 'app/common/translators';
 import { filter, map, tap } from 'rxjs';
 
 @Component({
@@ -21,12 +23,14 @@ export class AdminHistoryComponent implements AfterViewInit  {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined
 
   protected translator = Translators
+  
 
   pageSize = 20;
   dateRange: {
     start: Date,
     end: Date
   } | undefined;
+  selectedStatuses: string[] = [];
 
   dataSource = new MatTableDataSource<OrdersListElement>([]);
   displayedColumns = [
@@ -61,9 +65,33 @@ export class AdminHistoryComponent implements AfterViewInit  {
     return false;
   }
 
+  selectOrderStatus() {
+    const allElements : Statuses[] = ['PLACED',  'EXPIRED', 'ABANDONED', 'REJECTED', 'ACCEPTED', 'CANCELED', 'SERVED'];
+    
+    const data: EnumPickerData = {
+      elements: allElements.map(e => ({
+        value: e,
+        translation: Translators.translateOrderStatus(e)
+      }))
+    }
+    
+    this.dialogService.open(EnumPickerComponent, {data}).afterClosed().pipe(
+      filter(e => e !== undefined),
+      map(e => e as string[]),
+      tap(e => this.setStatuses(e))
+    ).subscribe();
+  }
+
+
+
   clearDateRange() {
     this.dateRange = undefined;
-    this.loadData(this.pageSize, 1, this.activeSort);
+    this.loadData(1);
+  }
+
+  clearStatuses() {
+    this.selectedStatuses = [];
+    this.loadData(1);
   }
 
   setDateRange(start: Date, end: Date) {
@@ -72,17 +100,22 @@ export class AdminHistoryComponent implements AfterViewInit  {
       end: end
     }
 
-    this.loadData(this.pageSize, 1, this.activeSort);
+    this.loadData(1);
+  }
+
+  setStatuses(statuses: string[]) {
+    this.selectedStatuses = statuses;
+    this.loadData(1);
   }
 
   ngAfterViewInit(): void {
-    this.loadData(this.pageSize, 1, this.activeSort);
+    this.loadData(1);
     // this.dataSource.paginator = this.paginator!;
   }
 
   changeSort(event: Sort) {
     this.activeSort = event;
-    this.loadData(this.pageSize, 1, this.activeSort);
+    this.loadData(1);
   }
 
   getColumnTypeName(name: string) : 'CREATED' | 'ORDER_STATUS' | 'PAYMENT_STATUS' | 'PAYMENT_METHOD' {
@@ -103,14 +136,21 @@ export class AdminHistoryComponent implements AfterViewInit  {
     }
   }
 
-  loadData(pageSize: number, page: number, sort: Sort) {
+  getPage(pageSize: number, page: number, sort: Sort) {
+    this.pageSize = pageSize;
+    this.activeSort = sort;
+
+    this.loadData(page);
+  }
+
+  loadData(page: number) {
     this.orderService.getOrders({
       restaurantRef: this.accountService.getRestaurantRef(),
       listOrderParams: {
-        orderBy: sort.direction ? this.getColumnTypeName(sort.active) : 'CREATED',
-        orderDirection: sort.direction ? this.getSortDirectionTypeName(sort.direction) : 'ASC',
+        orderBy: this.activeSort.direction ? this.getColumnTypeName(this.activeSort.active) : 'CREATED',
+        orderDirection: this.activeSort.direction ? this.getSortDirectionTypeName(this.activeSort.direction) : 'ASC',
         page: page,
-        pageSize: pageSize,
+        pageSize: this.pageSize,
         createdDateFrom: this.dateRange ? this.dateRange.start.toISOString().split('T')[0] : undefined,
         createdDateTo: this.dateRange ? this.dateRange.end.toISOString().split('T')[0] : undefined,
       }
