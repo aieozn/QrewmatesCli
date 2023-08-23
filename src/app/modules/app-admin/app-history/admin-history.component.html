@@ -43,10 +43,9 @@
             </div>
           </div>
 
-          <div class="range-value" *ngIf="dateRange">
+          <div class="range-value" *ngIf="selectedStatuses">
             <mat-icon class="clickable" (click)="clearStatuses()">remove_circle_outline</mat-icon>
-
-            <span *ngFor="let status of selectedStatuses">{{ status }}</span>
+            <span class="statuses-list">{{ getSelectedStatusesString(selectedStatuses) }}</span>
           </div>
         </th>
         <td mat-cell *matCellDef="let element">{{ translator.translateOrderStatus(element.orderStatus) }} </td>

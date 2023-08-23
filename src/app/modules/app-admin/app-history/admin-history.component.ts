@@ -10,7 +10,7 @@ import { OrderInstanceControllerService } from '@common/api-client/services';
 import { DateRangePickerComponent } from 'app/common/components/date-range-picker/date-range-picker/date-range-picker.component';
 import { EnumPickerData } from 'app/common/components/enum-picker/enum-picker/enum-picker-data';
 import { EnumPickerComponent } from 'app/common/components/enum-picker/enum-picker/enum-picker.component';
-import { Statuses, Translators } from 'app/common/translators';
+import { OrderStatus, Translators } from 'app/common/translators';
 import { filter, map, tap } from 'rxjs';
 
 @Component({
@@ -30,7 +30,7 @@ export class AdminHistoryComponent implements AfterViewInit  {
     start: Date,
     end: Date
   } | undefined;
-  selectedStatuses: string[] = [];
+  selectedStatuses: OrderStatus[] | undefined;
 
   dataSource = new MatTableDataSource<OrdersListElement>([]);
   displayedColumns = [
@@ -66,7 +66,7 @@ export class AdminHistoryComponent implements AfterViewInit  {
   }
 
   selectOrderStatus() {
-    const allElements : Statuses[] = ['PLACED',  'EXPIRED', 'ABANDONED', 'REJECTED', 'ACCEPTED', 'CANCELED', 'SERVED'];
+    const allElements : OrderStatus[] = ['PLACED',  'EXPIRED', 'ABANDONED', 'REJECTED', 'ACCEPTED', 'CANCELED', 'SERVED'];
     
     const data: EnumPickerData = {
       elements: allElements.map(e => ({
@@ -76,13 +76,10 @@ export class AdminHistoryComponent implements AfterViewInit  {
     }
     
     this.dialogService.open(EnumPickerComponent, {data}).afterClosed().pipe(
-      filter(e => e !== undefined),
-      map(e => e as string[]),
+      map(e => e as OrderStatus[] | undefined),
       tap(e => this.setStatuses(e))
     ).subscribe();
   }
-
-
 
   clearDateRange() {
     this.dateRange = undefined;
@@ -90,8 +87,7 @@ export class AdminHistoryComponent implements AfterViewInit  {
   }
 
   clearStatuses() {
-    this.selectedStatuses = [];
-    this.loadData(1);
+    this.setStatuses(undefined);
   }
 
   setDateRange(start: Date, end: Date) {
@@ -103,8 +99,13 @@ export class AdminHistoryComponent implements AfterViewInit  {
     this.loadData(1);
   }
 
-  setStatuses(statuses: string[]) {
-    this.selectedStatuses = statuses;
+  setStatuses(statuses: OrderStatus[] | undefined) {
+    if (!statuses || statuses.length == 0) {
+      this.selectedStatuses = undefined;
+    } else {
+      this.selectedStatuses = statuses;
+    }
+    
     this.loadData(1);
   }
 
@@ -141,6 +142,10 @@ export class AdminHistoryComponent implements AfterViewInit  {
     this.activeSort = sort;
 
     this.loadData(page);
+  }
+
+  getSelectedStatusesString(elements: OrderStatus[]) {
+    return elements.map(e => this.translator.translateOrderStatus(e)).join(", ")
   }
 
   loadData(page: number) {
