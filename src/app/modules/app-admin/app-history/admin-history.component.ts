@@ -10,7 +10,7 @@ import { OrderInstanceControllerService } from '@common/api-client/services';
 import { DateRangePickerComponent } from 'app/common/components/date-range-picker/date-range-picker/date-range-picker.component';
 import { EnumPickerData } from 'app/common/components/enum-picker/enum-picker/enum-picker-data';
 import { EnumPickerComponent } from 'app/common/components/enum-picker/enum-picker/enum-picker.component';
-import { OrderStatus, Translators } from 'app/common/translators';
+import { OrderStatus, PaymentMethod, PaymentStatus, Translators } from 'app/common/translators';
 import { filter, map, tap } from 'rxjs';
 
 @Component({
@@ -30,7 +30,9 @@ export class AdminHistoryComponent implements AfterViewInit  {
     start: Date,
     end: Date
   } | undefined;
-  selectedStatuses: OrderStatus[] | undefined;
+  selectedOrderStatus: OrderStatus[] | undefined;
+  selectedPaymentStatus: PaymentStatus[] | undefined;
+  selectedPaymentMethod: PaymentMethod[] | undefined;
 
   dataSource = new MatTableDataSource<OrdersListElement>([]);
   displayedColumns = [
@@ -77,7 +79,39 @@ export class AdminHistoryComponent implements AfterViewInit  {
     
     this.dialogService.open(EnumPickerComponent, {data}).afterClosed().pipe(
       map(e => e as OrderStatus[] | undefined),
-      tap(e => this.setStatuses(e))
+      tap(e => this.setOrderStatusFilter(e))
+    ).subscribe();
+  }
+
+  selectPaymentStatus() {
+    const allElements : PaymentStatus[] = ['UNPAID', 'PAID', 'RETURNED', 'WITHDRAWN'];
+    
+    const data: EnumPickerData = {
+      elements: allElements.map(e => ({
+        value: e,
+        translation: Translators.translatePaymentStatus(e)
+      }))
+    }
+    
+    this.dialogService.open(EnumPickerComponent, {data}).afterClosed().pipe(
+      map(e => e as PaymentStatus[] | undefined),
+      tap(e => this.setPaymentStatusFilter(e))
+    ).subscribe();
+  }
+
+  selectPaymentMethod() {
+    const allElements : PaymentMethod[] = ['CASH', 'BLIK'];
+    
+    const data: EnumPickerData = {
+      elements: allElements.map(e => ({
+        value: e,
+        translation: Translators.translatePaymentMethod(e)
+      }))
+    }
+    
+    this.dialogService.open(EnumPickerComponent, {data}).afterClosed().pipe(
+      map(e => e as PaymentMethod[] | undefined),
+      tap(e => this.setPaymentMethodFilter(e))
     ).subscribe();
   }
 
@@ -86,8 +120,16 @@ export class AdminHistoryComponent implements AfterViewInit  {
     this.loadData(1);
   }
 
-  clearStatuses() {
-    this.setStatuses(undefined);
+  clearOrderStatus() {
+    this.setOrderStatusFilter(undefined);
+  }
+
+  clearPaymentMethod() {
+    this.setPaymentMethodFilter(undefined);
+  }
+
+  clearPaymentStatus() {
+    this.setPaymentStatusFilter(undefined);
   }
 
   setDateRange(start: Date, end: Date) {
@@ -99,11 +141,31 @@ export class AdminHistoryComponent implements AfterViewInit  {
     this.loadData(1);
   }
 
-  setStatuses(statuses: OrderStatus[] | undefined) {
+  setOrderStatusFilter(statuses: OrderStatus[] | undefined) {
     if (!statuses || statuses.length == 0) {
-      this.selectedStatuses = undefined;
+      this.selectedOrderStatus = undefined;
     } else {
-      this.selectedStatuses = statuses;
+      this.selectedOrderStatus = statuses;
+    }
+    
+    this.loadData(1);
+  }
+
+  setPaymentStatusFilter(statuses: PaymentStatus[] | undefined) {
+    if (!statuses || statuses.length == 0) {
+      this.selectedPaymentStatus = undefined;
+    } else {
+      this.selectedPaymentStatus = statuses;
+    }
+    
+    this.loadData(1);
+  }
+
+  setPaymentMethodFilter(methods: PaymentMethod[] | undefined) {
+    if (!methods || methods.length == 0) {
+      this.selectedPaymentMethod = undefined;
+    } else {
+      this.selectedPaymentMethod = methods;
     }
     
     this.loadData(1);
@@ -111,7 +173,6 @@ export class AdminHistoryComponent implements AfterViewInit  {
 
   ngAfterViewInit(): void {
     this.loadData(1);
-    // this.dataSource.paginator = this.paginator!;
   }
 
   changeSort(event: Sort) {
@@ -144,8 +205,16 @@ export class AdminHistoryComponent implements AfterViewInit  {
     this.loadData(page);
   }
 
-  getSelectedStatusesString(elements: OrderStatus[]) {
+  getSelectedOrderStatusString(elements: OrderStatus[]) {
     return elements.map(e => this.translator.translateOrderStatus(e)).join(", ")
+  }
+
+  getSelectedPaymentStatusString(elements: PaymentStatus[]) {
+    return elements.map(e => this.translator.translatePaymentStatus(e)).join(", ")
+  }
+
+  getSelectedPaymentMethodString(elements: PaymentMethod[]) {
+    return elements.map(e => this.translator.translatePaymentMethod(e)).join(", ")
   }
 
   loadData(page: number) {

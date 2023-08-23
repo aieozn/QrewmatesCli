@@ -1,12 +1,12 @@
 export class Translators {
-    public static translatePaymentMethod(method: 'CASH' | 'BLIK') {
+    public static translatePaymentMethod(method: PaymentMethod) {
         switch(method) {
             case 'CASH': return $localize`Cash`
             case 'BLIK': return $localize`Blik`
         }
     }
 
-    public static translatePaymentStatus(method: 'UNPAID' | 'PAID' | 'RETURNED' | 'WITHDRAWN') {
+    public static translatePaymentStatus(method: PaymentStatus) {
         switch(method) {
             case 'UNPAID': return $localize`Not paid yet`
             case 'PAID': return $localize`Already paid`
@@ -29,3 +29,5 @@ export class Translators {
 }
 
 export type OrderStatus = 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED';
+export type PaymentStatus = 'UNPAID' | 'PAID' | 'RETURNED' | 'WITHDRAWN';
+export type PaymentMethod = 'CASH' | 'BLIK';

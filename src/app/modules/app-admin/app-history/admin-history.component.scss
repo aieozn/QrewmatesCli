@@ -30,12 +30,12 @@ h1 {
     margin-left: -14px;
 }
 
-#calendar-icon {
+.header-icon {
     margin-right: 10px;
     color: #333333;
 }
 
-.range-value {
+.header-selected {
     font-family: PoppinsBold;
     color: #38A583;
     margin-top: 5px;
@@ -45,7 +45,7 @@ h1 {
     align-items: center;
 }
 
-.range-value mat-icon {
+.header-selected mat-icon {
     font-size: 20px;
     position: relative;
     top: 2px;
