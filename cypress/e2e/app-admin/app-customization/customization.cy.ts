@@ -1,9 +1,9 @@
-import { flushKebebKing, getTableImage, loginAsAdmin } from "../utils/utils";
+import { flushKebebKing, getTableImage, loginAsKebabKingAdmin } from "../utils/utils";
 
 describe('Edit allergens', () => {
     beforeEach(() => {
         flushKebebKing()
-        cy.session('login as admin: customization', () => loginAsAdmin())
+        cy.session('login as admin: customization', () => loginAsKebabKingAdmin())
         cy.visit('/admin/customization')
     })
 

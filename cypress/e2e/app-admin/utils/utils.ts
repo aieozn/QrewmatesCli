@@ -11,7 +11,7 @@ export function getTableImage() {
     }))
 }
 
-export function loginAsAdmin() {
+export function loginToRestaurant(name: string) {
     cy.visit('/admin')
     cy.get('#login-input').click().type('admin@email.com')
     cy.get('#password-input').click().type('admin')
@@ -19,7 +19,15 @@ export function loginAsAdmin() {
 
     cy.location('pathname').should('eq', '/login/select-organization')
 
-    cy.get('h2').contains('Kebab King').click()
+    cy.get('h2').contains(name).click()
+}
+
+export function loginAsKebabKingAdmin() {
+    loginToRestaurant('Kebab King');
+}
+
+export function loginAsPizzaTaxiAdmin() {
+    loginToRestaurant('Pizza taxi na miasteczku');
 }
 
 export function flushKebebKing() {

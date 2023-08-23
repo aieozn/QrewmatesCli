@@ -25,7 +25,7 @@ export class AdminHistoryComponent implements AfterViewInit  {
   protected translator = Translators
   
 
-  pageSize = 20;
+  pageSize = 10;
   dateRange: {
     start: Date,
     end: Date
@@ -222,7 +222,7 @@ export class AdminHistoryComponent implements AfterViewInit  {
       restaurantRef: this.accountService.getRestaurantRef(),
       listOrderParams: {
         orderBy: this.activeSort.direction ? this.getColumnTypeName(this.activeSort.active) : 'CREATED',
-        orderDirection: this.activeSort.direction ? this.getSortDirectionTypeName(this.activeSort.direction) : 'ASC',
+        orderDirection: this.activeSort.direction ? this.getSortDirectionTypeName(this.activeSort.direction) : 'DESC',
         page: page,
         pageSize: this.pageSize,
         createdDateFrom: this.dateRange ? this.dateRange.start.toISOString().split('T')[0] : undefined,

@@ -1,9 +1,9 @@
-import { assertGroupOrder, flushKebebKing, createCategory, createGroupAggregate, extendAggregate, goToSelects, goToToppings, listOfGroupsElementContains, loginAsAdmin, moveGroupDown, moveGroupUp, moveItemCollectionDown, moveItemCollectionUp, openGroupSettings, saveAndReloadGroupAggregate, updateGroupAggregate, verifyAggregate } from "../../utils/utils"
+import { assertGroupOrder, flushKebebKing, createCategory, createGroupAggregate, extendAggregate, goToSelects, goToToppings, listOfGroupsElementContains, loginAsKebabKingAdmin, moveGroupDown, moveGroupUp, moveItemCollectionDown, moveItemCollectionUp, openGroupSettings, saveAndReloadGroupAggregate, updateGroupAggregate, verifyAggregate } from "../../utils/utils"
 
 describe('Edit categories', () => {
     beforeEach(() => {
         flushKebebKing()
-        cy.session('login as admin: groups', () => loginAsAdmin())
+        cy.session('login as admin: groups', () => loginAsKebabKingAdmin())
         cy.visit('/admin/menu/categories')
 
         createCategory('New category', 'Category description')

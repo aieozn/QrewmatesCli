@@ -1,9 +1,9 @@
-import { createToppingCollection, flushKebebKing, loginAsAdmin } from "../../utils/utils"
+import { createToppingCollection, flushKebebKing, loginAsKebabKingAdmin } from "../../utils/utils"
 
 describe('Edit topping collections', () => {
     beforeEach(() => {
         flushKebebKing()
-        cy.session('login as admin: topping collections', () => loginAsAdmin())
+        cy.session('login as admin: topping collections', () => loginAsKebabKingAdmin())
         cy.visit('/admin/menu/topping-collections')
     })
 

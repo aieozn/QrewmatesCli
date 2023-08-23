@@ -1,10 +1,10 @@
 import { getUserToken } from "../../utils/utils"
-import { flushKebebKing, loginAsAdmin } from "../utils/utils"
+import { flushKebebKing, loginAsKebabKingAdmin } from "../utils/utils"
 
 describe('Edit tables', () => {
     beforeEach(() => {
         flushKebebKing()
-        cy.session('login as admin: items', () => loginAsAdmin())
+        cy.session('login as admin: items', () => loginAsKebabKingAdmin())
         cy.visit('/admin/tables')
     })
 

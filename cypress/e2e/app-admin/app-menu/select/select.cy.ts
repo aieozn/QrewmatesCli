@@ -1,9 +1,9 @@
-import { createSelect, flushKebebKing, loginAsAdmin, verifySelect } from "../../utils/utils"
+import { createSelect, flushKebebKing, loginAsKebabKingAdmin, verifySelect } from "../../utils/utils"
 
 describe('Edit select', () => {
     beforeEach(() => {
         flushKebebKing()
-        cy.session('login as admin: select', () => loginAsAdmin())
+        cy.session('login as admin: select', () => loginAsKebabKingAdmin())
         cy.visit('/admin/menu/select-collections')
     })
 

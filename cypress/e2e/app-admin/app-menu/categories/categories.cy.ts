@@ -1,9 +1,9 @@
-import { flushKebebKing, createCategory, loginAsAdmin } from "../../utils/utils";
+import { flushKebebKing, createCategory, loginAsKebabKingAdmin } from "../../utils/utils";
 
 describe('Edit categories', () => {
     beforeEach(() => {
         flushKebebKing()
-        cy.session('login as admin: categories', () => loginAsAdmin())
+        cy.session('login as admin: categories', () => loginAsKebabKingAdmin())
         cy.visit('/admin/menu/categories')
     })
 
@@ -61,7 +61,7 @@ describe('Edit categories', () => {
         cy.get('.save-button').should('have.class', 'disabled')
     })
 
-    it.only('Deletes category', () => {
+    it('Deletes category', () => {
         createCategory('New category', 'Category description')
 
         cy.visit('/admin/menu/categories')

@@ -1,10 +1,10 @@
-import { flushKebebKing, createAllergen, loginAsAdmin, clearAllergensForEmpty } from "../../utils/utils"
+import { flushKebebKing, createAllergen, loginAsKebabKingAdmin, clearAllergensForEmpty } from "../../utils/utils"
 
 describe('Edit allergens', () => {
     beforeEach(() => {
         flushKebebKing()
         clearAllergensForEmpty()
-        cy.session('login as admin: allergens', () => loginAsAdmin())
+        cy.session('login as admin: allergens', () => loginAsKebabKingAdmin())
         cy.visit('/admin/menu/allergens')
     })
 
