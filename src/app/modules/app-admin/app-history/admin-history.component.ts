@@ -1,12 +1,15 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { DateRange } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrdersListElement } from '@common/api-client/models';
 import { OrderInstanceControllerService } from '@common/api-client/services';
+import { DateRangePickerComponent } from 'app/common/components/date-range-picker/picker/date-range-picker.component';
 import { Translators } from 'app/common/translators';
-import { tap } from 'rxjs';
+import { filter, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-admin-history',
@@ -20,6 +23,11 @@ export class AdminHistoryComponent implements AfterViewInit  {
   protected translator = Translators
 
   pageSize = 20;
+  dateRange: {
+    start: Date,
+    end: Date
+  } | undefined;
+
   dataSource = new MatTableDataSource<OrdersListElement>([]);
   displayedColumns = [
     "ref",
@@ -37,9 +45,27 @@ export class AdminHistoryComponent implements AfterViewInit  {
 
   constructor(
     private orderService: OrderInstanceControllerService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private dialogService: MatDialog
   ) {
 
+  }
+
+  selectDateRange() {
+    this.dialogService.open(DateRangePickerComponent).afterClosed().pipe(
+      filter(e => e != undefined),
+      map(e => e as DateRange<Date | Date>),
+      tap(e => this.setDateRange(e.start!, e.end!))
+    ).subscribe();
+
+    return false;
+  }
+
+  setDateRange(start: Date, end: Date) {
+    this.dateRange = {
+      start: start,
+      end: end
+    }
   }
 
   ngAfterViewInit(): void {

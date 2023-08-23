@@ -7,11 +7,11 @@ import { AppHistoryRoutingModule } from './app-history-routing.module';
 import { AdminHistoryComponent } from './admin-history.component';
 import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 import { OrderDetialsPageComponent } from './order-detials-page/order-detials-page.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
 import { OrderComposerModule } from '@common/order-composer/order-composer.module';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { DateRangePickerModule } from 'app/common/components/date-range-picker/date-range-picker.module';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -27,9 +27,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     OrderComposerModule,
     ComplexEditorModule,
     MatPaginatorModule,
-    MatDatepickerModule,
+    DateRangePickerModule,
     MatNativeDateModule,
-    MatFormFieldModule
+    MatIconModule
+  ],
+  providers: [
+    MatNativeDateModule
   ]
 })
 export class AppHistoryModule { }

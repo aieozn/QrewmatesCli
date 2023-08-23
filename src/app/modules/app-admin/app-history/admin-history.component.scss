@@ -10,7 +10,7 @@ h1 {
 #orders-history {
     padding-left: 20px;
     padding-right: 20px;
-    max-height: 100%;
+    height: 100%;
     overflow: auto;
 }
 
@@ -28,4 +28,31 @@ h1 {
 
 #date-range-picker {
     margin-left: -14px;
+}
+
+#calendar-icon {
+    margin-right: 10px;
+    color: #333333;
+}
+
+.range-value {
+    font-family: PoppinsBold;
+    color: #38A583;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.range-value mat-icon {
+    font-size: 20px;
+    position: relative;
+    top: 2px;
+}
+
+.flex-sort-header {
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }

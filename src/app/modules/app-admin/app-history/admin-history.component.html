@@ -13,15 +13,28 @@
 
       <!-- Date Column -->
       <ng-container matColumnDef="created">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <span i18n>Date</span>
+        <th mat-header-cell *matHeaderCellDef>
+
+          <div class="flex-sort-header">
+            <mat-icon id="calendar-icon" class="clickable" (click)="selectDateRange()">date_range</mat-icon>
+
+            <div mat-sort-header class="sort-header">
+              <span i18n>Date</span>
+            </div>
+          </div>
+
+          <div class="range-value" *ngIf="dateRange">
+            <mat-icon class="clickable" (click)="dateRange = undefined">remove_circle_outline</mat-icon>
+
+            {{ dateRange.start | date:'dd.MM.YYYY' }} - {{ dateRange.end | date:'dd.MM.YYYY' }}
+          </div>
         </th>
         <td mat-cell *matCellDef="let element"> {{element.created | date:'dd.MM.YYYY HH:mm'}} </td>
       </ng-container>
     
       <!-- Status Column -->
       <ng-container matColumnDef="orderStatus">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n class="sort-header">
           Order status
         </th>
         <td mat-cell *matCellDef="let element">{{ translator.translateOrderStatus(element.orderStatus) }} </td>
@@ -29,7 +42,7 @@
 
       <!-- Status Column -->
       <ng-container matColumnDef="paymentStatus">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n class="sort-header">
           Payment status
         </th>
         <td mat-cell *matCellDef="let element"> {{translator.translatePaymentStatus(element.paymentStatus)}} </td>
@@ -37,7 +50,7 @@
 
       <!-- Status Column -->
       <ng-container matColumnDef="paymentMethod">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n class="sort-header">
           Payment method
         </th>
         <td mat-cell *matCellDef="let element"> {{translator.translatePaymentMethod(element.paymentMethod)}} </td>

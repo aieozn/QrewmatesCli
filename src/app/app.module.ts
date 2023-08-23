@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './common/account-utils/auth-interceptor';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { AuthInterceptor } from './common/account-utils/auth-interceptor';
     // Required for some reason?
     MatSelectModule,
     // Required for some reason?
-    MatDialogModule
+    MatDialogModule,
+    // Required for admin history date filte
+    MatNativeDateModule
   ],
   providers: [
     {
