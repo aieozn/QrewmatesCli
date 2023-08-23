@@ -227,6 +227,9 @@ export class AdminHistoryComponent implements AfterViewInit  {
         pageSize: this.pageSize,
         createdDateFrom: this.dateRange ? this.dateRange.start.toISOString().split('T')[0] : undefined,
         createdDateTo: this.dateRange ? this.dateRange.end.toISOString().split('T')[0] : undefined,
+        orderStatus: this.selectedOrderStatus ? this.selectedOrderStatus : undefined,
+        paymentStatus: this.selectedPaymentStatus ? this.selectedPaymentStatus : undefined,
+        paymentMethod: this.selectedPaymentMethod ? this.selectedPaymentMethod : undefined,
       }
     }).pipe(
       tap(e => {
