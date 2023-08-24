@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OrderDetailsGet } from '@common/api-client/models';
-import { OrderDetailsComponent } from '../../../../common/order-composer/layout/order-details/order-details.component';
+import { OrderDetailsDialogResponse } from  './order-details-dialog-response'
+import { UserActions } from 'app/common/translators';
 
 @Component({
   selector: 'app-order-details-dialog',
@@ -14,12 +15,18 @@ export class OrderDetailsDialogComponent {
     @Inject(MAT_DIALOG_DATA) protected data: {
       order: OrderDetailsGet
     },
-    private dialogRef: MatDialogRef<OrderDetailsComponent>
+    private dialogRef: MatDialogRef<OrderDetailsDialogComponent>
   ) {
   }
 
+  closeWithAction(action: UserActions) {
+    const result: OrderDetailsDialogResponse = {
+      doAction: action
+    }
+    this.dialogRef.close(result);
+  }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close()
   }
 }

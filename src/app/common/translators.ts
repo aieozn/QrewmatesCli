@@ -32,3 +32,4 @@ export class Translators {
 export type OrderStatus = 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED';
 export type PaymentStatus = 'UNPAID' | 'PAID' | 'RETURNED' | 'WITHDRAWN';
 export type PaymentMethod = 'CASH' | 'BLIK';
+export type UserActions = 'ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL';

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { first, map, tap } from 'rxjs';
+import { filter, first, map, switchMap, tap } from 'rxjs';
 import { UpdateOrderStatusMessage } from '../../model/update-order-status-message';
 import { AcceptOrderActionDialogType } from '../../services/generic-dialog-stuff-manager/accept-order-aciton-dialog-type';
 import { AcceptOrderActionResult } from '../../services/generic-dialog-stuff-manager/accept-order-action-result';
@@ -7,6 +7,7 @@ import { OrderInstanceControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderGet } from '@common/api-client/models';
 import { StuffDiaglogService } from '../../services/generic-dialog-stuff-manager/staff-dialog.service';
+import { UserActions } from 'app/common/translators';
 
 @Component({
   selector: 'app-pending-order',
@@ -42,20 +43,34 @@ export class PendingOrderComponent {
       orderInstanceRef: this._order.ref
     })
     .pipe(
-      tap(orderDetails => this.dialogManager.openDetails(orderDetails))
+      switchMap(orderDetails => this.dialogManager.openDetails(orderDetails)),
+      filter(e => e !== undefined && e.doAction !== undefined),
+      map(e => e!.doAction as UserActions),
+      tap(e => this.handleAction(e))
     )
     .subscribe();
   }
 
-  cancelOrder(event: Event) {
-    this.doActionWithDialog(event, AcceptOrderActionDialogType.CANCEL, 'CANCEL');
+  doAction(event: Event, action: UserActions) : boolean {
+    this.handleAction(action);
+    event.stopPropagation();
+
+    return false;
   }
 
-  rejectOrder(event: Event) {
-    this.doActionWithDialog(event, AcceptOrderActionDialogType.REJECT, 'REJECT');
+  handleAction(action: UserActions) {
+    if (['REJECT', 'CANCEL'].includes(action)) {
+      this.handleActionWithDialog(action as AcceptOrderActionDialogType)
+    } else {
+
+      this.changeStatus.emit({
+        orderAction: action,
+        comment: undefined
+      });
+    }
   }
 
-  doActionWithDialog(event: Event, type: AcceptOrderActionDialogType, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) {
+  handleActionWithDialog(type: AcceptOrderActionDialogType) {
     this.dialogManager
       .openAcceptOrderActionDialog(type)
       .pipe(
@@ -65,23 +80,10 @@ export class PendingOrderComponent {
       .subscribe(e => {
         if (e.proceed) {
           this.changeStatus.emit({
-            orderAction: action,
+            orderAction: type,
             comment: e.message
           });
         }
       });
-      
-    event.stopPropagation();
-  }
-
-  doAction(event: Event, action: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL')) : boolean {
-    this.changeStatus.emit({
-      orderAction: action,
-      comment: undefined
-    });
-
-    event.stopPropagation();
-
-    return false;
   }
 }

@@ -40,13 +40,6 @@
     margin-left: -20px;
 }
 
-.edit-order {
-    background-color: #38A583;
-    color: #f4f4f4;
-    padding: 15px;
-    text-align: center;
-}
-
 #user-icon {
     height: 30px;
     width: 30px;
@@ -89,4 +82,29 @@
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
+}
+
+.order-action-button {
+    background-color: #38A583;
+    color: #f4f4f4;
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+    position: relative;
+}
+
+.order-action-button mat-icon {
+   // height: 0px;
+   position: absolute;
+   left: 10px;
+   top: 0px;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.order-action-button.reject {
+    background-color: #9e3523;
 }

@@ -9,6 +9,7 @@ import { DoOrderActionDialogComponent } from '../../layout/do-order-action-dialo
 import { AcceptOrderActionDialogType } from './accept-order-aciton-dialog-type';
 import { OrderSummaryInputData } from '@common/order-composer/layout/order-summary/order-summary-input-data';
 import { OrderDetailsDialogComponent } from 'app/modules/app-staff/app-edit-order/order-details-dialog/order-details-dialog.component';
+import { OrderDetailsDialogResponse } from 'app/modules/app-staff/app-edit-order/order-details-dialog/order-details-dialog-response';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,7 @@ export class StuffDiaglogService {
     return this.dialogService.openSummary(data);
   }
 
-  openDetails(data: OrderDetailsGet) {
+  openDetails(data: OrderDetailsGet) : Observable<OrderDetailsDialogResponse | undefined> {
     return this.dialog
     .open(OrderDetailsDialogComponent, FullWidthDialogService.getDefaultGenericDialogConfig(
       {

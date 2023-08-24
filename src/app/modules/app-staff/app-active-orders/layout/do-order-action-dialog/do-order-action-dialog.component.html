@@ -1,6 +1,6 @@
 <div id="dialog">
-    <p class="message" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" i18n>Are you sure you want to decline the order?</p>
-    <p class="message" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" i18n>Are you sure you want to cancel the order?</p>
+    <p class="message" *ngIf="data.type == 'REJECT'" i18n>Are you sure you want to decline the order?</p>
+    <p class="message" *ngIf="data.type == 'CANCEL'" i18n>Are you sure you want to cancel the order?</p>
 
     <mat-form-field [style.fontSize]="16" appearance="fill">
         <mat-label i18n>Add a comment for the user</mat-label>
@@ -13,8 +13,8 @@
       </mat-form-field>
 
       <div id="buttons">
-        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" (click)="proceed()" i18n>Reject order</div>
-        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" (click)="proceed()" i18n>Cancel order</div>
+        <div class="button reject clickable" *ngIf="data.type == 'REJECT'" (click)="proceed()" i18n>Reject order</div>
+        <div class="button reject clickable" *ngIf="data.type == 'CANCEL'" (click)="proceed()" i18n>Cancel order</div>
         <div class="button cancel clickable" (click)="cancel()" i18n>Go back</div>
       </div>
 </div>

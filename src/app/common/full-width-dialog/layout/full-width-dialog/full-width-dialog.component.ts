@@ -19,8 +19,8 @@ export class FullWidthDialogComponent implements OnDestroy {
   @Output('close') onClose = new EventEmitter<void>();
 
   getMaxBodyHeight() : string {
-    // 70% of window height - height of header (65px)
-    return window.innerHeight * 0.7 - 65 + 'px';
+    // 70% of window height - height of header (55px)
+    return window.innerHeight * 0.7 - 55 + 'px';
   }
 
   ngOnDestroy(): void {

@@ -1,3 +1,1 @@
-export enum AcceptOrderActionDialogType {
-    REJECT, CANCEL
-}
+export type AcceptOrderActionDialogType = 'REJECT' | 'CANCEL';

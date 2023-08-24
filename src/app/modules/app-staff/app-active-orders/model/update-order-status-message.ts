@@ -1,4 +1,6 @@
+import { UserActions } from "app/common/translators";
+
 export interface UpdateOrderStatusMessage {
-    orderAction: ('ACCEPT' | 'PAY_OFFLINE' | 'SERVE' | 'REJECT' | 'CANCEL'),
+    orderAction: UserActions,
     comment: string | undefined
 }

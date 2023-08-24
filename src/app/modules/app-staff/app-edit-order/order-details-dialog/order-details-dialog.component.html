@@ -1,6 +1,8 @@
 <app-full-width-dialog i18n-title title="Order details">
     <app-order-details 
         [order]="data.order" 
-        [editable]="true">
+        [editable]="true"
+        (onClose)="close()"
+        (onAction)="closeWithAction($event)">
     </app-order-details>
 </app-full-width-dialog>

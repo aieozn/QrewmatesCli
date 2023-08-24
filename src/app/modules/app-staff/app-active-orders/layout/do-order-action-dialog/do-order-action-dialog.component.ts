@@ -9,8 +9,6 @@ import { AcceptOrderActionResult } from '../../services/generic-dialog-stuff-man
   styleUrls: ['./do-order-action-dialog.component.scss']
 })
 export class DoOrderActionDialogComponent {
-
-  acceptOrderActionDialogTypeEnum = AcceptOrderActionDialogType;
   textAreaValue = '';
 
   constructor(

@@ -14,10 +14,10 @@
         <div class="order-action payed" *ngIf="_order.actionsAllowed.includes('PAY_OFFLINE')" (click)="doAction($event, 'PAY_OFFLINE')">
             <mat-icon>payments</mat-icon>
         </div>
-        <div class="order-action reject" *ngIf="_order.actionsAllowed.includes('REJECT')" (click)="rejectOrder($event)">
+        <div class="order-action reject" *ngIf="_order.actionsAllowed.includes('REJECT')" (click)="doAction($event, 'REJECT')">
             <mat-icon>close</mat-icon>
         </div>
-        <div class="order-action reject" *ngIf="_order.actionsAllowed.includes('CANCEL')" (click)="cancelOrder($event)">
+        <div class="order-action reject" *ngIf="_order.actionsAllowed.includes('CANCEL')" (click)="doAction($event, 'CANCEL')">
             <mat-icon>close</mat-icon>
         </div>
     </div>

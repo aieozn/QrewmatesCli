@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderDetailsGet } from '@common/api-client/models';
 import { StatusLineType } from 'app/common/components/status-line/status-line/status-line-type';
-import { Translators } from 'app/common/translators';
+import { UserActions, Translators } from 'app/common/translators';
 
 @Component({
   selector: 'app-order-details',
@@ -15,7 +15,7 @@ export class OrderDetailsComponent {
   protected translator = Translators
   
   @Input()
-  editable = true;
+  editable = false;
 
   @Input()
   order: OrderDetailsGet | undefined;
@@ -94,5 +94,12 @@ export class OrderDetailsComponent {
   editOrder(ref: string) {
     this.router.navigate(['/staff/edit/', ref]);
     this.onClose.emit();
+  }
+
+  @Output()
+  onAction = new EventEmitter<UserActions>();
+
+  doAction(action: UserActions) {
+    this.onAction.emit(action);
   }
 }

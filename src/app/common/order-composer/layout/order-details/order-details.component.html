@@ -86,5 +86,26 @@
         </div>
     </div>
 
-    <div *ngIf="editable" class="edit-order box-radius box-shadow clickable" (click)="editOrder(order.ref)">Edit</div>
+    <div *ngIf="editable" class="order-action-button box-radius box-shadow clickable" (click)="editOrder(order.ref)" i18n>Edit</div>
+
+
+
+    <div class="order-actions">
+        <!-- Reject, Accept, Cancel, Serve, Pay -->
+        <div class="order-action accept" *ngIf="order.actionsAllowed.includes('ACCEPT')" (click)="doAction('ACCEPT')">
+            <div *ngIf="editable" class="order-action-button box-radius box-shadow clickable"><mat-icon>done</mat-icon><span i18n>Accept</span></div>
+        </div>
+        <div class="order-action done" *ngIf="order.actionsAllowed.includes('SERVE')" (click)="doAction('SERVE')">
+            <div *ngIf="editable" class="order-action-button box-radius box-shadow clickable"><mat-icon>done_all</mat-icon><span i18n>Mark as served</span></div>
+        </div>
+        <div class="order-action payed" *ngIf="order.actionsAllowed.includes('PAY_OFFLINE')" (click)="doAction('PAY_OFFLINE')">
+            <div *ngIf="editable" class="order-action-button box-radius box-shadow clickable"><mat-icon>payments</mat-icon><span i18n>Mark as payed</span></div>
+        </div>
+        <div class="order-action reject" *ngIf="order.actionsAllowed.includes('REJECT')" (click)="doAction('REJECT')">
+            <div *ngIf="editable" class="order-action-button reject box-radius box-shadow clickable"><mat-icon>close</mat-icon><span i18n>Reject</span></div>
+        </div>
+        <div class="order-action reject" *ngIf="order.actionsAllowed.includes('CANCEL')" (click)="doAction('CANCEL')">
+            <div *ngIf="editable" class="order-action-button reject box-radius box-shadow clickable"><mat-icon>close</mat-icon><span i18n>Cancel</span></div>
+        </div>
+    </div>
 </div>
