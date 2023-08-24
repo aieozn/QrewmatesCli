@@ -136,6 +136,18 @@ export class AccountService {
     }
   }
 
+  getUserInitials(userName: string) : string {
+    const userNameParts = userName.split(/\s+/).filter(e => e !== '');
+
+    if (userNameParts.length === 0) {
+      return '?';
+    } else if (userNameParts.length === 1) {
+      return userNameParts[0][0];
+    } else {
+      return userNameParts[0][0] + userNameParts[1][0];
+    }
+  }
+
   getActiveUser() : ActiveUser | null {
     const user = this.getStorageUser();
 

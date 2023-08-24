@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderDetailsGet } from '@common/api-client/models';
 import { Translators } from 'app/common/translators';
 
@@ -22,7 +23,8 @@ export class OrderDetailsComponent {
   onClose = new EventEmitter<void>();
 
   constructor(
-    private router: Router
+    private router: Router,
+    public accountService: AccountService
   ) {
   }
 

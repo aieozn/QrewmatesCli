@@ -1,5 +1,6 @@
 #order-summary {
     padding-bottom: 20px;
+    font-size: 14px;
 }
 
 .summary-element {
@@ -7,7 +8,6 @@
     display: flex;
     margin: 0px;
     padding: 0px;
-    margin-top: 15px;
 }
 
 .summary-element-name {
@@ -40,11 +40,6 @@
     margin-left: -20px;
 }
 
-.two-col {
-    display: flex;
-    justify-content: space-between;
-}
-
 .edit-order {
     background-color: #38A583;
     color: #f4f4f4;
@@ -52,6 +47,46 @@
     text-align: center;
 }
 
-.two-col p {
-    margin-top: 5px
+#user-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #c21d8e;
+    margin-right: 10px;
+}
+
+#user-icon p {
+    margin: 0px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 15px;
+    font-family: PoppinsBold;
+    color: #FFFFFF;
+}
+
+.details-header {
+    display: flex;
+    align-items: center;
+}
+
+#table-number {
+    font-family: PoppinsBold;
+}
+
+.section {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.section h2 {
+    color: #C3C3C3;
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.section .attribute {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
 }
