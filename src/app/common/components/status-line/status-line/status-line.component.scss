@@ -1,0 +1,39 @@
+$circle-size: 30px;
+$line-width: 5px;
+
+
+.circle {
+    background-color: #497B57;
+    width: $circle-size;
+    height: $circle-size;
+    border-radius: 50%;
+}
+
+.line {
+    height: 5px;
+    margin-top: calc(($circle-size / 2) - (5px / 2));
+    background-color: #497B57;
+}
+
+.line-wrapper {
+    height: $circle-size;
+    flex-grow: 2;
+}
+
+.circle-line {
+    display: flex;
+    flex: 1;
+}
+
+#status-line-elements {
+    display: flex;
+    width: 100%;
+}
+
+.circle-line:first-of-type .line-wrapper:first-of-type {
+    visibility: hidden;
+}
+
+.circle-line:last-of-type .line-wrapper:last-of-type {
+    visibility: hidden;
+}

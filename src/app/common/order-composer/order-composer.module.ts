@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { OrderDetailsComponent } from './layout/order-details/order-details.component';
+import { StatusLineModule } from '../components/status-line/status-line.module';
 
 
 
@@ -41,7 +42,8 @@ import { OrderDetailsComponent } from './layout/order-details/order-details.comp
     MatSelectModule,
     MatIconModule,
     FullWidthDialogModule,
-    MatInputModule
+    MatInputModule,
+    StatusLineModule
   ],
   exports: [
     OrdeSubmitComponent,
