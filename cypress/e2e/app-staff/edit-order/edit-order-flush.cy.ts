@@ -22,7 +22,7 @@ describe('Edit order', () => {
 
         cy.get('.pending-order').eq(13).click();
         validateDetails(simpleOrder, false);
-        cy.get('.edit-order').click()
+        cy.get('.order-action-button').contains('Edit').click()
         cy.get('#subscribeButton').click()
         validateSummary(simpleOrder, false)
         cy.get('.summary-element').eq(0).parent().find('.modified-warning').should('not.exist')
@@ -39,7 +39,7 @@ describe('Edit order', () => {
             cy.get('.pending-order').eq(13).click();
             validateDetails(simpleOrder, false);
 
-            cy.get('.edit-order').click()
+            cy.get('.order-action-button').contains('Edit').click()
             cy.get('#subscribeButton').click()
 
             validateSummary(simpleOrder, false)
@@ -59,7 +59,7 @@ describe('Edit order', () => {
         cy.get('.pending-order').eq(13).click();
         validateDetails(simpleOrder, false);
 
-        cy.get('.edit-order').click()
+        cy.get('.order-action-button').contains('Edit').click()
         cy.get('#subscribeButton').click()
 
         validateSummary(simpleOrder, false)
@@ -84,7 +84,7 @@ describe('Edit order', () => {
         cy.get('.pending-order').eq(13).click();
         validateDetails(orderWithToppings, false);
 
-        cy.get('.edit-order').click()
+        cy.get('.order-action-button').contains('Edit').click()
         cy.get('#subscribeButton').click()
 
         validateSummary(orderWithToppings, false)
@@ -111,7 +111,7 @@ describe('Edit order', () => {
         cy.get('.pending-order').eq(13).click();
         validateDetails(orderWithSelect, false);
 
-        cy.get('.edit-order').click()
+        cy.get('.order-action-button').contains('Edit').click()
         cy.get('#subscribeButton').click()
 
         validateSummary(orderWithSelect, false)
@@ -125,7 +125,7 @@ describe('Edit order', () => {
         cy.reload()
 
         cy.get('.pending-order').eq(13).click();
-        cy.get('.edit-order').click()
+        cy.get('.order-action-button').contains('Edit').click()
         cy.get('#subscribeButton').click()
 
         cy.get('.summary-element').eq(3).find('.summary-element-name').should('have.text', 'Pizza Margherita (Mała)');

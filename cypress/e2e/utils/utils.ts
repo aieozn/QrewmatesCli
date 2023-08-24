@@ -135,10 +135,10 @@ export function validateDetails(order: OrderDefinition, strict = true) {
         }
     }
 
-    cy.get('.two-col').eq(0).find('p').eq(1).contains(order.expectedPrice)
+    cy.get('.attribute .key').contains('Total').parent().find('.value').should('have.text', order.expectedPrice)
 
     if (order.comment) {
-        cy.get('.two-col').eq(7).find('p').eq(1).contains(order.comment)
+        cy.get('.attribute .key').contains('Comment').parent().find('.value').should('have.text', order.comment)
     }
 }
 

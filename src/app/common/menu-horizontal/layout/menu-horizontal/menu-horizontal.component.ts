@@ -116,7 +116,6 @@ export class MenuHorizontalComponent implements OnDestroy, AfterViewInit, OnInit
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();
-
     this.menuBar.nativeElement.removeEventListener('scroll', this.scrollCoordinator);
   }
 

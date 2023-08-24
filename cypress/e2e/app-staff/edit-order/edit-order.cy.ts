@@ -18,7 +18,7 @@ describe('Edit order', () => {
 
         // Load
         cy.get('.pending-order').click();
-        cy.get('.edit-order').click()
+        cy.get('.order-action-button').contains('Edit').click()
         cy.get('#subscribeButton').click()
         validateSummary(simpleDoubleOrder, false)
 
@@ -42,7 +42,9 @@ describe('Edit order', () => {
 
         // Modify
         removeOrderElement(1);
+        cy.get('#order-summary .summary-element').should('have.length', 1);
         cy.get('#order-submit #subscribeButton').contains('Save').click();
+        cy.get('#summary-value').should('have.text', '(1) 14.99 zł')
         cy.get('#save-changes').click()
 
         // Validate
@@ -71,6 +73,7 @@ describe('Edit order', () => {
         })
         cy.get('#add-button').click();
         cy.get('#order-submit #subscribeButton').contains('Save').click();
+        cy.get('#summary-value').should('have.text', '(1) 14.99 zł')
         cy.get('#save-changes').click()
 
         // Validate
@@ -99,6 +102,7 @@ describe('Edit order', () => {
         })
         cy.get('#add-button').click();
         cy.get('#order-submit #subscribeButton').contains('Save').click();
+        cy.get('#summary-value').should('have.text', '(1) 56.97 zł')
         cy.get('#save-changes').click()
 
         // Validate
@@ -127,6 +131,7 @@ describe('Edit order', () => {
         })
         cy.get('#add-button').click();
         cy.get('#order-submit #subscribeButton').contains('Save').click();
+        cy.get('#summary-value').should('have.text', '(1) 19.98 zł')
         cy.get('#save-changes').click()
 
         // Validate
@@ -153,6 +158,7 @@ describe('Edit order', () => {
         cy.get('.cdk-overlay-pane mat-option').contains('Średnia').click()
         cy.get('#add-button').click();
         cy.get('#order-submit #subscribeButton').contains('Save').click();
+        cy.get('#summary-value').should('have.text', '(1) 28.99 zł')
         cy.get('#save-changes').click()
 
         // Validate
@@ -178,6 +184,7 @@ describe('Edit order', () => {
         cy.get("#count-value-plus").click();
         cy.get('#add-button').click();
         cy.get('#order-submit #subscribeButton').contains('Save').click();
+        cy.get('#summary-value').should('have.text', '(1) 14.99 zł')
         cy.get('#save-changes').click()
 
         // Validate
@@ -198,8 +205,9 @@ describe('Edit order', () => {
         goToOrderEdit(0)
 
         // Modify
-        cy.get('#order-menu-chief-note textarea').click().type("I'm sooo hungry!");
+        cy.get('#order-menu-chief-note textarea').focus().type("I'm sooo hungry!").should('have.value', "I'm sooo hungry!");
         cy.get('#order-submit #subscribeButton').contains('Save').click();
+        cy.get('#summary-value').should('have.text', '(1) 14.99 zł')
         cy.get('#save-changes').click()
 
         // Validate

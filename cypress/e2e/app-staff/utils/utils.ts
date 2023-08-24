@@ -70,7 +70,7 @@ export function fakeOrder(file: string, restaurantId: string) : Cypress.Chainabl
 
 export function goToOrderEdit(number: number) {
     cy.get('.pending-order').eq(number).click();
-    cy.get('.edit-order').click()
+    cy.get('.order-action-button').contains('Edit').click()
     cy.get('#subscribeButton').click()
 }
 

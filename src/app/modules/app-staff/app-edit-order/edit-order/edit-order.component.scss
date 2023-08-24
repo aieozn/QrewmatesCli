@@ -45,3 +45,11 @@
 ::ng-deep .edit-order-wrapper #menu{
     top: 100px!important;
 }
+
+app-order-submit {
+    position: fixed;
+    bottom: 0px;
+    left: max(calc(50% - 500px), 0px);
+    width: 100%;
+    max-width: 1000px;
+}

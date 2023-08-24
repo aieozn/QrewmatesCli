@@ -45,6 +45,22 @@ describe('Order status', () => {
         })
     })
 
+    it('[Overdue (trough details view)] Reject', () => {
+        initOrders();
+
+        cy.get('.pending-order h3').contains('Table 4').should('exist');
+        findPendingOrder('Table 4').click();
+        cy.get('.order-action-button').contains('Reject').click();
+        cy.get('#dialog textarea').click().type('Sorry, the product is out of stock');
+        cy.get('.button.reject').click()
+
+        cy.get('.pending-order h3').contains('Table 4').should('not.exist');
+
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/reject-order.json').should('deep.equal', interception.request.body)
+        })
+    })
+
     it('[Overdue] Accept -> Serve -> Pay', () => {
         initOrders()
 
@@ -61,6 +77,32 @@ describe('Order status', () => {
         })
 
         findAssignedToMeOrder('Table 1').find('.order-action.payed').click();
+        cy.get('.pending-order h3').contains('Table 1').should('not.exist');
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/pay-offline.json').should('deep.equal', interception.request.body)
+        })
+    })
+
+    it('[Overdue (trough details view)] Accept -> Serve -> Pay', () => {
+        initOrders()
+
+        findPendingOrder('Table 1').click();
+        cy.get('.order-action-button').contains('Accept').click();
+
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/accept-order.json').should('deep.equal', interception.request.body)
+        })
+
+        findAssignedToMeOrder('Table 1').click();
+        cy.get('.order-action-button').contains('Mark as served').click();
+        
+        findAssignedToMeOrder('Table 1')
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/serve-order.json').should('deep.equal', interception.request.body)
+        })
+
+        findAssignedToMeOrder('Table 1').click();
+        cy.get('.order-action-button').contains('Mark as payed').click();
         cy.get('.pending-order h3').contains('Table 1').should('not.exist');
         cy.wait('@updateStatus').then((interception) => {
             cy.fixture('order/update/pay-offline.json').should('deep.equal', interception.request.body)
@@ -89,6 +131,33 @@ describe('Order status', () => {
         })
     })
 
+    it('[Overdue (trough details view)] Accept -> PAY -> Serve', () => {
+        initOrders()
+
+        findPendingOrder('Table 1').click();
+        cy.get('.order-action-button').contains('Accept').click();
+
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/accept-order.json').should('deep.equal', interception.request.body)
+        })
+
+        findAssignedToMeOrder('Table 1').click();
+        cy.get('.order-action-button').contains('Mark as payed').click();
+
+        findAssignedToMeOrder('Table 1')
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/pay-offline.json').should('deep.equal', interception.request.body)
+        })
+
+        findAssignedToMeOrder('Table 1').click();
+        cy.get('.order-action-button').contains('Mark as served').click();
+
+        cy.get('.pending-order h3').contains('Table 1').should('not.exist');
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/serve-order.json').should('deep.equal', interception.request.body)
+        })
+    })
+
     it('[Overdue] Accept -> Cancel', () => {
         initOrders()
 
@@ -99,6 +168,28 @@ describe('Order status', () => {
         })
 
         findAssignedToMeOrder('Table 1').find('.order-action.reject').click();
+        cy.get('#dialog textarea').click().type('Sorry, the product is out of stock');
+        cy.get('.button.reject').click()
+        
+        cy.get('.pending-order h3').contains('Table 1').should('not.exist');
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/cancel-order.json').should('deep.equal', interception.request.body)
+        })
+    })
+
+    it('[Overdue (trough details view)] Accept -> Cancel', () => {
+        initOrders()
+
+        findPendingOrder('Table 1').click();
+        cy.get('.order-action-button').contains('Accept').click();
+
+        cy.wait('@updateStatus').then((interception) => {
+            cy.fixture('order/update/accept-order.json').should('deep.equal', interception.request.body)
+        })
+
+        findAssignedToMeOrder('Table 1').click();
+        cy.get('.order-action-button').contains('Cancel').click();
+
         cy.get('#dialog textarea').click().type('Sorry, the product is out of stock');
         cy.get('.button.reject').click()
         

@@ -194,12 +194,8 @@ export class AppClientComponent implements OnDestroy {
             expires
           )
         }),
-        switchMap(createdOrder => this.dialogManager.openWaitForOrderDialog(createdOrder.restaurantRef, createdOrder.ref)),
-        tap(result => {
-          console.debug("Order responded");
-          console.debug(result);
-        })
-      ).subscribe();
+        switchMap(createdOrder => this.dialogManager.openWaitForOrderDialog(createdOrder.restaurantRef, createdOrder.ref))
+      ).subscribe(() => this.clearOrderRefCookie());
   }
 
   private loadCustomCss(ref: string) {

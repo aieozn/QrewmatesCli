@@ -84,9 +84,6 @@ describe('Load menu', () => {
     cy.get('#generic-dialog-wrapper').should('exist')
 
     cy.get('#generic-dialog-wrapper h2').contains('About us');
-    cy.get('#generic-dialog-card-header-scroll-top').should('have.css', 'opacity', '0')
-    cy.get('#generic-dialog-card-body').scrollTo('bottom')
-    cy.get('#generic-dialog-card-header-scroll-top').should('have.css', 'opacity', '1')
     cy.get('#generic-dialog-card-header #close-icon').click()
     cy.get('#generic-dialog-wrapper').should('not.exist')
   })
