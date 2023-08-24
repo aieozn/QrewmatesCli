@@ -1,39 +1,97 @@
 $circle-size: 30px;
-$line-width: 5px;
+
+#status-line {
+    margin-top: 60px;
+}
 
 
 .circle {
-    background-color: #497B57;
+    background-color: #6fc688;
     width: $circle-size;
     height: $circle-size;
     border-radius: 50%;
+    position: relative;
+}
+
+.inner-circle {
+    background-color: white;
+    width: calc($circle-size * 0.6666);
+    height: calc($circle-size * 0.6666);
+    border-radius: 50%;
+    position: absolute;
+    left: calc($circle-size / 6);
+    top: calc($circle-size / 6);
+}
+
+.inner-inner-circle {
+    background-color: #6fc688;
+    width: calc($circle-size / 3);
+    height: calc($circle-size / 3);
+    border-radius: 50%;
+    position: absolute;
+    left: calc($circle-size / 6);
+    top: calc($circle-size / 6);
+    display: none;
 }
 
 .line {
     height: 5px;
     margin-top: calc(($circle-size / 2) - (5px / 2));
-    background-color: #497B57;
-}
-
-.line-wrapper {
-    height: $circle-size;
+    background-color: #6fc688;
     flex-grow: 2;
 }
 
-.circle-line {
-    display: flex;
-    flex: 1;
+.line:first-of-type, .line:last-of-type {
+    display: none;
 }
 
 #status-line-elements {
     display: flex;
-    width: 100%;
+    width: 95%;
 }
 
-.circle-line:first-of-type .line-wrapper:first-of-type {
-    visibility: hidden;
+.status-name {
+    transform: rotate(-45deg);
+    font-size: 10px;
+    position: relative;
+    line-height: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: 0px;
+    left: 15px;
+    bottom: 5px;
 }
 
-.circle-line:last-of-type .line-wrapper:last-of-type {
-    visibility: hidden;
+.circle-wrapper.after .circle {
+    background-color: #C3C3C3;
+}
+
+.line.after {
+    background-color: #C3C3C3;
+}
+
+
+.circle-wrapper.active .status-name {
+    font-family: PoppinsBold;
+    color: #497B57;
+}
+
+.circle-wrapper.active .circle {
+    background-color: #497B57;
+}
+
+.circle-wrapper.active .inner-inner-circle {
+    display: block;
+}
+
+.circle-wrapper.active .inner-inner-circle {
+    background-color: #497B57;
+}
+
+.circle-wrapper.error .circle, .circle-wrapper.error .inner-inner-circle{
+    background-color: #9e3523;
+}
+
+.circle-wrapper.error .status-name {
+    color: #9e3523;
 }

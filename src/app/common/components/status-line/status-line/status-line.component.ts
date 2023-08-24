@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { StatusLineType } from './status-line-type';
 
 @Component({
   selector: 'app-status-line',
@@ -6,39 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./status-line.component.scss']
 })
 export class StatusLineComponent {
-  statuses = [
-    {
-      name: 'PLACED',
-      type: 'DEFAULT'
-    },
-    {
-      name: 'EXPIRED',
-      type: 'ERROR'
-    },
-    {
-      name: 'ABANDONED',
-      type: 'ERROR'
-    },
-    {
-      name: 'REJECTED',
-      type: 'ERROR'
-    },
-    {
-      name: 'ACCEPTED',
-      type: 'DEFAULT'
-    },
-    {
-      name: 'CANDELED',
-      type: 'ERROR'
-    },
-    {
-      name: 'PLACED',
-      type: 'SERVED'
-    }
-  ]
+  statuses: StatusLineType[] = []
 
-  lineWidth = 0;
+  active = '';
+  activeIndex = 0;
 
-  constructor() {
-  }
+  @Input('statuses') set source(values: StatusLineType[]) {
+    this.statuses = values;
+    this.activeIndex = this.statuses.map(e => e.id).indexOf(this.active)
+  };
 }

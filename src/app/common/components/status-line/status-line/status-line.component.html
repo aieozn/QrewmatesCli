@@ -1,14 +1,23 @@
 
 <div id="status-line">
     <div id="status-line-elements">
-        <div *ngFor="let status of statuses" class="circle-line">
-            <div class="line-wrapper">
-                <div class="line"></div>
-            </div>
-            <div class="circle"></div>
-            <div class="line-wrapper">
-                <div class="line"></div>
-            </div>
-        </div>
-    </div>
+        <ng-container *ngFor="let status of statuses; let i = index">
+            <ng-container *ngIf="status.type === 'DEFAULT' || i == activeIndex">
+
+                <div class="line" [class.after]="activeIndex < i"></div>
+
+                <div class="circle-wrapper" [class.error]="status.type === 'ERROR'" [class.active]="activeIndex == i" [class.after]="activeIndex < i">
+                    <p class="status-name">{{ status.name }}</p>
+                    <div class="circle">
+                        <div class="inner-circle">
+                            <div class="inner-inner-circle">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="line" [class.after]="activeIndex <= i"></div>
+            </ng-container>
+        </ng-container>
 </div>
