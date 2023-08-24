@@ -229,7 +229,7 @@ describe('Edit select', () => {
         verifySelect('ZZ new select name', 'New select description', '77', ['Jaja', 'Ryby', 'Mięczaki'])
     })
 
-    it('Zero price is zero', () => {
+    it('Select: Zero price is zero', () => {
         cy.visit('/admin/menu/select-collections/SC0KK0000000/select/create/settings')
 
         createSelect('ZZ new select name', 'New select description', '0', ['Jaja', 'Ryby', 'Mięczaki'])

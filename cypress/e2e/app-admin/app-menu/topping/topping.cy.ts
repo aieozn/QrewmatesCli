@@ -218,7 +218,7 @@ describe('Edit topping', () => {
         verifyTopping('ZZ new topping name', 'New topping description', '77', ['Jaja', 'Ryby', 'Mięczaki'])
     })
 
-    it('Zero price is zero', () => {
+    it('Topping: Zero price is zero', () => {
         cy.visit('/admin/menu/topping-collections/TC0KK0000000/topping/create/settings')
 
         createTopping('ZZ new topping name', 'New topping description', '0', ['Jaja', 'Ryby', 'Mięczaki'])

@@ -198,14 +198,17 @@ describe('Edit order', () => {
         })
     })
 
-    it.only('Changes order comment', () => {
+    it('Changes order comment', () => {
         fakeOrder('order/request/simple-order.json', 'R0TAXI000000')
+
 
         // Load
         goToOrderEdit(0)
 
+        cy.get('mat-radio-button').eq(0).find('input').should('be.focused');
+
         // Modify
-        cy.get('#order-menu-chief-note textarea').focus().type("I'm sooo hungry!").should('have.value', "I'm sooo hungry!");
+        cy.get('#order-menu-chief-note textarea').focus().type("I'm sooo hungry!");
         cy.get('#order-submit #subscribeButton').contains('Save').click();
         cy.get('#summary-value').should('have.text', '(1) 14.99 zł')
         cy.get('#save-changes').click()

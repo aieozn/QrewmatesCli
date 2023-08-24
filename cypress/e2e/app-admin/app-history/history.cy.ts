@@ -1,7 +1,9 @@
+import { flushPizzaTaxi } from "../../app-staff/utils/utils"
 import { loginAsPizzaTaxiAdmin } from "../utils/utils"
 
-describe('Edit tables', () => {
+describe('Orders history', () => {
     beforeEach(() => {
+        flushPizzaTaxi()
         cy.session('login as admin: history', () => loginAsPizzaTaxiAdmin())
         cy.visit('/admin/history')
     })
@@ -27,17 +29,12 @@ describe('Edit tables', () => {
         cy.get('#edit-element .summary-element-option').eq(0).contains('kukurydza (+7.99 zł)')
         cy.get('#edit-element .summary-element-option').eq(1).contains('Comment: Comment 14')
 
-        cy.get('.two-col').eq(0).find('p').eq(0).contains('Total:')
-        cy.get('.two-col').eq(0).find('p').eq(1).contains('100.00 zł')
+        cy.get('#table-number').should('have.text', 'Table 13');
+        cy.get('.attribute .key').contains('Total').parent().find('.value').should('have.text', '100.00 zł');
+        cy.get('.attribute .key').contains('Payment method').parent().find('.value').should('have.text', 'Cash');
 
-        cy.get('.two-col').eq(1).find('p').eq(0).contains('Table')
-        cy.get('.two-col').eq(1).find('p').eq(1).contains('Table 13')
-
-        cy.get('.two-col').eq(2).find('p').eq(0).contains('Payment method')
-        cy.get('.two-col').eq(2).find('p').eq(1).contains('Cash')
-
-        cy.get('.two-col').eq(3).find('p').eq(0).contains('Payment status')
-        cy.get('.two-col').eq(3).find('p').eq(1).contains('Not paid yet')
+        cy.get('.section h2').contains('Payment status').parent().find('.circle-wrapper.active .status-name').should('have.text', 'Not paid yet')
+        cy.get('.section h2').contains('Order status').parent().find('.circle-wrapper.active .status-name').should('have.text', 'Accepted')
     })
 
     it('Order by order date', () => {
@@ -58,7 +55,7 @@ describe('Edit tables', () => {
 
     it('Order by payment status', () => {
         cy.get('.cdk-column-paymentStatus').contains('Payment status').click()
-        cy.get('tbody tr').eq(0).find('td.mat-column-paymentStatus').should('have.text', 'Already paid')
+        cy.get('tbody tr').eq(0).find('td.mat-column-paymentStatus').should('have.text', 'Paid')
 
         cy.get('.cdk-column-paymentStatus').contains('Payment status').click()
         cy.get('tbody tr').eq(0).find('td.mat-column-paymentStatus').should('have.text', 'Not paid yet')
@@ -130,7 +127,7 @@ describe('Edit tables', () => {
 
     it('Filter by payament status', () => {
         cy.get('.mat-column-paymentStatus .header-icon').click();
-        cy.get('#form mat-checkbox').contains('Already paid').parent().find('input').click()
+        cy.get('#form mat-checkbox').contains('Paid').parent().find('input').click()
         cy.get('.global-confirm-button').click()
 
         cy.get('tbody tr').should('have.length', 1)
@@ -140,7 +137,7 @@ describe('Edit tables', () => {
 
     it('Removes payament status filter', () => {
         cy.get('.mat-column-paymentStatus .header-icon').click();
-        cy.get('#form mat-checkbox').contains('Already paid').parent().find('input').click()
+        cy.get('#form mat-checkbox').contains('Paid').parent().find('input').click()
         cy.get('.global-confirm-button').click()
 
         cy.get('tbody tr').should('have.length', 1)

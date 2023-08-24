@@ -4,7 +4,7 @@ import { flushKebebKing, loginAsKebabKingAdmin } from "../utils/utils"
 describe('Edit tables', () => {
     beforeEach(() => {
         flushKebebKing()
-        cy.session('login as admin: items', () => loginAsKebabKingAdmin())
+        cy.session('login as admin: tables', () => loginAsKebabKingAdmin())
         cy.visit('/admin/tables')
     })
 
