@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderDetailsGet } from '@common/api-client/models';
+import { StatusLineType } from 'app/common/components/status-line/status-line/status-line-type';
 import { Translators } from 'app/common/translators';
 
 @Component({
@@ -21,6 +22,68 @@ export class OrderDetailsComponent {
 
   @Output()
   onClose = new EventEmitter<void>();
+
+  orderStatuses: StatusLineType[] = [
+    {
+      id: 'PLACED',
+      name: Translators.translateOrderStatus('PLACED'),
+      type: 'DEFAULT'
+    },
+    {
+      id: 'EXPIRED',
+      name: Translators.translateOrderStatus('EXPIRED'),
+      type: 'ERROR'
+    },
+    {
+      id: 'ABANDONED',
+      name: Translators.translateOrderStatus('ABANDONED'),
+      type: 'ERROR'
+    },
+    {
+      id: 'REJECTED',
+      name: Translators.translateOrderStatus('REJECTED'),
+      type: 'ERROR'
+    },
+    {
+      id: 'ACCEPTED',
+      name: Translators.translateOrderStatus('ACCEPTED'),
+      type: 'DEFAULT'
+    },
+    {
+      id: 'CANCELED',
+      name: Translators.translateOrderStatus('CANCELED'),
+      type: 'ERROR'
+    },
+    {
+      id: 'SERVED',
+      name: Translators.translateOrderStatus('SERVED'),
+      type: 'DEFAULT'
+    }
+  ]
+
+  // 'UNPAID' | 'PAID' | 'RETURNED' | 'WITHDRAWN';
+  paymentStatuses: StatusLineType[] = [
+    {
+      id: 'UNPAID',
+      name: Translators.translatePaymentStatus('UNPAID'),
+      type: 'DEFAULT'
+    },
+    {
+      id: 'PAID',
+      name: Translators.translatePaymentStatus('PAID'),
+      type: 'DEFAULT'
+    },
+    {
+      id: 'RETURNED',
+      name: Translators.translatePaymentStatus('RETURNED'),
+      type: 'ERROR'
+    },
+    {
+      id: 'WITHDRAWN',
+      name: Translators.translatePaymentStatus('WITHDRAWN'),
+      type: 'DEFAULT'
+    }
+  ]
 
   constructor(
     private router: Router,

@@ -8,7 +8,6 @@ import { Subject } from 'rxjs';
 })
 export class FullWidthDialogComponent implements OnDestroy {
 
-  scrollIntroductionPercentage = 0;
   show = false;
 
   
@@ -19,37 +18,9 @@ export class FullWidthDialogComponent implements OnDestroy {
 
   @Output('close') onClose = new EventEmitter<void>();
 
-  onScroll(event: any) {
-    this.scrollIntroductionPercentage = Math.min(event.target.scrollTop / 50, 1);
-  }
-
-  getShadowStyle() : { [klass: string]: any; } {
-    const opacity = 0.5 * this.scrollIntroductionPercentage;
-
-    const style = {
-      'box-shadow': '0px 0px 10px 0px rgba(0, 0, 0, ' + opacity + ')',
-      '-moz-box-shadow': '0px 0px 10px 0px rgba(0, 0, 0, ' + opacity + ')',
-      '-webkit-box-shadow': '0px 0px 10px 0px rgba(0, 0, 0, ' + opacity + ')',
-    }
-
-    return style;
-  }
-
   getMaxBodyHeight() : string {
     // 70% of window height - height of header (65px)
     return window.innerHeight * 0.7 - 65 + 'px';
-  }
-
-  getScrollTopStyle() : { [klass: string]: any; } {
-    const style = {
-      'opacity': this.scrollIntroductionPercentage
-    }
-
-    return style;
-  }
-
-  goToTop() {
-    this.cardBody.nativeElement.scrollTop = 0;
   }
 
   ngOnDestroy(): void {

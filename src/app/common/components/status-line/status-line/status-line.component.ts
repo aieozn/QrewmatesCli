@@ -10,10 +10,21 @@ export class StatusLineComponent {
   statuses: StatusLineType[] = []
 
   active = '';
-  activeIndex = 0;
+  activeIndex = -1;
 
-  @Input('statuses') set source(values: StatusLineType[]) {
+  @Input('statuses') set setStatuses(values: StatusLineType[]) {
     this.statuses = values;
-    this.activeIndex = this.statuses.map(e => e.id).indexOf(this.active)
+    this.load()
   };
+
+  @Input('active') set setActive(value: string) {
+    this.active = value;
+    this.load()
+  };
+
+  load() {
+    if (this.statuses.length > 0 && this.active) {
+      this.activeIndex = this.statuses.map(e => e.id).indexOf(this.active)
+    }
+  }
 }

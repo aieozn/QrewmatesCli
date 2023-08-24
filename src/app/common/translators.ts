@@ -7,11 +7,12 @@ export class Translators {
     }
 
     public static translatePaymentStatus(method: PaymentStatus) {
+        // Keep it short to use in status line component
         switch(method) {
             case 'UNPAID': return $localize`Not paid yet`
-            case 'PAID': return $localize`Already paid`
-            case 'RETURNED': return $localize`Order has been returned`
-            case 'WITHDRAWN': return $localize`Order has been returned`
+            case 'PAID': return $localize`Paid`
+            case 'RETURNED': return $localize`Returned to client`
+            case 'WITHDRAWN': return $localize`Withdrawn`
         }
     }
 

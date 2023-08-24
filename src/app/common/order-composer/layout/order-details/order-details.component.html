@@ -15,17 +15,13 @@
     <div class="section">
         <h2 i18n>Order status</h2>
 
-        <app-status-line></app-status-line>
+        <app-status-line [statuses]="orderStatuses" [active]="order.orderStatus"></app-status-line>
+    </div>
 
-        <div class="attribute">
-            <div class="key">Payment status</div>
-            <div class="value">{{ translator.translatePaymentStatus(order.paymentStatus) }}</div>
-        </div>
+    <div class="section">
+        <h2 i18n>Payment status</h2>
 
-        <div class="attribute">
-            <div class="key">Order status</div>
-            <div class="value">{{ translator.translateOrderStatus(order.orderStatus) }}</div>
-        </div>
+        <app-status-line [statuses]="paymentStatuses" [active]="order.paymentStatus"></app-status-line>
     </div>
 
     <div class="section">
