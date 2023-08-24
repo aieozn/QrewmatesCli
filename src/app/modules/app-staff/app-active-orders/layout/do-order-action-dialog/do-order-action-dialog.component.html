@@ -13,11 +13,9 @@
       </mat-form-field>
 
       <div id="buttons">
-        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" (click)="proceed()" i18n>Reject</div>
-        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" (click)="proceed()" i18n>Cancel</div>
-        <div class="button cancel clickable" (click)="cancel()" i18n>
-            Cancel
-        </div>
+        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.REJECT" (click)="proceed()" i18n>Reject order</div>
+        <div class="button reject clickable" *ngIf="data.type == acceptOrderActionDialogTypeEnum.CANCEL" (click)="proceed()" i18n>Cancel order</div>
+        <div class="button cancel clickable" (click)="cancel()" i18n>Go back</div>
       </div>
 </div>
 

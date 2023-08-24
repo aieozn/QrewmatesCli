@@ -1,11 +1,10 @@
 #counter-footer {
-    position: fixed;
-    bottom: 0px;
+    position: absolute;
     width: 100%;
+    bottom: 0px;
+    left: 0px;
     height: 44px;
     background-color: white;
-    margin-left: -20px;
-    width: 100%;
     display: flex;
     padding: 15px;
     justify-content: space-between;

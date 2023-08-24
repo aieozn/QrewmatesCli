@@ -14,9 +14,10 @@ export class FullWidthDialogService {
     width: '100%',
     // Related to getMaxBodyHeight from generic dialog component
     height: '70%',
-    maxWidth: '100%',
+    maxWidth: '1000px',
     position: {
-      left: '0px',
+      left: 'auto',
+      right: 'auto',
       bottom: '0px'
     },
     panelClass: 'full-width-dialog',

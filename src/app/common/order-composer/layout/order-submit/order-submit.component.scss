@@ -1,12 +1,20 @@
 #order-submit {
-    width: 100%;
-    position: fixed;
-    bottom: 0px;
+    // width: 100%;
+    // position: fixed;
+    // bottom: 0px;
+    // height: 44px;
+    // padding: 15px;
+    // display: flex;
+    // justify-content: space-between;
+    // background-color: #ffffff;
+
+
+    width: calc(100% - 30px);
     height: 44px;
-    padding: 15px;
+    background-color: white;
     display: flex;
+    padding: 15px;
     justify-content: space-between;
-    background-color: #ffffff;
 }
 
 #order-submit p {
@@ -24,7 +32,6 @@
 
 #order {
     display: flex;
-    margin-right: 30px;
 }
 
 #subscribeButton {

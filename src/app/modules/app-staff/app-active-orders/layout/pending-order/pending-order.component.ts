@@ -19,6 +19,10 @@ export class PendingOrderComponent {
 
   @Input('order') set order(value: OrderGet) {
     this._order = value;
+
+    if (this._order.ref == 'O0PT00000012') {
+      this.edit()
+    }
   }
 
   @Output('changeStatus') changeStatus = new EventEmitter<UpdateOrderStatusMessage>();

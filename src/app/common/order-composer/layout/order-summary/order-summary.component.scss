@@ -37,10 +37,6 @@
     text-align: right;
 }
 
-::ng-deep #order-sub-final #order-submit {
-    margin-left: -20px;
-}
-
 .remove-element {
     background-color: #e45959;
     font-size: 14px;
@@ -67,4 +63,15 @@
 
 .summary-element.modified {
     margin-top: 0px;
+}
+
+#order-sub-final {
+    z-index: 1000;
+}
+
+app-order-submit {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
 }

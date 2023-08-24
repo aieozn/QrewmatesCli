@@ -81,6 +81,11 @@
             <div class="value" *ngIf="!order.comment" i18n>No comment</div>
             <div class="value" *ngIf="order.comment">{{ order.comment }}</div>
         </div>
+
+        <div class="attribute">
+            <div class="key">Id</div>
+            <div class="value">{{ order.ref }}</div>
+        </div>
     </div>
 
     <div *ngIf="editable" class="edit-order box-radius box-shadow clickable" (click)="editOrder(order.ref)">Edit</div>

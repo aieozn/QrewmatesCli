@@ -102,6 +102,12 @@ body {
 
 #root-mobile {
     max-width: 1000px;
+    position: relative;
+}
+
+#root-mobile-scroll {
+    max-height: 100vh;
+    overflow: auto;
 }
 
 p, h1, h2, h3, h4, div, span {
@@ -151,6 +157,9 @@ p, h1, h2, h3, h4, div, span {
 
 .full-width-dialog {
     min-height: 20%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .full-width-dialog .mat-dialog-container {

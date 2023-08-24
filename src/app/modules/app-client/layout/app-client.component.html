@@ -1,62 +1,66 @@
 <div id="root-mobile">
-    <div id="banner" [style.backgroundImage]="backgroundImageUrl | async" class="main-theme-background-color">
-
-        <div id="restaurant-information">
-            i
+    <div id="root-mobile-scroll">
+        <div id="banner" [style.backgroundImage]="backgroundImageUrl | async" class="main-theme-background-color">
+            <div id="restaurant-information">
+                i
+            </div>
+    
+            <div id="delivery-time">
+                15 - 45 min
+            </div>
+        </div>
+    
+        <app-menu-horizontal></app-menu-horizontal>
+    
+        <app-menu-horizontal-wrapper>
+            <div id="menu-elements">
+                <app-menu-horizontal-element-wrapper *ngFor="let category of categories | async" [name]="category.name" [description]="category.description">
+                    <app-menu-category [category]="category"></app-menu-category>
+                </app-menu-horizontal-element-wrapper>
+            </div>
+        </app-menu-horizontal-wrapper>
+    
+    
+    
+        <div id="footer">
+            <div id="footer-rows" class="main-theme-background-color">
+                <div class="footer-row">
+                    <p class="footer-row-title" (click)="showAboutUs()"><span i18n>About us</span>  <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>
+        
+                    <div class="footer-row-page">
+        
+                    </div>
+                </div>
+                <div class="footer-row">
+                    <p class="footer-row-title"><span i18n>Privacy policy</span> <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>
+        
+                    <div class="footer-row-page">
+                        
+                    </div>
+                </div>
+                <div class="footer-row">
+                    <p class="footer-row-title"><span i18n>Legal notice</span> <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>
+        
+                    <div class="footer-row-page">
+                        
+                    </div>
+                </div>
+                <div class="footer-row">
+                    <p class="footer-row-title"><span i18n>How does it work?</span> <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>
+        
+                    <div class="footer-row-page">
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <app-footer-powered-by></app-footer-powered-by>
         </div>
 
-        <div id="delivery-time">
-            15 - 45 min
-        </div>
+        <div *ngIf="orderService.orderChanged" style="height: 80px;"></div>
     </div>
 
-    <app-menu-horizontal></app-menu-horizontal>
-
-    <app-menu-horizontal-wrapper>
-        <div id="menu-elements">
-            <app-menu-horizontal-element-wrapper *ngFor="let category of categories | async" [name]="category.name" [description]="category.description">
-                <app-menu-category [category]="category"></app-menu-category>
-            </app-menu-horizontal-element-wrapper>
-        </div>
-    </app-menu-horizontal-wrapper>
-</div>
-
-<div id="footer">
-    <div id="footer-rows" class="main-theme-background-color">
-        <div class="footer-row">
-            <p class="footer-row-title" (click)="showAboutUs()"><span i18n>About us</span>  <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>
-
-            <div class="footer-row-page">
-
-            </div>
-        </div>
-        <div class="footer-row">
-            <p class="footer-row-title"><span i18n>Privacy policy</span> <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>
-
-            <div class="footer-row-page">
-                
-            </div>
-        </div>
-        <div class="footer-row">
-            <p class="footer-row-title"><span i18n>Legal notice</span> <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>
-
-            <div class="footer-row-page">
-                
-            </div>
-        </div>
-        <div class="footer-row">
-            <p class="footer-row-title"><span i18n>How does it work?</span> <mat-icon class="more_icon">keyboard_arrow_right</mat-icon></p>
-
-            <div class="footer-row-page">
-                
-            </div>
-        </div>
+    <div *ngIf="orderService.orderChanged | async as order">
+        <app-order-submit (submit)="submit()" [orderIn]="order"></app-order-submit>
     </div>
-
-    <app-footer-powered-by></app-footer-powered-by>
-</div>
-
-
-<div *ngIf="orderService.orderChanged | async as order">
-    <app-order-submit (submit)="submit()" [orderIn]="order"></app-order-submit>
 </div>

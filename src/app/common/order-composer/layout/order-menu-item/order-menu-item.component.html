@@ -34,13 +34,10 @@
             <app-order-menu-chief-note #formatCol [commentable]="order"></app-order-menu-chief-note>
         </div>
 
-        <app-counter-footer [order]="order" (submit)="submit($event)" [editMode]="editMode"></app-counter-footer>
+        <div id="space-filler"> 
 
-        <div class="space-vertical-30">
         </div>
     </div>
 
-    <div id="space-filler"> 
-
-    </div>
+    <app-counter-footer [order]="order" (submit)="submit($event)" [editMode]="editMode"></app-counter-footer>
 </div>

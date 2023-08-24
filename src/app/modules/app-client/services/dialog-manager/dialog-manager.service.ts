@@ -15,7 +15,6 @@ export class DialogManagerService {
     return this.dialog
       .open(WaitForOrderDialogComponent, {
         disableClose: true,
-        width: "100%",
         data: {
           restaurantRef: restaurantRef,
           orderRef: orderRef
