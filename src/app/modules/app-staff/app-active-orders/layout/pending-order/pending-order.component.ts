@@ -7,7 +7,7 @@ import { OrderInstanceControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderGet } from '@common/api-client/models';
 import { StuffDiaglogService } from '../../services/generic-dialog-stuff-manager/staff-dialog.service';
-import { UserActions } from 'app/common/translators';
+import { UserAction } from 'app/common/translators';
 
 @Component({
   selector: 'app-pending-order',
@@ -20,10 +20,6 @@ export class PendingOrderComponent {
 
   @Input('order') set order(value: OrderGet) {
     this._order = value;
-
-    if (this._order.ref == 'O0PT00000012') {
-      this.edit()
-    }
   }
 
   @Output('changeStatus') changeStatus = new EventEmitter<UpdateOrderStatusMessage>();
@@ -45,20 +41,20 @@ export class PendingOrderComponent {
     .pipe(
       switchMap(orderDetails => this.dialogManager.openDetails(orderDetails)),
       filter(e => e !== undefined && e.doAction !== undefined),
-      map(e => e!.doAction as UserActions),
+      map(e => e!.doAction as UserAction),
       tap(e => this.handleAction(e))
     )
     .subscribe();
   }
 
-  doAction(event: Event, action: UserActions) : boolean {
+  doAction(event: Event, action: UserAction) : boolean {
     this.handleAction(action);
     event.stopPropagation();
 
     return false;
   }
 
-  handleAction(action: UserActions) {
+  handleAction(action: UserAction) {
     if (['REJECT', 'CANCEL'].includes(action)) {
       this.handleActionWithDialog(action as AcceptOrderActionDialogType)
     } else {

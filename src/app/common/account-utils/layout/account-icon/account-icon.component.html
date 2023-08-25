@@ -1,11 +1,5 @@
-<div id="account-details">
-    <div id="user-icon">
-        <p>{{ userInitials }}</p>
-    </div>
-
-    <div>
-        <p id="user-name">{{ activeUser.userName }}</p>
-        <p id="logout" class="clickable" i18n (click)="logout()">Logout</p>
-    </div>
-    
+<div id="account-details" [ngStyle]="{'height': size}">
+    <div id="user-icon" [ngStyle]="{'background-color': backgroundColor, 'width': size + 'px', 'height': size + 'px'}">
+        <p [ngStyle]="{'color': fontColor, 'line-height': size + 'px'}">{{ userInitials }}</p>
+    </div>    
 </div>

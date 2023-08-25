@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OrderDetailsGet } from '@common/api-client/models';
 import { OrderDetailsDialogResponse } from  './order-details-dialog-response'
-import { UserActions } from 'app/common/translators';
+import { UserAction } from 'app/common/translators';
 
 @Component({
   selector: 'app-order-details-dialog',
@@ -19,7 +19,7 @@ export class OrderDetailsDialogComponent {
   ) {
   }
 
-  closeWithAction(action: UserActions) {
+  closeWithAction(action: UserAction) {
     const result: OrderDetailsDialogResponse = {
       doAction: action
     }

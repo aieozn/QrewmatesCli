@@ -1,6 +1,6 @@
-import { UserActions } from "app/common/translators";
+import { UserAction } from "app/common/translators";
 
 export interface UpdateOrderStatusMessage {
-    orderAction: UserActions,
+    orderAction: UserAction,
     comment: string | undefined
 }

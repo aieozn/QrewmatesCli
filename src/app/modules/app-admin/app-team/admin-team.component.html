@@ -1,1 +1,21 @@
-<p>admin-team works!</p>
+<div id="team">
+    <h1 i18n>Team management</h1>
+
+    <div class="users-group box-radius box-shadow">
+        <h2 i18n>Administrators</h2>
+        <p i18n>Access to administration panel and waiter panel</p>
+
+        <div class="bars">
+            <app-user-bar *ngFor="let user of users | userPermissionsPipe: 'ADMIN'" [user]="user"></app-user-bar>
+        </div>
+    </div>
+
+    <div class="users-group box-radius box-shadow">
+        <h2 i18n>Staff</h2>
+        <p i18n>Access to waiter panel</p>
+
+        <div class="bars">
+            <app-user-bar *ngFor="let user of users | userPermissionsPipe: 'STAFF'" [user]="user"></app-user-bar>
+        </div>
+    </div>
+</div>

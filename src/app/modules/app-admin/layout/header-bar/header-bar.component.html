@@ -7,8 +7,8 @@
         <div id="submit-changes" *ngIf="collectiveChangesService.modified | async" class="clickable" (click)="publish()" i18n>Publish changes</div>
     </div>
     
-    <div id="account-icon-wrapper" class="header-bar-element">
-        <app-account-icon></app-account-icon>
+    <div id="account-icon-wrapper" class="header-bar-element" *ngIf="user">
+        <app-account-icon [user]="user"></app-account-icon>
     </div>
     
 </div>

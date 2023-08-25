@@ -19,6 +19,7 @@ import { MenuCategoryControllerService } from './services/menu-category-controll
 import { AllergenControllerService } from './services/allergen-controller.service';
 import { MultimediaControllerService } from './services/multimedia-controller.service';
 import { LoginControllerService } from './services/login-controller.service';
+import { UsersControllerService } from './services/users-controller.service';
 import { StatisticsControllerService } from './services/statistics-controller.service';
 import { QrCodeConfigControllerService } from './services/qr-code-config-controller.service';
 import { RestaurantStylesControllerService } from './services/restaurant-styles-controller.service';
@@ -46,6 +47,7 @@ import { RestaurantStylesControllerService } from './services/restaurant-styles-
     AllergenControllerService,
     MultimediaControllerService,
     LoginControllerService,
+    UsersControllerService,
     StatisticsControllerService,
     QrCodeConfigControllerService,
     RestaurantStylesControllerService,

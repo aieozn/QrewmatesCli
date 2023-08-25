@@ -1,10 +1,8 @@
 <div id="account-details">
-    <div id="user-icon">
-        <p>{{ userInitials }}</p>
-    </div>
+    <app-account-icon [user]="activeUser" backgroundColor="#FFFFFF" fontColor="#c21d8e" [size]="30"></app-account-icon>
 
     <div>
-        <p id="user-name">{{ activeUser.userName }}</p>
+        <p id="user-name">{{ activeUser.name }}</p>
     </div>
     
     <div id="logout" class="clickable" i18n (click)="logout()">

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CollectiveChangesService } from '../../services/collective-changes/collective-changes.service';
+import { AccountService } from '@common/account-utils/services/account.service';
+import { ActiveUser } from '@common/account-utils/model/active-user.interface';
 
 @Component({
   selector: 'app-header-bar',
@@ -8,8 +10,10 @@ import { CollectiveChangesService } from '../../services/collective-changes/coll
 })
 export class HeaderBarComponent {
 
-  constructor(public collectiveChangesService: CollectiveChangesService) {
-    
+  user: ActiveUser | undefined;
+
+  constructor(public collectiveChangesService: CollectiveChangesService, private accountService: AccountService) {
+    this.user = this.accountService.getActiveUserOrLogin();
   }
 
   publish() {

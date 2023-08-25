@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderDetailsGet } from '@common/api-client/models';
 import { StatusLineType } from 'app/common/components/status-line/status-line/status-line-type';
-import { UserActions, Translators } from 'app/common/translators';
+import { UserAction, Translators } from 'app/common/translators';
 
 @Component({
   selector: 'app-order-details',
@@ -97,9 +97,9 @@ export class OrderDetailsComponent {
   }
 
   @Output()
-  onAction = new EventEmitter<UserActions>();
+  onAction = new EventEmitter<UserAction>();
 
-  doAction(action: UserActions) {
+  doAction(action: UserAction) {
     this.onAction.emit(action);
   }
 }

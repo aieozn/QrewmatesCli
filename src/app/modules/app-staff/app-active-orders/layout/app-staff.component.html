@@ -21,7 +21,7 @@
             <div class="spacer"></div>
 
             <app-menu-horizontal-element-wrapper i18n-name name="Assigned to me">
-                <app-pending-order (changeStatus)="triggerUpdateStatus(order, $event)" *ngFor="let order of orders | orderActive | orderAssignee: me.userEmail" [order]="order">
+                <app-pending-order (changeStatus)="triggerUpdateStatus(order, $event)" *ngFor="let order of orders | orderActive | orderAssignee: me.email" [order]="order">
                 </app-pending-order>
             </app-menu-horizontal-element-wrapper>
 

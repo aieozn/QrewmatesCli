@@ -13,7 +13,7 @@ export class AccountBarComponent {
 
   constructor(private accountService: AccountService) {
     this.activeUser = accountService.getActiveUserOrLogin();
-    this.userInitials = accountService.getUserInitials(this.activeUser.userName);
+    this.userInitials = accountService.getUserInitials(this.activeUser.name);
   }
 
   logout() {

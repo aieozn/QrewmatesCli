@@ -1,7 +1,7 @@
 <div id="order-summary" *ngIf="order">
     <div class="details-header">
         <div id="user-icon" *ngIf="order.assignee">
-            <p>{{ accountService.getUserInitials(order.assignee.username) }}</p>
+            <p>{{ accountService.getUserInitials(order.assignee.name) }}</p>
         </div>
         <div>
             <p><span i18n>Table</span>: <span id="table-number">{{ order.table.name }}</span></p>

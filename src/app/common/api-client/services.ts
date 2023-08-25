@@ -13,6 +13,7 @@ export { MenuCategoryControllerService } from './services/menu-category-controll
 export { AllergenControllerService } from './services/allergen-controller.service';
 export { MultimediaControllerService } from './services/multimedia-controller.service';
 export { LoginControllerService } from './services/login-controller.service';
+export { UsersControllerService } from './services/users-controller.service';
 export { StatisticsControllerService } from './services/statistics-controller.service';
 export { QrCodeConfigControllerService } from './services/qr-code-config-controller.service';
 export { RestaurantStylesControllerService } from './services/restaurant-styles-controller.service';

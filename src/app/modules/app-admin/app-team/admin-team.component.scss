@@ -1,0 +1,35 @@
+#team {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h1 {
+    margin-top: 30px;
+    font-size: 30px;
+    font-family: PoppinsBold;
+    line-height: 50px;
+    border-bottom: 1px solid #C3C3C3;
+}
+
+.users-group {
+    background-color: #F7F7F7;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+h2 {
+    margin: 0px;
+    padding: 0px;
+    color: #272727;
+    font-family: PoppinsBold;
+}
+
+.bars {
+    column-count: 2;
+    column-gap: 30px;
+}
+
+.bars > * {
+    break-inside: avoid;
+    display: block;
+}
