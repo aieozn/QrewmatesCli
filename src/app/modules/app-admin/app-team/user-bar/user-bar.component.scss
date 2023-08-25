@@ -1,7 +1,23 @@
 .user-bar {
     padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .user-bar p {
     margin: 0px;
+    margin-left: 20px;
+}
+
+.settings {
+    border-left: 1px solid #C3C3C3;
+    padding: 10px 1px 10px 10px;
+    height: 100%;
+}
+
+.settings mat-icon {
+    color: #C3C3C3;
+    height: 100%;
+    display: block;
 }

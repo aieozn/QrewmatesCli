@@ -6,6 +6,7 @@ import { AdminTeamComponent } from './admin-team.component';
 import { UserBarComponent } from './user-bar/user-bar.component';
 import { UserPermissionsPipe } from './filters/users-permissions-pipe';
 import { AccountUtilsModule } from '@common/account-utils/account-utils.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AccountUtilsModule } from '@common/account-utils/account-utils.module';
   imports: [
     CommonModule,
     AppTeamRoutingModule,
-    AccountUtilsModule
+    AccountUtilsModule,
+    MatIconModule
   ]
 })
 export class AppTeamModule { }
