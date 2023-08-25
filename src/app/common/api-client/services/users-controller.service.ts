@@ -68,4 +68,53 @@ export class UsersControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation getUser
+   */
+  static readonly GetUserPath = '/api/staff/v1/restaurant/{restaurantRef}/users/{userRef}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getUser$Response(params: {
+    restaurantRef: string;
+    userRef: string;
+  }): Observable<StrictHttpResponse<UserDetailsGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UsersControllerService.GetUserPath, 'get');
+    if (params) {
+      rb.path('restaurantRef', params.restaurantRef, {});
+      rb.path('userRef', params.userRef, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<UserDetailsGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getUser(params: {
+    restaurantRef: string;
+    userRef: string;
+  }): Observable<UserDetailsGet> {
+
+    return this.getUser$Response(params).pipe(
+      map((r: StrictHttpResponse<UserDetailsGet>) => r.body as UserDetailsGet)
+    );
+  }
+
 }

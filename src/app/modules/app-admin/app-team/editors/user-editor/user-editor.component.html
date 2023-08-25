@@ -1,0 +1,16 @@
+<app-complex-editor-wrapper *ngIf="user$ | async as user"
+    [headerEntry]="user !== undefined ? userValue : createNewUserValue"
+    [headerValue]="user !== undefined ? user.name : ''"
+    [saveEnabled]="isValid(fields) && isUpdated(fields)"
+    [deleteEnabled]="user !== undefined"
+    (onClose)="close()"
+    (onSave)="onSave()"
+    (onDelete)="onDelete()"
+    (onTrySave)="onTrySave()"
+>
+
+    <app-two-columns-field-editor>
+        <app-editor-form-text class="field-editor" [control]="fields.name" i18-name name="User name"></app-editor-form-text>
+        <app-editor-form-text class="field-editor" [control]="fields.email" i18-name name="Email"></app-editor-form-text>
+    </app-two-columns-field-editor>
+</app-complex-editor-wrapper>

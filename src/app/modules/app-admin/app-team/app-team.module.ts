@@ -7,19 +7,23 @@ import { UserBarComponent } from './user-bar/user-bar.component';
 import { UserPermissionsPipe } from './filters/users-permissions-pipe';
 import { AccountUtilsModule } from '@common/account-utils/account-utils.module';
 import { MatIconModule } from '@angular/material/icon';
+import { UserEditorComponent } from './editors/user-editor/user-editor.component';
+import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 
 
 @NgModule({
   declarations: [
     AdminTeamComponent,
     UserBarComponent,
-    UserPermissionsPipe
+    UserPermissionsPipe,
+    UserEditorComponent
   ],
   imports: [
     CommonModule,
     AppTeamRoutingModule,
     AccountUtilsModule,
-    MatIconModule
+    MatIconModule,
+    ComplexEditorModule
   ]
 })
 export class AppTeamModule { }
