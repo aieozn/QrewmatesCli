@@ -33,11 +33,8 @@ export class AdminTeamComponent implements OnDestroy {
 
     editorService.onUserUpdated.pipe(
       tap(updated => {
-        for (const user of this.users) {
-          if (user.ref === updated.ref) {
-            Object.assign(user, updated);
-          }
-        }
+        this.users = this.users.filter(u => u.ref !== updated.ref);
+        this.users.push(updated);
       }),
       takeUntil(this.onDestroy)
     ).subscribe();

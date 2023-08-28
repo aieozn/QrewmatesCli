@@ -15,7 +15,7 @@
         <div class="spacer"></div>
     </div>
 
-    <div class="users-group box-radius box-shadow users-group-border">
+    <div class="users-group box-radius box-shadow">
         <h2 i18n>Administrators</h2>
         <p i18n>Access to administration panel and waiter panel</p>
 
@@ -30,14 +30,8 @@
             <div class="spacer"></div>
         </div>
     </div>
-    <div class="create-new box-radius">
-        <div class="user-bar">
-            <mat-icon>add</mat-icon>
-            <span i18n>Create new admin account</span>
-        </div>
-    </div>
 
-    <div class="users-group box-radius box-shadow users-group-border">
+    <div class="users-group box-radius box-shadow">
         <h2 i18n>Staff</h2>
         <p i18n>Access to waiter panel</p>
 
@@ -53,10 +47,10 @@
         </div>
     </div>
 
-    <div class="create-new box-radius">
+    <div class="create-new box-radius box-shadow clickable" [routerLink]="['user/create']">
         <div class="user-bar">
             <mat-icon>add</mat-icon>
-            <span i18n>Create new waiter account</span>
+            <span i18n>Create new account</span>
         </div>
     </div>
 </div>

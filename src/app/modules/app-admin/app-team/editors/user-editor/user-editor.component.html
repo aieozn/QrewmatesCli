@@ -9,8 +9,10 @@
     (onTrySave)="onTrySave()"
 >
 
+    <!-- <p class="help-text" i18n>An email will be sent to the user with further steps.</p> -->
+
     <app-two-columns-field-editor>
-        <app-editor-form-text class="field-editor" [control]="fields.name" i18-name name="Username"></app-editor-form-text>
+        <app-editor-form-text class="field-editor" [control]="nameControl" i18-name name="Username" [class.hidden]="user === undefined"></app-editor-form-text>
         <app-editor-form-text class="field-editor" [control]="fields.email" i18-name name="Email"></app-editor-form-text>
         <app-editor-radio class="field-editor" [control]="fields.role" i18-name name="Role" [options]="roles"></app-editor-radio>
     </app-two-columns-field-editor>

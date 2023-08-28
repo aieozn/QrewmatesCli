@@ -7,6 +7,8 @@ import { UsersControllerService } from '@common/api-client/services';
 import { Role } from 'app/common/translators';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { EditorService } from '../editor.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageDialogComponent } from 'app/common/dialogs/message-dialogs/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-user-editor',
@@ -18,8 +20,9 @@ export class UserEditorComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
   user: UserDetailsGet | undefined;
 
+  nameControl = new FormControl('', [Validators.required, Validators.maxLength(255)]);
+
   fields = {
-    name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]),
     role: new FormControl('', [Validators.required, Validators.pattern('^(ADMIN|STAFF)$')]),
   };
@@ -39,17 +42,22 @@ export class UserEditorComponent implements OnDestroy {
   ]
 
   readonly userValue = $localize`User`
-  readonly createNewUserValue = $localize`'Create new user'`
+  readonly createNewUserValue = $localize`Create new user`
 
   constructor(
     private route: ActivatedRoute,
     private usersService: UsersControllerService,
     private accountService: AccountService,
     private router: Router,
-    private editorService: EditorService
+    private editorService: EditorService,
+    private matDialog: MatDialog
   ) {
     route.params.pipe(
-      tap(params => this.load(params['userRef'])),
+      tap(params => {
+        if (params['userRef']) {
+          this.load(params['userRef'])
+        }
+      }),
       takeUntil(this.onDestroy)
     ).subscribe();
   }
@@ -63,9 +71,10 @@ export class UserEditorComponent implements OnDestroy {
       tap(u => {
         this.user = u;
         this.fields.email.setValue(u.email);
-        this.fields.name.setValue(u.name);
+        this.nameControl.setValue(u.name);
         this.fields.role.setValue(u.role);
         this.fields.email.disable();
+        this.nameControl.disable();
 
         if (this.accountService.getActiveUser()?.ref === u.ref) {
           this.fields.role.disable();
@@ -94,12 +103,10 @@ export class UserEditorComponent implements OnDestroy {
 
   onSave() {
     if (this.user !== undefined) {
-
       this.usersService.putUser({
         restaurantRef: this.accountService.getRestaurantRef(),
         userRef: this.user.ref,
         body: {
-          name: this.fields.name.value!,
           role: this.fields.role.value! as 'ADMIN' | 'STAFF'
         }
       }).subscribe(updated => {
@@ -108,7 +115,23 @@ export class UserEditorComponent implements OnDestroy {
         this.close()
       })
     } else {
+      this.usersService.postUser({
+        restaurantRef: this.accountService.getRestaurantRef(),
+        body: {
+          email: this.fields.email.value!,
+          role: this.fields.role.value! as 'ADMIN' | 'STAFF'
+        }
+      }).subscribe(created => {
+        this.editorService.onUserUpdated.emit(created)
+        this.router.navigate(['.'], { relativeTo: this.route.parent })
 
+        const message = $localize`An email with further steps will be sent to the user.`;
+        
+        this.matDialog.open(MessageDialogComponent, {
+          data: {message}
+        })
+        this.close()
+      })
     }
   }
 

@@ -39,6 +39,7 @@ export { MenuItemGroupAggregateData } from './models/menu-item-group-aggregate-d
 export { MenuCategoryData } from './models/menu-category-data';
 export { MenuCategoryGet } from './models/menu-category-get';
 export { AllergenData } from './models/allergen-data';
+export { CreateUserData } from './models/create-user-data';
 export { DoOrderData } from './models/do-order-data';
 export { SocialAccountLoginRequest } from './models/social-account-login-request';
 export { LoginResponse } from './models/login-response';

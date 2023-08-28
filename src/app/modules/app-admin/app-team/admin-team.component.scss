@@ -19,10 +19,6 @@ h1 {
     border-bottom-right-radius: 0px;
 }
 
-.users-group-border {
-    border: 1px solid #38A583;
-}
-
 h2 {
     margin: 0px;
     padding: 0px;
@@ -37,15 +33,14 @@ h2 {
 
 .create-new .user-bar {
     display: flex;
-    justify-content: right;
+    justify-content: center;
 }
 
 .create-new {
     background-color: #38A583;
     color: #F4F4F4;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    margin-left: 100px;
+    margin-top: 30px;
+    text-align: center;
 }
 
 .bar {
