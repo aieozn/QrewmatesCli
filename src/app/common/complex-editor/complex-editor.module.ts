@@ -13,6 +13,8 @@ import { EditorPriceComponent } from './field-editors/editor-price/editor-price.
 import { TwoColumnsFieldEditorComponent } from './field-editors/two-columns-field-editor/two-columns-field-editor.component';
 import { FloatingEditorWrapperComponent } from './floating-editor-wrapper/floating-editor-wrapper.component';
 import { GenericEditorComponent } from './field-editors/generic-editor/generic-editor.component';
+import { EditorRadioComponent } from './field-editors/editor-radio/editor-radio.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 
@@ -25,7 +27,8 @@ import { GenericEditorComponent } from './field-editors/generic-editor/generic-e
     EditorPriceComponent,
     TwoColumnsFieldEditorComponent,
     FloatingEditorWrapperComponent,
-    GenericEditorComponent
+    GenericEditorComponent,
+    EditorRadioComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import { GenericEditorComponent } from './field-editors/generic-editor/generic-e
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatRadioModule
   ],
   exports: [
     ComplexEditorWrapperComponent,
@@ -43,7 +47,8 @@ import { GenericEditorComponent } from './field-editors/generic-editor/generic-e
     EditorPriceComponent,
     TwoColumnsFieldEditorComponent,
     FloatingEditorWrapperComponent,
-    GenericEditorComponent
+    GenericEditorComponent,
+    EditorRadioComponent
   ]
 })
 export class ComplexEditorModule { }

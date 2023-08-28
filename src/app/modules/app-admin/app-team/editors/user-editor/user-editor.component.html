@@ -1,4 +1,4 @@
-<app-complex-editor-wrapper *ngIf="user$ | async as user"
+<app-complex-editor-wrapper
     [headerEntry]="user !== undefined ? userValue : createNewUserValue"
     [headerValue]="user !== undefined ? user.name : ''"
     [saveEnabled]="isValid(fields) && isUpdated(fields)"
@@ -10,7 +10,8 @@
 >
 
     <app-two-columns-field-editor>
-        <app-editor-form-text class="field-editor" [control]="fields.name" i18-name name="User name"></app-editor-form-text>
+        <app-editor-form-text class="field-editor" [control]="fields.name" i18-name name="Username"></app-editor-form-text>
         <app-editor-form-text class="field-editor" [control]="fields.email" i18-name name="Email"></app-editor-form-text>
+        <app-editor-radio class="field-editor" [control]="fields.role" i18-name name="Role" [options]="roles"></app-editor-radio>
     </app-two-columns-field-editor>
 </app-complex-editor-wrapper>

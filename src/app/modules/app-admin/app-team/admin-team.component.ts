@@ -1,26 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { UserDetailsGet } from '@common/api-client/models';
 import { UsersControllerService } from '@common/api-client/services';
-import { tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { EditorService } from './editors/editor.service';
 
 @Component({
   selector: 'app-admin-team',
   templateUrl: './admin-team.component.html',
   styleUrls: ['./admin-team.component.scss']
 })
-export class AdminTeamComponent {
+export class AdminTeamComponent implements OnDestroy {
 
+  private readonly onDestroy = new Subject<void>();
+  
   users: UserDetailsGet[] = [];
 
   administrators = $localize`Administrators`
   staff = $localize`Staff`
 
-  constructor(private usersService: UsersControllerService, accountService: AccountService) {
+  constructor(
+    usersService: UsersControllerService,
+    accountService: AccountService,
+    editorService: EditorService
+  ) {
     usersService.getUsers({
       restaurantRef: accountService.getRestaurantRef()
     }).pipe(
       tap(u => this.users = u)
     ).subscribe();
+
+
+    editorService.onUserUpdated.pipe(
+      tap(updated => {
+        for (const user of this.users) {
+          if (user.ref === updated.ref) {
+            Object.assign(user, updated);
+          }
+        }
+      }),
+      takeUntil(this.onDestroy)
+    ).subscribe();
+  }
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 }

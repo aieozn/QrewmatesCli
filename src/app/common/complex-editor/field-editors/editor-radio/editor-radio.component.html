@@ -1,0 +1,7 @@
+<app-generic-editor [name]="name" subtitile="Complete the field below">
+    <mat-radio-group aria-label="Select an option"  *ngIf="control && options" class="radio-group" [formControl]="control">
+        <mat-radio-button *ngFor="let option of options" [value]="option.key">{{ option.value }}</mat-radio-button>
+
+        <mat-error *ngIf="control.invalid && control.touched" i18n>Field required</mat-error>
+    </mat-radio-group>
+</app-generic-editor>

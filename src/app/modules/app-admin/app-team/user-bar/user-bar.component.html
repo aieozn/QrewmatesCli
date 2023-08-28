@@ -1,4 +1,4 @@
-<div class="user-bar box-radius box-shadow" *ngIf="user">
+<div class="user-bar box-radius box-shadow" *ngIf="user" [class.disabled]="!enabled">
 
     <app-account-icon [user]="user"></app-account-icon>
     <p>

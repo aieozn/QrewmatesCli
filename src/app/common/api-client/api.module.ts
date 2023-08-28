@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { RestaurantControllerService } from './services/restaurant-controller.service';
+import { UsersControllerService } from './services/users-controller.service';
 import { RestaurantTableControllerService } from './services/restaurant-table-controller.service';
 import { OrderInstanceControllerService } from './services/order-instance-controller.service';
 import { OrderStatusControllerService } from './services/order-status-controller.service';
@@ -19,7 +20,6 @@ import { MenuCategoryControllerService } from './services/menu-category-controll
 import { AllergenControllerService } from './services/allergen-controller.service';
 import { MultimediaControllerService } from './services/multimedia-controller.service';
 import { LoginControllerService } from './services/login-controller.service';
-import { UsersControllerService } from './services/users-controller.service';
 import { StatisticsControllerService } from './services/statistics-controller.service';
 import { QrCodeConfigControllerService } from './services/qr-code-config-controller.service';
 import { RestaurantStylesControllerService } from './services/restaurant-styles-controller.service';
@@ -33,6 +33,7 @@ import { RestaurantStylesControllerService } from './services/restaurant-styles-
   declarations: [],
   providers: [
     RestaurantControllerService,
+    UsersControllerService,
     RestaurantTableControllerService,
     OrderInstanceControllerService,
     OrderStatusControllerService,
@@ -47,7 +48,6 @@ import { RestaurantStylesControllerService } from './services/restaurant-styles-
     AllergenControllerService,
     MultimediaControllerService,
     LoginControllerService,
-    UsersControllerService,
     StatisticsControllerService,
     QrCodeConfigControllerService,
     RestaurantStylesControllerService,

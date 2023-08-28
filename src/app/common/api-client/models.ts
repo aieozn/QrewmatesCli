@@ -5,6 +5,8 @@ export { MultimediaGet } from './models/multimedia-get';
 export { OpeningHoursUtcGet } from './models/opening-hours-utc-get';
 export { QrCodeConfigGet } from './models/qr-code-config-get';
 export { RestaurantDetailsGet } from './models/restaurant-details-get';
+export { UpdateUserData } from './models/update-user-data';
+export { UserDetailsGet } from './models/user-details-get';
 export { RestaurantTableData } from './models/restaurant-table-data';
 export { RestaurantTableGet } from './models/restaurant-table-get';
 export { OrderElementData } from './models/order-element-data';
@@ -42,7 +44,6 @@ export { SocialAccountLoginRequest } from './models/social-account-login-request
 export { LoginResponse } from './models/login-response';
 export { UserRestaurant } from './models/user-restaurant';
 export { LocalAccountLoginRequest } from './models/local-account-login-request';
-export { UserDetailsGet } from './models/user-details-get';
 export { StatisticsMonthlySalesGetParams } from './models/statistics-monthly-sales-get-params';
 export { StatisticsMonthlySalesGet } from './models/statistics-monthly-sales-get';
 export { StatisticsHourlySalesGetParams } from './models/statistics-hourly-sales-get-params';

@@ -2,6 +2,20 @@
     <h1 i18n>Team management</h1>
 
     <div class="users-group box-radius box-shadow">
+        <h2 i18n>Owners</h2>
+        <p i18n>Restaurant owner with full permissions</p>
+
+        <div class="bars">
+            <app-user-bar 
+                *ngFor="let user of users | userPermissionsPipe: 'OWNER'" 
+                [user]="user" class="bar"
+                [enabled]="false"
+            ></app-user-bar>
+        </div>
+        <div class="spacer"></div>
+    </div>
+
+    <div class="users-group box-radius box-shadow users-group-border">
         <h2 i18n>Administrators</h2>
         <p i18n>Access to administration panel and waiter panel</p>
 
@@ -9,13 +23,21 @@
             <app-user-bar 
                 *ngFor="let user of users | userPermissionsPipe: 'ADMIN'" 
                 [user]="user" 
-                class="clickable"
+                class="clickable bar"
                 [routerLink]="['user', user.ref, 'edit']"
             ></app-user-bar>
+
+            <div class="spacer"></div>
+        </div>
+    </div>
+    <div class="create-new box-radius">
+        <div class="user-bar">
+            <mat-icon>add</mat-icon>
+            <span i18n>Create new admin account</span>
         </div>
     </div>
 
-    <div class="users-group box-radius box-shadow">
+    <div class="users-group box-radius box-shadow users-group-border">
         <h2 i18n>Staff</h2>
         <p i18n>Access to waiter panel</p>
 
@@ -23,9 +45,18 @@
             <app-user-bar 
                 *ngFor="let user of users | userPermissionsPipe: 'STAFF'" 
                 [user]="user" 
-                class="clickable"
+                class="clickable bar"
                 [routerLink]="['user', user.ref, 'edit']"
             ></app-user-bar>
+
+            <div class="spacer"></div>
+        </div>
+    </div>
+
+    <div class="create-new box-radius">
+        <div class="user-bar">
+            <mat-icon>add</mat-icon>
+            <span i18n>Create new waiter account</span>
         </div>
     </div>
 </div>

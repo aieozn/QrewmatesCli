@@ -13,4 +13,6 @@ export class UserBarComponent {
   @Input('user') set setUser(value: UserDetailsGet) {
     this.user = value;
   }
+
+  @Input('enabled') enabled = true;
 }

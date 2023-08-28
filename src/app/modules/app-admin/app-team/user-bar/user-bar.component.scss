@@ -21,3 +21,11 @@
     height: 100%;
     display: block;
 }
+
+.user-bar.disabled {
+    opacity: 0.7;
+}
+
+.user-bar.disabled .settings {
+    visibility: hidden;
+}
