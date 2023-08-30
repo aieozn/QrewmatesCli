@@ -155,6 +155,19 @@ export class UserEditorComponent implements OnDestroy {
   }
 
   onDelete() {
-
+    if (this.user) {
+      if (confirm($localize`Are you sure you want to delete this user?`)) {
+        const ref = this.user.ref;
+        this.usersService.deleteUser({
+          restaurantRef: this.accountService.getRestaurantRef(),
+          userRef: ref
+        }).pipe(
+          tap(_ => {
+            this.editorService.onUserDeleted.emit(ref);
+            this.close()
+          }),
+        ).subscribe();
+      }
+    }
   }
 }

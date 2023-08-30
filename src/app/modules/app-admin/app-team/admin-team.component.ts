@@ -65,6 +65,13 @@ export class AdminTeamComponent implements OnDestroy {
       }),
       takeUntil(this.onDestroy)
     ).subscribe();
+
+    editorService.onUserDeleted.pipe(
+      tap(deleted => {
+        this.users = this.users.filter(u => u.ref !== deleted);
+      }),
+      takeUntil(this.onDestroy)
+    ).subscribe();
   }
   ngOnDestroy(): void {
     this.onDestroy.next();
