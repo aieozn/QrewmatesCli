@@ -47,11 +47,30 @@
         </div>
     </div>
 
+    <div class="users-group box-radius box-shadow">
+        <h2 i18n>Invitations</h2>
+        <p i18n>Invitations to restaurant team</p>
+
+        <div class="bars">
+            <app-invitation-bar
+                *ngFor="let invitation of invitations" 
+                [invitation]="invitation" 
+                class="clickable bar"
+            ></app-invitation-bar>
+
+            <div class="spacer"></div>
+        </div>
+    </div>
+
     <div class="create-new box-radius box-shadow clickable" [routerLink]="['user/create']">
         <div class="user-bar">
             <mat-icon>add</mat-icon>
             <span i18n>Create new account</span>
         </div>
+    </div>
+
+    <div class="space">
+
     </div>
 </div>
 

@@ -1,6 +1,8 @@
 #team {
     padding-left: 20px;
     padding-right: 20px;
+    max-height: 100%;
+    overflow: auto;
 }
 
 h1 {
@@ -51,4 +53,8 @@ h2 {
 
 .bar:nth-child(2n + 1) {
     margin-right: 20px;
+}
+
+.space {
+    height: 40px;
 }

@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UserEditorComponent } from './editors/user-editor/user-editor.component';
 import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 import { MessageDialogModule } from 'app/common/dialogs/message-dialog/message-dialog.module';
+import { InvitationBarComponent } from './invitation-bar/invitation-bar.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MessageDialogModule } from 'app/common/dialogs/message-dialog/message-d
     AdminTeamComponent,
     UserBarComponent,
     UserPermissionsPipe,
-    UserEditorComponent
+    UserEditorComponent,
+    InvitationBarComponent
   ],
   imports: [
     CommonModule,

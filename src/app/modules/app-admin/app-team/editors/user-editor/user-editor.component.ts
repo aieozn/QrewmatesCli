@@ -3,9 +3,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { UserDetailsGet } from '@common/api-client/models';
-import { UsersControllerService } from '@common/api-client/services';
+import { UserControllerService } from '@common/api-client/services';
 import { Role } from 'app/common/translators';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { EMPTY, Subject, catchError, takeUntil, tap } from 'rxjs';
 import { EditorService } from '../editor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageDialogComponent } from 'app/common/dialogs/message-dialogs/message-dialog/message-dialog.component';
@@ -46,7 +46,7 @@ export class UserEditorComponent implements OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private usersService: UsersControllerService,
+    private usersService: UserControllerService,
     private accountService: AccountService,
     private router: Router,
     private editorService: EditorService,
@@ -121,17 +121,30 @@ export class UserEditorComponent implements OnDestroy {
           email: this.fields.email.value!,
           role: this.fields.role.value! as 'ADMIN' | 'STAFF'
         }
-      }).subscribe(created => {
-        this.editorService.onUserUpdated.emit(created)
-        this.router.navigate(['.'], { relativeTo: this.route.parent })
+      }).pipe(
+        tap(created => {
+          this.editorService.onInvitationCreated.emit(created)
+          this.router.navigate(['.'], { relativeTo: this.route.parent })
 
-        const message = $localize`An email with further steps will be sent to the user.`;
-        
-        this.matDialog.open(MessageDialogComponent, {
-          data: {message}
+          const message = $localize`An email with further steps will be sent to the user.`;
+          
+          this.matDialog.open(MessageDialogComponent, {
+            data: {message}
+          })
+          this.close()
+        }),
+        catchError((error, _) => {
+          if (error.status === 409) {
+            const message = $localize`User already exist`;
+          
+            this.matDialog.open(MessageDialogComponent, {
+              data: {message}
+            })
+          }
+
+          return EMPTY;
         })
-        this.close()
-      })
+      ).subscribe()
     }
   }
 

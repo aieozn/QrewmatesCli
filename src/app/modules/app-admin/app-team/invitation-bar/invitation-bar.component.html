@@ -1,0 +1,22 @@
+<div class="user-bar box-radius box-shadow" *ngIf="invitation" [class.disabled]="!enabled">
+
+    <div>
+        <p>
+            <span i18n>Role: </span>
+            {{ invitation.role }}
+        </p>
+        
+        <p>
+            <span i18n>Email: </span>
+            {{ invitation.email }}
+        </p>
+        
+        <p>
+            <span i18n>Issued: </span>
+            {{ invitation.issued | date:'dd.MM.YY' }}
+        </p>
+    </div>
+    <div class="settings clickable" (click)="delete(invitation.ref)">
+        <mat-icon>delete</mat-icon>
+    </div>
+</div>

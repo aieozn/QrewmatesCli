@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { UserDetailsGet } from '@common/api-client/models';
+import { InvitationGet, UserDetailsGet } from '@common/api-client/models';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +7,6 @@ import { UserDetailsGet } from '@common/api-client/models';
 export class EditorService {
 
   onUserUpdated = new EventEmitter<UserDetailsGet>();
-
-  constructor() {
-    
-  }
+  onInvitationCreated = new EventEmitter<InvitationGet>();
+  onInvitationDeleted = new EventEmitter<string>();
 }
