@@ -56,6 +56,7 @@ export { ListOrderParams } from './models/list-order-params';
 export { OrdersListElement } from './models/orders-list-element';
 export { PageGetOrdersListElement } from './models/page-get-orders-list-element';
 export { RestaurantGet } from './models/restaurant-get';
+export { InvitationDetailsGet } from './models/invitation-details-get';
 export { StatusResponse } from './models/status-response';
 export { OrderGet } from './models/order-get';
 export { SubscribeOrdersMessage } from './models/subscribe-orders-message';

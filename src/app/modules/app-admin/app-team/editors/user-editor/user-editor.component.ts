@@ -8,7 +8,7 @@ import { Role } from 'app/common/translators';
 import { EMPTY, Subject, catchError, takeUntil, tap } from 'rxjs';
 import { EditorService } from '../editor.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MessageDialogComponent } from 'app/common/dialogs/message-dialogs/message-dialog/message-dialog.component';
+import { MessageDialogComponent } from 'app/common/dialogs/message-dialog/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-user-editor',

@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { InvitationDetailsGet } from '../models/invitation-details-get';
 import { InvitationGet } from '../models/invitation-get';
 
 @Injectable({
@@ -65,6 +66,52 @@ export class InvitationControllerService extends BaseService {
 
     return this.getInvitations$Response(params).pipe(
       map((r: StrictHttpResponse<Array<InvitationGet>>) => r.body as Array<InvitationGet>)
+    );
+  }
+
+  /**
+   * Path part for operation getInvitation
+   */
+  static readonly GetInvitationPath = '/api/public/v1/invitations/{secret}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getInvitation()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getInvitation$Response(params: {
+    secret: string;
+  }): Observable<StrictHttpResponse<InvitationDetailsGet>> {
+
+    const rb = new RequestBuilder(this.rootUrl, InvitationControllerService.GetInvitationPath, 'get');
+    if (params) {
+      rb.path('secret', params.secret, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<InvitationDetailsGet>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getInvitation$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getInvitation(params: {
+    secret: string;
+  }): Observable<InvitationDetailsGet> {
+
+    return this.getInvitation$Response(params).pipe(
+      map((r: StrictHttpResponse<InvitationDetailsGet>) => r.body as InvitationDetailsGet)
     );
   }
 

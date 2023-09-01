@@ -1,0 +1,9 @@
+<div *ngIf="invitation">
+    <h1 i18n>Create new account</h1>
+
+    <div id="logo-box">
+        <img *ngIf="invitation.logo" [src]="accountService.getMultimediaUrl(invitation.logo.ref)"/>
+
+        <p class="invitation-text" i18n>You have an invitation from <b>"{{ invitation.restaurantName }}"</b> to join their team! Please create new account or login to the existing one to proceed.</p>
+    </div>
+</div>

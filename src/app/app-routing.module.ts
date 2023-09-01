@@ -18,6 +18,10 @@ const routes: Routes = [
   { 
     path: 'admin',
     loadChildren: () => import('./modules/app-admin/app-admin.module').then(m => m.AppAdminModule),
+  },
+  { 
+    path: 'registration',
+    loadChildren: () => import('./modules/app-registration/app-registration.module').then(m => m.AppRegistrationModule),
   }
 ];
 
