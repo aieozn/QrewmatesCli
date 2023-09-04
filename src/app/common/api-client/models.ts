@@ -39,12 +39,12 @@ export { MenuItemGroupAggregateData } from './models/menu-item-group-aggregate-d
 export { MenuCategoryData } from './models/menu-category-data';
 export { MenuCategoryGet } from './models/menu-category-get';
 export { AllergenData } from './models/allergen-data';
+export { LoginResponse } from './models/login-response';
+export { UserRestaurant } from './models/user-restaurant';
 export { CreateUserData } from './models/create-user-data';
 export { InvitationGet } from './models/invitation-get';
 export { DoOrderData } from './models/do-order-data';
 export { SocialAccountLoginRequest } from './models/social-account-login-request';
-export { LoginResponse } from './models/login-response';
-export { UserRestaurant } from './models/user-restaurant';
 export { LocalAccountLoginRequest } from './models/local-account-login-request';
 export { StatisticsMonthlySalesGetParams } from './models/statistics-monthly-sales-get-params';
 export { StatisticsMonthlySalesGet } from './models/statistics-monthly-sales-get';

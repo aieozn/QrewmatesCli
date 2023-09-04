@@ -1,0 +1,21 @@
+<!-- TODO make it pretty -->
+<div id="invitations">
+    <h1 i18n>New invitation</h1>
+
+    <div id="invitation" *ngIf="invitation" class="box-shadow box-radius">
+        <div id="logo-box">
+            <img *ngIf="invitation.invitation.logo" [src]="accountService.getRestaurantMultimedia(invitation.invitation.restaurantRef, invitation.invitation.logo.ref)"/>
+            <div class="details">
+                <p i18n>Invitation from: {{invitation.invitation.restaurantName}}</p>
+                <p i18n>Role: {{translator.translateRole(invitation.invitation.role) }}</p>
+                <p i18n>Date: {{ invitation.invitation.issued | date:'dd.MM.YY' }}</p>
+            </div>
+        </div>
+
+        <div id="buttons">
+            <div id="accept" class="button clickable" (click)="accept(invitation)" i18n>Accept</div>
+            <div id="reject" class="button clickable" (click)="reject(invitation)" i18n>Reject</div>
+        </div>
+        
+    </div>
+</div>

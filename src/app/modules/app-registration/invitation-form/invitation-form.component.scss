@@ -1,0 +1,40 @@
+#invitations {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logo-box {
+    padding: 20px;
+    display: flex;
+}
+
+#invitation img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+.details {
+    margin-left: 30px;
+}
+
+#buttons {
+    display: flex;
+}
+
+.button {
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+}
+
+#accept {
+    background-color: #38A583;
+}
+
+#reject {
+    background-color: #E73A2F;
+}

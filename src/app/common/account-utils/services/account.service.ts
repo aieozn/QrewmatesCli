@@ -2,7 +2,7 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { LoginResponse, RestaurantDetailsGet, RestaurantGet } from '../../api-client/models';
+import { LoginResponse, RestaurantDetailsGet, RestaurantGet, UserRestaurant } from '../../api-client/models';
 import { LoginControllerService, RestaurantControllerService } from '../../api-client/services';
 import { ActiveUser } from '../model/active-user.interface';
 
@@ -57,6 +57,10 @@ export class AccountService {
     return this.getMultimediaImplementation(this.getRestaurantRef(), ref);
   }
 
+  getRestaurantMultimedia(restaurantRef: string, ref: string) {
+    return this.getMultimediaImplementation(restaurantRef, ref);
+  }
+
   getTableRef() : string {
     const pathParts = window.location.pathname.substring(1).split("/");
 
@@ -86,6 +90,17 @@ export class AccountService {
       }
     }).pipe(
       tap(e => this.onLoginSuccess(e))
+    );
+  }
+
+  loginAndRedirectToInvitation(email: string, password: string, secret: string) : Observable<LoginResponse> {
+    return this.loginController.localLogin({
+      body: {
+        email: email,
+        password: password
+      }
+    }).pipe(
+      tap(e => this.goToInvitation(e, secret))
     );
   }
 
@@ -174,19 +189,44 @@ export class AccountService {
       this.redirectBasedOnPrivilages(loginResponse, loginResponse.restaurants[0].ref)
     } else {
       this.setStorageUser(loginResponse, undefined)
-      this.router.navigate(['login', 'select-organization']);
+      this.navigateToSelectOrganization()
     }
   }
 
-  private redirectBasedOnPrivilages(loginResponse: LoginResponse, restaurantRef: string) {
-    const restaurantRole = loginResponse.restaurants.filter(e => e.ref === restaurantRef)[0].role;
+  goToInvitation(loginResponse: LoginResponse, secret: string) {
+    this.setStorageUser(loginResponse, loginResponse.restaurants[0].ref);
+    this.router.navigate(['/registration/invitation', secret]);
+  }
 
-    if (['OWNER', 'ADMIN'].includes(restaurantRole)) {
+  private redirectBasedOnPrivilages(loginResponse: LoginResponse, restaurantRef: string) {
+    const restaurantRole = loginResponse.restaurants.filter(e => e.ref === restaurantRef)[0];
+    this.redirectByRole(restaurantRole);
+  }
+
+  private redirectByRole(restaurant: UserRestaurant) {
+    this.getActiveUserOrLogin().activeRestaurant = restaurant.ref;
+
+    if (['OWNER', 'ADMIN'].includes(restaurant.role)) {
       this.router.navigate(['admin']);
-    } else if (restaurantRole === 'STAFF') {
+    } else if (restaurant.role === 'STAFF') {
       this.router.navigate(['staff']);
     } else {
       throw 'Unkwnown privilages'
     }
+  }
+
+  public redirectToMainPage() {
+    const user = this.getActiveUserOrLogin();
+
+    if (user.restaurants.length > 1 || user.restaurants.length == 0) {
+      this.navigateToSelectOrganization()
+    } else {
+      const restaurantRole = user.restaurants[0];
+      this.redirectByRole(restaurantRole);
+    }
+  }
+
+  private navigateToSelectOrganization() {
+    this.router.navigate(['login', 'select-organization']);
   }
 }

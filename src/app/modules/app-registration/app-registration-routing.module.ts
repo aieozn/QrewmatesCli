@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { InvitationFormComponent } from './invitation-form/invitation-form.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'not-found',
     component: NotFoundComponent
+  },
+  {
+    path: 'invitation/:secret',
+    component: InvitationFormComponent
   }
 ];
 

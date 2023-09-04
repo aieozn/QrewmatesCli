@@ -27,6 +27,15 @@ export class Translators {
             case 'SERVED': return $localize`Served`
         }
     }
+
+    public static translateRole(method: Role) {
+        switch(method) {
+            case 'ROOT': return $localize`Root`
+            case 'OWNER': return $localize`Owner`
+            case 'ADMIN': return $localize`Admin`
+            case 'STAFF': return $localize`Staff`
+        }
+    }
 }
 
 export type OrderStatus = 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED';

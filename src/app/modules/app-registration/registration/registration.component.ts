@@ -15,6 +15,9 @@ export class RegistrationComponent implements OnDestroy {
   private readonly onDestroy = new Subject<void>();
   invitation: InvitationDetailsGet | undefined;
 
+  password = '';
+  email = '';
+
   constructor(
     private invitationService: InvitationControllerService,
     route: ActivatedRoute,
@@ -50,5 +53,9 @@ export class RegistrationComponent implements OnDestroy {
 
   onNotFound() {
     this.router.navigate(['/registration/not-found'])
+  }
+
+  register() {
+
   }
 }

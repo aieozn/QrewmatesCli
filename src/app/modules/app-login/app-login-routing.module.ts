@@ -4,13 +4,17 @@ import { SelectOrganizationComponent } from './layout/select-organization/select
 import { LoginPageComponent } from './login-page.component';
 
 const routes: Routes = [
-  { 
-    path: '',
-    component: LoginPageComponent
-  },
   {
     path: 'select-organization',
     component: SelectOrganizationComponent
+  },
+  { 
+    path: ':secret',
+    component: LoginPageComponent
+  },
+  { 
+    path: '',
+    component: LoginPageComponent
   }
 ];
 

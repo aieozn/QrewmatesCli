@@ -1,17 +1,49 @@
-h1 {
-    text-align: center;
-}
-
-#logo-box {
-    text-align: center;
-}
-
-p b {
-    font-family: PoppinsBold;
-}
-
-.invitation-text {
+#choose-method {
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 50px;
+    padding: 30px;
+}
+
+.create-account-option {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #38A583;
+    color: #38A583;
+    font-size: 18px;
+    line-height: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.create-account-option:hover {
+    background-color: #38A583;
+    color: white;
+}
+
+#google-login-button {
+    margin-top: 10px;
+}
+
+mat-form-field.register-field {
+    width: 100%;
+    margin: 0px;
+}
+
+#login-button {
+    margin-top: 30px;
+}
+
+#login-input, #password-input {
+    width: calc(100% - 20px);
+    font-family: Poppins;
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid #38A583;
+    border-radius: 10px;
+}
+
+#password-input {
+    margin-top: 10px;
 }

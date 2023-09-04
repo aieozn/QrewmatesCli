@@ -1,7 +1,26 @@
+h1 {
+    text-align: center;
+}
+
+#logo-box {
+    text-align: center;
+}
+
+p b {
+    font-family: PoppinsBold;
+}
+
+.invitation-text {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 #login-box, #already-logged {
     width: 400px;
     margin-left: calc(50% - 200px);
-    margin-top: 200px;
+    margin-top: 30px;
     text-align: center;
 }
 
@@ -22,7 +41,7 @@
     margin-top: 20px;
 }
 
-#login-button {
+#login-button, #register-button {
     margin-top: 20px;
     margin-bottom: 20px;
     background-color: #38A583;

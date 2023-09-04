@@ -18,11 +18,11 @@ import { MenuItemSelectCollectionControllerService } from './services/menu-item-
 import { MenuItemGroupControllerService } from './services/menu-item-group-controller.service';
 import { MenuCategoryControllerService } from './services/menu-category-controller.service';
 import { AllergenControllerService } from './services/allergen-controller.service';
+import { InvitationControllerService } from './services/invitation-controller.service';
 import { MultimediaControllerService } from './services/multimedia-controller.service';
 import { LoginControllerService } from './services/login-controller.service';
 import { StatisticsControllerService } from './services/statistics-controller.service';
 import { QrCodeConfigControllerService } from './services/qr-code-config-controller.service';
-import { InvitationControllerService } from './services/invitation-controller.service';
 import { RestaurantStylesControllerService } from './services/restaurant-styles-controller.service';
 
 /**
@@ -47,11 +47,11 @@ import { RestaurantStylesControllerService } from './services/restaurant-styles-
     MenuItemGroupControllerService,
     MenuCategoryControllerService,
     AllergenControllerService,
+    InvitationControllerService,
     MultimediaControllerService,
     LoginControllerService,
     StatisticsControllerService,
     QrCodeConfigControllerService,
-    InvitationControllerService,
     RestaurantStylesControllerService,
     ApiConfiguration
   ],

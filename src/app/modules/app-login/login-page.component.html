@@ -1,3 +1,15 @@
+<!-- TODO make it look great -->
+<div *ngIf="invitation">
+    <h1 i18n>Create new account</h1>
+
+    <div id="logo-box">
+        <img *ngIf="invitation.invitation.logo" [src]="accountService.getRestaurantMultimedia(invitation.invitation.restaurantRef, invitation.invitation.logo.ref)"/>
+
+        <p class="invitation-text" i18n>You have an invitation from <b>"{{ invitation.invitation.restaurantName }}"</b> to join their team! Please create new account or login to the existing one to proceed.</p>
+    </div>
+</div>
+
+
 <div id="login-box" class="box-shadow" *ngIf="!isLogged">
     <div class="box-content">
         <h1 i18n>Login</h1>
@@ -5,6 +17,7 @@
         <input [(ngModel)]="email" (keyup.enter)="login()" autocomplete="off" id="login-input" i18n-placeholder placeholder="Email">
         <input [(ngModel)]="password" (keyup.enter)="login()" type="password" autocomplete="off" id="password-input" i18n-placeholder placeholder="Password">
         <div id="login-button" i18n (click)="login()" class="clickable">Login</div>
+        <div id="register-button" i18n [routerLink]="['/registration/register/', invitation.secret]" class="clickable" *ngIf="invitation">Create new account</div>
         <asl-google-signin-button id="google-login-button" type="standard" width="360"></asl-google-signin-button>
 
         <!-- TODO this message shold be hidden after any form action -->

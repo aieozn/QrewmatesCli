@@ -1,9 +1,23 @@
+<!-- TODO make it look great -->
+
 <div *ngIf="invitation">
     <h1 i18n>Create new account</h1>
 
     <div id="logo-box">
-        <img *ngIf="invitation.logo" [src]="accountService.getMultimediaUrl(invitation.logo.ref)"/>
+        <img *ngIf="invitation.logo" [src]="accountService.getRestaurantMultimedia(invitation.restaurantRef, invitation.logo.ref)"/>
 
         <p class="invitation-text" i18n>You have an invitation from <b>"{{ invitation.restaurantName }}"</b> to join their team! Please create new account or login to the existing one to proceed.</p>
     </div>
+</div>
+
+
+<div id="choose-method" class="box-radius box-shadow">
+    <div id="account-details-form">
+
+        <input [(ngModel)]="email" (keyup.enter)="register()" autocomplete="off" id="login-input" i18n-placeholder placeholder="Email">
+        <input [(ngModel)]="password" (keyup.enter)="register()" type="password" autocomplete="off" id="password-input" i18n-placeholder placeholder="Password">
+    </div>
+
+    <div class="create-account-option box-radius clickable" i18n>Create new account</div>
+    <div class="create-account-option box-radius clickable" i18n [routerLink]="['/login']" id="login-button">Login to existing account</div>
 </div>

@@ -8,5 +8,6 @@ export interface InvitationDetailsGet {
   logo?: MultimediaGet;
   ref: string;
   restaurantName: string;
+  restaurantRef: string;
   role: 'ROOT' | 'OWNER' | 'ADMIN' | 'STAFF';
 }
