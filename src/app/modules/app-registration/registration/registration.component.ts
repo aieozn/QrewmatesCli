@@ -108,7 +108,9 @@ export class RegistrationComponent implements OnDestroy {
           return EMPTY;
         })
       ).subscribe();
-    };
+    } else {
+      Object.values(this.fields).forEach(f => f.markAllAsTouched())
+    }
   }
 
   restart() {

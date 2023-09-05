@@ -6,7 +6,7 @@
     <div id="account-details-form">
 
         <form class="login-form">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width" id="username-form">
                 <mat-label i18n>Username</mat-label>
                 <input [formControl]="fields.username" matInput placeholder="Email">
 
@@ -15,7 +15,7 @@
                 <mat-error *ngIf="fields.username.hasError('maxlength')" i18n>Username too long</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width" id="email-form">
                 <mat-label i18n>Email</mat-label>
                 <input [formControl]="fields.email" matInput placeholder="Email" (change)="this.conflict = false">
 
@@ -25,7 +25,7 @@
                 <mat-error *ngIf="fields.email.hasError('conflict')" i18n>User already exist</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width" id="password-form">
                 <mat-label i18n>Password</mat-label>
                 <input [formControl]="fields.password" type="password" matInput placeholder="Password">
 
@@ -36,16 +36,16 @@
           </form>
     </div>
 
-    <div class="create-account-option box-radius clickable" i18n (click)="register()">Create new account</div>
+    <div id="create-account-button" class="create-account-option box-radius clickable" i18n (click)="register()">Create new account</div>
     <div class="create-account-option box-radius clickable" i18n [routerLink]="['/login', invitation.secret]" id="login-button">Login to existing account</div>
 </div>
 
 <div class="loading" *ngIf="status !== 'PREPARING'">
     <mat-spinner *ngIf="status === 'LOADING'"></mat-spinner>
-    <p *ngIf="status === 'ACTIVE'" i18n>Welcome Aboard! Your account has been successfully created.</p>
-    <p *ngIf="status === 'CONFIRM'" i18n>Welcome Aboard! Your account has been successfully created. A verification email is on its way to your inbox. Please follow the instructions therein to complete your registration.</p>
+    <p *ngIf="status === 'ACTIVE'" class="welcome-message" i18n>Welcome Aboard! Your account has been successfully created.</p>
+    <p *ngIf="status === 'CONFIRM'" class="welcome-message" i18n>Welcome Aboard! Your account has been successfully created. A verification email is on its way to your inbox. Please follow the instructions therein to complete your registration.</p>
 
-    <div *ngIf="status === 'ACTIVE' || status == 'CONFIRM'" class="create-account-option box-radius clickable" [routerLink]="['/login']" i18n>Go to login page</div>
+    <div *ngIf="status === 'ACTIVE' || status == 'CONFIRM'" class="create-account-option box-radius clickable" id="navigate-login" [routerLink]="['/login']" i18n>Go to login page</div>
 </div>
 
 <div class="loading" *ngIf="status === 'ERROR'">

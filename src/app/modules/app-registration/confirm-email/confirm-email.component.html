@@ -1,8 +1,9 @@
 <!-- TODO make it look great -->
-<div id="loading" *ngIf="status !== 'PREPARING'">
+<div id="loading">
     <mat-spinner *ngIf="status === 'LOADING'"></mat-spinner>
-    <p *ngIf="status === 'ACTIVE'" i18n>Welcome Aboard! Your account has been successfully created.</p>
-    <p *ngIf="status === 'ERROR'" i18n>Something went wrong.</p>
+    <p *ngIf="status === 'LOADING'" class="welcome-message" i18n>Email confirmation is in progress</p>
+    <p *ngIf="status === 'ACTIVE'" class="welcome-message" i18n>Welcome Aboard! Your account has been successfully created.</p>
+    <p *ngIf="status === 'ERROR'" class="welcome-message" i18n>Something went wrong.</p>
 
-    <div *ngIf="status === 'ACTIVE'" class="create-account-option box-radius clickable" [routerLink]="['/login']" i18n>Go to login page</div>
+    <div *ngIf="status === 'ACTIVE'" class="create-account-option box-radius clickable" [routerLink]="['/login']" id="navigate-login" i18n>Go to login page</div>
 </div>
