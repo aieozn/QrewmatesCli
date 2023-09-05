@@ -57,8 +57,6 @@ export class EditorToppingPriceComponent implements OnDestroy {
   private updatePrice() {
     const topping = this.editToppingService.getToppingData();
     this.submitErrors()
-
-    console.log(topping.price)
     
     if (this.priceField.valid) {
       if (topping.price?.toString() != this.priceField.value) {

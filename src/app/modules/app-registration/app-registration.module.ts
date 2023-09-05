@@ -5,7 +5,7 @@ import { AppRegistrationRoutingModule } from './app-registration-routing.module'
 import { RegistrationComponent } from './registration/registration.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InvitationFormComponent } from './invitation-form/invitation-form.component';
 
@@ -21,7 +21,8 @@ import { InvitationFormComponent } from './invitation-form/invitation-form.compo
     AppRegistrationRoutingModule,
     MatInputModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ReactiveFormsModule
   ]
 })
 export class AppRegistrationModule { }

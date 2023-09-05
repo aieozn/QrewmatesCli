@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { InvitationDetailsGet } from '@common/api-client/models';
@@ -13,10 +14,17 @@ import { EMPTY, Subject, catchError, takeUntil, tap } from 'rxjs';
 export class RegistrationComponent implements OnDestroy {
 
   private readonly onDestroy = new Subject<void>();
-  invitation: InvitationDetailsGet | undefined;
+  invitation: {
+    secret: string,
+    invitation: InvitationDetailsGet
+  } | undefined;
 
-  password = '';
-  email = '';
+  fields = {
+    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]),
+  };
+
 
   constructor(
     private invitationService: InvitationControllerService,
@@ -36,9 +44,10 @@ export class RegistrationComponent implements OnDestroy {
 
   load(secret: string) {
     this.invitationService.getInvitation({secret}).pipe(
-      tap(i => {
-        console.log(i)
-        this.invitation = i}),
+      tap(i => this.invitation = {
+        secret: secret,
+        invitation: i
+      }),
       catchError(_ => { 
         this.onNotFound();
         return EMPTY;
@@ -56,6 +65,8 @@ export class RegistrationComponent implements OnDestroy {
   }
 
   register() {
-
+    if (!Object.values(this.fields).map(e => e.invalid).includes(true)) {
+      
+    };
   }
 }

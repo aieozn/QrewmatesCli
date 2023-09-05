@@ -1,6 +1,6 @@
 <!-- TODO make it look great -->
 <div *ngIf="invitation">
-    <h1 i18n>Create new account</h1>
+    <h1 i18n>Login to join your team!</h1>
 
     <div id="logo-box">
         <img *ngIf="invitation.invitation.logo" [src]="accountService.getRestaurantMultimedia(invitation.invitation.restaurantRef, invitation.invitation.logo.ref)"/>

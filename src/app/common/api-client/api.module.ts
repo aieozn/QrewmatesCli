@@ -19,8 +19,8 @@ import { MenuItemGroupControllerService } from './services/menu-item-group-contr
 import { MenuCategoryControllerService } from './services/menu-category-controller.service';
 import { AllergenControllerService } from './services/allergen-controller.service';
 import { InvitationControllerService } from './services/invitation-controller.service';
-import { MultimediaControllerService } from './services/multimedia-controller.service';
 import { LoginControllerService } from './services/login-controller.service';
+import { MultimediaControllerService } from './services/multimedia-controller.service';
 import { StatisticsControllerService } from './services/statistics-controller.service';
 import { QrCodeConfigControllerService } from './services/qr-code-config-controller.service';
 import { RestaurantStylesControllerService } from './services/restaurant-styles-controller.service';
@@ -48,8 +48,8 @@ import { RestaurantStylesControllerService } from './services/restaurant-styles-
     MenuCategoryControllerService,
     AllergenControllerService,
     InvitationControllerService,
-    MultimediaControllerService,
     LoginControllerService,
+    MultimediaControllerService,
     StatisticsControllerService,
     QrCodeConfigControllerService,
     RestaurantStylesControllerService,
