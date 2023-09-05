@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { InvitationFormComponent } from './invitation-form/invitation-form.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'invitation/:secret',
     component: InvitationFormComponent
+  },
+  {
+    path: 'confirm/:secret',
+    component: ConfirmEmailComponent
   }
 ];
 

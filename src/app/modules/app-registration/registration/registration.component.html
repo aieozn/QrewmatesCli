@@ -17,11 +17,12 @@
 
             <mat-form-field class="example-full-width">
                 <mat-label i18n>Email</mat-label>
-                <input [formControl]="fields.email" matInput placeholder="Email">
+                <input [formControl]="fields.email" matInput placeholder="Email" (change)="this.conflict = false">
 
                 <mat-error *ngIf="fields.email.hasError('required')" i18n>Email is required</mat-error>
                 <mat-error *ngIf="fields.email.hasError('email')" i18n>Invalid email address</mat-error>
                 <mat-error *ngIf="fields.email.hasError('maxlength')" i18n>Email too long</mat-error>
+                <mat-error *ngIf="fields.email.hasError('conflict')" i18n>User already exist</mat-error>
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
@@ -39,10 +40,16 @@
     <div class="create-account-option box-radius clickable" i18n [routerLink]="['/login', invitation.secret]" id="login-button">Login to existing account</div>
 </div>
 
-<div id="loading" *ngIf="status !== 'PREPARING'">
+<div class="loading" *ngIf="status !== 'PREPARING'">
     <mat-spinner *ngIf="status === 'LOADING'"></mat-spinner>
     <p *ngIf="status === 'ACTIVE'" i18n>Welcome Aboard! Your account has been successfully created.</p>
     <p *ngIf="status === 'CONFIRM'" i18n>Welcome Aboard! Your account has been successfully created. A verification email is on its way to your inbox. Please follow the instructions therein to complete your registration.</p>
 
     <div *ngIf="status === 'ACTIVE' || status == 'CONFIRM'" class="create-account-option box-radius clickable" [routerLink]="['/login']" i18n>Go to login page</div>
+</div>
+
+<div class="loading" *ngIf="status === 'ERROR'">
+    <p i18n>Something went wrong</p>
+
+    <div class="create-account-option box-radius clickable" (click)="restart()" i18n>Go back</div>
 </div>

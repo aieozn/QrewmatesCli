@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { InvitationDetailsGet } from '@common/api-client/models';
@@ -21,12 +21,13 @@ export class RegistrationComponent implements OnDestroy {
   } | undefined;
 
   fields = {
-    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]),
+    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255), this.conflictValidator()]),
     username: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]),
     password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]),
   };
 
-  status : 'PREPARING' | 'LOADING' | 'ACTIVE' | 'CONFIRM' = 'PREPARING';
+  status : 'PREPARING' | 'LOADING' | 'ACTIVE' | 'CONFIRM' | 'ERROR' = 'PREPARING';
+  conflict = false;
 
 
   constructor(
@@ -44,6 +45,15 @@ export class RegistrationComponent implements OnDestroy {
       }),
       takeUntil(this.onDestroy)
     ).subscribe();
+  }
+
+  conflictValidator(): ValidatorFn {
+    return (): { [key: string]: any } | null => {
+      if (this.conflict) {
+        return { 'conflict': true };
+      }
+      return null;
+    };
   }
 
   load(secret: string) {
@@ -87,8 +97,22 @@ export class RegistrationComponent implements OnDestroy {
           } else {
             this.status = 'CONFIRM';
           }
+        }),
+        catchError((e, _) => {
+          if (e.status === 409) {
+            this.conflict = true;
+            this.status = 'PREPARING';
+          } else {
+            this.status = 'ERROR';
+          }
+          return EMPTY;
         })
       ).subscribe();
     };
+  }
+
+  restart() {
+    this.status = 'PREPARING';
+    Object.values(this.fields).forEach(e => e.setValue(''))
   }
 }

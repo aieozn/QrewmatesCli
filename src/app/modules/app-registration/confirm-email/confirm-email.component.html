@@ -1,1 +1,8 @@
-<p>confirm-email works!</p>
+<!-- TODO make it look great -->
+<div id="loading" *ngIf="status !== 'PREPARING'">
+    <mat-spinner *ngIf="status === 'LOADING'"></mat-spinner>
+    <p *ngIf="status === 'ACTIVE'" i18n>Welcome Aboard! Your account has been successfully created.</p>
+    <p *ngIf="status === 'ERROR'" i18n>Something went wrong.</p>
+
+    <div *ngIf="status === 'ACTIVE'" class="create-account-option box-radius clickable" [routerLink]="['/login']" i18n>Go to login page</div>
+</div>

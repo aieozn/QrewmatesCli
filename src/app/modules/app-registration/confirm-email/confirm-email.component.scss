@@ -1,0 +1,28 @@
+#loading {
+    max-width: 500px;
+    margin-top: 50px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loading mat-spinner{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.create-account-option {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #38A583;
+    color: #38A583;
+    font-size: 18px;
+    line-height: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.create-account-option:hover {
+    background-color: #38A583;
+    color: white;
+}
