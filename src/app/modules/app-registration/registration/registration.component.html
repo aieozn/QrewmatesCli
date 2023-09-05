@@ -2,13 +2,13 @@
 
 <h1>Register</h1>
 
-<div id="choose-method" class="box-radius box-shadow" *ngIf="invitation">
+<div id="choose-method" class="box-radius box-shadow" *ngIf="invitation && status === 'PREPARING'">
     <div id="account-details-form">
 
         <form class="login-form">
             <mat-form-field class="example-full-width">
                 <mat-label i18n>Username</mat-label>
-                <input [formControl]="fields.email" matInput placeholder="Email">
+                <input [formControl]="fields.username" matInput placeholder="Email">
 
                 <mat-error *ngIf="fields.username.hasError('required')" i18n>Username is required</mat-error>
                 <mat-error *ngIf="fields.username.hasError('minlength')" i18n>Username too short</mat-error>
@@ -33,11 +33,16 @@
                 <mat-error *ngIf="fields.password.hasError('maxlength')" i18n>Password too long</mat-error>
             </mat-form-field>
           </form>
-<!-- 
-        <input [(ngModel)]="fields.email" (keyup.enter)="register()" autocomplete="off" id="login-input" i18n-placeholder placeholder="Email">
-        <input [(ngModel)]="fields.password" (keyup.enter)="register()" type="password" autocomplete="off" id="password-input" i18n-placeholder placeholder="Password"> -->
     </div>
 
-    <div class="create-account-option box-radius clickable" i18n>Create new account</div>
+    <div class="create-account-option box-radius clickable" i18n (click)="register()">Create new account</div>
     <div class="create-account-option box-radius clickable" i18n [routerLink]="['/login', invitation.secret]" id="login-button">Login to existing account</div>
+</div>
+
+<div id="loading" *ngIf="status !== 'PREPARING'">
+    <mat-spinner *ngIf="status === 'LOADING'"></mat-spinner>
+    <p *ngIf="status === 'ACTIVE'" i18n>Welcome Aboard! Your account has been successfully created.</p>
+    <p *ngIf="status === 'CONFIRM'" i18n>Welcome Aboard! Your account has been successfully created. A verification email is on its way to your inbox. Please follow the instructions therein to complete your registration.</p>
+
+    <div *ngIf="status === 'ACTIVE' || status == 'CONFIRM'" class="create-account-option box-radius clickable" [routerLink]="['/login']" i18n>Go to login page</div>
 </div>

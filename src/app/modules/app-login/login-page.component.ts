@@ -34,13 +34,13 @@ export class LoginPageComponent implements OnDestroy {
     this.isLogged = accountService.isLoggedIn();
 
     this.authService.authState.pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe({
-      error: () => {
-        // TODO show error message that matches reason
-        this.showErrorMessage = true;
-      }
-    });
+      tap(e => this.accountService.loginAs(e, this.invitation?.secret)),
+      catchError(_ => {
+        this.showErrorMessage = true
+        return EMPTY;
+      }),
+      takeUntil(this.onDestroy),
+    ).subscribe();
 
     route.params.pipe(
       tap(params => {

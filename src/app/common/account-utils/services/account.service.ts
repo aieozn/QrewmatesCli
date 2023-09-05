@@ -71,15 +71,16 @@ export class AccountService {
     }
   }
 
-  loginAs(user: SocialUser) {
+  loginAs(user: SocialUser, secret: string | undefined) {
     return this.loginController.socialLogin({
       body: {
         provider: 'GOOGLE',
-        token: user.idToken
+        token: user.idToken,
+        secret: secret
       }
     }).pipe(
       tap(e => this.onLoginSuccess(e)),
-    );
+    ).subscribe();
   }
 
   login(email: string, password: string) : Observable<LoginResponse> {

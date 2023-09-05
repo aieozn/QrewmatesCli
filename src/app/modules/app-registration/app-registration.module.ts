@@ -8,13 +8,16 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InvitationFormComponent } from './invitation-form/invitation-form.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 
 
 @NgModule({
   declarations: [
     RegistrationComponent,
     NotFoundComponent,
-    InvitationFormComponent
+    InvitationFormComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +25,8 @@ import { InvitationFormComponent } from './invitation-form/invitation-form.compo
     MatInputModule,
     FormsModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AppRegistrationModule { }
