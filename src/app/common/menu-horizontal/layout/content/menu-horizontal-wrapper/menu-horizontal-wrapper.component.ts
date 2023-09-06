@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, ElementRef, OnDestroy, QueryList, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, Input, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { MenuHorizontalElement } from '../../../model/menu-horizontal-element';
 import { MenuEventsService } from '../../../service/menu-event/menu-events.service';
@@ -12,7 +12,12 @@ import { MenuHorizontalElementWrapperComponent } from '../menu-horizontal-elemen
 })
 export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy {
 
-  @ViewChild('scrollWrapper') scrollWrapper!: ElementRef;
+  private scrollWrapper: HTMLElement | undefined;
+
+  @Input('scrollReference') set setScrollReference(value: HTMLElement) {
+    this.scrollWrapper = value;
+    this.reloadElements();
+  }
 
   // TODO tests
 
@@ -39,17 +44,19 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
           // After resize there are many events from different components informing about the same event
           // use debounce time to refresh only once
           debounceTime(50)).subscribe(this.calcElementsSizes.bind(this));
+
+    console.log(this.scrollWrapper)
+    this.renderer.listen(this.scrollWrapper, 'scroll', _ => this.onScroll())
   }
 
-  constructor(private menuEventsService: MenuEventsService) {
+  constructor(private menuEventsService: MenuEventsService, private renderer: Renderer2) {
     this.menuEventsService.elementSelected
       .pipe(takeUntil(this.onDestroy)).subscribe(this.onElementChanged.bind(this))
   }
 
   onScroll() {
-
-    const target = this.scrollWrapper.nativeElement;
-    const scrollTop = target.scrollTop;
+    if (!this.scrollWrapper) { throw 'Scroll wrapper not defined'; }
+    const scrollTop = this.scrollWrapper.scrollTop;
 
     if (this.elementToScrollPosition.length > 0) {
       let last = this.elementToScrollPosition[0];
@@ -76,12 +83,14 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   }
 
   private onElementChanged(event: ChangeElementEvent) {
+    if (!this.scrollWrapper) { throw 'Scroll wrapper not defined'; }
+
     const element = this.elementsRefs!.get(event.element.order);
     if (element) {
       const elementTopOffset = this.getElementScrollTopPosition(event);
 
       // Scroll to position which is inside element div
-      this.scrollWrapper.nativeElement.scrollTo({ top: elementTopOffset });
+      this.scrollWrapper.scrollTo({ top: elementTopOffset });
     }
   }
 
@@ -96,7 +105,7 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   }
 
   private reloadElements() {
-    if (!this.elementsRefs) { throw 'Elements not found'; }
+    if (!this.elementsRefs) { return; }
 
     this.elements = [];
     let order = 0;
@@ -191,11 +200,15 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   }
 
   private getScrollWrapperOffsetTop() {
-    return this.scrollWrapper.nativeElement.offsetTop;
+    if (!this.scrollWrapper) { throw 'Scroll wrapper not defined'; }
+
+    return this.scrollWrapper.offsetTop;
   }
 
   private getScrollWrapperScrollHeight() {
-    return this.scrollWrapper.nativeElement.scrollHeight;
+    if (!this.scrollWrapper) { throw 'Scroll wrapper not defined'; }
+
+    return this.scrollWrapper.scrollHeight;
   }
 
   private getElementOffset(element: MenuHorizontalElementWrapperComponent) {
@@ -211,7 +224,9 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   }
 
   private getScrollWrapperHeight() {
-    return this.scrollWrapper.nativeElement.offsetHeight;
+    if (!this.scrollWrapper) { throw 'Scroll wrapper not defined'; }
+
+    return this.scrollWrapper.offsetHeight;
   }
 
   ngOnDestroy(): void {

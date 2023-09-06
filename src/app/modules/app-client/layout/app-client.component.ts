@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { filter, first, map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { OrderService } from '../../../common/restaurant-menu/services/order/order.service';
@@ -14,7 +14,11 @@ import { GenericDialogCliManager } from '../services/generic-dialog-cli-manager/
   templateUrl: './app-client.component.html',
   styleUrls: ['./app-client.component.scss']
 })
-export class AppClientComponent implements OnDestroy {
+export class AppClientComponent implements OnDestroy, AfterViewInit {
+
+  @ViewChild('contentWrapper') contentWrapper: ElementRef | undefined;
+  scrollReference: ElementRef | undefined;
+
   private createdOrderRefCookieName = 'qr-last-order-created-ref';
   private createdOrderLocalCookieName = 'qr-last-order-created-local';
 
@@ -37,7 +41,8 @@ export class AppClientComponent implements OnDestroy {
     private dialogManager: DialogManagerService,
     private accountService: AccountService,
     protected orderService: OrderService,
-    private cookiesService: CookieService
+    private cookiesService: CookieService,
+    private cdRef: ChangeDetectorRef
   ) {
     const restaurantRef = this.accountService.getRestaurantRef();
 
@@ -63,6 +68,11 @@ export class AppClientComponent implements OnDestroy {
     this.loadOrderFromCookies();
     
     this.loadCustomCss(restaurantRef);
+  }
+
+  ngAfterViewInit(): void {
+    this.scrollReference = this.contentWrapper;
+    this.cdRef.detectChanges()
   }
 
   private getCleanOrder(): OrderWrapper {
