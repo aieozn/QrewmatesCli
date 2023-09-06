@@ -1,6 +1,3 @@
-<div #contentWrapper id="content-wrapper">
-
-
 <div id="root-mobile">
     <div id="banner" [style.backgroundImage]="backgroundImageUrl | async" class="main-theme-background-color">
         <div id="restaurant-information">
@@ -14,7 +11,7 @@
 
     <app-menu-horizontal></app-menu-horizontal>
 
-    <app-menu-horizontal-wrapper *ngIf="scrollReference" [scrollReference]="scrollReference.nativeElement">
+    <app-menu-horizontal-wrapper>
         <div id="menu-elements">
             <app-menu-horizontal-element-wrapper *ngFor="let category of categories | async" [name]="category.name" [description]="category.description">
                 <app-menu-category [category]="category"></app-menu-category>
@@ -62,6 +59,4 @@
     <div *ngIf="orderService.orderChanged | async as order">
         <app-order-submit (submit)="submit()" [orderIn]="order"></app-order-submit>
     </div>
-</div>
-
 </div>

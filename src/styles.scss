@@ -63,17 +63,10 @@ $QrewmatesCli-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($QrewmatesCli-theme);
 
-html{ 
-    height: 100%;
-}
-
 /* You can add global styles to this file, and also import other style files */
 body {
     margin: 0px;
     padding: 0px;
-    height: 100%;
-    overflow: auto;
-    display: block;
 }
 
 @font-face {
