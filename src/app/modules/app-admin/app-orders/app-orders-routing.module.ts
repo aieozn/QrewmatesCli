@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminOrdersComponent } from './admin-orders.component';
-import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
+import { EditOrderDialogComponent } from './order-details-dialog/order-details-dialog.component';
 
 const routes: Routes = [
   {

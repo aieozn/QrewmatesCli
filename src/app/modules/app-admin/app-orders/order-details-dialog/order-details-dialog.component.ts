@@ -8,11 +8,11 @@ import { UserAction } from 'app/common/translators';
 import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-edit-order-dialog',
-  templateUrl: './edit-order-dialog.component.html',
-  styleUrls: ['./edit-order-dialog.component.scss']
+  selector: 'app-order-details-dialog',
+  templateUrl: './order-details-dialog.component.html',
+  styleUrls: ['./order-details-dialog.component.scss']
 })
-export class EditOrderDialogComponent implements OnDestroy {
+export class OrderDetailsDialogComponent implements OnDestroy {
 
   private readonly onDestroy = new Subject<void>();
   order: OrderDetailsGet | undefined;
