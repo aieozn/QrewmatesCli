@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OrderDetailsGet, OrderGet } from '@common/api-client/models';
 
 @Component({
   selector: 'app-admin-orders',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-orders.component.scss']
 })
 export class AdminOrdersComponent {
+  orders: OrderGet[] = [];
+  
+  showDetails(data: OrderDetailsGet) {
 
+  }
 }
