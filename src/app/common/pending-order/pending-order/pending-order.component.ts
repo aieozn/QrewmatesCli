@@ -1,8 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { tap } from 'rxjs';
-import { OrderInstanceControllerService } from '@common/api-client/services';
-import { AccountService } from '@common/account-utils/services/account.service';
-import { OrderDetailsGet, OrderGet } from '@common/api-client/models';
+import { Component, Input } from '@angular/core';
+import { OrderGet } from '@common/api-client/models';
 import { UserAction } from 'app/common/translators';
 import { ManageOrderStatusService } from 'app/common/services/manage-order-status/manage-order-status.service';
 
@@ -19,27 +16,9 @@ export class PendingOrderComponent {
     this._order = value;
   }
 
-  // @Output('changeStatus') changeStatus = new EventEmitter<UpdateOrderStatusMessage>();
-  @Output('onDetails') onDetails = new EventEmitter<OrderDetailsGet>();
-
   constructor(
-    private orderInstanceService: OrderInstanceControllerService,
-    private accountService: AccountService,
     private manageOrderStatusService: ManageOrderStatusService
   ) {
-  }
-  
-  edit() {
-    if (!this._order) { throw 'Order not defined'; }
-
-    this.orderInstanceService.getOrder({
-      restaurantRef: this.accountService.getRestaurantRef(),
-      orderInstanceRef: this._order.ref
-    })
-    .pipe(
-      tap(orderDetails => this.onDetails.emit(orderDetails))
-    )
-    .subscribe();
   }
 
   doAction(event: Event, action: UserAction) : boolean {

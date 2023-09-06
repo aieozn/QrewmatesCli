@@ -2,14 +2,23 @@
 <div id="admin-orders">
     <div id="menu-elements">
         <h2>Pending orders</h2>
-        <app-pending-order (onDetails)="showDetails($event)" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
-        </app-pending-order>
+        <div>
+            <app-pending-order [routerLink]="['edit', order.ref]" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
+            </app-pending-order>
+        </div>
 
     
         <h2>Active orders</h2>
-        <app-pending-order *ngFor="let order of orders | orderStatus:'ACCEPTED':'SERVED'" [order]="order">
-        </app-pending-order>
+        <div>
+            <app-pending-order [routerLink]="['edit', order.ref]" *ngFor="let order of orders | orderStatus:'ACCEPTED':'SERVED'" [order]="order">
+            </app-pending-order>
+        </div>
+        
        
         <div class="spacer"></div>
     </div>
 </div>
+
+<app-floating-editor-wrapper style="z-index: 1000;">
+    <router-outlet></router-outlet>
+</app-floating-editor-wrapper>

@@ -20,10 +20,6 @@ export class AdminOrdersComponent implements OnDestroy, OnInit {
   ) {
     
   }
-  
-  showDetails(data: OrderDetailsGet) {
-
-  }
 
   ngOnDestroy(): void {
     this.onDestroy.next();

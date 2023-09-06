@@ -22,7 +22,6 @@ export class OrderDetailsDialogComponent {
 
   closeWithAction(action: UserAction) {
     this.manageOrderStatusService.handleAction(this.data.order.restaurantRef, this.data.order.ref, action);
-
     this.dialogRef.close();
   }
 

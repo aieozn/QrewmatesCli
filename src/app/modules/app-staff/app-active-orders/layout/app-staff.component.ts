@@ -7,6 +7,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { OrderDetailsGet } from '@common/api-client/models';
 import { StuffDiaglogService } from '../services/generic-dialog-stuff-manager/staff-dialog.service';
 import { OrderSocketService } from 'app/common/services/order-subscribe-socket/order-subscribe-socket.service';
+import { OrderInstanceControllerService } from '@common/api-client/services';
 
 @Component({
   selector: 'app-menu-staff',
@@ -28,7 +29,8 @@ export class AppStaffComponent implements OnDestroy {
   constructor(
     private orderSocket: OrderSocketService,
     private accountService: AccountService,
-    private dialogManager: StuffDiaglogService
+    private dialogManager: StuffDiaglogService,
+    private orderInstanceService: OrderInstanceControllerService
   ) {
     this.me = accountService.getActiveUserOrLogin()
   }
@@ -104,7 +106,14 @@ export class AppStaffComponent implements OnDestroy {
     }
   }
 
-  showDetails(data: OrderDetailsGet) {
-    this.dialogManager.openDetails(data).subscribe()
+  showDetails(ref: string) {
+    this.orderInstanceService.getOrder({
+      restaurantRef: this.accountService.getRestaurantRef(),
+      orderInstanceRef: ref
+    })
+    .pipe(
+      tap(orderDetails => this.dialogManager.openDetails(orderDetails).subscribe())
+    )
+    .subscribe();
   }
 }

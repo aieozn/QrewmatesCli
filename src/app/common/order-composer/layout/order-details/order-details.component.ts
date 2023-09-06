@@ -94,6 +94,7 @@ export class OrderDetailsComponent {
   editOrder(ref: string) {
     this.router.navigate(['/staff/edit/', ref]);
     this.onClose.emit();
+    return false;
   }
 
   @Output()

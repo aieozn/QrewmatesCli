@@ -1,4 +1,4 @@
-<div class="pending-order box-shadow box-radius clickable" *ngIf="_order" (click)="edit()" [class.edited-pending-order]="_order.edited">
+<div class="pending-order box-shadow box-radius clickable" *ngIf="_order" [class.edited-pending-order]="_order.edited">
     <div class="order-description">
         <h3>{{ _order.tableName }}</h3>
         <p i18n>View order</p>
