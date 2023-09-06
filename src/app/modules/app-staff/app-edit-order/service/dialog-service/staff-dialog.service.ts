@@ -5,8 +5,8 @@ import { first, Observable } from 'rxjs';
 import { MenuItemGroupGet } from '@common/api-client/models';
 import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { OrderSummaryOutputData } from '@common/order-composer/layout/order-summary/order-summary-output-data';
 import { OrderService } from 'app/common/restaurant-menu/services/order/order.service';
+import { OrderSummaryOutputData } from '@common/order-composer/layout/order-summary/order-summary-output-data';
 import { OrderSummaryComponent } from '@common/order-composer/layout/order-summary/order-summary.component';
 
 

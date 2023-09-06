@@ -18,6 +18,9 @@
       ],
       "@common/order-composer/*": [
         "app/common/order-composer/*"
+      ],
+      "@common/pending-order/*": [
+        "app/common/pending-order/*"
       ]
     },
     "outDir": "./dist/out-tsc",

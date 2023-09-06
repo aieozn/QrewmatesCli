@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AcceptOrderActionDialogType } from '../../services/generic-dialog-stuff-manager/accept-order-aciton-dialog-type';
-import { AcceptOrderActionResult } from '../../services/generic-dialog-stuff-manager/accept-order-action-result';
+import { AcceptOrderActionDialogType } from 'app/common/services/manage-order-status/model/accept-order-aciton-dialog-type';
+import { AcceptOrderActionResult } from 'app/common/services/manage-order-status/model/accept-order-action-result';
 
 @Component({
   selector: 'app-do-order-action-dialog',
