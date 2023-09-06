@@ -2,11 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderGet } from '@common/api-client/models/order-get';
 import { SubscribeOrdersMessage } from '@common/api-client/models/subscribe-orders-message';
-import { OrderSocketService } from '../services/order-subscribe-socket/order-subscribe-socket.service';
 import { ActiveUser } from '@common/account-utils/model/active-user.interface';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { OrderDetailsGet } from '@common/api-client/models';
 import { StuffDiaglogService } from '../services/generic-dialog-stuff-manager/staff-dialog.service';
+import { OrderSocketService } from 'app/common/services/order-subscribe-socket/order-subscribe-socket.service';
 
 @Component({
   selector: 'app-menu-staff',

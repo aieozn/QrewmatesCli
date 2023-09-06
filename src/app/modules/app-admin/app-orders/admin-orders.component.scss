@@ -1,0 +1,35 @@
+h2 {
+    margin-top: 30px;
+    font-size: 30px;
+    font-family: PoppinsBold;
+    line-height: 50px;
+    border-bottom: 1px solid #C3C3C3;
+}
+
+
+#admin-orders {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 100%;
+    overflow: auto;
+}
+
+.spacer {
+    height: 50px;
+}
+
+app-pending-order {
+    width: 100%;
+    display: block;
+}
+
+@media (min-width: 481px) {
+    app-pending-order {
+        width: calc(50% - 10px);
+        display: inline-block;
+    }
+
+    app-pending-order:nth-child(2n + 1) {
+        margin-left: 20px;
+    }
+}

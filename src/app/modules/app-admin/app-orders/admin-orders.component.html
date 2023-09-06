@@ -1,23 +1,15 @@
-<app-menu-horizontal></app-menu-horizontal>
 
-    <app-menu-horizontal-wrapper>
-
+<div id="admin-orders">
     <div id="menu-elements">
-        <app-menu-horizontal-element-wrapper i18n-name name="Pending orders">
-            <app-pending-order (onDetails)="showDetails($event)" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
-            </app-pending-order>
-        </app-menu-horizontal-element-wrapper>
+        <h2>Pending orders</h2>
+        <app-pending-order (onDetails)="showDetails($event)" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
+        </app-pending-order>
 
-        <div class="spacer"></div>
-
-        
-        <app-menu-horizontal-element-wrapper i18n-name name="Active orders">
-            <app-pending-order *ngFor="let order of orders | orderActive" [order]="order">
-            </app-pending-order>
-        </app-menu-horizontal-element-wrapper>
+    
+        <h2>Active orders</h2>
+        <app-pending-order *ngFor="let order of orders | orderStatus:'ACCEPTED':'SERVED'" [order]="order">
+        </app-pending-order>
        
-
-        <!-- To jest potrzebne, pozwala poprawnie działać menu horizontal z elementami float -->
         <div class="spacer"></div>
     </div>
-</app-menu-horizontal-wrapper>
+</div>
