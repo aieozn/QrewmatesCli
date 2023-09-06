@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, HostListener, OnDestroy, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, ElementRef, OnDestroy, QueryList, ViewChild } from '@angular/core';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { MenuHorizontalElement } from '../../../model/menu-horizontal-element';
 import { MenuEventsService } from '../../../service/menu-event/menu-events.service';
@@ -12,50 +12,57 @@ import { MenuHorizontalElementWrapperComponent } from '../menu-horizontal-elemen
 })
 export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy {
 
+  @ViewChild('scrollWrapper') scrollWrapper!: ElementRef;
+
   // TODO tests
 
-  private stickyBarHeight = 60;
   private readonly onDestroy = new Subject<void>();
   @ContentChildren(MenuHorizontalElementWrapperComponent, { descendants: true }) elementsRefs: QueryList<MenuHorizontalElementWrapperComponent> | undefined;
   private elements: MenuHorizontalElement[] = []
 
   private elementToScrollPosition: {
+    // Offset to scroll-wrapper top
     offsetTop: number,
     element: MenuHorizontalElementWrapperComponent,
     order: number
   }[] = [];
+
+  ngAfterViewInit(): void {
+    if (!this.elementsRefs) { throw 'Elements not found'; }
+
+    this.reloadElements();
+    this.elementsRefs.changes.pipe(takeUntil(this.onDestroy)).subscribe(this.reloadElements.bind(this));
+
+    this.menuEventsService.menuResized
+        .pipe(
+          takeUntil(this.onDestroy),
+          // After resize there are many events from different components informing about the same event
+          // use debounce time to refresh only once
+          debounceTime(50)).subscribe(this.calcElementsSizes.bind(this));
+  }
 
   constructor(private menuEventsService: MenuEventsService) {
     this.menuEventsService.elementSelected
       .pipe(takeUntil(this.onDestroy)).subscribe(this.onElementChanged.bind(this))
   }
 
-  @HostListener('window:scroll', ['$event'])
   onScroll() {
-    const position = window.pageYOffset + this.stickyBarHeight;
-    
-    if (this.elementToScrollPosition.length === 1) {
 
-      this.menuEventsService.onElementScrolled({
-        name: this.getElementName(this.elementToScrollPosition[0].element),
-        order: this.elementToScrollPosition[0].order
-      });
-      return;
-    } else if (this.elementToScrollPosition.length > 1) {
-      for (let i  = 1; i < this.elementToScrollPosition.length; i++) {
-        if (this.elementToScrollPosition[i].offsetTop > position) {
-          this.menuEventsService.onElementScrolled({
-            name: this.getElementName(this.elementToScrollPosition[i - 1].element),
-            order: this.elementToScrollPosition[i - 1].order
-          });
-          return;
+    const target = this.scrollWrapper.nativeElement;
+    const scrollTop = target.scrollTop;
+
+    if (this.elementToScrollPosition.length > 0) {
+      let last = this.elementToScrollPosition[0];
+
+      for (const element of this.elementToScrollPosition) {
+        if (element.offsetTop <= scrollTop) {
+          last = element;
         }
       }
 
-      const lastId = this.elementToScrollPosition.length - 1;
       this.menuEventsService.onElementScrolled({
-        name: this.getElementName(this.elementToScrollPosition[lastId].element),
-        order: this.elementToScrollPosition[lastId].order
+        name: this.getElementName(last.element),
+        order: last.order
       });
     }
   }
@@ -71,40 +78,21 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   private onElementChanged(event: ChangeElementEvent) {
     const element = this.elementsRefs!.get(event.element.order);
     if (element) {
-      let elementTopOffset = this.getElementScrollTopPosition(event);
-      elementTopOffset += this.stickyBarHeight;
-      elementTopOffset -= 60;
+      const elementTopOffset = this.getElementScrollTopPosition(event);
 
       // Scroll to position which is inside element div
-      window.scrollTo({ top: elementTopOffset - this.stickyBarHeight});
+      this.scrollWrapper.nativeElement.scrollTo({ top: elementTopOffset });
     }
   }
 
   private getElementScrollTopPosition(event: ChangeElementEvent) : number {
-    for (let i  = 1; i < this.elementToScrollPosition.length; i++) {
-      if (this.elementToScrollPosition[i].order === event.element.order) {
-        return this.elementToScrollPosition[i].offsetTop;
+    for (const element of this.elementToScrollPosition) {
+      if (element.order == event.element.order) {
+        return Math.ceil(element.offsetTop);
       }
     }
 
     return 0;
-  }
-
-  ngAfterViewInit(): void {
-    if (!this.elementsRefs) { throw 'Elements not found'; }
-
-    this.reloadElements();
-
-    this.elementsRefs.changes
-        .pipe(takeUntil(this.onDestroy)).subscribe(this.reloadElements.bind(this));
-
-    this.menuEventsService.menuResized
-        .pipe(
-          takeUntil(this.onDestroy),
-          // After resize there are many events from different components informing about the same event
-          // use debounce time to refresh only once
-          debounceTime(50)).subscribe(this.calcElementsSizes.bind(this));
-
   }
 
   private reloadElements() {
@@ -128,7 +116,6 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
     }
 
     this.menuEventsService.setMenuElements(this.elements);
-
     // Run once
     this.calcElementsSizes();
   }
@@ -161,82 +148,70 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
     const allElements = this.getAllElements(this.elementsRefs);
     const orderedComponents = this.getOrderedElements(allElements);
 
-    const orderedComponentsMap : { order: number, element: MenuHorizontalElementWrapperComponent }[] = [];
-    for (let orderedComponentNum = 0; orderedComponentNum < orderedComponents.length; orderedComponentNum ++) {
-      orderedComponentsMap.push({
-        order: orderedComponentNum,
-        element: orderedComponents[orderedComponentNum]
+
+    for (let i = 0; i < orderedComponents.length; i++) {
+      const orderedElement = orderedComponents[i];
+
+      this.elementToScrollPosition.push({
+        offsetTop: this.getElementOffset(orderedElement).top,
+        element: orderedElement,
+        order: i
       })
     }
 
+    const scrollWrapperHeight = this.getScrollWrapperHeight();
 
-    const pageHeight = document.body.scrollHeight;
-    const windowHeight = window.innerHeight;
+    const offScrollElements = this.elementToScrollPosition.filter(element => {
+      const elementOffsetBottom = this.getElementOffset(element.element).bottom;
 
-    // Elements which can be scrolled to screen top (with margin freeMoveBorder)
-    const attachedElements = orderedComponentsMap.filter(e => {
-      const offsetTop = e.element.elementContent!.nativeElement.offsetTop;
-      const offsetBottom = pageHeight - offsetTop;
-      return offsetBottom > windowHeight;
-    });
+      return elementOffsetBottom <= scrollWrapperHeight;
+    })
 
-    // Elements which cant be scrolled over top screen border (with margin freeMoveBorder)
-    let freeElements = orderedComponentsMap.filter(e => {
-      const offsetTop = e.element.elementContent!.nativeElement.offsetTop;
-      const offsetBottom = pageHeight - offsetTop;
-      return offsetBottom <= windowHeight;
-    });
+    if (offScrollElements.length > 0) {
+      const scrollWrapperScrollHeight = this.getScrollWrapperScrollHeight();
+      const offScrollTop = this.getElementOffset(offScrollElements[0].element).top;
+      const offScrollElementsHeight = scrollWrapperScrollHeight - offScrollTop;
 
+      const offScrollHeight = (scrollWrapperScrollHeight - scrollWrapperHeight) - offScrollTop
 
-    // Distance from page top to last attached element top
-    let freeBorderOffset: number;
-    // Last of attachedElements (the bottom one)
-    if (attachedElements.length > 0) {
-      const lastAttached = attachedElements[attachedElements.length - 1];
-      
-      freeBorderOffset = lastAttached.element.elementContent!.nativeElement.offsetTop;
-      freeElements = [attachedElements.pop()!].concat(freeElements);
-    } else {
-      freeBorderOffset = 0;
-    }
+      for (let i = 1; i < offScrollElements.length; i++) {
+        const previousOffset = offScrollElements[i - 1].offsetTop;
+        const element = offScrollElements[i];
+        const elementHeight = this.getElementHeight(element.element);
 
-    const scrollHeight = pageHeight - windowHeight;
-    const freeBorderHeight = scrollHeight - freeBorderOffset;
-
-    for (const element of orderedComponentsMap) {
-      const topElementOffset = element.element.elementContent?.nativeElement.offsetTop;
-
-      if (topElementOffset < freeBorderOffset) {
-        this.elementToScrollPosition.push({
-          offsetTop: topElementOffset,
-          element: element.element,
-          order: element.order
-        })
-      } else {
-        if (freeElements.length === 1) {
-          this.elementToScrollPosition.push({
-            offsetTop: topElementOffset,
-            element: element.element,
-            order: element.order
-          })
-        } else {
-          const menuElementPositionN = element.order - attachedElements.length;
-          const menuElementsNCount = freeElements.length;
-
-          const scrollPercentage = menuElementPositionN / menuElementsNCount;
-          const scrollMove = (freeBorderHeight * scrollPercentage);
-  
-          this.elementToScrollPosition.push({
-            offsetTop: scrollMove + freeBorderOffset,
-            element: element.element,
-            order: element.order
-          })
+        if (offScrollElementsHeight > 0) {
+          const heightPercentage = (elementHeight / offScrollElementsHeight);
+          element.offsetTop = previousOffset + (heightPercentage * offScrollHeight)
         }
       }
     }
 
     // Select active menu element
     this.onScroll();
+  }
+
+  private getScrollWrapperOffsetTop() {
+    return this.scrollWrapper.nativeElement.offsetTop;
+  }
+
+  private getScrollWrapperScrollHeight() {
+    return this.scrollWrapper.nativeElement.scrollHeight;
+  }
+
+  private getElementOffset(element: MenuHorizontalElementWrapperComponent) {
+    const top = element.elementContent!.nativeElement.offsetTop - this.getScrollWrapperOffsetTop();
+    const height = this.getElementHeight(element);
+
+    const bottom = this.getScrollWrapperScrollHeight() - height - top;
+    return { top, bottom }
+  }
+
+  private getElementHeight(element: MenuHorizontalElementWrapperComponent) {
+    return element.elementContent!.nativeElement.offsetHeight;
+  }
+
+  private getScrollWrapperHeight() {
+    return this.scrollWrapper.nativeElement.offsetHeight;
   }
 
   ngOnDestroy(): void {

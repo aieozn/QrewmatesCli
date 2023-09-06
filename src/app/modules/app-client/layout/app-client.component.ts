@@ -15,7 +15,6 @@ import { GenericDialogCliManager } from '../services/generic-dialog-cli-manager/
   styleUrls: ['./app-client.component.scss']
 })
 export class AppClientComponent implements OnDestroy {
-
   private createdOrderRefCookieName = 'qr-last-order-created-ref';
   private createdOrderLocalCookieName = 'qr-last-order-created-local';
 

@@ -33,8 +33,7 @@ export class OrderDetialsPageComponent implements OnDestroy {
         restaurantRef: this.accountService.getRestaurantRef(),
         orderInstanceRef: ref
       }).pipe(
-        tap(e => this.order = e),
-        tap(e => console.log(e))
+        tap(e => this.order = e)
       ).subscribe();
     } else {
       this.order = undefined;

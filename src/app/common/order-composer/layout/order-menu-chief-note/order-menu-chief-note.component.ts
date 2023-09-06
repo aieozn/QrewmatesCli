@@ -23,8 +23,6 @@ export class OrderMenuChiefNoteComponent {
 
     const value = (textArea as HTMLInputElement).value;
     this._commentable.comment = value;
-
-    console.log(value)
   }
 
 }

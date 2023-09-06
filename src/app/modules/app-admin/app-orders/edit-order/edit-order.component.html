@@ -1,29 +1,8 @@
-
-<div id="root" class="edit-order-wrapper">
-    <div id="save-changes" (click)="save()" class="clickable">
-        Save changes
+<app-menu-horizontal></app-menu-horizontal>
+<app-menu-horizontal-wrapper>
+    <div id="menu-elements">
+        <app-menu-horizontal-element-wrapper *ngFor="let category of categories" [name]="category.name" [description]="category.description">
+            <app-menu-category [category]="category"></app-menu-category>
+        </app-menu-horizontal-element-wrapper>
     </div>
-    <div id="back" class="clickable" [routerLink]="['/staff/active']">
-        <div class="left">
-            <mat-icon>keyboard_arrow_left</mat-icon><span i18n>Back to orders</span>
-        </div>
-        <div class="right" *ngIf="orderTableName">
-            <span i18n>Order for table: </span> {{ orderTableName }}
-        </div>
-    </div>
-    <app-menu-horizontal></app-menu-horizontal>
-    <app-menu-horizontal-wrapper>
-        <div id="menu-elements">
-            <app-menu-horizontal-element-wrapper *ngFor="let category of categories" [name]="category.name" [description]="category.description">
-                <app-menu-category [category]="category"></app-menu-category>
-            </app-menu-horizontal-element-wrapper>
-        </div>
-    </app-menu-horizontal-wrapper>
-
-    <div class="spacer"></div>
-</div>
-
-<div *ngIf="orderService.orderChanged | async as order">
-    <app-order-submit (submit)="submit()" [orderIn]="order" i18n-buttonValue buttonValue="Details">
-    </app-order-submit>
-</div>
+</app-menu-horizontal-wrapper>
