@@ -3,6 +3,7 @@
         [order]="data.order" 
         [editable]="true"
         (onClose)="close()"
+        (onEdit)="edit()"
         (onAction)="closeWithAction($event)">
     </app-order-details>
 </app-full-width-dialog>

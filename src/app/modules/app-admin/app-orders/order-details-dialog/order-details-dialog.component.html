@@ -12,6 +12,7 @@
         [order]="order" 
         [editable]="true"
         (onAction)="closeWithAction(order, $event)"
+        (onEdit)="edit(order.ref)"
     >
     </app-order-details>
 </app-complex-editor-wrapper>

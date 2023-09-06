@@ -9,12 +9,17 @@ import { OrderPipeModule } from 'app/common/pipes/order-pipe/order-pipe.module';
 import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 import { OrderDetailsDialogComponent } from './order-details-dialog/order-details-dialog.component';
 import { OrderComposerModule } from '@common/order-composer/order-composer.module';
+import { EditOrderComponent } from './edit-order/edit-order.component';
+import { MatInputModule } from '@angular/material/input';
+import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
   declarations: [
     AdminOrdersComponent,
-    OrderDetailsDialogComponent
+    OrderDetailsDialogComponent,
+    EditOrderComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +28,9 @@ import { OrderComposerModule } from '@common/order-composer/order-composer.modul
     PendingOrderModule,
     OrderPipeModule,
     ComplexEditorModule,
-    OrderComposerModule
+    OrderComposerModule,
+    MatIconModule,
+    RestaurantMenuModule
   ]
 })
 export class AppOrdersModule { }

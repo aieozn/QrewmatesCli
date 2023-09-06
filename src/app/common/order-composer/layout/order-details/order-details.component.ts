@@ -91,14 +91,16 @@ export class OrderDetailsComponent {
   ) {
   }
 
-  editOrder(ref: string) {
-    this.router.navigate(['/staff/edit/', ref]);
-    this.onClose.emit();
+  editOrder() {
+    this.onEdit.emit();
     return false;
   }
 
   @Output()
   onAction = new EventEmitter<UserAction>();
+
+  @Output()
+  onEdit = new EventEmitter<void>();
 
   doAction(action: UserAction) {
     this.onAction.emit(action);

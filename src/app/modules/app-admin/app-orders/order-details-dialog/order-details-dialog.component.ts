@@ -52,4 +52,8 @@ export class OrderDetailsDialogComponent implements OnDestroy {
     this.manageOrderStatusService.handleAction(order.restaurantRef, order.ref, action);
     this.close()
   }
+
+  edit(ref: string) {
+    this.router.navigate(['/admin/orders/edit', ref])
+  }
 }

@@ -3,14 +3,14 @@
     <div id="menu-elements">
         <h2>Pending orders</h2>
         <div>
-            <app-pending-order [routerLink]="['edit', order.ref]" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
+            <app-pending-order [routerLink]="['details', order.ref]" *ngFor="let order of orders | orderStatus:'PLACED'" [order]="order">
             </app-pending-order>
         </div>
 
     
         <h2>Active orders</h2>
         <div>
-            <app-pending-order [routerLink]="['edit', order.ref]" *ngFor="let order of orders | orderStatus:'ACCEPTED':'SERVED'" [order]="order">
+            <app-pending-order [routerLink]="['details', order.ref]" *ngFor="let order of orders | orderStatus:'ACCEPTED':'SERVED'" [order]="order">
             </app-pending-order>
         </div>
         

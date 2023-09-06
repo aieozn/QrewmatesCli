@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { OrderDetailsGet } from '@common/api-client/models';
 import { ManageOrderStatusService } from 'app/common/services/manage-order-status/manage-order-status.service';
 import { UserAction } from 'app/common/translators';
@@ -16,7 +17,8 @@ export class OrderDetailsDialogComponent {
       order: OrderDetailsGet
     },
     private dialogRef: MatDialogRef<OrderDetailsDialogComponent>,
-    private manageOrderStatusService: ManageOrderStatusService
+    private manageOrderStatusService: ManageOrderStatusService,
+    private router: Router
   ) {
   }
 
@@ -27,5 +29,10 @@ export class OrderDetailsDialogComponent {
 
   close() {
     this.dialogRef.close()
+  }
+
+  edit() {
+    this.router.navigate(['/staff/edit/', this.data.order.ref]);
+    this.close()
   }
 }

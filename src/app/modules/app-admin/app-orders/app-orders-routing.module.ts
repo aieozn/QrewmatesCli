@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminOrdersComponent } from './admin-orders.component';
-import { EditOrderDialogComponent } from './order-details-dialog/order-details-dialog.component';
+import { OrderDetailsDialogComponent } from './order-details-dialog/order-details-dialog.component';
+import { EditOrderComponent } from './edit-order/edit-order.component';
 
 const routes: Routes = [
   {
@@ -9,10 +10,14 @@ const routes: Routes = [
     component: AdminOrdersComponent,
     children: [
       {
-        path: 'edit/:orderRef',
-        component: EditOrderDialogComponent
+        path: 'details/:orderRef',
+        component: OrderDetailsDialogComponent
       }
     ]
+  },
+  {
+    path: 'edit/:orderRef',
+    component: EditOrderComponent
   }
 ];
 
