@@ -1,10 +1,52 @@
-app-menu-horizontal-wrapper {
-    height: calc(100% - 50px);
-    display: block;
+#edit-order-scroll-wrapper {
+    height: 60%;
     overflow: auto;
+    position: relative;
+    border: 1px solid red;
 }
 
-#menu-elements {
-    margin-left: 20px;
-    margin-right: 20px;
+#back {
+    background-color: #F4F4F4;
+    color: #333333;
+    line-height: 50px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 50px;
+    z-index: 1000;
+}
+
+#save-changes {
+    background-color: #38A583;
+    color: white;
+    line-height: 50px;
+    font-size: 16px;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    text-align: center;
+}
+
+#back .left {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#back .right {
+    margin-right: 15px;
+}
+
+app-order-submit {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+app-menu-horizontal {
+    position: sticky;
+    top: 100px;
+    z-index: 1000;
 }

@@ -80,3 +80,9 @@ app-order-submit {
     width: 100%;
     max-width: 1000px;
 }
+
+app-menu-horizontal {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+}

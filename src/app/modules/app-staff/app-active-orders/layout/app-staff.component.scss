@@ -55,6 +55,12 @@ app-pending-order {
     display: block;
 }
 
+app-menu-horizontal {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+}
+
 @media (min-width: 481px) {
     app-pending-order {
         width: calc(50% - 10px);
@@ -65,3 +71,4 @@ app-pending-order {
         margin-left: 20px;
     }
   }
+

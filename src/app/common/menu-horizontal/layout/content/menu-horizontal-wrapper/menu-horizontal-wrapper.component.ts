@@ -14,11 +14,8 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
 
   private scrollWrapper: HTMLElement | undefined;
 
-  @Input('scrollContainerId') set setScrollsetContainerReference(id: string) {
-    this.scrollWrapper = document.getElementById(id)!;
-    this.listenForElement(this.scrollWrapper);
-    this.reloadElements();
-  }
+  @Input('scrollContainerId')
+  scrollContainerId : string | undefined
 
   // TODO tests
 
@@ -48,7 +45,12 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
           // use debounce time to refresh only once
           debounceTime(50)).subscribe(this.calcElementsSizes.bind(this));
 
-    this.listenForWindow()
+    if (this.scrollContainerId) {
+      this.scrollWrapper = document.getElementById(this.scrollContainerId)!
+      this.listenForElement(this.scrollWrapper);
+    } else {
+      this.listenForWindow()
+    }
   }
 
   private listenForElement(element: HTMLElement) {
@@ -75,6 +77,8 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
 
   onScroll() {
     const scrollTop = this.getScrollWrapperScrollTop();
+
+    console.log(scrollTop)
 
     if (this.elementToScrollPosition.length > 0) {
       let last = this.elementToScrollPosition[0];
@@ -262,7 +266,7 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   }
 
   private getScrollWrapperScrollTop() {
-    return this.scrollWrapper ? this.scrollWrapper.offsetHeight : window.scrollY;    
+    return this.scrollWrapper ? this.scrollWrapper.scrollTop : window.scrollY;    
   }
 
   private scrollTo(offset: number) {
