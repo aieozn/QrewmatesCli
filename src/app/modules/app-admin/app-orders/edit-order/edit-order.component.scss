@@ -1,8 +1,7 @@
 #edit-order-scroll-wrapper {
-    height: 60%;
+    height: 100%;
     overflow: auto;
     position: relative;
-    border: 1px solid red;
 }
 
 #back {
@@ -36,6 +35,15 @@
 
 #back .right {
     margin-right: 15px;
+}
+
+#menu-elements {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.spacer {
+    height: 100px;
 }
 
 app-order-submit {

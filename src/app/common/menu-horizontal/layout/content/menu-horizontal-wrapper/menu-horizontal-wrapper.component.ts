@@ -78,8 +78,6 @@ export class MenuHorizontalWrapperComponent implements AfterViewInit, OnDestroy 
   onScroll() {
     const scrollTop = this.getScrollWrapperScrollTop();
 
-    console.log(scrollTop)
-
     if (this.elementToScrollPosition.length > 0) {
       let last = this.elementToScrollPosition[0];
 

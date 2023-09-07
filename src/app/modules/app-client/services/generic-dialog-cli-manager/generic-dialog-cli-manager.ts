@@ -26,11 +26,11 @@ export class GenericDialogCliManager {
 
   openAboutUs() {
     // TODO fix AboutUsComponent title
-    this.dialog.open(FooterAboutUsComponent, FullWidthDialogService.getDefaultGenericDialogConfig({}))
+    this.dialog.open(FooterAboutUsComponent, FullWidthDialogService.getDefaultMobileGenericDialogConfig({}))
   }
 
   openAddItem(group: MenuItemGroupGet) : Observable<OrderElementDataWrapper[] | undefined> {
-    return this.dialogService.openMenuItemComponent({
+    return this.dialogService.openMenuItemComponentMobile({
       group: group,
       item: undefined,
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -39,7 +39,7 @@ export class GenericDialogCliManager {
   }
 
   openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
-    return this.dialogService.openMenuItemComponent({
+    return this.dialogService.openMenuItemComponentMobile({
       group: group,
       item: item,
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -50,7 +50,7 @@ export class GenericDialogCliManager {
   openSummary() : Observable<OrderSummaryOutputData> {
     // TODO fix title
     return this.dialog
-      .open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig({
+      .open(OrderSummaryComponent, FullWidthDialogService.getDefaultMobileGenericDialogConfig({
         restaurantRef: this.accountService.getRestaurantRef(),
         item: this.orderService.orderChanged.getValue(),
         waiterMode: false,

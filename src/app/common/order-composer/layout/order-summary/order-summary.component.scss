@@ -70,9 +70,8 @@
 }
 
 app-order-submit {
-    position: fixed;
+    position: absolute;
     bottom: 0px;
-    left: max(calc(50% - 500px), 0px);
+    left: 0px;
     width: 100%;
-    max-width: 1000px;
 }

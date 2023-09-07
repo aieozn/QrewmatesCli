@@ -22,7 +22,7 @@ export class StaffDialogService {
   ) { }
 
   openAddItem(group: MenuItemGroupGet) : Observable<OrderElementDataWrapper[] | undefined> {
-    return this.dialogService.openMenuItemComponent({
+    return this.dialogService.openMenuItemComponentMobile({
       group: group,
       item: undefined,
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -31,7 +31,7 @@ export class StaffDialogService {
   }
 
   openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
-    return this.dialogService.openMenuItemComponent({
+    return this.dialogService.openMenuItemComponentMobile({
       group: group,
       item: item,
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -42,7 +42,7 @@ export class StaffDialogService {
   openSummary() : Observable<OrderSummaryOutputData> {
     // TODO fix title
     return this.dialog
-      .open(OrderSummaryComponent, FullWidthDialogService.getDefaultGenericDialogConfig({
+      .open(OrderSummaryComponent, FullWidthDialogService.getDefaultMobileGenericDialogConfig({
         restaurantRef: this.accountService.getRestaurantRef(),
         item: this.orderService.orderChanged.getValue(),
         waiterMode: false,

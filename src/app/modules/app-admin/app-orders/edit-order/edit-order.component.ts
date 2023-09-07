@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuCategoryGet, OrderDetailsGet, OrderElementGet } from '@common/api-client/models';
@@ -7,8 +7,11 @@ import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-elemen
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { OrderWrapperTrimmer } from '@common/api-client/wrapper/order-wrapper-trimmer';
 import { OrderService } from 'app/common/restaurant-menu/services/order/order.service';
-import { BehaviorSubject, Subject, filter, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, filter, first, map, takeUntil, tap } from 'rxjs';
 import { Trimers } from '../../app-menu/trimmer/trimmers';
+import { RESTAURANT_MENU_DIALOG_MANAGER_TOKEN } from 'app/common/restaurant-menu/restaurant-menu.module';
+import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
+import { EditOrderDialogService } from '../services/edit-order-dialog.service';
 
 @Component({
   selector: 'app-edit-order',
@@ -29,7 +32,8 @@ export class EditOrderComponent implements OnDestroy {
     protected orderService: OrderService,
     private orderInstanceService: OrderInstanceControllerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialogManager: EditOrderDialogService
   ) {
     this.categoriesService.getCategories({
       restaurantRef: accountService.getRestaurantRef()
@@ -98,16 +102,16 @@ export class EditOrderComponent implements OnDestroy {
   }
 
   submit() {
-    // this.dialogService.openSummary()
-    //   .pipe(
-    //     first(),
-    //     filter(e => e != undefined),
-    //     tap(e => {
-    //       this.orderService.updateOrder(e.order)
-    //     }),
-    //     filter(e => e.submit),
-    //     map(e => e.order)
-    //   ).subscribe();
+    this.dialogManager.openSummary()
+      .pipe(
+        first(),
+        filter(e => e != undefined),
+        tap(e => {
+          this.orderService.updateOrder(e.order)
+        }),
+        filter(e => e.submit),
+        map(e => e.order)
+      ).subscribe();
   }
 
   ngOnDestroy(): void {
@@ -133,7 +137,7 @@ export class EditOrderComponent implements OnDestroy {
         table: Trimers.trimRef(order.table)
       }
     }).pipe(
-      tap(() => this.router.navigate(['/staff/active']))
+      tap(() => this.router.navigate(['/admin/orders']))
     ).subscribe();
   }
 }

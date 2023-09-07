@@ -99,7 +99,7 @@ export class OrderSummaryComponent {
   }
 
   openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
-    return this.dialogService.openMenuItemComponent({
+    return this.dialogService.openMenuItemComponentMobile({
       group: group,
       item: item,
       restaurantRef: this.accountService.getRestaurantRef(),

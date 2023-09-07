@@ -20,7 +20,7 @@ export class StuffDiaglogService {
   ) { }
   
   openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
-    return this.dialogService.openMenuItemComponent({
+    return this.dialogService.openMenuItemComponentMobile({
       group: group,
       item: item,
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -34,7 +34,7 @@ export class StuffDiaglogService {
 
   openDetails(data: OrderDetailsGet) {
     return this.dialog
-    .open(OrderDetailsDialogComponent, FullWidthDialogService.getDefaultGenericDialogConfig(
+    .open(OrderDetailsDialogComponent, FullWidthDialogService.getDefaultMobileGenericDialogConfig(
       {
         order: data
       })).afterClosed();

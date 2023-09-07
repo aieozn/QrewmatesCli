@@ -10,9 +10,9 @@ import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.mo
 import { OrderDetailsDialogComponent } from './order-details-dialog/order-details-dialog.component';
 import { OrderComposerModule } from '@common/order-composer/order-composer.module';
 import { EditOrderComponent } from './edit-order/edit-order.component';
-import { MatInputModule } from '@angular/material/input';
-import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
+import { RESTAURANT_MENU_DIALOG_MANAGER_TOKEN, RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
 import { MatIconModule } from '@angular/material/icon';
+import { RestaurantMenuDialogManagerComplexEditor } from './services/restaurant-menu-dialog-manager-complex-editor';
 
 
 @NgModule({
@@ -31,6 +31,12 @@ import { MatIconModule } from '@angular/material/icon';
     OrderComposerModule,
     MatIconModule,
     RestaurantMenuModule
+  ], 
+  providers: [
+    { 
+      provide: RESTAURANT_MENU_DIALOG_MANAGER_TOKEN,
+      useClass: RestaurantMenuDialogManagerComplexEditor
+    }
   ]
 })
 export class AppOrdersModule { }

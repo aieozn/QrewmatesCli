@@ -13,7 +13,8 @@ import { FooterPoweredByComponent } from './layout/footer/footer-powered-by/foot
 import { MenuHorizontalModule } from '@common/menu-horizontal/menu-horizontal.module';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiModule } from '@common/api-client/api.module';
-import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
+import { RESTAURANT_MENU_DIALOG_MANAGER_TOKEN, RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
+import { RestaurantMenuDialogManagerMobile } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager-mobile';
 
 
 @NgModule({
@@ -36,7 +37,11 @@ import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu
     RestaurantMenuModule
   ],
   providers: [
-    CookieService
+    CookieService,
+    { 
+      provide: RESTAURANT_MENU_DIALOG_MANAGER_TOKEN,
+      useClass: RestaurantMenuDialogManagerMobile
+    }
   ]
 })
 export class AppClientModule { }
