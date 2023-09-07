@@ -1,15 +1,14 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { DateRange } from '@angular/material/datepicker';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrdersListElement } from '@common/api-client/models';
 import { OrderInstanceControllerService } from '@common/api-client/services';
-import { DateRangePickerComponent } from 'app/common/components/date-range-picker/date-range-picker/date-range-picker.component';
+import { DateRangePickerDialogManager } from 'app/common/components/date-range-picker/services/date-range-picker-dialog-manager.service';
 import { EnumPickerData } from 'app/common/components/enum-picker/enum-picker/enum-picker-data';
-import { EnumPickerComponent } from 'app/common/components/enum-picker/enum-picker/enum-picker.component';
+import { EnumPickerDialogManager } from 'app/common/components/enum-picker/services/enum-picker-dialog-manager.service';
 import { OrderStatus, PaymentMethod, PaymentStatus, Translators } from 'app/common/translators';
 import { filter, map, tap } from 'rxjs';
 
@@ -52,13 +51,14 @@ export class AdminHistoryComponent implements AfterViewInit  {
   constructor(
     private orderService: OrderInstanceControllerService,
     private accountService: AccountService,
-    private dialogService: MatDialog
+    private dateRangeDialogManager: DateRangePickerDialogManager,
+    private enumPickerDialogManager: EnumPickerDialogManager
   ) {
 
   }
 
   selectDateRange() {
-    this.dialogService.open(DateRangePickerComponent).afterClosed().pipe(
+    this.dateRangeDialogManager.open().pipe(
       filter(e => e != undefined),
       map(e => e as DateRange<Date | Date>),
       tap(e => this.setDateRange(e.start!, e.end!))
@@ -77,7 +77,7 @@ export class AdminHistoryComponent implements AfterViewInit  {
       }))
     }
     
-    this.dialogService.open(EnumPickerComponent, {data}).afterClosed().pipe(
+    this.enumPickerDialogManager.open(data).pipe(
       map(e => e as OrderStatus[] | undefined),
       tap(e => this.setOrderStatusFilter(e))
     ).subscribe();
@@ -93,7 +93,7 @@ export class AdminHistoryComponent implements AfterViewInit  {
       }))
     }
     
-    this.dialogService.open(EnumPickerComponent, {data}).afterClosed().pipe(
+    this.enumPickerDialogManager.open(data).pipe(
       map(e => e as PaymentStatus[] | undefined),
       tap(e => this.setPaymentStatusFilter(e))
     ).subscribe();
@@ -109,7 +109,7 @@ export class AdminHistoryComponent implements AfterViewInit  {
       }))
     }
     
-    this.dialogService.open(EnumPickerComponent, {data}).afterClosed().pipe(
+    this.enumPickerDialogManager.open(data).pipe(
       map(e => e as PaymentMethod[] | undefined),
       tap(e => this.setPaymentMethodFilter(e))
     ).subscribe();

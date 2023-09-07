@@ -1,11 +1,10 @@
-import { Component, Inject, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupGet } from '@common/api-client/models';
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { Subscription, first, tap } from 'rxjs';
 import { OrderService } from '../../services/order/order.service';
 import { RestaurantMenuDialogManager } from '../../services/dialog-manager/restaurant-menu-dialog-manager';
-import { RESTAURANT_MENU_DIALOG_MANAGER_TOKEN } from '../../restaurant-menu.module';
 
 @Component({
   selector: 'app-menu-item-group',
@@ -36,7 +35,7 @@ export class MenuItemGroupComponent implements OnDestroy {
     // private GenericDialogCliManager: GenericDialogCliManager,
     private accountService: AccountService,
     private orderService: OrderService,
-    @Inject(RESTAURANT_MENU_DIALOG_MANAGER_TOKEN) private dialogManager: RestaurantMenuDialogManager
+    private dialogManager: RestaurantMenuDialogManager
   ) {
     this.orderUpdatedSubscription = orderService.orderChanged.subscribe(this.onOrderUpdate.bind(this));
   }

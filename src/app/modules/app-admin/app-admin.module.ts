@@ -17,7 +17,8 @@ import { HeaderBarComponent } from './layout/header-bar/header-bar.component';
     AppAdminRoutingModule,
     AccountUtilsModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [MenuAdminComponent]
 })
 export class AppAdminModule { }

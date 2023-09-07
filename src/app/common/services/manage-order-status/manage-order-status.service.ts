@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { UserAction } from "../../translators";
 import { AcceptOrderActionDialogType } from "./model/accept-order-aciton-dialog-type";
-import { DoOrderActionDialogService } from "app/common/dialogs/do-order-action-dialog/service/do-order-action-dialog.service";
+import { DoOrderActionDialogService } from "app/common/dialogs/do-order-action-dialog/services/do-order-action-dialog.service";
 import { first, map, tap } from "rxjs";
 import { AcceptOrderActionResult } from "./model/accept-order-action-result";
 import { OrderStatusControllerService } from "@common/api-client/services";

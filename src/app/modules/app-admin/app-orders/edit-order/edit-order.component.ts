@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuCategoryGet, OrderDetailsGet, OrderElementGet } from '@common/api-client/models';
@@ -9,9 +9,7 @@ import { OrderWrapperTrimmer } from '@common/api-client/wrapper/order-wrapper-tr
 import { OrderService } from 'app/common/restaurant-menu/services/order/order.service';
 import { BehaviorSubject, Subject, filter, first, map, takeUntil, tap } from 'rxjs';
 import { Trimers } from '../../app-menu/trimmer/trimmers';
-import { RESTAURANT_MENU_DIALOG_MANAGER_TOKEN } from 'app/common/restaurant-menu/restaurant-menu.module';
 import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
-import { EditOrderDialogService } from '../services/edit-order-dialog.service';
 
 @Component({
   selector: 'app-edit-order',
@@ -33,7 +31,7 @@ export class EditOrderComponent implements OnDestroy {
     private orderInstanceService: OrderInstanceControllerService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogManager: EditOrderDialogService
+    private dialogManager: RestaurantMenuDialogManager
   ) {
     this.categoriesService.getCategories({
       restaurantRef: accountService.getRestaurantRef()
@@ -102,16 +100,15 @@ export class EditOrderComponent implements OnDestroy {
   }
 
   submit() {
-    this.dialogManager.openSummary()
-      .pipe(
-        first(),
-        filter(e => e != undefined),
-        tap(e => {
-          this.orderService.updateOrder(e.order)
-        }),
-        filter(e => e.submit),
-        map(e => e.order)
-      ).subscribe();
+    this.dialogManager.openSummary().pipe(
+      first(),
+      filter(e => e != undefined),
+      tap(e => {
+        this.orderService.updateOrder(e.order)
+      }),
+      filter(e => e.submit),
+      map(e => e.order)
+    ).subscribe();
   }
 
   ngOnDestroy(): void {

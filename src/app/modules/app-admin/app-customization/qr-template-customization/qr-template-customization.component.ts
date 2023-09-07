@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { RestaurantDetailsGet } from '@common/api-client/models';
 import { Subject, takeUntil, tap } from 'rxjs';
@@ -23,9 +22,8 @@ export class QrTemplateCustomizationComponent implements OnDestroy {
   }
 
   constructor(
-    public dialog: MatDialog,
     private accountService: AccountService,
-    private customizationService: AdminCustomizationService
+    customizationService: AdminCustomizationService
   ) {
     customizationService.getRestaurant().pipe(
       tap(e => this.updateRestaurant(e)),

@@ -8,13 +8,13 @@ import { WaitForOrderDialogComponent } from './layout/wait-for-order-dialog/wait
 import { FooterAboutUsComponent } from './layout/footer/footer-about-us/footer-about-us.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FullWidthDialogModule } from '@common/full-width-dialog/full-width-dialog.module';
-import { OrderComposerModule } from '@common/order-composer/order-composer.module';
+import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN, OrderComposerModule } from '@common/order-composer/order-composer.module';
 import { FooterPoweredByComponent } from './layout/footer/footer-powered-by/footer-powered-by.component';
 import { MenuHorizontalModule } from '@common/menu-horizontal/menu-horizontal.module';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiModule } from '@common/api-client/api.module';
-import { RESTAURANT_MENU_DIALOG_MANAGER_TOKEN, RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
-import { RestaurantMenuDialogManagerMobile } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager-mobile';
+import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
+import { OrderComposerDialogManagerMobile } from 'app/common/services/dialog-manager/mobile/order-composer-dialog-manager-mobile.service';
 
 
 @NgModule({
@@ -38,10 +38,7 @@ import { RestaurantMenuDialogManagerMobile } from 'app/common/restaurant-menu/se
   ],
   providers: [
     CookieService,
-    { 
-      provide: RESTAURANT_MENU_DIALOG_MANAGER_TOKEN,
-      useClass: RestaurantMenuDialogManagerMobile
-    }
+    { provide: ORDER_COMPOSER_DIALOG_MANAGER_TOKEN, useClass: OrderComposerDialogManagerMobile }
   ]
 })
 export class AppClientModule { }

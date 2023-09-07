@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { filter, first, mergeMap, Observable } from 'rxjs';
-import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { MenuItemGroupControllerService } from '@common/api-client/services';
@@ -9,6 +8,8 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupGet } from '@common/api-client/models';
 import { OrderSummaryInputData } from './order-summary-input-data';
 import { OrderSummaryOutputData } from './order-summary-output-data';
+import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/order-composer.module';
+import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -25,7 +26,7 @@ export class OrderSummaryComponent {
   constructor(public dialogRef: MatDialogRef<OrderSummaryComponent>,
     private groupService: MenuItemGroupControllerService,
     private accountService: AccountService,
-    private dialogService: FullWidthDialogService,
+    @Inject(ORDER_COMPOSER_DIALOG_MANAGER_TOKEN) private dialogManager: OrderComposerDialogManager,
     @Inject(MAT_DIALOG_DATA) data: OrderSummaryInputData
   ) {
     const order = JSON.parse(JSON.stringify(data.item));
@@ -99,7 +100,7 @@ export class OrderSummaryComponent {
   }
 
   openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
-    return this.dialogService.openMenuItemComponentMobile({
+    return this.dialogManager.openMenuItemComponent({
       group: group,
       item: item,
       restaurantRef: this.accountService.getRestaurantRef(),

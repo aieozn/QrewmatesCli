@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Inject, Injectable } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { first, Observable } from 'rxjs';
 import { MenuItemGroupGet, OrderDetailsGet } from '@common/api-client/models';
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
-import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 import { OrderSummaryInputData } from '@common/order-composer/layout/order-summary/order-summary-input-data';
 import { OrderDetailsDialogComponent } from 'app/modules/app-staff/app-edit-order/order-details-dialog/order-details-dialog.component';
+import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/order-composer.module';
+import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
+import { OrderComposerDialogManagerMobile } from 'app/common/services/dialog-manager/mobile/order-composer-dialog-manager-mobile.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +16,13 @@ import { OrderDetailsDialogComponent } from 'app/modules/app-staff/app-edit-orde
 export class StuffDiaglogService {
 
   constructor(
-    private dialog: MatDialog,
-    private dialogService: FullWidthDialogService,
-    private accountService: AccountService
+    @Inject(ORDER_COMPOSER_DIALOG_MANAGER_TOKEN) private dialogManager: OrderComposerDialogManager,
+    private accountService: AccountService,
+    private dialogService: MatDialog
   ) { }
   
   openEditItem(group: MenuItemGroupGet, item: OrderElementDataWrapper) : Observable<OrderElementDataWrapper[] | undefined> {
-    return this.dialogService.openMenuItemComponentMobile({
+    return this.dialogManager.openMenuItemComponent({
       group: group,
       item: item,
       restaurantRef: this.accountService.getRestaurantRef(),
@@ -28,13 +30,8 @@ export class StuffDiaglogService {
     }).afterClosed().pipe(first());
   }
 
-  openSummary(data: OrderSummaryInputData) {
-    return this.dialogService.openSummary(data);
-  }
-
   openDetails(data: OrderDetailsGet) {
-    return this.dialog
-    .open(OrderDetailsDialogComponent, FullWidthDialogService.getDefaultMobileGenericDialogConfig(
+    return this.dialogService.open(OrderDetailsDialogComponent, OrderComposerDialogManagerMobile.getDefaultGenericDialogConfig(
       {
         order: data
       })).afterClosed();

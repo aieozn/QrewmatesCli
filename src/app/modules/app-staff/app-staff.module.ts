@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { AppStaffRoutingModule } from './app-staff-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@common/account-utils/auth-interceptor';
-import { RESTAURANT_MENU_DIALOG_MANAGER_TOKEN } from 'app/common/restaurant-menu/restaurant-menu.module';
-import { RestaurantMenuDialogManagerMobile } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager-mobile';
+import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/order-composer.module';
+import { OrderComposerDialogManagerMobile } from 'app/common/services/dialog-manager/mobile/order-composer-dialog-manager-mobile.service';
 
 @NgModule({
   declarations: [
@@ -17,9 +17,9 @@ import { RestaurantMenuDialogManagerMobile } from 'app/common/restaurant-menu/se
       useClass: AuthInterceptor,
       multi: true
     },
-    { 
-      provide: RESTAURANT_MENU_DIALOG_MANAGER_TOKEN,
-      useClass: RestaurantMenuDialogManagerMobile
+    {
+      provide: ORDER_COMPOSER_DIALOG_MANAGER_TOKEN,
+      useClass: OrderComposerDialogManagerMobile
     }
   ]
 })

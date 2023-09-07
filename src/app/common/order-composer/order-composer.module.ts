@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrdeSubmitComponent } from './layout/order-submit/order-submit.component';
 import { OrderMenuItemComponent } from './layout/order-menu-item/order-menu-item.component';
@@ -18,8 +18,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { OrderDetailsComponent } from './layout/order-details/order-details.component';
 import { StatusLineModule } from '../components/status-line/status-line.module';
+import { OrderComposerDialogManager } from './services/order-composer-dialog-manager.service';
 
-
+export const ORDER_COMPOSER_DIALOG_MANAGER_TOKEN = new InjectionToken<OrderComposerDialogManager>('ORDER_COMPOSER_DIALOG_MANAGER_TOKEN');
 
 @NgModule({
   declarations: [

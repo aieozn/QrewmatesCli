@@ -5,11 +5,11 @@ import { MenuCategoryControllerService, OrderInstanceControllerService } from '@
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { OrderService } from 'app/common/restaurant-menu/services/order/order.service';
 import { BehaviorSubject, Subject, filter, first, map, takeUntil, tap } from 'rxjs';
-import { StaffDialogService } from '../service/dialog-service/staff-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
 import { Trimers } from 'app/modules/app-admin/app-menu/trimmer/trimmers';
 import { OrderWrapperTrimmer } from '@common/api-client/wrapper/order-wrapper-trimmer';
+import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
 
 @Component({
   selector: 'app-edit-order',
@@ -28,7 +28,7 @@ export class EditOrderComponent implements OnDestroy {
     private accountService: AccountService,
     protected orderService: OrderService,
     private orderInstanceService: OrderInstanceControllerService,
-    private dialogService: StaffDialogService,
+    private dialogService: RestaurantMenuDialogManager,
     private route: ActivatedRoute,
     private router: Router
   ) {

@@ -7,8 +7,7 @@ import { UserControllerService } from '@common/api-client/services';
 import { Role } from 'app/common/translators';
 import { EMPTY, Subject, catchError, takeUntil, tap } from 'rxjs';
 import { EditorService } from '../editor.service';
-import { MatDialog } from '@angular/material/dialog';
-import { MessageDialogComponent } from 'app/common/dialogs/message-dialog/message-dialog/message-dialog.component';
+import { MessageDialogManager } from 'app/common/dialogs/message-dialog/services/message-dialog-manager.service';
 
 @Component({
   selector: 'app-user-editor',
@@ -50,7 +49,7 @@ export class UserEditorComponent implements OnDestroy {
     private accountService: AccountService,
     private router: Router,
     private editorService: EditorService,
-    private matDialog: MatDialog
+    private messageDialogManager: MessageDialogManager
   ) {
     route.params.pipe(
       tap(params => {
@@ -128,18 +127,13 @@ export class UserEditorComponent implements OnDestroy {
 
           const message = $localize`An email with further steps will be sent to the user.`;
           
-          this.matDialog.open(MessageDialogComponent, {
-            data: {message}
-          })
+          this.messageDialogManager.open({message})
           this.close()
         }),
         catchError((error, _) => {
           if (error.status === 409) {
             const message = $localize`User already exist`;
-          
-            this.matDialog.open(MessageDialogComponent, {
-              data: {message}
-            })
+            this.messageDialogManager.open({message})
           }
 
           return EMPTY;

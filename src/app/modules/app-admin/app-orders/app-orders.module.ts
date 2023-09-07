@@ -8,11 +8,11 @@ import { PendingOrderModule } from 'app/common/pending-order/pending-order.modul
 import { OrderPipeModule } from 'app/common/pipes/order-pipe/order-pipe.module';
 import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 import { OrderDetailsDialogComponent } from './order-details-dialog/order-details-dialog.component';
-import { OrderComposerModule } from '@common/order-composer/order-composer.module';
+import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN, OrderComposerModule } from '@common/order-composer/order-composer.module';
 import { EditOrderComponent } from './edit-order/edit-order.component';
-import { RESTAURANT_MENU_DIALOG_MANAGER_TOKEN, RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
+import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
 import { MatIconModule } from '@angular/material/icon';
-import { RestaurantMenuDialogManagerComplexEditor } from './services/restaurant-menu-dialog-manager-complex-editor';
+import { OrderComposerDialogManagerDesktop } from 'app/common/services/dialog-manager/desktop/order-composer-dialog-manager-desktop.service';
 
 
 @NgModule({
@@ -33,10 +33,7 @@ import { RestaurantMenuDialogManagerComplexEditor } from './services/restaurant-
     RestaurantMenuModule
   ], 
   providers: [
-    { 
-      provide: RESTAURANT_MENU_DIALOG_MANAGER_TOKEN,
-      useClass: RestaurantMenuDialogManagerComplexEditor
-    }
+    { provide: ORDER_COMPOSER_DIALOG_MANAGER_TOKEN, useClass: OrderComposerDialogManagerDesktop }
   ]
 })
 export class AppOrdersModule { }

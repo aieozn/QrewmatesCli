@@ -1,13 +1,14 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { filter, first, map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { OrderService } from '../../../common/restaurant-menu/services/order/order.service';
-import { DialogManagerService } from '../services/dialog-manager/dialog-manager.service';
 import { MenuCategoryGet, OrderDetailsGet, RestaurantGet } from '@common/api-client/models';
 import { OrderWrapper } from '@common/api-client/wrapper/order-wrapper';
 import { MenuCategoryControllerService } from '@common/api-client/services';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { GenericDialogCliManager } from '../services/generic-dialog-cli-manager/generic-dialog-cli-manager';
+import { ErrorDialogManager } from 'app/common/dialogs/error-dialog/services/error-dialog-manager.service';
+import { DialogManagerService } from '../services/dialog-manager/dialog-manager.service';
+import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
 
 @Component({
   selector: 'app-client',
@@ -34,12 +35,12 @@ export class AppClientComponent implements OnDestroy {
 
   constructor(
     private categoriesService: MenuCategoryControllerService,
-    private menuCliDialogServide: GenericDialogCliManager,
     private dialogManager: DialogManagerService,
     private accountService: AccountService,
     protected orderService: OrderService,
     private cookiesService: CookieService,
-    private cdRef: ChangeDetectorRef
+    private errorDialogManager: ErrorDialogManager,
+    private restaurantDialogManager: RestaurantMenuDialogManager
   ) {
     const restaurantRef = this.accountService.getRestaurantRef();
 
@@ -147,7 +148,7 @@ export class AppClientComponent implements OnDestroy {
   }
 
   private loadLastOrderHandleError() {
-    this.menuCliDialogServide.openErrorDialog({
+    this.errorDialogManager.open({
       title: $localize`An error occured`,
       message: $localize`Order not found`
     }).pipe(
@@ -167,11 +168,11 @@ export class AppClientComponent implements OnDestroy {
   }
 
   showAboutUs() {
-    this.menuCliDialogServide.openAboutUs()
+    this.dialogManager.openAboutUs()
   }
 
   submit() {
-    this.menuCliDialogServide
+    this.restaurantDialogManager
       .openSummary()
       .pipe(
         first(),

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
-import { FullWidthDialogService } from '@common/full-width-dialog/service/full-width-dialog.service';
 
 @Component({
   selector: 'app-counter-footer',
@@ -14,8 +13,6 @@ export class CounterFooterComponent {
   @Output('submit') submit = new EventEmitter<OrderElementDataWrapper[]>;
 
   count = 1;
-
-  constructor(private dialogService: FullWidthDialogService) { }
 
   itemAdd() {
     this.count += 1;
