@@ -8,6 +8,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './common/account-utils/auth-interceptor';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/OrderComposerDialogManagerToken';
+import { OrderComposerDialogManagerMobile } from './common/services/dialog-manager/mobile/order-composer-dialog-manager-mobile.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { MatNativeDateModule } from '@angular/material/core';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    { provide: ORDER_COMPOSER_DIALOG_MANAGER_TOKEN, useClass: OrderComposerDialogManagerMobile }
   ],
   bootstrap: [AppComponent]
 })

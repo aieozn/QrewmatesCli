@@ -2,11 +2,11 @@ import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-elemen
 import { Observable, first } from 'rxjs';
 import { MenuItemGroupGet } from '@common/api-client/models';
 import { Inject, Injectable } from '@angular/core';
-import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/order-composer.module';
-import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderService } from '../order/order.service';
 import { OrderSummaryOutputData } from '@common/order-composer/layout/order-summary/order-summary-output-data';
+import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/OrderComposerDialogManagerToken';
+import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,6 @@ export abstract class RestaurantMenuDialogManager {
   }
 
   openSummary() : Observable<OrderSummaryOutputData> {
-    // TODO fix title
     return this.dialogManager.openSummary({
         restaurantRef: this.accountService.getRestaurantRef(),
         item: this.orderService.orderChanged.getValue()!,

@@ -12,7 +12,8 @@ import { MenuItemGroupComponent } from './menu-category/menu-item-group/menu-ite
     CommonModule
   ],
   exports: [
-    MenuCategoryComponent
+    MenuCategoryComponent,
+    MenuItemGroupComponent
   ]
 })
 export class RestaurantMenuModule { }
