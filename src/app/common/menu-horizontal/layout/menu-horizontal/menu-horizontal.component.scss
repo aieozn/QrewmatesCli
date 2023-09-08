@@ -3,11 +3,13 @@
     display: flex;
     top: 0px;
     background-color: #F7F7F7;
+    z-index: 101;
 }
 
 #menu {
     height: 50px;
     z-index: 900;
+    position: relative;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -86,4 +88,5 @@
     background-color: black;
     z-index: 100;
     opacity: 0.4;
+    left: 0px;
 }
