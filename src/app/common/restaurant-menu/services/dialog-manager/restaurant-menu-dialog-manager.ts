@@ -1,20 +1,19 @@
 import { OrderElementDataWrapper } from '@common/api-client/wrapper/order-element-data-wrapper';
 import { Observable, first } from 'rxjs';
 import { MenuItemGroupGet } from '@common/api-client/models';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
 import { OrderService } from '../order/order.service';
 import { OrderSummaryOutputData } from '@common/order-composer/layout/order-summary/order-summary-output-data';
-import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/OrderComposerDialogManagerToken';
 import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export abstract class RestaurantMenuDialogManager {
+export class RestaurantMenuDialogManager {
 
   constructor(
-    @Inject(ORDER_COMPOSER_DIALOG_MANAGER_TOKEN) private dialogManager: OrderComposerDialogManager,
+    private dialogManager: OrderComposerDialogManager,
     private accountService: AccountService,
     private orderService: OrderService
   ) {
@@ -43,7 +42,8 @@ export abstract class RestaurantMenuDialogManager {
         restaurantRef: this.accountService.getRestaurantRef(),
         item: this.orderService.orderChanged.getValue()!,
         waiterMode: false,
-        submitButtonText: $localize`Save`
+        submitButtonText: $localize`Save`,
+        orderComposerDialogManager: this.dialogManager
       })
       .afterClosed();
   }

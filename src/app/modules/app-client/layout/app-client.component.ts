@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { filter, first, map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { OrderService } from '../../../common/restaurant-menu/services/order/order.service';
@@ -9,8 +9,6 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { ErrorDialogManager } from 'app/common/dialogs/error-dialog/services/error-dialog-manager.service';
 import { DialogManagerService } from '../services/dialog-manager/dialog-manager.service';
 import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
-import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
-import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/OrderComposerDialogManagerToken';
 
 @Component({
   selector: 'app-client',
@@ -42,8 +40,7 @@ export class AppClientComponent implements OnDestroy {
     protected orderService: OrderService,
     private cookiesService: CookieService,
     private errorDialogManager: ErrorDialogManager,
-    private restaurantDialogManager: RestaurantMenuDialogManager,
-    @Inject(ORDER_COMPOSER_DIALOG_MANAGER_TOKEN) private ddd: OrderComposerDialogManager
+    private restaurantDialogManager: RestaurantMenuDialogManager
   ) {
     const restaurantRef = this.accountService.getRestaurantRef();
 

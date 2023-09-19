@@ -1,4 +1,4 @@
-import { InjectionToken, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrdeSubmitComponent } from './layout/order-submit/order-submit.component';
 import { OrderMenuItemComponent } from './layout/order-menu-item/order-menu-item.component';

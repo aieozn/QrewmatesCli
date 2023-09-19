@@ -6,11 +6,14 @@ import { OrderSummaryInputData } from '@common/order-composer/layout/order-summa
 import { OrderSummaryComponent } from '@common/order-composer/layout/order-summary/order-summary.component';
 import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class OrderComposerDialogManagerDesktop extends OrderComposerDialogManager {
 
   static defaultGenericDialogConfig = {
     width: 'calc(100% - 300px)',
+    maxWidth: 'auto',
     // Related to getMaxBodyHeight from generic dialog component
     height: '70%',
     position: {
@@ -36,14 +39,19 @@ export class OrderComposerDialogManagerDesktop extends OrderComposerDialogManage
   static getDefaultGenericDialogConfig(data: unknown) : MatDialogConfig {
     return Object.assign({},
       OrderComposerDialogManagerDesktop.defaultGenericDialogConfig,
-      { data: data });
+      { 
+        data: data
+      }
+    );
   }
-
   openMenuItemComponent(data: OrderMenuItemData) : MatDialogRef<OrderMenuItemComponent> {
     return this.dialog.open(OrderMenuItemComponent, OrderComposerDialogManagerDesktop.getDefaultGenericDialogConfig(data));
   }
 
   openSummary(data: OrderSummaryInputData) : MatDialogRef<OrderSummaryComponent> {
-    return this.dialog.open(OrderSummaryComponent, OrderComposerDialogManagerDesktop.getDefaultGenericDialogConfig(data));
+    return this.dialog.open(
+      OrderSummaryComponent,
+      OrderComposerDialogManagerDesktop.getDefaultGenericDialogConfig(data),
+    );
   }
 }

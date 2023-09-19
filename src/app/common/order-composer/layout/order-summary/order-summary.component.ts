@@ -8,7 +8,6 @@ import { AccountService } from '@common/account-utils/services/account.service';
 import { MenuItemGroupGet } from '@common/api-client/models';
 import { OrderSummaryInputData } from './order-summary-input-data';
 import { OrderSummaryOutputData } from './order-summary-output-data';
-import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/OrderComposerDialogManagerToken';
 import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 
 @Component({
@@ -22,12 +21,12 @@ export class OrderSummaryComponent {
   output: OrderSummaryOutputData;
   waiterMode: boolean;
   submitButtonText: string;
+  dialogManager: OrderComposerDialogManager;
 
   constructor(
     public dialogRef: MatDialogRef<OrderSummaryComponent>,
     private groupService: MenuItemGroupControllerService,
     private accountService: AccountService,
-    @Inject(ORDER_COMPOSER_DIALOG_MANAGER_TOKEN) private dialogManager: OrderComposerDialogManager,
     @Inject(MAT_DIALOG_DATA) data: OrderSummaryInputData
   ) {
     const order = JSON.parse(JSON.stringify(data.item));
@@ -42,6 +41,8 @@ export class OrderSummaryComponent {
       order: this.order,
       submit: false
     }
+
+    this.dialogManager = data.orderComposerDialogManager;
   }
 
   close() {

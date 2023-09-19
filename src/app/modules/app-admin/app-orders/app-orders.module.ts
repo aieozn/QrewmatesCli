@@ -11,9 +11,10 @@ import { OrderDetailsDialogComponent } from './order-details-dialog/order-detail
 import { EditOrderComponent } from './edit-order/edit-order.component';
 import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
 import { MatIconModule } from '@angular/material/icon';
-import { OrderComposerDialogManagerDesktop } from 'app/common/services/dialog-manager/desktop/order-composer-dialog-manager-desktop.service';
 import { OrderComposerModule } from '@common/order-composer/order-composer.module';
-import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/OrderComposerDialogManagerToken';
+import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
+import { OrderComposerDialogManagerDesktop } from 'app/common/services/dialog-manager/desktop/order-composer-dialog-manager-desktop.service';
+import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
 
 
 @NgModule({
@@ -32,9 +33,16 @@ import { ORDER_COMPOSER_DIALOG_MANAGER_TOKEN } from '@common/order-composer/Orde
     OrderComposerModule,
     MatIconModule,
     RestaurantMenuModule
-  ], 
+  ],
   providers: [
-    { provide: ORDER_COMPOSER_DIALOG_MANAGER_TOKEN, useClass: OrderComposerDialogManagerDesktop }
+    {
+      provide: OrderComposerDialogManager,
+      useClass: OrderComposerDialogManagerDesktop
+    },
+    {
+      provide: RestaurantMenuDialogManager,
+      useClass: RestaurantMenuDialogManager
+    }
   ]
 })
 export class AppOrdersModule { }

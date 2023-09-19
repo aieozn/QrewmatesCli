@@ -6,7 +6,9 @@ import { OrderSummaryInputData } from '@common/order-composer/layout/order-summa
 import { OrderSummaryComponent } from '@common/order-composer/layout/order-summary/order-summary.component';
 import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class OrderComposerDialogManagerMobile extends OrderComposerDialogManager {
 
   static defaultGenericDialogConfig = {

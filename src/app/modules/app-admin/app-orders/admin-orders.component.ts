@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AccountService } from '@common/account-utils/services/account.service';
-import { OrderDetailsGet, OrderGet, SubscribeOrdersMessage } from '@common/api-client/models';
+import { OrderGet, SubscribeOrdersMessage } from '@common/api-client/models';
 import { OrderSocketService } from 'app/common/services/order-subscribe-socket/order-subscribe-socket.service';
 import { Subject, takeUntil, tap } from 'rxjs';
 
