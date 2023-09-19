@@ -3,13 +3,20 @@ import { orderWithMultipleMargheritaDeleted, orderWithSelect, orderWithToppings,
 import { validateDetails, validateSummary } from "../../utils/utils";
 import { deleteGroup, fakeOrder, flushPizzaTaxi, loginAsAdmin } from "../utils/utils";
 
-describe('Edit order', () => {
+const initialConditions = [
+    { url: '/staff/active' },
+    { url: '/admin/orders' },
+];
+
+initialConditions.forEach(condition => {
+
+describe('Edit order flush', () => {
 
     beforeEach(() => {
         flushPizzaTaxi()
         cy.session('login as staff (v2)', () => loginAsAdmin())
         
-        cy.visit('/staff/active')
+        cy.visit(condition.url)
         cy.intercept('PUT', '/api/staff/v1/restaurant/R0TAXI000000/order-instances/*').as('updateOrder')
     })
 
@@ -35,7 +42,7 @@ describe('Edit order', () => {
         validateDetails(simpleOrder, false);
 
         deleteGroup('IG0PT0000000').then(() => {
-            cy.reload()
+            cy.visit(condition.url)
             cy.get('.pending-order').eq(13).click();
             validateDetails(simpleOrder, false);
 
@@ -55,7 +62,7 @@ describe('Edit order', () => {
         cy.visit('/admin/menu/category/C0PT00000000/group/IG0PT0000000')
         editGroupItem('Pizza Margherita', 'Mała', 'Bardzo mała', 15.99, [], [], [])
 
-        cy.visit('/staff/active')
+        cy.visit(condition.url)
         cy.get('.pending-order').eq(13).click();
         validateDetails(simpleOrder, false);
 
@@ -79,7 +86,7 @@ describe('Edit order', () => {
         cy.get('.save-button').should('not.have.class', 'disabled').click();
 
         cy.url().should('match', new RegExp('.*/category/.{12}/group/.{12}$'))
-        cy.visit('/staff/active')
+        cy.visit(condition.url)
 
         cy.get('.pending-order').eq(13).click();
         validateDetails(orderWithToppings, false);
@@ -106,7 +113,7 @@ describe('Edit order', () => {
         cy.get('.save-button').should('not.have.class', 'disabled').click();
 
         cy.url().should('match', new RegExp('.*/category/.{12}/group/.{12}$'))
-        cy.visit('/staff/active')
+        cy.visit(condition.url)
 
         cy.get('.pending-order').eq(13).click();
         validateDetails(orderWithSelect, false);
@@ -122,7 +129,7 @@ describe('Edit order', () => {
         fakeOrder('order/request/order-with-multiple-elements.json', 'R0TAXI000000')
 
         deleteGroup('IG0PT0000000');
-        cy.reload()
+        cy.visit(condition.url)
 
         cy.get('.pending-order').eq(13).click();
         cy.get('.order-action-button').contains('Edit').click()
@@ -141,5 +148,7 @@ describe('Edit order', () => {
         cy.get('.pending-order').eq(13).click();
         validateDetails(orderWithMultipleMargheritaDeleted, false)
     })
+
+})
 
 })

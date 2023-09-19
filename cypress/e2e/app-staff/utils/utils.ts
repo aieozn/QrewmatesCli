@@ -75,8 +75,13 @@ export function goToOrderEdit(number: number) {
 }
 
 export function findPendingOrder(table: string) : Cypress.Chainable<JQuery<HTMLElement>> {
-    return cy
-        .get('app-menu-horizontal-element-wrapper[name="Pending orders"] .pending-order h3')
+    return cy.get('h2').contains("Pending orders").parent().find('.pending-order h3')
+        .contains(table)
+        .parents('.pending-order')
+}
+
+export function findActiveOrder(table: string) : Cypress.Chainable<JQuery<HTMLElement>> {
+    return cy.get('h2').contains("Active orders").parent().find('.pending-order h3')
         .contains(table)
         .parents('.pending-order')
 }

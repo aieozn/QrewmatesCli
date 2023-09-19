@@ -3,12 +3,19 @@ import { margheritaWithSanMarzanoOrder, orderWithComment, orderWithToppings, ord
 import { removeOrderElement, validateSummary } from "../../utils/utils";
 import { fakeOrder, goToOrderEdit, loginAsStaff, removeAllOrders } from "../utils/utils";
 
+const initialConditions = [
+    { url: '/staff/active' },
+    { url: '/admin/orders' },
+];
+
+initialConditions.forEach(condition => {
+
 describe('Edit order', () => {
 
     beforeEach(() => {
         removeAllOrders()
         cy.session('login as staff 1', () => loginAsStaff())
-        cy.visit('/staff/active')
+        cy.visit(condition.url)
 
         cy.intercept('PUT', '/api/staff/v1/restaurant/R0TAXI000000/order-instances/*').as('updateOrder')
     })
@@ -226,4 +233,6 @@ describe('Edit order', () => {
             cy.fixture('order/request/order-with-comment.json').should('deep.equal', interception.request.body)
         })
     })
+})
+
 })

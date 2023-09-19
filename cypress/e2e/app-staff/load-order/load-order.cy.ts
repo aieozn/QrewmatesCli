@@ -2,11 +2,18 @@ import { complexOrder, orderWithComment, orderWithMultipleElements, orderWithMul
 import { validateDetails } from "../../utils/utils";
 import { fakeOrder, loginAsStaff, removeAllOrders } from "../utils/utils";
 
+const initialConditions = [
+    { url: '/staff/active' },
+    { url: '/admin/orders' },
+];
+
+initialConditions.forEach(condition => {
+
 describe('Load order', () => {
     beforeEach(() => {
         removeAllOrders()
         cy.session('login as staff 2', () => loginAsStaff())
-        cy.visit('/staff')
+        cy.visit(condition.url)
     })
 
     const testData = [
@@ -29,4 +36,6 @@ describe('Load order', () => {
             validateDetails(definition, false)
         })
     })
+})
+
 })
