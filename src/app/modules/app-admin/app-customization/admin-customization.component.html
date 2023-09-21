@@ -1,4 +1,4 @@
-<div id="personalization">
+<div id="personalization" *ngIf="restaurant | async as restaurant">
     <h1 i18n>Personalization</h1>
 
     <div class="personalization-group">
@@ -20,14 +20,37 @@
     <div class="spacer"></div>
 
     <div class="personalization-group">
-        <h2 i18n>Order to table configuration</h2>
+        <h2 i18n>Order to table configuration
+            <span class="enabled-tag" *ngIf="restaurant.tableOrderConfig.enabled">(Enabled)</span>
+            <span class="disabled-tag" *ngIf="!restaurant.tableOrderConfig.enabled">(Disabled)</span>
+        </h2>
 
-        <div class="on-off-toogle">
-            <mat-slide-toggle>Enable</mat-slide-toggle>
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Manage table orders" [value]="restaurant.tableOrderConfig.enabled" (toogle)="toogleEnableTableOrder($event)" i18n>
+                Tableside ordering allows your customers to order directly from the table. Print the qr code, attach it to the table and provide your customers with a completely new experience
+            </app-toogle-boolean-customization>
         </div>
 
         <div class="personalization-element">
             <app-qr-template-customization></app-qr-template-customization>
+        </div>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Online payment" [value]="restaurant.tableOrderConfig.onlinePaymentEnabled" (toogle)="toogleTableOnlinePayment($event)" i18n>
+                Users can pay for their order using the online payment gateway.
+            </app-toogle-boolean-customization>
+        </div>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Offline payment" [value]="restaurant.tableOrderConfig.overduePaymentEnabled" (toogle)="toogleTableOverduePayment($event)" i18n>
+                Users can pay for their order directly using regular payment methods, calling the waiter, or any other method provided by the restaurant. The restaurant will be responsible for processing this payment
+            </app-toogle-boolean-customization>
+        </div>
+        
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Call waiter" [value]="restaurant.tableOrderConfig.callWaiter" (toogle)="toogleCallWaiter($event)" i18n>
+                The user can call the waiter using the application. All waiters will be notified that the customer is waiting for their help.
+            </app-toogle-boolean-customization>
         </div>
     </div>
 

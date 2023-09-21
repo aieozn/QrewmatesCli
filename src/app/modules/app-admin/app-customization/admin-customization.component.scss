@@ -15,8 +15,13 @@ h1 {
 }
 
 h2 {
-    margin-top: 40px;
+    margin-top: 80px;
     font-family: PoppinsBold;
+    margin-bottom: 0px;
+}
+
+.personalization-element {
+    margin-top: 20px;
 }
 
 .personalization-element, .personalization-element-full-width {
@@ -35,4 +40,14 @@ h2 {
 
 .personalization-group {
     position: relative;
+}
+
+.enabled-tag {
+    color: #38A583;
+    font-family: PoppinsBold;
+}
+
+.disabled-tag {
+    color: #9e3523;
+    font-family: PoppinsBold;
 }

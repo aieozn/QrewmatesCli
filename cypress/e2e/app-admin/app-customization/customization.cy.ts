@@ -68,4 +68,16 @@ describe('Edit allergens', () => {
             .should('have.css', 'background-color')
             .and('include', 'rgb(165, 157, 56)')
     })
+
+    it('Disabling all payment methods for table orders is not allowed', () => {
+        throw 'Fail';
+    });
+
+    it('Disabling all payment methods for online orders is not allowed', () => {
+        throw 'Fail';
+    });
+
+    it('Disabling all payment methods for onsite orders is not allowed', () => {
+        throw 'Fail';
+    });
 });

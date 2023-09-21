@@ -1,0 +1,12 @@
+<h2>{{ header }}</h2>
+
+<div class="customization-envelope box-shadow">
+    <div class="active-text">
+        <p>
+            <ng-content></ng-content>
+        </p>
+
+        <p class="clickable action-button disable" (click)="toogle(false)" i18n *ngIf="value">Disable</p>
+        <p class="clickable action-button" (click)="toogle(true)" i18n *ngIf="!value">Enable</p>
+    </div>
+</div>

@@ -22,7 +22,6 @@ export class LogoCustomizationComponent implements OnDestroy {
   constructor(
     private multimediaService : MultimediaControllerService,
     private accountService: AccountService,
-    private restaurantService: RestaurantControllerService,
     private customizationService: AdminCustomizationService
   ) {
     customizationService.getRestaurant().pipe(

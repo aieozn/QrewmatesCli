@@ -12,6 +12,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { QrTemplateCustomizationComponent } from './qr-template-customization/qr-template-customization.component';
 import { ComplexEditorModule } from 'app/common/complex-editor/complex-editor.module';
 import { EditThemeComponent } from './editors/edit-theme/edit-theme.component';
+import { ToogleBooleanCustomizationComponent } from './toogle-boolean-customization/toogle-boolean-customization.component';
 
 @NgModule({
   declarations: [
@@ -20,15 +21,15 @@ import { EditThemeComponent } from './editors/edit-theme/edit-theme.component';
     ColorsCustomizationComponent,
     LogoCustomizationComponent,
     QrTemplateCustomizationComponent,
-    EditThemeComponent
+    EditThemeComponent,
+    ToogleBooleanCustomizationComponent
   ],
   imports: [
     CommonModule,
     AppCustomizationRoutingModule,
     MatIconModule,
     ColorPickerModule,
-    ComplexEditorModule,
-    MatSlideToggleModule
+    ComplexEditorModule
   ]
 })
 export class AppCustomizationModule { }
