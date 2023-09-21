@@ -54,6 +54,66 @@
         </div>
     </div>
 
+    <div class="spacer"></div>
+
+    <div class="personalization-group">
+        <h2 i18n>Order on site configuration
+            <span class="enabled-tag" *ngIf="restaurant.onsiteOrderConfig.enabled">(Enabled)</span>
+            <span class="disabled-tag" *ngIf="!restaurant.onsiteOrderConfig.enabled">(Disabled)</span>
+        </h2>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Manage table orders" [value]="restaurant.onsiteOrderConfig.enabled" (toogle)="toogleEnableOnsiteOrder($event)" i18n>
+                On-site ordering allows customers to place an order using a QR code. A unique order number will be assigned to the order, so you can easily call the customer when the order is ready.
+            </app-toogle-boolean-customization>
+        </div>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Online payment" [value]="restaurant.onsiteOrderConfig.onlinePaymentEnabled" (toogle)="toogleOnsiteOnlinePayment($event)" i18n>
+                Users can pay for their order using the online payment gateway.
+            </app-toogle-boolean-customization>
+        </div>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Offline payment" [value]="restaurant.onsiteOrderConfig.overduePaymentEnabled" (toogle)="toogleOnsiteOverduePayment($event)" i18n>
+                Users can pay for their order directly using regular payment methods, calling the waiter, or any other method provided by the restaurant. The restaurant will be responsible for processing this payment
+            </app-toogle-boolean-customization>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="personalization-group">
+        <h2 i18n>Online order configuration
+            <span class="enabled-tag" *ngIf="restaurant.onlineOrderConfig.enabled">(Enabled)</span>
+            <span class="disabled-tag" *ngIf="!restaurant.onlineOrderConfig.enabled">(Disabled)</span>
+        </h2>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Manage online orders" [value]="restaurant.onlineOrderConfig.enabled" (toogle)="toogleEnableOnlineOrder($event)" i18n>
+                Online ordering allows customers to place an order and have it delivered to their home. The restaurant is responsible for delivering the order to the customer
+            </app-toogle-boolean-customization>
+        </div>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="Online payment" [value]="restaurant.onlineOrderConfig.onlinePaymentEnabled" (toogle)="toogleOnlineOrderOnlinePayment($event)" i18n>
+                Users can pay for their order using the online payment gateway.
+            </app-toogle-boolean-customization>
+        </div>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="On delivery cash payment" [value]="restaurant.onlineOrderConfig.overdueCashPaymentEnabled" (toogle)="toogleOnlineOrderOverdueCashPayment($event)" i18n>
+                The user can pay for the order in cash upon delivery. The restaurant will be responsible for processing this payment
+            </app-toogle-boolean-customization>
+        </div>
+
+        <div class="personalization-element">
+            <app-toogle-boolean-customization i18n-header header="On delivery cash payment" [value]="restaurant.onlineOrderConfig.overdueCardPaymentEnabled" (toogle)="toogleOnlineOrderOverdueCardPayment($event)" i18n>
+                The user can pay for the order by card upon delivery. The restaurant will be responsible for processing this payment
+            </app-toogle-boolean-customization>
+        </div>
+    </div>
+
 
     <div class="spacer" style="margin-bottom: 50px;"></div>
 </div>

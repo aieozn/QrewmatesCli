@@ -19,6 +19,7 @@ export class AdminCustomizationComponent implements OnDestroy {
 
   private INVALID_CONFIGURATION_TITLE = $localize`Invalid configuration`;
   private TABLE_ORDER_NO_PAYMENT_METHOD_MESSAGE = $localize`No payment method is available for table orders`;
+  private ONSITE_ORDER_NO_PAYMENT_METHOD_MESSAGE = $localize`No payment method is available for onsite orders`;
 
   constructor(
     accountService: AccountService,
@@ -62,6 +63,15 @@ export class AdminCustomizationComponent implements OnDestroy {
       return of();
     }
 
+    if (!r.onsiteOrderConfig.onlinePaymentEnabled && !r.onsiteOrderConfig.overduePaymentEnabled) {
+      this.errorDialogService.open({
+        title: this.INVALID_CONFIGURATION_TITLE,
+        message: this.ONSITE_ORDER_NO_PAYMENT_METHOD_MESSAGE
+      })
+
+      return of();
+    }
+
     return this.restaurantService.putRestaurant({
       restaurantRef: r!.ref,
       body: r!
@@ -79,15 +89,57 @@ export class AdminCustomizationComponent implements OnDestroy {
     this.customizationService.updateRestaurant(restaurant);
   }
 
+  toogleEnableOnsiteOrder(value: boolean) {
+    const restaurant = this.customizationService.getRestaurantValue()
+    restaurant.onsiteOrderConfig.enabled = value;
+    this.customizationService.updateRestaurant(restaurant);
+  }
+
+  toogleEnableOnlineOrder(value: boolean) {
+    const restaurant = this.customizationService.getRestaurantValue()
+    restaurant.onlineOrderConfig.enabled = value;
+    this.customizationService.updateRestaurant(restaurant);
+  }
+
   toogleTableOnlinePayment(value: boolean) {
     const restaurant = this.customizationService.getRestaurantValue()
     restaurant.tableOrderConfig.onlinePaymentEnabled = value;
     this.customizationService.updateRestaurant(restaurant);
   }
 
+  toogleOnsiteOnlinePayment(value: boolean) {
+    const restaurant = this.customizationService.getRestaurantValue()
+    restaurant.onsiteOrderConfig.onlinePaymentEnabled = value;
+    this.customizationService.updateRestaurant(restaurant);
+  }
+
+  toogleOnlineOrderOnlinePayment(value: boolean) {
+    const restaurant = this.customizationService.getRestaurantValue()
+    restaurant.onlineOrderConfig.onlinePaymentEnabled = value;
+    this.customizationService.updateRestaurant(restaurant);
+  }
+
   toogleTableOverduePayment(value: boolean) {
     const restaurant = this.customizationService.getRestaurantValue()
     restaurant.tableOrderConfig.overduePaymentEnabled = value;
+    this.customizationService.updateRestaurant(restaurant);
+  }
+
+  toogleOnsiteOverduePayment(value: boolean) {
+    const restaurant = this.customizationService.getRestaurantValue()
+    restaurant.onsiteOrderConfig.overduePaymentEnabled = value;
+    this.customizationService.updateRestaurant(restaurant);
+  }
+
+  toogleOnlineOrderOverdueCashPayment(value: boolean) {
+    const restaurant = this.customizationService.getRestaurantValue()
+    restaurant.onlineOrderConfig.overdueCashPaymentEnabled = value;
+    this.customizationService.updateRestaurant(restaurant);
+  }
+
+  toogleOnlineOrderOverdueCardPayment(value: boolean) {
+    const restaurant = this.customizationService.getRestaurantValue()
+    restaurant.onlineOrderConfig.overdueCardPaymentEnabled = value;
     this.customizationService.updateRestaurant(restaurant);
   }
 

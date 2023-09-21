@@ -4,7 +4,8 @@ export interface OnlineOrderConfigGet {
   enabled: boolean;
   minValue: number;
   onlinePaymentEnabled: boolean;
-  overduePaymentEnabled: boolean;
+  overdueCardPaymentEnabled: boolean;
+  overdueCashPaymentEnabled: boolean;
   range: number;
   timeEstimated: number;
 }
