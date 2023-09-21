@@ -9,9 +9,10 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { RestaurantData } from '../models/restaurant-data';
 import { RestaurantDetailsGet } from '../models/restaurant-details-get';
 import { RestaurantGet } from '../models/restaurant-get';
+import { RestaurantPostData } from '../models/restaurant-post-data';
+import { RestaurantPutData } from '../models/restaurant-put-data';
 import { StatusResponse } from '../models/status-response';
 
 @Injectable({
@@ -38,7 +39,7 @@ export class RestaurantControllerService extends BaseService {
    */
   putRestaurant$Response(params: {
     restaurantRef: string;
-    body: RestaurantData
+    body: RestaurantPutData
   }): Observable<StrictHttpResponse<RestaurantDetailsGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, RestaurantControllerService.PutRestaurantPath, 'put');
@@ -66,7 +67,7 @@ export class RestaurantControllerService extends BaseService {
    */
   putRestaurant(params: {
     restaurantRef: string;
-    body: RestaurantData
+    body: RestaurantPutData
   }): Observable<RestaurantDetailsGet> {
 
     return this.putRestaurant$Response(params).pipe(
@@ -86,7 +87,7 @@ export class RestaurantControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   postRestaurant$Response(params: {
-    body: RestaurantData
+    body: RestaurantPostData
   }): Observable<StrictHttpResponse<RestaurantDetailsGet>> {
 
     const rb = new RequestBuilder(this.rootUrl, RestaurantControllerService.PostRestaurantPath, 'post');
@@ -112,7 +113,7 @@ export class RestaurantControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   postRestaurant(params: {
-    body: RestaurantData
+    body: RestaurantPostData
   }): Observable<RestaurantDetailsGet> {
 
     return this.postRestaurant$Response(params).pipe(

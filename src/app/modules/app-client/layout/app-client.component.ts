@@ -131,8 +131,8 @@ export class AppClientComponent implements OnDestroy {
   }
 
   private getBackgroundCssImageUrl(restaurant : RestaurantGet) {
-    if (restaurant.backgroundImage) {
-      const url = this.accountService.getMultimediaUrl(restaurant.backgroundImage.ref);
+    if (restaurant.theme.backgroundImage) {
+      const url = this.accountService.getMultimediaUrl(restaurant.theme.backgroundImage.ref);
       return 'url(' + url + ')';
     } else {
       return 'none';

@@ -1,20 +1,34 @@
 <div id="personalization">
     <h1 i18n>Personalization</h1>
 
-    <div class="personalization-element">
-        <app-logo-customization></app-logo-customization>
+    <div class="personalization-group">
+        <h2 i18n>Restaurant configuration</h2>
+
+        <div class="personalization-element">
+            <app-logo-customization></app-logo-customization>
+        </div>
+    
+        <div class="personalization-element">
+            <app-background-photo-customization></app-background-photo-customization>
+        </div>
+    
+        <div class="personalization-element">
+            <app-colors-customization></app-colors-customization>
+        </div>
     </div>
 
-    <div class="personalization-element">
-        <app-background-photo-customization></app-background-photo-customization>
-    </div>
+    <div class="spacer"></div>
 
-    <div class="personalization-element">
-        <app-qr-template-customization></app-qr-template-customization>
-    </div>
+    <div class="personalization-group">
+        <h2 i18n>Order to table configuration</h2>
 
-    <div class="personalization-element">
-        <app-colors-customization></app-colors-customization>
+        <div class="on-off-toogle">
+            <mat-slide-toggle>Enable</mat-slide-toggle>
+        </div>
+
+        <div class="personalization-element">
+            <app-qr-template-customization></app-qr-template-customization>
+        </div>
     </div>
 
 

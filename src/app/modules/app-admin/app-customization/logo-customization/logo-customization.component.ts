@@ -16,7 +16,7 @@ export class LogoCustomizationComponent implements OnDestroy {
   imageUrl: string | undefined;
   
   updateRestaurant(value: RestaurantDetailsGet | undefined) {
-    this.imageUrl = value?.logo ? this.accountService.getMultimediaUrl(value.logo.ref) : undefined;
+    this.imageUrl = value?.theme.logo ? this.accountService.getMultimediaUrl(value.theme.logo.ref) : undefined;
   }
 
   constructor(
@@ -33,7 +33,7 @@ export class LogoCustomizationComponent implements OnDestroy {
 
   remove() {
     const newRestaurantConfig = this.customizationService.getRestaurantValue()
-    newRestaurantConfig.logo = undefined;
+    newRestaurantConfig.theme.logo = undefined;
     this.customizationService.updateRestaurant(newRestaurantConfig);
   }
 
@@ -59,7 +59,7 @@ export class LogoCustomizationComponent implements OnDestroy {
         }).subscribe(uploadedImage => {
           const newRestaurantConfig = this.customizationService.getRestaurantValue()
 
-          newRestaurantConfig.logo = {
+          newRestaurantConfig.theme.logo = {
             ref: uploadedImage.ref
           }
 

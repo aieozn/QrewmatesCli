@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AppCustomizationRoutingModule } from './app-customization-routing.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminCustomizationComponent } from './admin-customization.component';
 import { BackgroundPhotoCustomizationComponent } from './background-photo-customization/background-photo-customization.component'
 import { ColorsCustomizationComponent } from './colors-customization/colors-customization.component';
@@ -26,7 +27,8 @@ import { EditThemeComponent } from './editors/edit-theme/edit-theme.component';
     AppCustomizationRoutingModule,
     MatIconModule,
     ColorPickerModule,
-    ComplexEditorModule
+    ComplexEditorModule,
+    MatSlideToggleModule
   ]
 })
 export class AppCustomizationModule { }

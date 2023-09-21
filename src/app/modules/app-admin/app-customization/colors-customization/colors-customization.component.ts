@@ -17,7 +17,7 @@ export class ColorsCustomizationComponent implements OnDestroy {
     private customizationService: AdminCustomizationService
   ) {
     customizationService.getRestaurant().pipe(
-      tap(e => this.activeColor = e ? '#' + e.themeMainColor : undefined),
+      tap(e => this.activeColor = e ? '#' + e.theme.themeMainColor : undefined),
       takeUntil(this.onDestroy)
     ).subscribe()
   }
@@ -25,7 +25,7 @@ export class ColorsCustomizationComponent implements OnDestroy {
   publish() {
     const activeRestaurant = this.customizationService.getRestaurantValue();
 
-    activeRestaurant.themeMainColor = this.activeColor!.replace('#', '').toUpperCase();
+    activeRestaurant.theme.themeMainColor = this.activeColor!.replace('#', '').toUpperCase();
     this.customizationService.updateRestaurant(activeRestaurant);
   }
 

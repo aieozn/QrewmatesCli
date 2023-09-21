@@ -27,12 +27,12 @@ export class BackgroundPhotoCustomizationComponent implements OnDestroy {
   }
 
   updateRestaurant(value: RestaurantDetailsGet | undefined) {
-    this.imageUrl = value?.backgroundImage ? this.accountService.getMultimediaUrl(value.backgroundImage.ref) : undefined;
+    this.imageUrl = value?.theme?.backgroundImage ? this.accountService.getMultimediaUrl(value.theme.backgroundImage.ref) : undefined;
   }
 
   remove() {
     const newRestaurantConfig = this.customizationService.getRestaurantValue()
-    newRestaurantConfig.backgroundImage = undefined;
+    newRestaurantConfig.theme.backgroundImage = undefined;
     this.customizationService.updateRestaurant(newRestaurantConfig);
   }
 
@@ -57,7 +57,7 @@ export class BackgroundPhotoCustomizationComponent implements OnDestroy {
           }
         }).subscribe(uploadedImage => {
           const newRestaurantConfig = this.customizationService.getRestaurantValue()
-          newRestaurantConfig.backgroundImage = {
+          newRestaurantConfig.theme.backgroundImage = {
             ref: uploadedImage.ref
           }
           this.customizationService.updateRestaurant(newRestaurantConfig);

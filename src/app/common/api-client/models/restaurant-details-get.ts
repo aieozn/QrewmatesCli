@@ -1,22 +1,22 @@
 /* tslint:disable */
 /* eslint-disable */
-import { MultimediaGet } from './multimedia-get';
+import { AddressGet } from './address-get';
+import { OnlineOrderConfigGet } from './online-order-config-get';
+import { OnsiteOrderConfigGet } from './onsite-order-config-get';
 import { OpeningHoursUtcGet } from './opening-hours-utc-get';
 import { QrCodeConfigGet } from './qr-code-config-get';
+import { TableOrderConfigGet } from './table-order-config-get';
+import { ThemeGet } from './theme-get';
 export interface RestaurantDetailsGet {
-  backgroundImage?: MultimediaGet;
-  callWaiter: boolean;
+  address: AddressGet;
   currency: 'PLN' | 'EUR' | 'USD';
   isOpen: boolean;
-  logo?: MultimediaGet;
   name: string;
-  onlinePayment: boolean;
+  onlineOrderConfig: OnlineOrderConfigGet;
+  onsiteOrderConfig: OnsiteOrderConfigGet;
   openingHoursUTC: Array<OpeningHoursUtcGet>;
-  postPayment: boolean;
-  prePayment: boolean;
   qrCodeConfig: QrCodeConfigGet;
   ref: string;
-  themeMainColor: string;
-  themeMainColorContrast: string;
-  tipPayment: boolean;
+  tableOrderConfig: TableOrderConfigGet;
+  theme: ThemeGet;
 }
