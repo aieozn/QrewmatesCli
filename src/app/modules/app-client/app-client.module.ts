@@ -14,6 +14,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { ApiModule } from '@common/api-client/api.module';
 import { RestaurantMenuModule } from 'app/common/restaurant-menu/restaurant-menu.module';
 import { OrderComposerModule } from '@common/order-composer/order-composer.module';
+import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
+import { OrderComposerDialogManagerMobile } from 'app/common/services/dialog-manager/mobile/order-composer-dialog-manager-mobile.service';
+import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
 
 
 @NgModule({
@@ -36,7 +39,15 @@ import { OrderComposerModule } from '@common/order-composer/order-composer.modul
     RestaurantMenuModule
   ],
   providers: [
-    CookieService
+    CookieService,
+    {
+      provide: OrderComposerDialogManager,
+      useClass: OrderComposerDialogManagerMobile
+    },
+    {
+      provide: RestaurantMenuDialogManager,
+      useClass: RestaurantMenuDialogManager
+    },
   ]
 })
 export class AppClientModule { }

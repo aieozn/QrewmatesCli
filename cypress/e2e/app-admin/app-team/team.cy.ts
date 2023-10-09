@@ -78,7 +78,7 @@ describe('Edit team', () => {
         cy.get('mat-dialog-container .mat-mdc-dialog-content').should('have.text', 'User already exist');
     })
 
-    it.only('Self update not allowed', () => {
+    it('Self update not allowed', () => {
         cy.get('h2').contains('Staff').parent().find('.bar').should('have.length', 2)
 
         cy.get('h2').contains('Administrators').parent().find('.bar').eq(0).find('.user-bar p').contains('Panda ramen and pizza taxi admin');

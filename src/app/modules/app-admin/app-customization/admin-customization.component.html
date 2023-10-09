@@ -63,7 +63,7 @@
         </h2>
 
         <div class="personalization-element">
-            <app-toogle-boolean-customization i18n-header header="Manage table orders" [value]="restaurant.onsiteOrderConfig.enabled" (toogle)="toogleEnableOnsiteOrder($event)" i18n>
+            <app-toogle-boolean-customization i18n-header header="Manage on site orders" [value]="restaurant.onsiteOrderConfig.enabled" (toogle)="toogleEnableOnsiteOrder($event)" i18n>
                 On-site ordering allows customers to place an order using a QR code. A unique order number will be assigned to the order, so you can easily call the customer when the order is ready.
             </app-toogle-boolean-customization>
         </div>
@@ -108,7 +108,7 @@
         </div>
 
         <div class="personalization-element">
-            <app-toogle-boolean-customization i18n-header header="On delivery cash payment" [value]="restaurant.onlineOrderConfig.overdueCardPaymentEnabled" (toogle)="toogleOnlineOrderOverdueCardPayment($event)" i18n>
+            <app-toogle-boolean-customization i18n-header header="On delivery card payment" [value]="restaurant.onlineOrderConfig.overdueCardPaymentEnabled" (toogle)="toogleOnlineOrderOverdueCardPayment($event)" i18n>
                 The user can pay for the order by card upon delivery. The restaurant will be responsible for processing this payment
             </app-toogle-boolean-customization>
         </div>

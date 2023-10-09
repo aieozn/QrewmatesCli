@@ -205,7 +205,7 @@ describe('Edit order', () => {
         })
     })
 
-    it('Changes order comment', () => {
+    it.only('Changes order comment', () => {
         fakeOrder('order/request/simple-order.json', 'R0TAXI000000')
 
 

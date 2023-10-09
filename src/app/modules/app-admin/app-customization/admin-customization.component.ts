@@ -20,6 +20,7 @@ export class AdminCustomizationComponent implements OnDestroy {
   private INVALID_CONFIGURATION_TITLE = $localize`Invalid configuration`;
   private TABLE_ORDER_NO_PAYMENT_METHOD_MESSAGE = $localize`No payment method is available for table orders`;
   private ONSITE_ORDER_NO_PAYMENT_METHOD_MESSAGE = $localize`No payment method is available for onsite orders`;
+  private ONLINE_NO_PAYMENT_METHOD_MESSAGE = $localize`No payment method is available for online orders`;
 
   constructor(
     accountService: AccountService,
@@ -67,6 +68,15 @@ export class AdminCustomizationComponent implements OnDestroy {
       this.errorDialogService.open({
         title: this.INVALID_CONFIGURATION_TITLE,
         message: this.ONSITE_ORDER_NO_PAYMENT_METHOD_MESSAGE
+      })
+
+      return of();
+    }
+
+    if (!r.onlineOrderConfig.onlinePaymentEnabled && !r.onlineOrderConfig.overdueCashPaymentEnabled && !r.onlineOrderConfig.overdueCardPaymentEnabled) {
+      this.errorDialogService.open({
+        title: this.INVALID_CONFIGURATION_TITLE,
+        message: this.ONLINE_NO_PAYMENT_METHOD_MESSAGE
       })
 
       return of();

@@ -4,7 +4,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@common/account-utils/auth-interceptor';
 import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
-import { OrderComposerDialogManagerDesktop } from 'app/common/services/dialog-manager/desktop/order-composer-dialog-manager-desktop.service';
 import { StuffDiaglogService } from './app-active-orders/services/generic-dialog-stuff-manager/staff-dialog.service';
 import { OrderComposerDialogManagerMobile } from 'app/common/services/dialog-manager/mobile/order-composer-dialog-manager-mobile.service';
 

@@ -69,15 +69,166 @@ describe('Edit allergens', () => {
             .and('include', 'rgb(165, 157, 56)')
     })
 
+    it('Switch Manage table orders', () => {
+        const group = 'Order to table configuration';
+        const property = 'Manage table orders';
+
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch order to table online payment', () => {
+        const group = 'Order to table configuration';
+        const property = 'Online payment';
+        
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch order to table offline payment', () => {
+        const group = 'Order to table configuration';
+        const property = 'Offline payment';
+        
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch order to table call waiter', () => {
+        const group = 'Order to table configuration';
+        const property = 'Call waiter';
+        
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch Manage on site orders', () => {
+        const group = 'Order on site configuration';
+        const property = 'Manage on site orders';
+
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch on site online payment', () => {
+        const group = 'Order on site configuration';
+        const property = 'Online payment';
+        
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch on site offline payment', () => {
+        const group = 'Order on site configuration';
+        const property = 'Offline payment';
+        
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch Manage on site orders', () => {
+        const group = 'Online order configuration';
+        const property = 'Manage online orders';
+
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch on site online payment', () => {
+        const group = 'Online order configuration';
+        const property = 'Online payment';
+        
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+    it('Switch on site offline payment', () => {
+        const group = 'Online order configuration';
+        const property = 'On delivery cash payment';
+        
+        swithToogle(group, property, 'Disable', 'Enable');
+
+        cy.get('#submit-changes').click();
+        cy.reload();
+
+        verifyToogle(group, property, 'Enable');
+    });
+
+
     it('Disabling all payment methods for table orders is not allowed', () => {
-        throw 'Fail';
+        swithToogle('Order to table configuration', 'Online payment', 'Disable', 'Enable');
+        swithToogle('Order to table configuration', 'Offline payment', 'Disable', 'Enable');
+        cy.get('#submit-changes').click();
+
+        cy.get('#dialog-content #title').should('have.text', 'Invalid configuration')
     });
 
     it('Disabling all payment methods for online orders is not allowed', () => {
-        throw 'Fail';
+        swithToogle('Online order configuration', 'Online payment', 'Disable', 'Enable');
+        swithToogle('Online order configuration', 'On delivery cash payment', 'Disable', 'Enable');
+        swithToogle('Online order configuration', 'On delivery card payment', 'Disable', 'Enable');
+        cy.get('#submit-changes').click();
+
+        cy.get('#dialog-content #title').should('have.text', 'Invalid configuration')
     });
 
     it('Disabling all payment methods for onsite orders is not allowed', () => {
-        throw 'Fail';
+        swithToogle('Order on site configuration', 'Online payment', 'Disable', 'Enable');
+        swithToogle('Order on site configuration', 'Offline payment', 'Disable', 'Enable');
+        cy.get('#submit-changes').click();
+
+        cy.get('#dialog-content #title').should('have.text', 'Invalid configuration')
     });
+
+    function verifyToogle(group: string, property: string, value: string) {
+        cy.get('h2').contains(group).parent()
+        .find('h2').contains(property).parent()
+        .find('.customization-envelope .action-button')
+        .should('have.text', value)
+    }
+
+    function swithToogle(group: string, property: string, before: string, after: string) {
+        cy.get('h2').contains(group).parent()
+        .find('h2').contains(property).parent()
+        .find('.customization-envelope .action-button')
+        .should('have.text', before)
+        .click();
+
+        verifyToogle(group, property, after)
+    }
 });
