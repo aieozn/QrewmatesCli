@@ -17,6 +17,7 @@ import { OrderComposerModule } from '@common/order-composer/order-composer.modul
 import { OrderComposerDialogManager } from '@common/order-composer/services/order-composer-dialog-manager.service';
 import { OrderComposerDialogManagerMobile } from 'app/common/services/dialog-manager/mobile/order-composer-dialog-manager-mobile.service';
 import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services/dialog-manager/restaurant-menu-dialog-manager';
+import { ContentLoaderModule } from 'app/common/components/content-loader/content-loader.module';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { RestaurantMenuDialogManager } from 'app/common/restaurant-menu/services
     OrderComposerModule,
     MenuHorizontalModule,
     ApiModule,
-    RestaurantMenuModule
+    RestaurantMenuModule,
+    ContentLoaderModule
   ],
   providers: [
     CookieService,

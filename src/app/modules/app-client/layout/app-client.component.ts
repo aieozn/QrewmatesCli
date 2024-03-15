@@ -22,6 +22,7 @@ export class AppClientComponent implements OnDestroy {
 
   backgroundImageUrl = new Observable<string>();
 
+  categoriesLoaded = false;
   categories: Observable<MenuCategoryGet[]>;
 
   // Display black cover over items
@@ -48,6 +49,11 @@ export class AppClientComponent implements OnDestroy {
     this.categories = this.categoriesService.getCategories({
       "restaurantRef": restaurantRef
     });
+
+    this.categories.pipe(
+      takeUntil(this.onDestroy),
+      tap(_ => this.categoriesLoaded = true)
+    ).subscribe();
 
     // Subscribe order update
     this.orderService.orderChanged.pipe(

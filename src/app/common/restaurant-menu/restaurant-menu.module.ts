@@ -2,18 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuCategoryComponent } from './menu-category/menu-category.component';
 import { MenuItemGroupComponent } from './menu-category/menu-item-group/menu-item-group.component';
+import { MenuItemGroupLoaderComponent } from './menu-item-group-loader/menu-item-group-loader.component';
+import { ContentLoaderModule } from '../components/content-loader/content-loader.module';
 
 @NgModule({
   declarations: [
     MenuCategoryComponent,
-    MenuItemGroupComponent
+    MenuItemGroupComponent,
+    MenuItemGroupLoaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ContentLoaderModule
   ],
   exports: [
     MenuCategoryComponent,
-    MenuItemGroupComponent
+    MenuItemGroupComponent,
+    MenuItemGroupLoaderComponent
   ]
 })
 export class RestaurantMenuModule { }

@@ -13,6 +13,7 @@ import { DateRangePickerModule } from 'app/common/components/date-range-picker/d
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { EnumPickerModule } from 'app/common/components/enum-picker/enum-picker.module';
+import { ContentLoaderModule } from 'app/common/components/content-loader/content-loader.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { EnumPickerModule } from 'app/common/components/enum-picker/enum-picker.
     DateRangePickerModule,
     MatNativeDateModule,
     MatIconModule,
-    EnumPickerModule
+    EnumPickerModule,
+    ContentLoaderModule
   ],
   providers: [
     MatNativeDateModule

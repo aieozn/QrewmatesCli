@@ -13,6 +13,20 @@
 
     <app-menu-horizontal-wrapper>
         <div id="menu-elements">
+            <div class="loaders" *ngIf="!categoriesLoaded">
+                <div>
+                    <app-content-loader [size]="20"></app-content-loader>
+                </div>
+                <div class="mt-15">
+                    <app-content-loader [size]="12"></app-content-loader>
+                </div>
+    
+                <app-menu-item-group-loader></app-menu-item-group-loader>
+                <app-menu-item-group-loader></app-menu-item-group-loader>
+                <app-menu-item-group-loader></app-menu-item-group-loader>
+                <app-menu-item-group-loader></app-menu-item-group-loader>
+            </div>
+
             <app-menu-horizontal-element-wrapper *ngFor="let category of categories | async" [name]="category.name" [description]="category.description">
                 <app-menu-category [category]="category"></app-menu-category>
             </app-menu-horizontal-element-wrapper>

@@ -1,0 +1,26 @@
+.content-loader {
+    background-color: rgba(89, 131, 252, 1);
+    background: radial-gradient(circle, #F4F4F4 0%, #AAAAAA 100%);
+    animation: gradient 5s ease infinite;
+    background-size: 200% 200%;
+	height: 100%;
+	width: 100%;
+}
+
+.content-loader p {
+    visibility: hidden;
+	margin: 0px;
+	padding: 0px;
+}
+
+@keyframes gradient {
+    0% {
+		background-position-x: -100%;
+	}
+	50% {
+		background-position-x: 100%;
+	}
+	100% {
+		background-position-x: -100%;
+	}
+}

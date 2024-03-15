@@ -1,0 +1,44 @@
+.image-content-loader {
+    height: 100%;
+    display: block;
+}
+
+.menu-item {
+    padding: 20px;
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.menu-item-details {
+    width: 100%;
+}
+
+.menu-item-name {
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+.menu-item-description {
+    color: #777777;
+    margin: 0px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+}
+
+.menu-item-price {
+    font-size: 14px;
+}
+
+.menu-item-image {
+    width: 75px;
+    margin-right: 15px;
+    height: 110px;
+}
