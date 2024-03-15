@@ -7,7 +7,7 @@
 }
 
 .menu-item.selected {
-    border: 1px solid #c21d8e;
+    border: 1px solid #FEFEFE;
 }
 
 .menu-item-count p {
@@ -19,7 +19,7 @@
     position: absolute;
     left: 10px;
     top: 10px;
-    background-color: #c21d8e;
+    background-color: #FEFEFE;
     width: 18px;
     height: 18px;
     font-size: 12px;
@@ -70,14 +70,14 @@
     width: 25px;
     height: 25px;
     text-align: center;
-    border: 1px solid #c21d8e;
+    border: 1px solid #FEFEFE;
     border-radius: 50%;
-    color: #c21d8e;
+    color: #FEFEFE;
 }
 
 .menu-item-add:hover {
     color: #f4f4f4;
-    background-color: #c21d8e;
+    background-color: #FEFEFE;
 }
 
 .menu-item-add:hover p {

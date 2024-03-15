@@ -207,12 +207,14 @@ export class AppClientComponent implements OnDestroy {
   }
 
   private loadCustomCss(ref: string) {
+    const random = Math.random().toString(36).slice(2, 12);
+    
     if (!this.cssLoaded) {
       const head  = document.getElementsByTagName('head')[0];
       const link  = document.createElement('link');
       link.rel  = 'stylesheet';
       link.type = 'text/css';
-      link.href = `/api/public/v1/restaurant/${ref}/styles/styles.css`
+      link.href = `/api/public/v1/restaurant/${ref}/styles/styles.css?r=` + random;
       link.media = 'all';
       head.appendChild(link);
       this.cssLoaded = true;
