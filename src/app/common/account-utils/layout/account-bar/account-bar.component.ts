@@ -12,7 +12,7 @@ export class AccountBarComponent {
   userInitials: string;
 
   constructor(private accountService: AccountService) {
-    this.activeUser = accountService.getActiveUserOrLogin();
+    this.activeUser = accountService.getUserOrLogin();
     this.userInitials = accountService.getUserInitials(this.activeUser.name);
   }
 

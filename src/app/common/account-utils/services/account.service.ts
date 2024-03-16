@@ -1,7 +1,7 @@
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, map, tap } from 'rxjs';
 import { LoginResponse, RestaurantDetailsGet, RestaurantGet, UserRestaurant } from '../../api-client/models';
 import { LoginControllerService, RestaurantControllerService } from '../../api-client/services';
 import { ActiveUser } from '../model/active-user.interface';
@@ -25,7 +25,7 @@ export class AccountService {
     if (pathParts[0] === "menu") {
       return pathParts[1]
     } else {
-      const activeRestaurant = this.getActiveUserOrLogin().activeRestaurant;
+      const activeRestaurant = this.getUserOrLogin().activeRestaurant;
 
       if (activeRestaurant !== undefined) {
         return activeRestaurant;
@@ -106,7 +106,7 @@ export class AccountService {
   }
 
   selectRestaurant(ref: string) {
-    const activeUser = this.getActiveUserOrLogin();
+    const activeUser = this.getUserOrLogin();
     this.setStorageUser(activeUser, ref);
     this.redirectBasedOnPrivilages(activeUser, ref);
   }
@@ -140,16 +140,35 @@ export class AccountService {
     }
   }
 
-  getActiveUserOrLogin() : ActiveUser {
+  getUserOrLogin() : ActiveUser {
     const user = this.getStorageUser();
 
-    if (user !== null && user.expiration > new Date().getTime()) {
+    if (user !== null) {
       return user;
     } else {
       this.clearStorageUser();
       this.unauthorized();
       throw 'Unauthorized';
     }
+  }
+
+  refreshToken(user: ActiveUser) : Observable<ActiveUser> {
+    return this.loginController.refreshToken({
+      body: {
+        refreshToken: user.refreshToken
+      }
+    }).pipe(
+      tap(e => this.setStorageUser(e, user.activeRestaurant)),
+      map(e => ({
+        ...e,
+        activeRestaurant: user.activeRestaurant
+      })),
+      catchError(e => {
+        // Handle this exception
+        this.unauthorized();
+        throw e;
+      })
+    );
   }
 
   getUserInitials(userName: string) : string {
@@ -164,10 +183,10 @@ export class AccountService {
     }
   }
 
-  getActiveUser() : ActiveUser | null {
+  getUser() : ActiveUser | null {
     const user = this.getStorageUser();
 
-    if (user !== null && user.expiration > new Date().getTime()) {
+    if (user !== null) {
       return user;
     } else {
       this.clearStorageUser();
@@ -177,6 +196,7 @@ export class AccountService {
 
   // Execute this method if request is not authorized. It redirects user to login endpoint
   unauthorized() {
+    this.clearStorageUser();
     window.location.href = '/login';
   }
 
@@ -205,7 +225,7 @@ export class AccountService {
   }
 
   private redirectByRole(restaurant: UserRestaurant) {
-    this.getActiveUserOrLogin().activeRestaurant = restaurant.ref;
+    this.getUserOrLogin().activeRestaurant = restaurant.ref;
 
     if (['OWNER', 'ADMIN'].includes(restaurant.role)) {
       this.router.navigate(['admin']);
@@ -217,7 +237,7 @@ export class AccountService {
   }
 
   public redirectToMainPage() {
-    const user = this.getActiveUserOrLogin();
+    const user = this.getUserOrLogin();
 
     if (user.restaurants.length > 1 || user.restaurants.length == 0) {
       this.navigateToSelectOrganization()

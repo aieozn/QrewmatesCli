@@ -31,7 +31,7 @@ export class AppStaffComponent implements OnDestroy {
     private dialogManager: StuffDiaglogService,
     private orderInstanceService: OrderInstanceControllerService
   ) {
-    this.me = accountService.getActiveUserOrLogin()
+    this.me = accountService.getUserOrLogin()
   }
 
   ngOnDestroy(): void {

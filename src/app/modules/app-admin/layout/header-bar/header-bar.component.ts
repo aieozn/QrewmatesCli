@@ -13,7 +13,7 @@ export class HeaderBarComponent {
   user: ActiveUser | undefined;
 
   constructor(public collectiveChangesService: CollectiveChangesService, private accountService: AccountService) {
-    this.user = this.accountService.getActiveUserOrLogin();
+    this.user = this.accountService.getUserOrLogin();
   }
 
   publish() {

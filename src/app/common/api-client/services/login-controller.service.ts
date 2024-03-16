@@ -13,6 +13,7 @@ import { LocalAccountActivateRequest } from '../models/local-account-activate-re
 import { LocalAccountLoginRequest } from '../models/local-account-login-request';
 import { LocalAccountRegisterRequest } from '../models/local-account-register-request';
 import { LoginResponse } from '../models/login-response';
+import { RefreshTokenData } from '../models/refresh-token-data';
 import { RegisterResponse } from '../models/register-response';
 import { SocialAccountLoginRequest } from '../models/social-account-login-request';
 
@@ -116,6 +117,52 @@ export class LoginControllerService extends BaseService {
 
     return this.localRegister$Response(params).pipe(
       map((r: StrictHttpResponse<RegisterResponse>) => r.body as RegisterResponse)
+    );
+  }
+
+  /**
+   * Path part for operation refreshToken
+   */
+  static readonly RefreshTokenPath = '/api/public/v1/account/refresh';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `refreshToken()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  refreshToken$Response(params: {
+    body: RefreshTokenData
+  }): Observable<StrictHttpResponse<LoginResponse>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LoginControllerService.RefreshTokenPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LoginResponse>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `refreshToken$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  refreshToken(params: {
+    body: RefreshTokenData
+  }): Observable<LoginResponse> {
+
+    return this.refreshToken$Response(params).pipe(
+      map((r: StrictHttpResponse<LoginResponse>) => r.body as LoginResponse)
     );
   }
 

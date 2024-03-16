@@ -27,7 +27,7 @@ export class InvitationFormComponent implements OnDestroy {
     route: ActivatedRoute,
     private router: Router
   ) {
-    accountService.getActiveUserOrLogin()
+    accountService.getUserOrLogin()
 
     route.params.pipe(
       tap(params => {
@@ -58,7 +58,6 @@ export class InvitationFormComponent implements OnDestroy {
   }
 
   onNotFound() {
-    debugger;
     this.router.navigate(['/registration/not-found'])
   }
 

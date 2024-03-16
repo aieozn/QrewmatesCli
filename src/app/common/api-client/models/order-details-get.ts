@@ -11,6 +11,7 @@ export interface OrderDetailsGet {
   edited: boolean;
   elements: Array<OrderElementGet>;
   metaVersion: number;
+  orderNumber: number;
   orderStatus: 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED';
   orderStatusComment?: string;
   paymentMethod: 'CASH' | 'BLIK';

@@ -58,6 +58,7 @@ export { InvitationGet } from './models/invitation-get';
 export { DoOrderData } from './models/do-order-data';
 export { LocalAccountRegisterRequest } from './models/local-account-register-request';
 export { RegisterResponse } from './models/register-response';
+export { RefreshTokenData } from './models/refresh-token-data';
 export { SocialAccountLoginRequest } from './models/social-account-login-request';
 export { LocalAccountLoginRequest } from './models/local-account-login-request';
 export { StatisticsMonthlySalesGetParams } from './models/statistics-monthly-sales-get-params';

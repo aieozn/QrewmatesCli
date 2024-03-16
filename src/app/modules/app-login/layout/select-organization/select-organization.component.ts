@@ -12,7 +12,7 @@ export class SelectOrganizationComponent {
   activeUser: LoginResponse;
 
   constructor(private accountService: AccountService) {
-    this.activeUser = this.accountService.getActiveUserOrLogin()
+    this.activeUser = this.accountService.getUserOrLogin()
   }
 
   activate(userRestaurant: UserRestaurant) {

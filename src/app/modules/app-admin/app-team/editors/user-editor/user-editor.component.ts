@@ -75,7 +75,7 @@ export class UserEditorComponent implements OnDestroy {
         this.fields.email.disable();
         this.nameControl.disable();
 
-        if (this.accountService.getActiveUser()?.ref === u.ref) {
+        if (this.accountService.getUser()?.ref === u.ref) {
           this.fields.role.disable();
         }
       }),

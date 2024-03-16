@@ -23,7 +23,7 @@ export class OrderSocketService implements OnDestroy {
   }
 
   subscribeOrder(restaurantRef: string) : Observable<SubscribeOrdersMessage> {
-    const activeUser = this.accountService.getActiveUser();
+    const activeUser = this.accountService.getUser();
 
     if (!activeUser) {
       this.accountService.unauthorized();

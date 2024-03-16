@@ -1,7 +1,8 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, catchError, of, switchMap, tap } from "rxjs";
 import { AccountService } from "./services/account.service";
+import { TokenExpiredError } from "./token-expired-error";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -14,17 +15,44 @@ export class AuthInterceptor implements HttpInterceptor {
         req: HttpRequest<unknown>,
         next: HttpHandler
     ): Observable<HttpEvent<unknown>> {
-        const activeUser = this.accountService.getActiveUser();
+        // Skip refresh token request
+        if (req.url.endsWith('/refresh')) return next.handle(req);
 
-        if (activeUser) {
-            const cloned = req.clone({
-                headers: req.headers.set("Authorization",
-                    "Bearer " + activeUser.token)
-            });
+        const activeUser = this.accountService.getUser();
 
-            return next.handle(cloned);
-        }
-        else {
+        if (activeUser != null) {
+            return of(activeUser).pipe(
+                tap(e => {
+                    if(e.tokenExpiration < new Date().getTime()) throw new TokenExpiredError();
+                }),
+                switchMap(activeUser => {
+                    const cloned = req.clone({
+                        headers: req.headers.set("Authorization",
+                            "Bearer " + activeUser.token)
+                    });
+
+                    return next.handle(cloned);
+                }),
+                catchError(e => {
+                    if (e instanceof TokenExpiredError || e.status === 401 || e.status == 403) {
+                        // Refresh token and try once again
+                        return this.accountService.refreshToken(activeUser).pipe(
+                            switchMap(activeUser => {
+                                const cloned = req.clone({
+                                    headers: req.headers.set("Authorization",
+                                        "Bearer " + activeUser.token)
+                                });
+            
+                                return next.handle(cloned);
+                            })
+                        )
+                    }
+
+                    // TODO handle this exception
+                    throw new Error("Failed to process http request"); 
+                })
+            );
+        } else {
             return next.handle(req);
         }
     }

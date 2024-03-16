@@ -8,6 +8,7 @@ export interface OrderGet {
   comment?: string;
   created: string;
   edited: boolean;
+  orderNumber: number;
   orderStatus: 'PLACED' | 'EXPIRED' | 'ABANDONED' | 'REJECTED' | 'ACCEPTED' | 'CANCELED' | 'SERVED';
   orderStatusComment?: string;
   paymentMethod: 'CASH' | 'BLIK';
