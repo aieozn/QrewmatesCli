@@ -11,7 +11,7 @@ function getItemGroupCard(name: string) : Cypress.Chainable<JQuery<HTMLElement>>
 
 describe('Prepare cart', () => {
     beforeEach(() => {
-        cy.visit('/menu/R0TAXI000000/TABLE0PT0001')
+        cy.visit('/table-order/R0TAXI000000/TABLE0PT0001')
     })
 
     it('Order not allowed when no items has been added', () => {

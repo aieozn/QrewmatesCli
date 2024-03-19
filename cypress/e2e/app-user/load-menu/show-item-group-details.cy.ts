@@ -47,7 +47,7 @@ const expectedToppings = [
 
 describe('Show item group details', () => {
     beforeEach(() => {
-        cy.visit('/menu/R0TAXI000000/TABLE0PT0001')
+        cy.visit('/table-order/R0TAXI000000/TABLE0PT0001')
     })
 
     it('Opens item group card on add button click', () => {

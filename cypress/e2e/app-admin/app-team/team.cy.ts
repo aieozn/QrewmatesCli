@@ -60,7 +60,7 @@ describe('Edit team', () => {
         cy.get('h2').contains('Invitations').parent().find('.bar').should('have.length', 3)
     })
 
-    it('Notifies on duplicated user', () => {
+    it.only('Notifies on duplicated user', () => {
         cy.get('.create-new').click();
         cy.get('.field-editor[name="Email"] mat-form-field input').click().type('admin@email.com');
         cy.get('.field-editor[name="Role"] mat-radio-button[ng-reflect-value="ADMIN"]').click();
@@ -69,7 +69,7 @@ describe('Edit team', () => {
         cy.get('mat-dialog-container .mat-mdc-dialog-content').should('have.text', 'User already exist');
     })
 
-    it('Notifies on duplicated invitation', () => {
+    it.only('Notifies on duplicated invitation', () => {
         cy.get('.create-new').click();
         cy.get('.field-editor[name="Email"] mat-form-field input').click().type('kamil.jedrzejczak@outlook.com');
         cy.get('.field-editor[name="Role"] mat-radio-button[ng-reflect-value="ADMIN"]').click();

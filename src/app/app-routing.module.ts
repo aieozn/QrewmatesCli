@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   // TODO maybe use short url proxy to redirect
   { 
-    path: 'menu',
+    path: 'table-order',
     loadChildren: () => import('./modules/app-client/app-client.module').then(m => m.AppClientModule) 
   },
   { 

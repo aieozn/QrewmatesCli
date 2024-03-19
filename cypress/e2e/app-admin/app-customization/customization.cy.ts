@@ -9,7 +9,7 @@ describe('Edit allergens', () => {
 
 
     it('Selects background image', () => {
-        cy.visit('/menu/R0KING000000/TABLE0KK0001')
+        cy.visit('/table-order/R0KING000000/TABLE0KK0001')
 
         cy.get('#banner')
             .should('have.css', 'background-image')
@@ -22,7 +22,7 @@ describe('Edit allergens', () => {
         cy.get('#submit-changes').should('not.exist')
 
 
-        cy.visit('/menu/R0KING000000/TABLE0KK0001')
+        cy.visit('/table-order/R0KING000000/TABLE0KK0001')
         cy.get('#banner')
             .should('have.css', 'background-image')
             .and('include', '/api/public/v1/restaurant/R0KING000000/multimedia/')
@@ -50,7 +50,7 @@ describe('Edit allergens', () => {
     })
 
     it('Selects restaurant color', () => {
-        cy.visit('/menu/R0KING000000/TABLE0KK0001')
+        cy.visit('/table-order/R0KING000000/TABLE0KK0001')
         cy.get('#banner')
             .should('have.css', 'background-color')
             .and('include', 'rgb(56, 165, 131)')
@@ -63,7 +63,7 @@ describe('Edit allergens', () => {
         cy.get('#submit-changes').click()
         cy.get('#submit-changes').should('not.exist')
 
-        cy.visit('/menu/R0KING000000/TABLE0KK0001')
+        cy.visit('/table-order/R0KING000000/TABLE0KK0001')
         cy.get('#banner')
             .should('have.css', 'background-color')
             .and('include', 'rgb(165, 157, 56)')

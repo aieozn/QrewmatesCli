@@ -11,7 +11,7 @@ export class AccountIconComponent {
 
   userInitials: string | undefined;
 
-  @Input() backgroundColor = '#FEFEFE';
+  @Input() backgroundColor = '#38A583';
   @Input() fontColor = '#FFFFFF';
   @Input() size = 40;
 

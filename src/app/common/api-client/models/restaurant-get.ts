@@ -15,4 +15,5 @@ export interface RestaurantGet {
   ref: string;
   tableOrderConfig: TableOrderConfigGet;
   theme: ThemeGet;
+  'v': number;
 }

@@ -12,7 +12,7 @@ const allCategories = [
 describe('Load menu', () => {
 
   beforeEach(() => {
-    cy.visit('/menu/R0TAXI000000/TABLE0PT0001')
+    cy.visit('/table-order/R0TAXI000000/TABLE0PT0001')
   })
 
   it('Page contains all expected categories', () => {

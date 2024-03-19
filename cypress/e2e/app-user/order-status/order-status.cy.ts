@@ -4,7 +4,7 @@ import { doOrderAndValidate } from "../utils/utils";
 
 describe('Order status', () => {
     beforeEach(() => {
-        cy.visit('/menu/R0TAXI000000/TABLE0PT0001')
+        cy.visit('/table-order/R0TAXI000000/TABLE0PT0001')
         cy.intercept('POST', '/api/public/v1/restaurant/R0TAXI000000/order-instances').as('makeOrder')
     })
 
@@ -38,7 +38,7 @@ describe('Order status', () => {
             cy.get('#dialog .message').contains('Your order has been rejected');
             cy.get('#dialog .comment').contains('Sorry, the product is out of stock');
 
-            cy.visit('/menu/R0TAXI000000/TABLE0PT0001')
+            cy.visit('/table-order/R0TAXI000000/TABLE0PT0001')
 
             cy.get('#dialog #thanks').contains('Order rejected');
             cy.get('#dialog .message').contains('Your order has been rejected');
@@ -47,7 +47,7 @@ describe('Order status', () => {
             cy.get('#return-button').click();
             cy.get('#dialog #thanks').should('not.exist')
 
-            cy.visit('/menu/R0TAXI000000/TABLE0PT0001')
+            cy.visit('/table-order/R0TAXI000000/TABLE0PT0001')
             cy.get('#dialog #thanks').should('not.exist')
         })
     })

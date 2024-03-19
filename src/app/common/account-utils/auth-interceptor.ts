@@ -49,7 +49,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     }
 
                     // TODO handle this exception
-                    throw new Error("Failed to process http request"); 
+                    throw e; 
                 })
             );
         } else {

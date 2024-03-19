@@ -13,6 +13,8 @@ export class AccountService {
 
   private static authDetails = 'qr-auth-details';
 
+  private static userAppsEndpoints = ["table-order"];
+
   constructor(
     private restaurantService: RestaurantControllerService,
     private loginController: LoginControllerService,
@@ -22,7 +24,7 @@ export class AccountService {
   getRestaurantRef() : string {
     const pathParts = window.location.pathname.substring(1).split("/");
 
-    if (pathParts[0] === "menu") {
+    if (AccountService.userAppsEndpoints.includes(pathParts[0])) {
       return pathParts[1]
     } else {
       const activeRestaurant = this.getUserOrLogin().activeRestaurant;
@@ -64,7 +66,7 @@ export class AccountService {
   getTableRef() : string {
     const pathParts = window.location.pathname.substring(1).split("/");
 
-    if (pathParts[0] === "menu") {
+    if (AccountService.userAppsEndpoints.includes(pathParts[0])) {
         return window.location.pathname.substring(1).split("/")[2];
     } else {
         throw 'Table ref not found. Use only for cli';
@@ -196,6 +198,7 @@ export class AccountService {
 
   // Execute this method if request is not authorized. It redirects user to login endpoint
   unauthorized() {
+    debugger;
     this.clearStorageUser();
     window.location.href = '/login';
   }
